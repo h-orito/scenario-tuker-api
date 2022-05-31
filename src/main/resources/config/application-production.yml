@@ -1,0 +1,48 @@
+spring:
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST}:3306/${SCENARIO_TUKER_DB_NAME}?character_set_server=utf8mb4
+    username: ${SCENARIO_TUKER_DB_USERNAME}
+    password: ${SCENARIO_TUKER_DB_PASSWORD}
+    driverClassName: com.mysql.jdbc.Driver
+    type: org.apache.tomcat.jdbc.pool.DataSource
+  messages:
+    basename: messages
+    cache-duration: -1
+    encoding: UTF-8
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+security:
+  corsClientUrls:
+    - https://scenario-tuker.netlify.app
+server:
+  port: 8086
+  servlet:
+    context-path: /howling-wolf
+    session:
+      timeout: 86400
+  compression:
+    enabled: true
+  tomcat:
+    basedir: /app/logs
+    accesslog:
+      enabled: true
+      suffix: .log
+      prefix: scenario-tuker-access_log
+      file-date-format: .yyyy-MM-dd
+      max-days: 30
+      pattern: '%t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %{X-Forwarded-For}i %D %S %I'
+    remoteip.remote-ip-header: true
+    use-forward-headers: true
+logging:
+  level:
+    org.springframework: INFO
+    root: INFO
+    org.seasar.dbflute: ERROR
+  file.name: /app/logs/scenario-tuker.log
+
+firebase:
+  adminsdk:
+    secretkey:
+      path: ${SCENARIO_TUKER_FIREBASE_ADMINSDK_PATH}
+  database:
+    url: ${SCENARIO_TUKER_FIREBASE_DATABASE_URL}

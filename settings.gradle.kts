@@ -1,1 +1,1 @@
-rootProject.name = "scenario-tuker"
+rootProject.name = "scenario-tuker-api"
