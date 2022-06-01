@@ -17,7 +17,7 @@ security:
 server:
   port: 8086
   servlet:
-    context-path: /howling-wolf
+    context-path: /scenario-tuker
     session:
       timeout: 86400
   compression:

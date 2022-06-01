@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/howlingwolfdb?characterEncoding=UTF-8
-    username: howlingwolfuser # 本番は起動引数で与える
-    password: howlingwolfpass # 本番は起動引数で与える
+    url: jdbc:mysql://127.0.0.1:3306/stukerdb?characterEncoding=UTF-8
+    username: stuker # 本番は起動引数で与える
+    password: scenar10 # 本番は起動引数で与える
     driverClassName: com.mysql.jdbc.Driver
     type: org.apache.tomcat.jdbc.pool.DataSource
   messages:
@@ -17,21 +17,12 @@ security:
 server:
   port: 8091
   servlet:
-    context-path: /scnenario-tuker
+    context-path: /scenario-tuker
     session:
       timeout: 86400
   compression:
     enabled: true
   tomcat:
-    basedir: /var/log/
-    accesslog:
-      enabled: true
-      directory: access
-      suffix: .log
-      prefix: access_log
-      file-date-format: .yyyy-MM-dd
-      max-days: 30
-      pattern: '%t "%r" %s %b "%{Referer}i" "%{User-Agent}i" %{X-Forwarded-For}i %D %S %I'
     remoteip.remote-ip-header: true
     use-forward-headers: true
 logging:
