@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/dbflute_stukerdb/log/
+/dbflute_stukerdb/output/
+/dbflute_stukerdb/schema/

@@ -1,0 +1,47 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+entity User {
+    * user_id: int unsigned <<generated>>
+    --
+    * user_name: varchar(50)
+    twitter_user_name: varchar(50)
+}
+
+entity Scenario {
+    * scenario_id: int unsigned <<generated>>
+    --
+    * scenario_name: varchar(255)
+    * scenario_type: varchar(50)
+    * scenario_link: varchar(255)
+}
+
+entity ScenarioDictionary {
+    * scenario_dictionary_id: int unsigned <<generated>>
+    --
+    * scenario_id: int unsigned <<foreign key>>
+    * scenario_name: varchar(255) <<unique>>
+}
+
+Scenario ||--|{ ScenarioDictionary
+
+entity Participate {
+    * participate_id: int unsigned <<generated>>
+    --
+    * scenario_id: int unsigned <<foreign key>>
+    * user_id: int unsigned <<foreign key>>
+}
+
+User ||--o{ Participate
+Scenario ||--o{ Participate
+
+entity ParticipateRole {
+    * participate_role_id: int unsigned <<generated>>
+    --
+    * participate_id: int unsigned
+    * participate_role_type: varchar(50)
+}
+
+Participate ||--|{ ParticipateRole
+
+@enduml
