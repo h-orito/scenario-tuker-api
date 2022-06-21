@@ -21,8 +21,10 @@ public class DbScenarioDictionaryNss {
     /**
      * With nested relation columns to select clause. <br>
      * SCENARIO by my scenario_id, named 'scenario'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public void withScenario() {
+    public DbScenarioNss withScenario() {
         _query.xdoNss(() -> _query.queryScenario());
+        return new DbScenarioNss(_query.queryScenario());
     }
 }

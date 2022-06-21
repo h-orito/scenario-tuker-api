@@ -5,19 +5,50 @@
 create table user (
     user_id           int unsigned not null auto_increment,
     user_name         varchar(50) not null,
+    uid               varchar(255) not null,
     twitter_user_name varchar(50),
+    authority         varchar(50) not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
     update_trace      varchar(64) not null,
-    primary key (user_id)
+    primary key (user_id),
+    unique (uid)
 );
+
+create table rule_book (
+    rule_book_id      int unsigned not null auto_increment,
+    rule_book_name    varchar(255) not null,
+    register_datetime datetime not null,
+    register_trace    varchar(64) not null,
+    update_datetime   datetime not null,
+    update_trace      varchar(64) not null,
+    primary key (rule_book_id)
+);
+
+create table rule_book_dictionary (
+    rule_book_dictionary_id int unsigned not null auto_increment,
+    rule_book_id            int unsigned,
+    rule_book_name          varchar(255) not null,
+    register_datetime      datetime not null,
+    register_trace         varchar(64) not null,
+    update_datetime        datetime not null,
+    update_trace           varchar(64) not null,
+    primary key (rule_book_dictionary_id)
+);
+
+alter table rule_book_dictionary
+    add constraint fk_rule_book_dictionary_rule_book foreign key (rule_book_id)
+    references rule_book (rule_book_id)
+    on update restrict
+    on delete restrict
+;
 
 create table scenario (
     scenario_id       int unsigned not null auto_increment,
     scenario_name     varchar(255) not null,
     scenario_type     varchar(50) not null,
-    scenario_link     varchar(255) not null,
+    rule_book_id      int unsigned,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
@@ -25,15 +56,22 @@ create table scenario (
     primary key (scenario_id)
 );
 
+alter table scenario
+    add constraint fk_scenario_rule_book foreign key (rule_book_id)
+    references rule_book (rule_book_id)
+    on update restrict
+    on delete restrict
+;
+
 create table scenario_dictionary (
-    scenario_detail_id int unsigned not null auto_increment,
-    scenario_id        int unsigned not null,
-    scenario_name      varchar(255) not null,
-    register_datetime  datetime not null,
-    register_trace     varchar(64) not null,
-    update_datetime    datetime not null,
-    update_trace       varchar(64) not null,
-    primary key (scenario_detail_id)
+    scenario_dictionary_id int unsigned not null auto_increment,
+    scenario_id            int unsigned not null,
+    scenario_name          varchar(255) not null,
+    register_datetime      datetime not null,
+    register_trace         varchar(64) not null,
+    update_datetime        datetime not null,
+    update_trace           varchar(64) not null,
+    primary key (scenario_dictionary_id)
 );
 
 alter table scenario_dictionary

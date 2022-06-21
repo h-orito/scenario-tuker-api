@@ -73,7 +73,9 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     public String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
+    protected ConditionValue xgetCValueUid() { return _myCQ.xdfgetUid(); }
     protected ConditionValue xgetCValueTwitterUserName() { return _myCQ.xdfgetTwitterUserName(); }
+    protected ConditionValue xgetCValueAuthority() { return _myCQ.xdfgetAuthority(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

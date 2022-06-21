@@ -45,132 +45,132 @@ public abstract class DbAbstractBsScenarioDictionaryCQ extends AbstractCondition
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as equal. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_Equal(Integer scenarioDetailId) {
-        doSetScenarioDetailId_Equal(scenarioDetailId);
+    public void setScenarioDictionaryId_Equal(Integer scenarioDictionaryId) {
+        doSetScenarioDictionaryId_Equal(scenarioDictionaryId);
     }
 
-    protected void doSetScenarioDetailId_Equal(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_EQ, scenarioDetailId);
+    protected void doSetScenarioDictionaryId_Equal(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_EQ, scenarioDictionaryId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as notEqual. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_NotEqual(Integer scenarioDetailId) {
-        doSetScenarioDetailId_NotEqual(scenarioDetailId);
+    public void setScenarioDictionaryId_NotEqual(Integer scenarioDictionaryId) {
+        doSetScenarioDictionaryId_NotEqual(scenarioDictionaryId);
     }
 
-    protected void doSetScenarioDetailId_NotEqual(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_NES, scenarioDetailId);
+    protected void doSetScenarioDictionaryId_NotEqual(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_NES, scenarioDictionaryId);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_GreaterThan(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_GT, scenarioDetailId);
+    public void setScenarioDictionaryId_GreaterThan(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_GT, scenarioDictionaryId);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as lessThan. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_LessThan(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_LT, scenarioDetailId);
+    public void setScenarioDictionaryId_LessThan(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_LT, scenarioDictionaryId);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_GreaterEqual(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_GE, scenarioDetailId);
+    public void setScenarioDictionaryId_GreaterEqual(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_GE, scenarioDictionaryId);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailId The value of scenarioDetailId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryId The value of scenarioDictionaryId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_LessEqual(Integer scenarioDetailId) {
-        regScenarioDetailId(CK_LE, scenarioDetailId);
+    public void setScenarioDictionaryId_LessEqual(Integer scenarioDictionaryId) {
+        regScenarioDictionaryId(CK_LE, scenarioDictionaryId);
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param minNumber The min number of scenarioDetailId. (basically NotNull: if op.allowOneSide(), null allowed)
-     * @param maxNumber The max number of scenarioDetailId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of scenarioDictionaryId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioDictionaryId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setScenarioDetailId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setScenarioDetailId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    public void setScenarioDictionaryId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setScenarioDictionaryId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param minNumber The min number of scenarioDetailId. (basically NotNull: if op.allowOneSide(), null allowed)
-     * @param maxNumber The max number of scenarioDetailId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of scenarioDictionaryId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioDictionaryId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    protected void setScenarioDetailId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueScenarioDetailId(), "scenario_detail_id", rangeOfOption);
+    protected void setScenarioDictionaryId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueScenarioDictionaryId(), "scenario_dictionary_id", rangeOfOption);
     }
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailIdList The collection of scenarioDetailId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryIdList The collection of scenarioDictionaryId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_InScope(Collection<Integer> scenarioDetailIdList) {
-        doSetScenarioDetailId_InScope(scenarioDetailIdList);
+    public void setScenarioDictionaryId_InScope(Collection<Integer> scenarioDictionaryIdList) {
+        doSetScenarioDictionaryId_InScope(scenarioDictionaryIdList);
     }
 
-    protected void doSetScenarioDetailId_InScope(Collection<Integer> scenarioDetailIdList) {
-        regINS(CK_INS, cTL(scenarioDetailIdList), xgetCValueScenarioDetailId(), "scenario_detail_id");
+    protected void doSetScenarioDictionaryId_InScope(Collection<Integer> scenarioDictionaryIdList) {
+        regINS(CK_INS, cTL(scenarioDictionaryIdList), xgetCValueScenarioDictionaryId(), "scenario_dictionary_id");
     }
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     * @param scenarioDetailIdList The collection of scenarioDetailId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioDictionaryIdList The collection of scenarioDictionaryId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setScenarioDetailId_NotInScope(Collection<Integer> scenarioDetailIdList) {
-        doSetScenarioDetailId_NotInScope(scenarioDetailIdList);
+    public void setScenarioDictionaryId_NotInScope(Collection<Integer> scenarioDictionaryIdList) {
+        doSetScenarioDictionaryId_NotInScope(scenarioDictionaryIdList);
     }
 
-    protected void doSetScenarioDetailId_NotInScope(Collection<Integer> scenarioDetailIdList) {
-        regINS(CK_NINS, cTL(scenarioDetailIdList), xgetCValueScenarioDetailId(), "scenario_detail_id");
+    protected void doSetScenarioDictionaryId_NotInScope(Collection<Integer> scenarioDictionaryIdList) {
+        regINS(CK_NINS, cTL(scenarioDictionaryIdList), xgetCValueScenarioDictionaryId(), "scenario_dictionary_id");
     }
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      */
-    public void setScenarioDetailId_IsNull() { regScenarioDetailId(CK_ISN, DOBJ); }
+    public void setScenarioDictionaryId_IsNull() { regScenarioDictionaryId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      */
-    public void setScenarioDetailId_IsNotNull() { regScenarioDetailId(CK_ISNN, DOBJ); }
+    public void setScenarioDictionaryId_IsNotNull() { regScenarioDictionaryId(CK_ISNN, DOBJ); }
 
-    protected void regScenarioDetailId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioDetailId(), "scenario_detail_id"); }
-    protected abstract ConditionValue xgetCValueScenarioDetailId();
+    protected void regScenarioDictionaryId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioDictionaryId(), "scenario_dictionary_id"); }
+    protected abstract ConditionValue xgetCValueScenarioDictionaryId();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
@@ -963,7 +963,7 @@ public abstract class DbAbstractBsScenarioDictionaryCQ extends AbstractCondition
     public void xsmyselfDerive(String fn, SubQuery<DbScenarioDictionaryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "scenario_detail_id";
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "scenario_dictionary_id";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
     public abstract String keepSpecifyMyselfDerived(DbScenarioDictionaryCQ sq);
@@ -979,7 +979,7 @@ public abstract class DbAbstractBsScenarioDictionaryCQ extends AbstractCondition
     protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
-        String pk = "scenario_detail_id";
+        String pk = "scenario_dictionary_id";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
         registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);

@@ -28,7 +28,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, twitter_user_name, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, twitter_user_name, authority, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -184,6 +184,31 @@ public abstract class DbBsUserBhv extends AbstractBehaviorWritable<DbUser, DbUse
     protected DbUserCB xprepareCBAsPK(Integer userId) {
         assertObjectNotNull("userId", userId);
         return newConditionBean().acceptPK(userId);
+    }
+
+    /**
+     * Select the entity by the unique-key value.
+     * @param uid : UQ, NotNull, VARCHAR(255). (NotNull)
+     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
+     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
+     * @throws EntityDuplicatedException When the entity has been duplicated.
+     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
+     */
+    public OptionalEntity<DbUser> selectByUniqueOf(String uid) {
+        return facadeSelectByUniqueOf(uid);
+    }
+
+    protected OptionalEntity<DbUser> facadeSelectByUniqueOf(String uid) {
+        return doSelectByUniqueOf(uid, typeOfSelectedEntity());
+    }
+
+    protected <ENTITY extends DbUser> OptionalEntity<ENTITY> doSelectByUniqueOf(String uid, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(uid), tp), uid);
+    }
+
+    protected DbUserCB xprepareCBAsUniqueOf(String uid) {
+        assertObjectNotNull("uid", uid);
+        return newConditionBean().acceptUniqueOf(uid);
     }
 
     // ===================================================================================
@@ -438,6 +463,14 @@ public abstract class DbBsUserBhv extends AbstractBehaviorWritable<DbUser, DbUse
      */
     public List<Integer> extractUserIdList(List<DbUser> userList)
     { return helpExtractListInternally(userList, "userId"); }
+
+    /**
+     * Extract the value list of (single) unique key uid.
+     * @param userList The list of user. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<String> extractUidList(List<DbUser> userList)
+    { return helpExtractListInternally(userList, "uid"); }
 
     // ===================================================================================
     //                                                                       Entity Update

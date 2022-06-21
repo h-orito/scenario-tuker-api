@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -45,7 +46,7 @@ public class DbScenarioDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioId(), (et, vl) -> ((DbScenario)et).setScenarioId(cti(vl)), "scenarioId");
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioName(), (et, vl) -> ((DbScenario)et).setScenarioName((String)vl), "scenarioName");
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioType(), (et, vl) -> ((DbScenario)et).setScenarioType((String)vl), "scenarioType");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioLink(), (et, vl) -> ((DbScenario)et).setScenarioLink((String)vl), "scenarioLink");
+        setupEpg(_epgMap, et -> ((DbScenario)et).getRuleBookId(), (et, vl) -> ((DbScenario)et).setRuleBookId(cti(vl)), "ruleBookId");
         setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterDatetime(), (et, vl) -> ((DbScenario)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterTrace(), (et, vl) -> ((DbScenario)et).setRegisterTrace((String)vl), "registerTrace");
         setupEpg(_epgMap, et -> ((DbScenario)et).getUpdateDatetime(), (et, vl) -> ((DbScenario)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -53,6 +54,18 @@ public class DbScenarioDbm extends AbstractDBMeta {
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((DbScenario)et).getRuleBook(), (et, vl) -> ((DbScenario)et).setRuleBook((OptionalEntity<DbRuleBook>)vl), "ruleBook");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -73,7 +86,7 @@ public class DbScenarioDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,scenarioDictionaryList", null, false);
     protected final ColumnInfo _columnScenarioName = cci("scenario_name", "scenario_name", null, null, String.class, "scenarioName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnScenarioType = cci("scenario_type", "scenario_type", null, null, String.class, "scenarioType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnScenarioLink = cci("scenario_link", "scenario_link", null, null, String.class, "scenarioLink", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRuleBookId = cci("rule_book_id", "rule_book_id", null, null, Integer.class, "ruleBookId", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, "ruleBook", null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -95,10 +108,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnScenarioType() { return _columnScenarioType; }
     /**
-     * scenario_link: {NotNull, VARCHAR(255)}
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnScenarioLink() { return _columnScenarioLink; }
+    public ColumnInfo columnRuleBookId() { return _columnRuleBookId; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -125,7 +138,7 @@ public class DbScenarioDbm extends AbstractDBMeta {
         ls.add(columnScenarioId());
         ls.add(columnScenarioName());
         ls.add(columnScenarioType());
-        ls.add(columnScenarioLink());
+        ls.add(columnRuleBookId());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());
@@ -153,6 +166,14 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignRuleBook() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRuleBookId(), DbRuleBookDbm.getInstance().columnRuleBookId());
+        return cfi("fk_scenario_rule_book", "ruleBook", this, DbRuleBookDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "scenarioList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property

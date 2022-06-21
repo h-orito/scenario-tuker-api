@@ -8,12 +8,27 @@ entity User {
     twitter_user_name: varchar(50)
 }
 
+entity RuleBook {
+    * rule_book_id: int unsigned <<generated>>
+    --
+    * rule_book_name: varchar(255)
+}
+
+entity RuleBookDictionary {
+    * rule_book_dictionary_id: int unsigned <<generated>>
+    --
+    * rule_book_id: int unsigned <<foreign key>>
+    * rule_book_name: varchar(255)
+}
+
+RuleBook ||-|{ RuleBookDictionary
+
 entity Scenario {
     * scenario_id: int unsigned <<generated>>
     --
     * scenario_name: varchar(255)
     * scenario_type: varchar(50)
-    * scenario_link: varchar(255)
+    rule_book_id: int unsigned <<foreign key>>
 }
 
 entity ScenarioDictionary {
@@ -24,6 +39,7 @@ entity ScenarioDictionary {
 }
 
 Scenario ||--|{ ScenarioDictionary
+Scenario }|--o| RuleBook
 
 entity Participate {
     * participate_id: int unsigned <<generated>>

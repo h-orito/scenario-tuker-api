@@ -10,16 +10,16 @@ import dev.wolfort.dbflute.exentity.*;
  * The referrer loader of SCENARIO_DICTIONARY as TABLE. <br>
  * <pre>
  * [primary key]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [column]
- *     scenario_detail_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_dictionary_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [version-no]
  *     

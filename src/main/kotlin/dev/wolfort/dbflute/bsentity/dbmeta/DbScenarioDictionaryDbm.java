@@ -43,7 +43,7 @@ public class DbScenarioDictionaryDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((DbScenarioDictionary)et).getScenarioDetailId(), (et, vl) -> ((DbScenarioDictionary)et).setScenarioDetailId(cti(vl)), "scenarioDetailId");
+        setupEpg(_epgMap, et -> ((DbScenarioDictionary)et).getScenarioDictionaryId(), (et, vl) -> ((DbScenarioDictionary)et).setScenarioDictionaryId(cti(vl)), "scenarioDictionaryId");
         setupEpg(_epgMap, et -> ((DbScenarioDictionary)et).getScenarioId(), (et, vl) -> ((DbScenarioDictionary)et).setScenarioId(cti(vl)), "scenarioId");
         setupEpg(_epgMap, et -> ((DbScenarioDictionary)et).getScenarioName(), (et, vl) -> ((DbScenarioDictionary)et).setScenarioName((String)vl), "scenarioName");
         setupEpg(_epgMap, et -> ((DbScenarioDictionary)et).getRegisterDatetime(), (et, vl) -> ((DbScenarioDictionary)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
@@ -82,7 +82,7 @@ public class DbScenarioDictionaryDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnScenarioDetailId = cci("scenario_detail_id", "scenario_detail_id", null, null, Integer.class, "scenarioDetailId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnScenarioDictionaryId = cci("scenario_dictionary_id", "scenario_dictionary_id", null, null, Integer.class, "scenarioDictionaryId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
     protected final ColumnInfo _columnScenarioName = cci("scenario_name", "scenario_name", null, null, String.class, "scenarioName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -91,10 +91,10 @@ public class DbScenarioDictionaryDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnUpdateTrace = cci("update_trace", "update_trace", null, null, String.class, "updateTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
 
     /**
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnScenarioDetailId() { return _columnScenarioDetailId; }
+    public ColumnInfo columnScenarioDictionaryId() { return _columnScenarioDictionaryId; }
     /**
      * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @return The information object of specified column. (NotNull)
@@ -128,7 +128,7 @@ public class DbScenarioDictionaryDbm extends AbstractDBMeta {
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
-        ls.add(columnScenarioDetailId());
+        ls.add(columnScenarioDictionaryId());
         ls.add(columnScenarioId());
         ls.add(columnScenarioName());
         ls.add(columnRegisterDatetime());
@@ -146,7 +146,7 @@ public class DbScenarioDictionaryDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnScenarioDetailId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnScenarioDictionaryId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 

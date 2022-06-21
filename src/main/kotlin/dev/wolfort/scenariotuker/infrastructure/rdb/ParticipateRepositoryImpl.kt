@@ -20,6 +20,7 @@ class ParticipateRepositoryImpl(
         val dbParticipateList = participateBhv.selectList {
             it.query().addOrderBy_ParticipateId_Asc()
         }
+        participateBhv.loadParticipateRole(dbParticipateList) {}
         return mappingToParticipates(dbParticipateList)
     }
 
@@ -38,14 +39,17 @@ class ParticipateRepositoryImpl(
             it.query().setScenarioId_Equal(scenarioId)
             it.query().addOrderBy_ParticipateId_Asc()
         }
+        participateBhv.loadParticipateRole(dbParticipateList) {}
         return mappingToParticipates(dbParticipateList)
     }
 
     override fun findByUserId(userId: Int): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.query().setUserId_Equal(userId)
-            it.query().addOrderBy_ParticipateId_Asc()
+            // TODO 参加日時
+            it.query().addOrderBy_RegisterDatetime_Desc()
         }
+        participateBhv.loadParticipateRole(dbParticipateList) {}
         return mappingToParticipates(dbParticipateList)
     }
 

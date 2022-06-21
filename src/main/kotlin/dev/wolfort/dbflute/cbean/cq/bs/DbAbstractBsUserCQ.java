@@ -382,6 +382,141 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_Equal(String uid) {
+        doSetUid_Equal(fRES(uid));
+    }
+
+    protected void doSetUid_Equal(String uid) {
+        regUid(CK_EQ, uid);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_NotEqual(String uid) {
+        doSetUid_NotEqual(fRES(uid));
+    }
+
+    protected void doSetUid_NotEqual(String uid) {
+        regUid(CK_NES, uid);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_GreaterThan(String uid) {
+        regUid(CK_GT, fRES(uid));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_LessThan(String uid) {
+        regUid(CK_LT, fRES(uid));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_GreaterEqual(String uid) {
+        regUid(CK_GE, fRES(uid));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_LessEqual(String uid) {
+        regUid(CK_LE, fRES(uid));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uidList The collection of uid as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_InScope(Collection<String> uidList) {
+        doSetUid_InScope(uidList);
+    }
+
+    protected void doSetUid_InScope(Collection<String> uidList) {
+        regINS(CK_INS, cTL(uidList), xgetCValueUid(), "uid");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uidList The collection of uid as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setUid_NotInScope(Collection<String> uidList) {
+        doSetUid_NotInScope(uidList);
+    }
+
+    protected void doSetUid_NotInScope(Collection<String> uidList) {
+        regINS(CK_NINS, cTL(uidList), xgetCValueUid(), "uid");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setUid_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param uid The value of uid as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setUid_LikeSearch(String uid, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setUid_LikeSearch(uid, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setUid_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param uid The value of uid as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setUid_LikeSearch(String uid, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(uid), xgetCValueUid(), "uid", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setUid_NotLikeSearch(String uid, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setUid_NotLikeSearch(uid, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @param uid The value of uid as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setUid_NotLikeSearch(String uid, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(uid), xgetCValueUid(), "uid", likeSearchOption);
+    }
+
+    protected void regUid(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUid(), "uid"); }
+    protected abstract ConditionValue xgetCValueUid();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
      * twitter_user_name: {VARCHAR(50)}
      * @param twitterUserName The value of twitterUserName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
@@ -532,6 +667,141 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     protected void regTwitterUserName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTwitterUserName(), "twitter_user_name"); }
     protected abstract ConditionValue xgetCValueTwitterUserName();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_Equal(String authority) {
+        doSetAuthority_Equal(fRES(authority));
+    }
+
+    protected void doSetAuthority_Equal(String authority) {
+        regAuthority(CK_EQ, authority);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_NotEqual(String authority) {
+        doSetAuthority_NotEqual(fRES(authority));
+    }
+
+    protected void doSetAuthority_NotEqual(String authority) {
+        regAuthority(CK_NES, authority);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_GreaterThan(String authority) {
+        regAuthority(CK_GT, fRES(authority));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_LessThan(String authority) {
+        regAuthority(CK_LT, fRES(authority));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_GreaterEqual(String authority) {
+        regAuthority(CK_GE, fRES(authority));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_LessEqual(String authority) {
+        regAuthority(CK_LE, fRES(authority));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authorityList The collection of authority as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_InScope(Collection<String> authorityList) {
+        doSetAuthority_InScope(authorityList);
+    }
+
+    protected void doSetAuthority_InScope(Collection<String> authorityList) {
+        regINS(CK_INS, cTL(authorityList), xgetCValueAuthority(), "authority");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authorityList The collection of authority as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setAuthority_NotInScope(Collection<String> authorityList) {
+        doSetAuthority_NotInScope(authorityList);
+    }
+
+    protected void doSetAuthority_NotInScope(Collection<String> authorityList) {
+        regINS(CK_NINS, cTL(authorityList), xgetCValueAuthority(), "authority");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setAuthority_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param authority The value of authority as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setAuthority_LikeSearch(String authority, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setAuthority_LikeSearch(authority, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setAuthority_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param authority The value of authority as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setAuthority_LikeSearch(String authority, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(authority), xgetCValueAuthority(), "authority", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setAuthority_NotLikeSearch(String authority, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setAuthority_NotLikeSearch(authority, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @param authority The value of authority as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setAuthority_NotLikeSearch(String authority, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(authority), xgetCValueAuthority(), "authority", likeSearchOption);
+    }
+
+    protected void regAuthority(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthority(), "authority"); }
+    protected abstract ConditionValue xgetCValueAuthority();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

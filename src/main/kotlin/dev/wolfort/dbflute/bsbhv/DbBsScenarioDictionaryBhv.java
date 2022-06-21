@@ -25,16 +25,16 @@ import dev.wolfort.dbflute.cbean.*;
  * The behavior of SCENARIO_DICTIONARY as TABLE. <br>
  * <pre>
  * [primary key]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [column]
- *     scenario_detail_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_dictionary_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [version-no]
  *     
@@ -159,31 +159,31 @@ public abstract class DbBsScenarioDictionaryBhv extends AbstractBehaviorWritable
 
     /**
      * Select the entity by the primary-key value.
-     * @param scenarioDetailId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param scenarioDictionaryId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<DbScenarioDictionary> selectByPK(Integer scenarioDetailId) {
-        return facadeSelectByPK(scenarioDetailId);
+    public OptionalEntity<DbScenarioDictionary> selectByPK(Integer scenarioDictionaryId) {
+        return facadeSelectByPK(scenarioDictionaryId);
     }
 
-    protected OptionalEntity<DbScenarioDictionary> facadeSelectByPK(Integer scenarioDetailId) {
-        return doSelectOptionalByPK(scenarioDetailId, typeOfSelectedEntity());
+    protected OptionalEntity<DbScenarioDictionary> facadeSelectByPK(Integer scenarioDictionaryId) {
+        return doSelectOptionalByPK(scenarioDictionaryId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends DbScenarioDictionary> ENTITY doSelectByPK(Integer scenarioDetailId, Class<? extends ENTITY> tp) {
-        return doSelectEntity(xprepareCBAsPK(scenarioDetailId), tp);
+    protected <ENTITY extends DbScenarioDictionary> ENTITY doSelectByPK(Integer scenarioDictionaryId, Class<? extends ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(scenarioDictionaryId), tp);
     }
 
-    protected <ENTITY extends DbScenarioDictionary> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer scenarioDetailId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectByPK(scenarioDetailId, tp), scenarioDetailId);
+    protected <ENTITY extends DbScenarioDictionary> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer scenarioDictionaryId, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(scenarioDictionaryId, tp), scenarioDictionaryId);
     }
 
-    protected DbScenarioDictionaryCB xprepareCBAsPK(Integer scenarioDetailId) {
-        assertObjectNotNull("scenarioDetailId", scenarioDetailId);
-        return newConditionBean().acceptPK(scenarioDetailId);
+    protected DbScenarioDictionaryCB xprepareCBAsPK(Integer scenarioDictionaryId) {
+        assertObjectNotNull("scenarioDictionaryId", scenarioDictionaryId);
+        return newConditionBean().acceptPK(scenarioDictionaryId);
     }
 
     // ===================================================================================
@@ -376,12 +376,12 @@ public abstract class DbBsScenarioDictionaryBhv extends AbstractBehaviorWritable
     //                                                                      Extract Column
     //                                                                      ==============
     /**
-     * Extract the value list of (single) primary key scenarioDetailId.
+     * Extract the value list of (single) primary key scenarioDictionaryId.
      * @param scenarioDictionaryList The list of scenarioDictionary. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractScenarioDetailIdList(List<DbScenarioDictionary> scenarioDictionaryList)
-    { return helpExtractListInternally(scenarioDictionaryList, "scenarioDetailId"); }
+    public List<Integer> extractScenarioDictionaryIdList(List<DbScenarioDictionary> scenarioDictionaryList)
+    { return helpExtractListInternally(scenarioDictionaryList, "scenarioDictionaryId"); }
 
     // ===================================================================================
     //                                                                       Entity Update

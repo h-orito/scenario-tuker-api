@@ -35,6 +35,6 @@ logging:
 firebase:
   adminsdk:
     secretkey:
-      path: ""
+      path: ${FIREBASE_ADMINSDK_PATH}
   database:
-    url: ""
+    url: ${FIREBASE_DATABASE_URL}

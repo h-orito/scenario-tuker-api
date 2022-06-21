@@ -17,7 +17,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, twitter_user_name, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, twitter_user_name, authority, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -44,14 +44,18 @@ import dev.wolfort.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer userId = entity.getUserId();
  * String userName = entity.getUserName();
+ * String uid = entity.getUid();
  * String twitterUserName = entity.getTwitterUserName();
+ * String authority = entity.getAuthority();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
  * entity.setUserId(userId);
  * entity.setUserName(userName);
+ * entity.setUid(uid);
  * entity.setTwitterUserName(twitterUserName);
+ * entity.setAuthority(authority);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -77,8 +81,14 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     /** user_name: {NotNull, VARCHAR(50)} */
     protected String _userName;
 
+    /** uid: {UQ, NotNull, VARCHAR(255)} */
+    protected String _uid;
+
     /** twitter_user_name: {VARCHAR(50)} */
     protected String _twitterUserName;
+
+    /** authority: {NotNull, VARCHAR(50)} */
+    protected String _authority;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -112,6 +122,17 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     public boolean hasPrimaryKeyValue() {
         if (_userId == null) { return false; }
         return true;
+    }
+
+    /**
+     * To be unique by the unique column. <br>
+     * You can update the entity by the key when entity update (NOT batch update).
+     * @param uid : UQ, NotNull, VARCHAR(255). (NotNull)
+     */
+    public void uniqueBy(String uid) {
+        __uniqueDrivenProperties.clear();
+        __uniqueDrivenProperties.addPropertyName("uid");
+        setUid(uid);
     }
 
     // ===================================================================================
@@ -179,7 +200,9 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_userName));
+        sb.append(dm).append(xfND(_uid));
         sb.append(dm).append(xfND(_twitterUserName));
+        sb.append(dm).append(xfND(_authority));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -247,6 +270,24 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     }
 
     /**
+     * [get] uid: {UQ, NotNull, VARCHAR(255)} <br>
+     * @return The value of the column 'uid'. (basically NotNull if selected: for the constraint)
+     */
+    public String getUid() {
+        checkSpecifiedProperty("uid");
+        return convertEmptyToNull(_uid);
+    }
+
+    /**
+     * [set] uid: {UQ, NotNull, VARCHAR(255)} <br>
+     * @param uid The value of the column 'uid'. (basically NotNull if update: for the constraint)
+     */
+    public void setUid(String uid) {
+        registerModifiedProperty("uid");
+        _uid = uid;
+    }
+
+    /**
      * [get] twitter_user_name: {VARCHAR(50)} <br>
      * @return The value of the column 'twitter_user_name'. (NullAllowed even if selected: for no constraint)
      */
@@ -262,6 +303,24 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     public void setTwitterUserName(String twitterUserName) {
         registerModifiedProperty("twitterUserName");
         _twitterUserName = twitterUserName;
+    }
+
+    /**
+     * [get] authority: {NotNull, VARCHAR(50)} <br>
+     * @return The value of the column 'authority'. (basically NotNull if selected: for the constraint)
+     */
+    public String getAuthority() {
+        checkSpecifiedProperty("authority");
+        return convertEmptyToNull(_authority);
+    }
+
+    /**
+     * [set] authority: {NotNull, VARCHAR(50)} <br>
+     * @param authority The value of the column 'authority'. (basically NotNull if update: for the constraint)
+     */
+    public void setAuthority(String authority) {
+        registerModifiedProperty("authority");
+        _authority = authority;
     }
 
     /**

@@ -44,7 +44,9 @@ public class DbUserDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((DbUser)et).getUserId(), (et, vl) -> ((DbUser)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((DbUser)et).getUserName(), (et, vl) -> ((DbUser)et).setUserName((String)vl), "userName");
+        setupEpg(_epgMap, et -> ((DbUser)et).getUid(), (et, vl) -> ((DbUser)et).setUid((String)vl), "uid");
         setupEpg(_epgMap, et -> ((DbUser)et).getTwitterUserName(), (et, vl) -> ((DbUser)et).setTwitterUserName((String)vl), "twitterUserName");
+        setupEpg(_epgMap, et -> ((DbUser)et).getAuthority(), (et, vl) -> ((DbUser)et).setAuthority((String)vl), "authority");
         setupEpg(_epgMap, et -> ((DbUser)et).getRegisterDatetime(), (et, vl) -> ((DbUser)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbUser)et).getRegisterTrace(), (et, vl) -> ((DbUser)et).setRegisterTrace((String)vl), "registerTrace");
         setupEpg(_epgMap, et -> ((DbUser)et).getUpdateDatetime(), (et, vl) -> ((DbUser)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -71,7 +73,9 @@ public class DbUserDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList", null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUid = cci("uid", "uid", null, null, String.class, "uid", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnTwitterUserName = cci("twitter_user_name", "twitter_user_name", null, null, String.class, "twitterUserName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnAuthority = cci("authority", "authority", null, null, String.class, "authority", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -88,10 +92,20 @@ public class DbUserDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnUserName() { return _columnUserName; }
     /**
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnUid() { return _columnUid; }
+    /**
      * twitter_user_name: {VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnTwitterUserName() { return _columnTwitterUserName; }
+    /**
+     * authority: {NotNull, VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnAuthority() { return _columnAuthority; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -117,7 +131,9 @@ public class DbUserDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnUserId());
         ls.add(columnUserName());
+        ls.add(columnUid());
         ls.add(columnTwitterUserName());
+        ls.add(columnAuthority());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());
@@ -136,6 +152,11 @@ public class DbUserDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnUserId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() { return hpcui(columnUid()); }
 
     // ===================================================================================
     //                                                                       Relation Info

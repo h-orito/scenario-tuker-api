@@ -16,16 +16,16 @@ import dev.wolfort.dbflute.exentity.*;
  * The entity of SCENARIO_DICTIONARY as TABLE. <br>
  * <pre>
  * [primary-key]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [column]
- *     scenario_detail_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_dictionary_id, scenario_id, scenario_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     scenario_detail_id
+ *     scenario_dictionary_id
  *
  * [version-no]
  *     
@@ -44,14 +44,14 @@ import dev.wolfort.dbflute.exentity.*;
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer scenarioDetailId = entity.getScenarioDetailId();
+ * Integer scenarioDictionaryId = entity.getScenarioDictionaryId();
  * Integer scenarioId = entity.getScenarioId();
  * String scenarioName = entity.getScenarioName();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
- * entity.setScenarioDetailId(scenarioDetailId);
+ * entity.setScenarioDictionaryId(scenarioDictionaryId);
  * entity.setScenarioId(scenarioId);
  * entity.setScenarioName(scenarioName);
  * entity.setRegisterDatetime(registerDatetime);
@@ -73,8 +73,8 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
-    protected Integer _scenarioDetailId;
+    /** scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    protected Integer _scenarioDictionaryId;
 
     /** scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario} */
     protected Integer _scenarioId;
@@ -112,7 +112,7 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_scenarioDetailId == null) { return false; }
+        if (_scenarioDictionaryId == null) { return false; }
         return true;
     }
 
@@ -154,7 +154,7 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     protected boolean doEquals(Object obj) {
         if (obj instanceof DbBsScenarioDictionary) {
             DbBsScenarioDictionary other = (DbBsScenarioDictionary)obj;
-            if (!xSV(_scenarioDetailId, other._scenarioDetailId)) { return false; }
+            if (!xSV(_scenarioDictionaryId, other._scenarioDictionaryId)) { return false; }
             return true;
         } else {
             return false;
@@ -165,7 +165,7 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     protected int doHashCode(int initial) {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
-        hs = xCH(hs, _scenarioDetailId);
+        hs = xCH(hs, _scenarioDictionaryId);
         return hs;
     }
 
@@ -183,7 +183,7 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(xfND(_scenarioDetailId));
+        sb.append(dm).append(xfND(_scenarioDictionaryId));
         sb.append(dm).append(xfND(_scenarioId));
         sb.append(dm).append(xfND(_scenarioName));
         sb.append(dm).append(xfND(_registerDatetime));
@@ -217,21 +217,21 @@ public abstract class DbBsScenarioDictionary extends AbstractEntity implements D
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @return The value of the column 'scenario_detail_id'. (basically NotNull if selected: for the constraint)
+     * [get] scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'scenario_dictionary_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getScenarioDetailId() {
-        checkSpecifiedProperty("scenarioDetailId");
-        return _scenarioDetailId;
+    public Integer getScenarioDictionaryId() {
+        checkSpecifiedProperty("scenarioDictionaryId");
+        return _scenarioDictionaryId;
     }
 
     /**
-     * [set] scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @param scenarioDetailId The value of the column 'scenario_detail_id'. (basically NotNull if update: for the constraint)
+     * [set] scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @param scenarioDictionaryId The value of the column 'scenario_dictionary_id'. (basically NotNull if update: for the constraint)
      */
-    public void setScenarioDetailId(Integer scenarioDetailId) {
-        registerModifiedProperty("scenarioDetailId");
-        _scenarioDetailId = scenarioDetailId;
+    public void setScenarioDictionaryId(Integer scenarioDictionaryId) {
+        registerModifiedProperty("scenarioDictionaryId");
+        _scenarioDictionaryId = scenarioDictionaryId;
     }
 
     /**

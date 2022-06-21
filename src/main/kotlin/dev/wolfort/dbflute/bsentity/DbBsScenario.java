@@ -3,9 +3,11 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
@@ -17,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_link, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -29,13 +31,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     RULE_BOOK
  *
  * [referrer table]
  *     PARTICIPATE, SCENARIO_DICTIONARY
  *
  * [foreign property]
- *     
+ *     ruleBook
  *
  * [referrer property]
  *     participateList, scenarioDictionaryList
@@ -45,7 +47,7 @@ import dev.wolfort.dbflute.exentity.*;
  * Integer scenarioId = entity.getScenarioId();
  * String scenarioName = entity.getScenarioName();
  * String scenarioType = entity.getScenarioType();
- * String scenarioLink = entity.getScenarioLink();
+ * Integer ruleBookId = entity.getRuleBookId();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -53,7 +55,7 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setScenarioId(scenarioId);
  * entity.setScenarioName(scenarioName);
  * entity.setScenarioType(scenarioType);
- * entity.setScenarioLink(scenarioLink);
+ * entity.setRuleBookId(ruleBookId);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -82,8 +84,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     /** scenario_type: {NotNull, VARCHAR(50)} */
     protected String _scenarioType;
 
-    /** scenario_link: {NotNull, VARCHAR(255)} */
-    protected String _scenarioLink;
+    /** rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} */
+    protected Integer _ruleBookId;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -122,6 +124,27 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** RULE_BOOK by my rule_book_id, named 'ruleBook'. */
+    protected OptionalEntity<DbRuleBook> _ruleBook;
+
+    /**
+     * [get] RULE_BOOK by my rule_book_id, named 'ruleBook'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'ruleBook'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<DbRuleBook> getRuleBook() {
+        if (_ruleBook == null) { _ruleBook = OptionalEntity.relationEmpty(this, "ruleBook"); }
+        return _ruleBook;
+    }
+
+    /**
+     * [set] RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * @param ruleBook The entity of foreign property 'ruleBook'. (NullAllowed)
+     */
+    public void setRuleBook(OptionalEntity<DbRuleBook> ruleBook) {
+        _ruleBook = ruleBook;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -194,11 +217,16 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_ruleBook != null && _ruleBook.isPresent())
+        { sb.append(li).append(xbRDS(_ruleBook, "ruleBook")); }
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
         if (_scenarioDictionaryList != null) { for (DbScenarioDictionary et : _scenarioDictionaryList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioDictionaryList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -207,7 +235,7 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_scenarioId));
         sb.append(dm).append(xfND(_scenarioName));
         sb.append(dm).append(xfND(_scenarioType));
-        sb.append(dm).append(xfND(_scenarioLink));
+        sb.append(dm).append(xfND(_ruleBookId));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -222,6 +250,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_ruleBook != null && _ruleBook.isPresent())
+        { sb.append(dm).append("ruleBook"); }
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
         if (_scenarioDictionaryList != null && !_scenarioDictionaryList.isEmpty())
@@ -295,21 +325,21 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [get] scenario_link: {NotNull, VARCHAR(255)} <br>
-     * @return The value of the column 'scenario_link'. (basically NotNull if selected: for the constraint)
+     * [get] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
+     * @return The value of the column 'rule_book_id'. (NullAllowed even if selected: for no constraint)
      */
-    public String getScenarioLink() {
-        checkSpecifiedProperty("scenarioLink");
-        return convertEmptyToNull(_scenarioLink);
+    public Integer getRuleBookId() {
+        checkSpecifiedProperty("ruleBookId");
+        return _ruleBookId;
     }
 
     /**
-     * [set] scenario_link: {NotNull, VARCHAR(255)} <br>
-     * @param scenarioLink The value of the column 'scenario_link'. (basically NotNull if update: for the constraint)
+     * [set] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
+     * @param ruleBookId The value of the column 'rule_book_id'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setScenarioLink(String scenarioLink) {
-        registerModifiedProperty("scenarioLink");
-        _scenarioLink = scenarioLink;
+    public void setRuleBookId(Integer ruleBookId) {
+        registerModifiedProperty("ruleBookId");
+        _ruleBookId = ruleBookId;
     }
 
     /**

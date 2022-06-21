@@ -73,25 +73,25 @@ public class DbBsScenarioDictionaryCQ extends DbAbstractBsScenarioDictionaryCQ {
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    protected ConditionValue _scenarioDetailId;
-    public ConditionValue xdfgetScenarioDetailId()
-    { if (_scenarioDetailId == null) { _scenarioDetailId = nCV(); }
-      return _scenarioDetailId; }
-    protected ConditionValue xgetCValueScenarioDetailId() { return xdfgetScenarioDetailId(); }
+    protected ConditionValue _scenarioDictionaryId;
+    public ConditionValue xdfgetScenarioDictionaryId()
+    { if (_scenarioDictionaryId == null) { _scenarioDictionaryId = nCV(); }
+      return _scenarioDictionaryId; }
+    protected ConditionValue xgetCValueScenarioDictionaryId() { return xdfgetScenarioDictionaryId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return this. (NotNull)
      */
-    public DbBsScenarioDictionaryCQ addOrderBy_ScenarioDetailId_Asc() { regOBA("scenario_detail_id"); return this; }
+    public DbBsScenarioDictionaryCQ addOrderBy_ScenarioDictionaryId_Asc() { regOBA("scenario_dictionary_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return this. (NotNull)
      */
-    public DbBsScenarioDictionaryCQ addOrderBy_ScenarioDetailId_Desc() { regOBD("scenario_detail_id"); return this; }
+    public DbBsScenarioDictionaryCQ addOrderBy_ScenarioDictionaryId_Desc() { regOBD("scenario_dictionary_id"); return this; }
 
     protected ConditionValue _scenarioId;
     public ConditionValue xdfgetScenarioId()

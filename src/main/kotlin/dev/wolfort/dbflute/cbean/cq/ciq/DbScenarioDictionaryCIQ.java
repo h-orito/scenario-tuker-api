@@ -61,7 +61,7 @@ public class DbScenarioDictionaryCIQ extends DbAbstractBsScenarioDictionaryCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueScenarioDetailId() { return _myCQ.xdfgetScenarioDetailId(); }
+    protected ConditionValue xgetCValueScenarioDictionaryId() { return _myCQ.xdfgetScenarioDictionaryId(); }
     protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
     protected ConditionValue xgetCValueScenarioName() { return _myCQ.xdfgetScenarioName(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }

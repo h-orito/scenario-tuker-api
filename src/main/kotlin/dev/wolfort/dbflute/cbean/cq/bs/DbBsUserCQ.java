@@ -127,6 +127,26 @@ public class DbBsUserCQ extends DbAbstractBsUserCQ {
      */
     public DbBsUserCQ addOrderBy_UserName_Desc() { regOBD("user_name"); return this; }
 
+    protected ConditionValue _uid;
+    public ConditionValue xdfgetUid()
+    { if (_uid == null) { _uid = nCV(); }
+      return _uid; }
+    protected ConditionValue xgetCValueUid() { return xdfgetUid(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Uid_Asc() { regOBA("uid"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * uid: {UQ, NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Uid_Desc() { regOBD("uid"); return this; }
+
     protected ConditionValue _twitterUserName;
     public ConditionValue xdfgetTwitterUserName()
     { if (_twitterUserName == null) { _twitterUserName = nCV(); }
@@ -146,6 +166,26 @@ public class DbBsUserCQ extends DbAbstractBsUserCQ {
      * @return this. (NotNull)
      */
     public DbBsUserCQ addOrderBy_TwitterUserName_Desc() { regOBD("twitter_user_name"); return this; }
+
+    protected ConditionValue _authority;
+    public ConditionValue xdfgetAuthority()
+    { if (_authority == null) { _authority = nCV(); }
+      return _authority; }
+    protected ConditionValue xgetCValueAuthority() { return xdfgetAuthority(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Authority_Asc() { regOBA("authority"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * authority: {NotNull, VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Authority_Desc() { regOBD("authority"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()

@@ -241,6 +241,26 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * <pre>
+     * <span style="color: #0000C0">scenarioBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_RuleBook()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">scenario</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">scenario</span>.<span style="color: #CC4747">getRuleBook()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_RuleBook() {
+        assertSetupSelectPurpose("ruleBook");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnRuleBookId();
+        }
+        doSetupSelect(() -> query().queryRuleBook());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -282,6 +302,7 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<DbScenarioCQ> {
+        protected DbRuleBookCB.HpSpecification _ruleBook;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbScenarioCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -302,10 +323,10 @@ public class DbBsScenarioCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnScenarioType() { return doColumn("scenario_type"); }
         /**
-         * scenario_link: {NotNull, VARCHAR(255)}
+         * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioLink() { return doColumn("scenario_link"); }
+        public SpecifiedColumn columnRuleBookId() { return doColumn("rule_book_id"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -331,9 +352,33 @@ public class DbBsScenarioCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnScenarioId(); // PK
+            if (qyCall().qy().hasConditionQueryRuleBook()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbRuleBookCQ) {
+                columnRuleBookId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "scenario"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public DbRuleBookCB.HpSpecification specifyRuleBook() {
+            assertRelation("ruleBook");
+            if (_ruleBook == null) {
+                _ruleBook = new DbRuleBookCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryRuleBook()
+                                    , () -> _qyCall.qy().queryRuleBook())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _ruleBook.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryRuleBook()
+                      , () -> xsyncQyCall().qy().queryRuleBook()));
+                }
+            }
+            return _ruleBook;
+        }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from participate where ...) as FOO_MAX} <br>

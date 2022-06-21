@@ -94,6 +94,18 @@ public class DbBsUserCB extends AbstractConditionBean {
         return (DbUserCB)this;
     }
 
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param uid : UQ, NotNull, VARCHAR(255). (NotNull)
+     * @return this. (NotNull)
+     */
+    public DbUserCB acceptUniqueOf(String uid) {
+        assertObjectNotNull("uid", uid);
+        DbBsUserCB cb = this;
+        cb.query().setUid_Equal(uid);
+        return (DbUserCB)this;
+    }
+
     public ConditionBean addOrderBy_PK_Asc() {
         query().addOrderBy_UserId_Asc();
         return this;
@@ -297,10 +309,20 @@ public class DbBsUserCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnUserName() { return doColumn("user_name"); }
         /**
+         * uid: {UQ, NotNull, VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUid() { return doColumn("uid"); }
+        /**
          * twitter_user_name: {VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnTwitterUserName() { return doColumn("twitter_user_name"); }
+        /**
+         * authority: {NotNull, VARCHAR(50)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnAuthority() { return doColumn("authority"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)

@@ -18,6 +18,7 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of scenario_dictionary.
@@ -84,23 +85,23 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param scenarioDetailId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param scenarioDictionaryId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbScenarioDictionaryCB acceptPK(Integer scenarioDetailId) {
-        assertObjectNotNull("scenarioDetailId", scenarioDetailId);
+    public DbScenarioDictionaryCB acceptPK(Integer scenarioDictionaryId) {
+        assertObjectNotNull("scenarioDictionaryId", scenarioDictionaryId);
         DbBsScenarioDictionaryCB cb = this;
-        cb.query().setScenarioDetailId_Equal(scenarioDetailId);
+        cb.query().setScenarioDictionaryId_Equal(scenarioDictionaryId);
         return (DbScenarioDictionaryCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_ScenarioDetailId_Asc();
+        query().addOrderBy_ScenarioDictionaryId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_ScenarioDetailId_Desc();
+        query().addOrderBy_ScenarioDictionaryId_Desc();
         return this;
     }
 
@@ -241,6 +242,11 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected DbScenarioNss _nssScenario;
+    public DbScenarioNss xdfgetNssScenario() {
+        if (_nssScenario == null) { _nssScenario = new DbScenarioNss(null); }
+        return _nssScenario;
+    }
     /**
      * Set up relation columns to select clause. <br>
      * SCENARIO by my scenario_id, named 'scenario'.
@@ -252,13 +258,17 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      *     ... = <span style="color: #553000">scenarioDictionary</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_Scenario() {
+    public DbScenarioNss setupSelect_Scenario() {
         assertSetupSelectPurpose("scenario");
         if (hasSpecifiedLocalColumn()) {
             specify().columnScenarioId();
         }
         doSetupSelect(() -> query().queryScenario());
+        if (_nssScenario == null || !_nssScenario.hasConditionQuery())
+        { _nssScenario = new DbScenarioNss(query().queryScenario()); }
+        return _nssScenario;
     }
 
     // [DBFlute-0.7.4]
@@ -308,10 +318,10 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * scenario_detail_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioDetailId() { return doColumn("scenario_detail_id"); }
+        public SpecifiedColumn columnScenarioDictionaryId() { return doColumn("scenario_dictionary_id"); }
         /**
          * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
          * @return The information object of specified column. (NotNull)
@@ -346,7 +356,7 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnScenarioDetailId(); // PK
+            columnScenarioDictionaryId(); // PK
             if (qyCall().qy().hasConditionQueryScenario()
                     || qyCall().qy().xgetReferrerQuery() instanceof DbScenarioCQ) {
                 columnScenarioId(); // FK or one-to-one referrer

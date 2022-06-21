@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_link, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -27,13 +27,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     RULE_BOOK
  *
  * [referrer table]
  *     PARTICIPATE, SCENARIO_DICTIONARY
  *
  * [foreign property]
- *     
+ *     ruleBook
  *
  * [referrer property]
  *     participateList, scenarioDictionaryList
@@ -132,6 +132,13 @@ public class DbLoaderOfScenario {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected DbLoaderOfRuleBook _foreignRuleBookLoader;
+    public DbLoaderOfRuleBook pulloutRuleBook() {
+        if (_foreignRuleBookLoader == null)
+        { _foreignRuleBookLoader = new DbLoaderOfRuleBook().ready(myBhv().pulloutRuleBook(_selectedList), _selector); }
+        return _foreignRuleBookLoader;
+    }
+
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========

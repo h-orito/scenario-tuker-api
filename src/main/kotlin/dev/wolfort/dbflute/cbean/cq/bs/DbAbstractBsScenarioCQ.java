@@ -589,139 +589,133 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueScenarioType();
 
     /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_Equal(String scenarioLink) {
-        doSetScenarioLink_Equal(fRES(scenarioLink));
+    public void setRuleBookId_Equal(Integer ruleBookId) {
+        doSetRuleBookId_Equal(ruleBookId);
     }
 
-    protected void doSetScenarioLink_Equal(String scenarioLink) {
-        regScenarioLink(CK_EQ, scenarioLink);
+    protected void doSetRuleBookId_Equal(Integer ruleBookId) {
+        regRuleBookId(CK_EQ, ruleBookId);
     }
 
     /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_NotEqual(String scenarioLink) {
-        doSetScenarioLink_NotEqual(fRES(scenarioLink));
+    public void setRuleBookId_NotEqual(Integer ruleBookId) {
+        doSetRuleBookId_NotEqual(ruleBookId);
     }
 
-    protected void doSetScenarioLink_NotEqual(String scenarioLink) {
-        regScenarioLink(CK_NES, scenarioLink);
+    protected void doSetRuleBookId_NotEqual(Integer ruleBookId) {
+        regRuleBookId(CK_NES, ruleBookId);
     }
 
     /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_GreaterThan(String scenarioLink) {
-        regScenarioLink(CK_GT, fRES(scenarioLink));
+    public void setRuleBookId_GreaterThan(Integer ruleBookId) {
+        regRuleBookId(CK_GT, ruleBookId);
     }
 
     /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_LessThan(String scenarioLink) {
-        regScenarioLink(CK_LT, fRES(scenarioLink));
+    public void setRuleBookId_LessThan(Integer ruleBookId) {
+        regRuleBookId(CK_LT, ruleBookId);
     }
 
     /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_GreaterEqual(String scenarioLink) {
-        regScenarioLink(CK_GE, fRES(scenarioLink));
+    public void setRuleBookId_GreaterEqual(Integer ruleBookId) {
+        regRuleBookId(CK_GE, ruleBookId);
     }
 
     /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookId The value of ruleBookId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setScenarioLink_LessEqual(String scenarioLink) {
-        regScenarioLink(CK_LE, fRES(scenarioLink));
+    public void setRuleBookId_LessEqual(Integer ruleBookId) {
+        regRuleBookId(CK_LE, ruleBookId);
     }
 
     /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLinkList The collection of scenarioLink as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param minNumber The min number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setScenarioLink_InScope(Collection<String> scenarioLinkList) {
-        doSetScenarioLink_InScope(scenarioLinkList);
-    }
-
-    protected void doSetScenarioLink_InScope(Collection<String> scenarioLinkList) {
-        regINS(CK_INS, cTL(scenarioLinkList), xgetCValueScenarioLink(), "scenario_link");
+    public void setRuleBookId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setRuleBookId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLinkList The collection of scenarioLink as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param minNumber The min number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
      */
-    public void setScenarioLink_NotInScope(Collection<String> scenarioLinkList) {
-        doSetScenarioLink_NotInScope(scenarioLinkList);
-    }
-
-    protected void doSetScenarioLink_NotInScope(Collection<String> scenarioLinkList) {
-        regINS(CK_NINS, cTL(scenarioLinkList), xgetCValueScenarioLink(), "scenario_link");
+    protected void setRuleBookId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueRuleBookId(), "rule_book_id", rangeOfOption);
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setScenarioLink_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param scenarioLink The value of scenarioLink as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookIdList The collection of ruleBookId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setScenarioLink_LikeSearch(String scenarioLink, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setScenarioLink_LikeSearch(scenarioLink, xcLSOP(opLambda));
+    public void setRuleBookId_InScope(Collection<Integer> ruleBookIdList) {
+        doSetRuleBookId_InScope(ruleBookIdList);
+    }
+
+    protected void doSetRuleBookId_InScope(Collection<Integer> ruleBookIdList) {
+        regINS(CK_INS, cTL(ruleBookIdList), xgetCValueRuleBookId(), "rule_book_id");
     }
 
     /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setScenarioLink_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param scenarioLink The value of scenarioLink as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of like-search. (NotNull)
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * @param ruleBookIdList The collection of ruleBookId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    protected void setScenarioLink_LikeSearch(String scenarioLink, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(scenarioLink), xgetCValueScenarioLink(), "scenario_link", likeSearchOption);
+    public void setRuleBookId_NotInScope(Collection<Integer> ruleBookIdList) {
+        doSetRuleBookId_NotInScope(ruleBookIdList);
+    }
+
+    protected void doSetRuleBookId_NotInScope(Collection<Integer> ruleBookIdList) {
+        regINS(CK_NINS, cTL(ruleBookIdList), xgetCValueRuleBookId(), "rule_book_id");
     }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
      */
-    public void setScenarioLink_NotLikeSearch(String scenarioLink, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setScenarioLink_NotLikeSearch(scenarioLink, xcLSOP(opLambda));
-    }
+    public void setRuleBookId_IsNull() { regRuleBookId(CK_ISN, DOBJ); }
 
     /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
-     * @param scenarioLink The value of scenarioLink as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
      */
-    protected void setScenarioLink_NotLikeSearch(String scenarioLink, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(scenarioLink), xgetCValueScenarioLink(), "scenario_link", likeSearchOption);
-    }
+    public void setRuleBookId_IsNotNull() { regRuleBookId(CK_ISNN, DOBJ); }
 
-    protected void regScenarioLink(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioLink(), "scenario_link"); }
-    protected abstract ConditionValue xgetCValueScenarioLink();
+    protected void regRuleBookId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRuleBookId(), "rule_book_id"); }
+    protected abstract ConditionValue xgetCValueRuleBookId();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

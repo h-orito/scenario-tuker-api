@@ -84,7 +84,7 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueScenarioName() { return _myCQ.xdfgetScenarioName(); }
     protected ConditionValue xgetCValueScenarioType() { return _myCQ.xdfgetScenarioType(); }
-    protected ConditionValue xgetCValueScenarioLink() { return _myCQ.xdfgetScenarioLink(); }
+    protected ConditionValue xgetCValueRuleBookId() { return _myCQ.xdfgetRuleBookId(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

@@ -161,25 +161,25 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
      */
     public DbBsScenarioCQ addOrderBy_ScenarioType_Desc() { regOBD("scenario_type"); return this; }
 
-    protected ConditionValue _scenarioLink;
-    public ConditionValue xdfgetScenarioLink()
-    { if (_scenarioLink == null) { _scenarioLink = nCV(); }
-      return _scenarioLink; }
-    protected ConditionValue xgetCValueScenarioLink() { return xdfgetScenarioLink(); }
+    protected ConditionValue _ruleBookId;
+    public ConditionValue xdfgetRuleBookId()
+    { if (_ruleBookId == null) { _ruleBookId = nCV(); }
+      return _ruleBookId; }
+    protected ConditionValue xgetCValueRuleBookId() { return xdfgetRuleBookId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
      * @return this. (NotNull)
      */
-    public DbBsScenarioCQ addOrderBy_ScenarioLink_Asc() { regOBA("scenario_link"); return this; }
+    public DbBsScenarioCQ addOrderBy_RuleBookId_Asc() { regOBA("rule_book_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * scenario_link: {NotNull, VARCHAR(255)}
+     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
      * @return this. (NotNull)
      */
-    public DbBsScenarioCQ addOrderBy_ScenarioLink_Desc() { regOBD("scenario_link"); return this; }
+    public DbBsScenarioCQ addOrderBy_RuleBookId_Desc() { regOBD("rule_book_id"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
@@ -300,11 +300,36 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        DbScenarioCQ bq = (DbScenarioCQ)bqs;
+        DbScenarioCQ uq = (DbScenarioCQ)uqs;
+        if (bq.hasConditionQueryRuleBook()) {
+            uq.queryRuleBook().reflectRelationOnUnionQuery(bq.queryRuleBook(), uq.queryRuleBook());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public DbRuleBookCQ queryRuleBook() {
+        return xdfgetConditionQueryRuleBook();
+    }
+    public DbRuleBookCQ xdfgetConditionQueryRuleBook() {
+        String prop = "ruleBook";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryRuleBook()); xsetupOuterJoinRuleBook(); }
+        return xgetQueRlMap(prop);
+    }
+    protected DbRuleBookCQ xcreateQueryRuleBook() {
+        String nrp = xresolveNRP("scenario", "ruleBook"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbRuleBookCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "ruleBook", nrp);
+    }
+    protected void xsetupOuterJoinRuleBook() { xregOutJo("ruleBook"); }
+    public boolean hasConditionQueryRuleBook() { return xhasQueRlMap("ruleBook"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }
