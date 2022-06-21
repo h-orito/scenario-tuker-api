@@ -71,7 +71,7 @@ tasks.withType<Test> {
 
 jib {
     from {
-        image = "arm64v8/openjdk:8"
+        image = "arm64v8/openjdk:11"
         platforms {
             platform {
                 architecture = "arm64"
