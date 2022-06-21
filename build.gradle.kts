@@ -80,7 +80,7 @@ jib {
         }
     }
     to {
-        image = "ghcr.io/h-orito/scenario-tuker-api"
+        image = "ghcr.io/h-orito/scenario-tuker"
     }
     container {
         jvmFlags = listOf(
