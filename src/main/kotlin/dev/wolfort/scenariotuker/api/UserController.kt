@@ -117,13 +117,15 @@ class UserController(
     data class ParticipatePostRequest(
         var id: Int? = null,
         var scenarioId: Int = 0,
-        var roleTypes: List<RoleType> = emptyList()
+        var roleTypes: List<RoleType> = emptyList(),
+        var dispOrder: Int?
     ) {
         fun toParticipate(userId: Int) = Participate(
             id = id ?: 0,
             scenarioId = scenarioId,
             userId = userId,
-            roleTypes = roleTypes
+            roleTypes = roleTypes,
+            dispOrder = dispOrder ?: 0
         )
     }
 

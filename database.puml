@@ -54,6 +54,7 @@ entity Participate {
     --
     * scenario_id: int unsigned <<foreign key>>
     * user_id: int unsigned <<foreign key>>
+    * disp_order: int unsigned
 }
 
 User ||--o{ Participate

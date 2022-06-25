@@ -111,6 +111,7 @@ create table participate (
     participate_id    int unsigned not null auto_increment,
     scenario_id       int unsigned not null,
     user_id           int unsigned not null,
+    disp_order        int unsigned not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,

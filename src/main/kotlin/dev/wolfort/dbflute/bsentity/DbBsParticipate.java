@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     participate_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_id, scenario_id, user_id, disp_order, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -47,6 +47,7 @@ import dev.wolfort.dbflute.exentity.*;
  * Integer participateId = entity.getParticipateId();
  * Integer scenarioId = entity.getScenarioId();
  * Integer userId = entity.getUserId();
+ * Integer dispOrder = entity.getDispOrder();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -54,6 +55,7 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setParticipateId(participateId);
  * entity.setScenarioId(scenarioId);
  * entity.setUserId(userId);
+ * entity.setDispOrder(dispOrder);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -81,6 +83,9 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
 
     /** user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} */
     protected Integer _userId;
+
+    /** disp_order: {NotNull, INT UNSIGNED(10)} */
+    protected Integer _dispOrder;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -244,6 +249,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         sb.append(dm).append(xfND(_participateId));
         sb.append(dm).append(xfND(_scenarioId));
         sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_dispOrder));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -330,6 +336,24 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     public void setUserId(Integer userId) {
         registerModifiedProperty("userId");
         _userId = userId;
+    }
+
+    /**
+     * [get] disp_order: {NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'disp_order'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getDispOrder() {
+        checkSpecifiedProperty("dispOrder");
+        return _dispOrder;
+    }
+
+    /**
+     * [set] disp_order: {NotNull, INT UNSIGNED(10)} <br>
+     * @param dispOrder The value of the column 'disp_order'. (basically NotNull if update: for the constraint)
+     */
+    public void setDispOrder(Integer dispOrder) {
+        registerModifiedProperty("dispOrder");
+        _dispOrder = dispOrder;
     }
 
     /**

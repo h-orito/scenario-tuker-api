@@ -11,7 +11,8 @@ data class ParticipateResponse(
     val id: Int,
     val scenario: ScenarioResponse,
     val user: User,
-    val roleTypes: List<RoleType>
+    val roleTypes: List<RoleType>,
+    val dispOrder: Int
 ) {
     constructor(
         participate: Participate,
@@ -22,6 +23,7 @@ data class ParticipateResponse(
         id = participate.id,
         scenario = ScenarioResponse(scenario, ruleBook),
         user = user,
-        roleTypes = participate.roleTypes
+        roleTypes = participate.roleTypes,
+        dispOrder = participate.dispOrder
     )
 }

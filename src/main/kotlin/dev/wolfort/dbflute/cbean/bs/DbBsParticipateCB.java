@@ -367,6 +367,11 @@ public class DbBsParticipateCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
+         * disp_order: {NotNull, INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnDispOrder() { return doColumn("disp_order"); }
+        /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */

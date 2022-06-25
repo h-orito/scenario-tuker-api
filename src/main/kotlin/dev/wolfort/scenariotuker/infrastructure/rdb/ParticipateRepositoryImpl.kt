@@ -18,6 +18,7 @@ class ParticipateRepositoryImpl(
 
     override fun findAll(): Participates {
         val dbParticipateList = participateBhv.selectList {
+            it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
         participateBhv.loadParticipateRole(dbParticipateList) {}
@@ -37,6 +38,7 @@ class ParticipateRepositoryImpl(
     override fun findByScenarioId(scenarioId: Int): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.query().setScenarioId_Equal(scenarioId)
+            it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
         participateBhv.loadParticipateRole(dbParticipateList) {}
@@ -46,8 +48,8 @@ class ParticipateRepositoryImpl(
     override fun findByUserId(userId: Int): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.query().setUserId_Equal(userId)
-            // TODO 参加日時
-            it.query().addOrderBy_RegisterDatetime_Desc()
+            it.query().addOrderBy_DispOrder_Asc()
+            it.query().addOrderBy_ParticipateId_Asc()
         }
         participateBhv.loadParticipateRole(dbParticipateList) {}
         return mappingToParticipates(dbParticipateList)
@@ -57,7 +59,10 @@ class ParticipateRepositoryImpl(
         val p = DbParticipate()
         p.scenarioId = participate.scenarioId
         p.userId = participate.userId
+        p.dispOrder = 0
         participateBhv.insert(p)
+        p.dispOrder = p.participateId
+        participateBhv.update(p)
         participate.roleTypes.forEach { roleType ->
             insertParticipateRole(p.participateId, roleType)
         }
@@ -65,7 +70,11 @@ class ParticipateRepositoryImpl(
     }
 
     override fun update(participate: Participate): Participate {
-        // rollだけ更新
+        // dispOrderとrollだけ更新
+        val p = DbParticipate()
+        p.participateId = participate.id
+        p.dispOrder = participate.dispOrder
+        participateBhv.update(p)
         participateRoleBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
         participate.roleTypes.forEach { rollType ->
             insertParticipateRole(participate.id, rollType)
@@ -94,7 +103,8 @@ class ParticipateRepositoryImpl(
             id = participate.participateId,
             scenarioId = participate.scenarioId,
             userId = participate.userId,
-            roleTypes = participate.participateRoleList.map { RoleType.valueOf(it.participateRoleType) }
+            roleTypes = participate.participateRoleList.map { RoleType.valueOf(it.participateRoleType) },
+            dispOrder = participate.dispOrder
         )
     }
 }

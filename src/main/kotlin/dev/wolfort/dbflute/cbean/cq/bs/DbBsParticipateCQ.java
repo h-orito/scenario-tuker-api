@@ -147,6 +147,26 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
      */
     public DbBsParticipateCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
+    protected ConditionValue _dispOrder;
+    public ConditionValue xdfgetDispOrder()
+    { if (_dispOrder == null) { _dispOrder = nCV(); }
+      return _dispOrder; }
+    protected ConditionValue xgetCValueDispOrder() { return xdfgetDispOrder(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_DispOrder_Asc() { regOBA("disp_order"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_DispOrder_Desc() { regOBD("disp_order"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

@@ -481,6 +481,123 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_Equal(Integer dispOrder) {
+        doSetDispOrder_Equal(dispOrder);
+    }
+
+    protected void doSetDispOrder_Equal(Integer dispOrder) {
+        regDispOrder(CK_EQ, dispOrder);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_NotEqual(Integer dispOrder) {
+        doSetDispOrder_NotEqual(dispOrder);
+    }
+
+    protected void doSetDispOrder_NotEqual(Integer dispOrder) {
+        regDispOrder(CK_NES, dispOrder);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_GreaterThan(Integer dispOrder) {
+        regDispOrder(CK_GT, dispOrder);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_LessThan(Integer dispOrder) {
+        regDispOrder(CK_LT, dispOrder);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_GreaterEqual(Integer dispOrder) {
+        regDispOrder(CK_GE, dispOrder);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrder The value of dispOrder as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setDispOrder_LessEqual(Integer dispOrder) {
+        regDispOrder(CK_LE, dispOrder);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of dispOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of dispOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setDispOrder_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setDispOrder_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of dispOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of dispOrder. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setDispOrder_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueDispOrder(), "disp_order", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrderList The collection of dispOrder as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setDispOrder_InScope(Collection<Integer> dispOrderList) {
+        doSetDispOrder_InScope(dispOrderList);
+    }
+
+    protected void doSetDispOrder_InScope(Collection<Integer> dispOrderList) {
+        regINS(CK_INS, cTL(dispOrderList), xgetCValueDispOrder(), "disp_order");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * @param dispOrderList The collection of dispOrder as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setDispOrder_NotInScope(Collection<Integer> dispOrderList) {
+        doSetDispOrder_NotInScope(dispOrderList);
+    }
+
+    protected void doSetDispOrder_NotInScope(Collection<Integer> dispOrderList) {
+        regINS(CK_NINS, cTL(dispOrderList), xgetCValueDispOrder(), "disp_order");
+    }
+
+    protected void regDispOrder(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueDispOrder(), "disp_order"); }
+    protected abstract ConditionValue xgetCValueDispOrder();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */
