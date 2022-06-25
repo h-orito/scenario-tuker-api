@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of user.
+ * The condition-query for in-line of user_follow.
  * @author DBFlute(AutoGenerator)
  */
-public class DbUserCIQ extends DbAbstractBsUserCQ {
+public class DbUserFollowCIQ extends DbAbstractBsUserFollowCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsUserCQ _myCQ;
+    protected DbBsUserFollowCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbUserCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsUserCQ myCQ) {
+    public DbUserFollowCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsUserFollowCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,55 +61,23 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
-    public String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_ExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_ExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
-    protected ConditionValue xgetCValueUid() { return _myCQ.xdfgetUid(); }
-    protected ConditionValue xgetCValueTwitterUserName() { return _myCQ.xdfgetTwitterUserName(); }
-    protected ConditionValue xgetCValueAuthority() { return _myCQ.xdfgetAuthority(); }
+    protected ConditionValue xgetCValueUserFollowId() { return _myCQ.xdfgetUserFollowId(); }
+    protected ConditionValue xgetCValueFromUserId() { return _myCQ.xdfgetFromUserId(); }
+    protected ConditionValue xgetCValueToUserId() { return _myCQ.xdfgetToUserId(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbUserCQ sq)
+    public String keepScalarCondition(DbUserFollowCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbUserCQ sq)
+    public String keepSpecifyMyselfDerived(DbUserFollowCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbUserCQ sq)
+    public String keepQueryMyselfDerived(DbUserFollowCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbUserCQ sq)
+    public String keepMyselfExists(DbUserFollowCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -119,6 +87,6 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbUserCB.class.getName(); }
-    protected String xinCQ() { return DbUserCQ.class.getName(); }
+    protected String xinCB() { return DbUserFollowCB.class.getName(); }
+    protected String xinCQ() { return DbUserFollowCQ.class.getName(); }
 }

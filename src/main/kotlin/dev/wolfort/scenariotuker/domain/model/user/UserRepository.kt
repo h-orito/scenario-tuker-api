@@ -15,4 +15,8 @@ interface UserRepository {
     fun register(user: User): User
 
     fun update(user: User): User
+
+    fun follow(fromId: Int, toId: Int)
+
+    fun unfollow(fromId: Int, toId: Int)
 }

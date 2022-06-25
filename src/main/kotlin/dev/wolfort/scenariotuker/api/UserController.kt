@@ -2,6 +2,7 @@ package dev.wolfort.scenariotuker.api
 
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
+import dev.wolfort.scenariotuker.api.response.user.UserResponse
 import dev.wolfort.scenariotuker.application.service.ParticipateService
 import dev.wolfort.scenariotuker.application.service.RuleBookService
 import dev.wolfort.scenariotuker.application.service.ScenarioService
@@ -16,6 +17,7 @@ import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/users")
@@ -44,7 +46,11 @@ class UserController(
     }
 
     @GetMapping("/{userId}")
-    private fun get(@PathVariable userId: Int): User? = userService.findById(userId)
+    private fun get(@PathVariable userId: Int): UserResponse? {
+        val user = userService.findById(userId) ?: return null
+        val users = userService.findAllByIds((user.follows + user.followers).distinct())
+        return UserResponse(user, users)
+    }
 
     @PostMapping
     private fun post(@RequestBody @Validated request: PostRequest): User =
@@ -147,4 +153,31 @@ class UserController(
         }
         participateService.delete(participateId)
     }
+
+    @PostMapping("/myself/follow")
+    private fun postFollow(
+        @RequestBody @Validated request: FollowPostRequest,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ): User {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.follow(user.id, request.userId!!)
+        return userService.findById(user.id)!!
+    }
+
+    @DeleteMapping("/myself/follow/{userId}")
+    private fun deleteFollow(
+        @PathVariable userId: Int,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ): User {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.unfollow(user.id, userId)
+        return userService.findById(user.id)!!
+    }
+
+    data class FollowPostRequest(
+        @field:NotNull
+        var userId: Int? = null
+    )
 }

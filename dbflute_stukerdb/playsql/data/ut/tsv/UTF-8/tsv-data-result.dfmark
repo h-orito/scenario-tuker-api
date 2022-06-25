@@ -1,0 +1,11 @@
+
+* * * * * * * * * *
+*                 *
+* Tsv Data Result *
+*                 *
+* * * * * * * * * *
+data-directory: playsql/data/ut/tsv/UTF-8
+
+00-rule_book.tsv (1)
+01-rule_book_dictionary.tsv (2)
+10-scenario.tsv (4)

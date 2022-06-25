@@ -38,7 +38,9 @@ class ScenarioTukerUserDetailService(
                 uid = uid,
                 authority = Authority.User,
                 name = "未設定",
-                twitterUserName = null
+                twitterUserName = null,
+                follows = emptyList(),
+                followers = emptyList()
             )
         )
         return ScenarioTukerUser(

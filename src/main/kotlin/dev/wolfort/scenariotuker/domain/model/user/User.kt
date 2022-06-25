@@ -10,5 +10,7 @@ data class User(
     @JsonIgnore
     val authority: Authority,
     val name: String,
-    val twitterUserName: String?
+    val twitterUserName: String?,
+    val follows: List<Int>,
+    val followers: List<Int>
 )

@@ -177,6 +177,44 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     public abstract String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq);
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select from_user_id from user_follow where ...)} <br>
+     * user_follow by from_user_id, named 'userFollowByFromUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserFollowByFromUserId</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserFollowByFromUserIdList for 'exists'. (NotNull)
+     */
+    public void existsUserFollowByFromUserId(SubQuery<DbUserFollowCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_UserFollowByFromUserIdList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "from_user_id", pp, "userFollowByFromUserIdList");
+    }
+    public abstract String keepUserId_ExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select to_user_id from user_follow where ...)} <br>
+     * user_follow by to_user_id, named 'userFollowByToUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserFollowByToUserId</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserFollowByToUserIdList for 'exists'. (NotNull)
+     */
+    public void existsUserFollowByToUserId(SubQuery<DbUserFollowCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_UserFollowByToUserIdList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "to_user_id", pp, "userFollowByToUserIdList");
+    }
+    public abstract String keepUserId_ExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq);
+
+    /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select user_id from participate where ...)} <br>
      * participate by user_id, named 'participateAsOne'.
@@ -195,6 +233,44 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     }
     public abstract String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq);
 
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select from_user_id from user_follow where ...)} <br>
+     * user_follow by from_user_id, named 'userFollowByFromUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserFollowByFromUserId</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_UserFollowByFromUserIdList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserFollowByFromUserId(SubQuery<DbUserFollowCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_UserFollowByFromUserIdList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "from_user_id", pp, "userFollowByFromUserIdList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select to_user_id from user_follow where ...)} <br>
+     * user_follow by to_user_id, named 'userFollowByToUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserFollowByToUserId</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_UserFollowByToUserIdList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserFollowByToUserId(SubQuery<DbUserFollowCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_UserFollowByToUserIdList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "to_user_id", pp, "userFollowByToUserIdList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq);
+
     public void xsderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
@@ -202,6 +278,22 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "participateList", al, op);
     }
     public abstract String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq);
+
+    public void xsderiveUserFollowByFromUserIdList(String fn, SubQuery<DbUserFollowCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_UserFollowByFromUserIdList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "from_user_id", pp, "userFollowByFromUserIdList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq);
+
+    public void xsderiveUserFollowByToUserIdList(String fn, SubQuery<DbUserFollowCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_UserFollowByToUserIdList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "to_user_id", pp, "userFollowByToUserIdList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -229,6 +321,60 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     }
     public abstract String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq);
     public abstract String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_follow where ...)} <br>
+     * user_follow by from_user_id, named 'userFollowByFromUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserFollowByFromUserId()</span>.<span style="color: #CC4747">max</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     followCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbUserFollowCB> derivedUserFollowByFromUserId() {
+        return xcreateQDRFunctionUserFollowByFromUserIdList();
+    }
+    protected HpQDRFunction<DbUserFollowCB> xcreateQDRFunctionUserFollowByFromUserIdList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserFollowByFromUserIdList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserFollowByFromUserIdList(String fn, SubQuery<DbUserFollowCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "from_user_id", sqpp, "userFollowByFromUserIdList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_follow where ...)} <br>
+     * user_follow by to_user_id, named 'userFollowByToUserIdAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserFollowByToUserId()</span>.<span style="color: #CC4747">max</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     followCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     followCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbUserFollowCB> derivedUserFollowByToUserId() {
+        return xcreateQDRFunctionUserFollowByToUserIdList();
+    }
+    protected HpQDRFunction<DbUserFollowCB> xcreateQDRFunctionUserFollowByToUserIdList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserFollowByToUserIdList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserFollowByToUserIdList(String fn, SubQuery<DbUserFollowCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_UserFollowByToUserIdList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_UserFollowByToUserIdListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "to_user_id", sqpp, "userFollowByToUserIdList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>

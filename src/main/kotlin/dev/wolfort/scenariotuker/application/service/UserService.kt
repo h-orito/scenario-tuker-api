@@ -36,6 +36,9 @@ class UserService(private val userRepository: UserRepository) {
         return userRepository.update(resource.toUser(existing.twitterUserName))
     }
 
+    fun follow(fromId: Int, toId: Int) = userRepository.follow(fromId, toId)
+    fun unfollow(fromId: Int, toId: Int) = userRepository.unfollow(fromId, toId)
+
     data class UserCreateResource(
         val uid: String,
         val name: String,
@@ -46,7 +49,9 @@ class UserService(private val userRepository: UserRepository) {
             uid = uid,
             authority = Authority.User,
             name = name,
-            twitterUserName = twitterUserName
+            twitterUserName = twitterUserName,
+            follows = emptyList(),
+            followers = emptyList()
         )
     }
 
@@ -59,7 +64,9 @@ class UserService(private val userRepository: UserRepository) {
             uid = uid,
             authority = Authority.User,
             name = name,
-            twitterUserName = twitterUserName
+            twitterUserName = twitterUserName,
+            follows = emptyList(),
+            followers = emptyList()
         )
     }
 }

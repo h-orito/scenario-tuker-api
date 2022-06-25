@@ -1,7 +1,9 @@
 package dev.wolfort.scenariotuker.infrastructure.rdb
 
 import dev.wolfort.dbflute.exbhv.DbUserBhv
+import dev.wolfort.dbflute.exbhv.DbUserFollowBhv
 import dev.wolfort.dbflute.exentity.DbUser
+import dev.wolfort.dbflute.exentity.DbUserFollow
 import dev.wolfort.scenariotuker.domain.model.user.User
 import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.domain.model.user.UserRepository
@@ -12,13 +14,15 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class UserRepositoryImpl(
-    private val userBhv: DbUserBhv
+    private val userBhv: DbUserBhv,
+    private val userFollowBhv: DbUserFollowBhv
 ) : UserRepository {
 
     override fun findAll(): Users {
         val dbUserList = userBhv.selectList {
             it.query().addOrderBy_UserId_Asc()
         }
+        loadUserFollow(dbUserList)
         return mappingToUsers(dbUserList)
     }
 
@@ -27,6 +31,7 @@ class UserRepositoryImpl(
         val dbUserList = userBhv.selectList {
             it.query().setUserId_InScope(ids)
         }
+        loadUserFollow(dbUserList)
         return mappingToUsers(ids.mapNotNull { id -> dbUserList.find { it.userId == id } })
     }
 
@@ -44,6 +49,7 @@ class UserRepositoryImpl(
             }
             it.query().addOrderBy_UserId_Asc()
         }
+        loadUserFollow(dbUserList)
         return mappingToUsers(dbUserList)
     }
 
@@ -51,14 +57,26 @@ class UserRepositoryImpl(
         val optDbUser = userBhv.selectEntity {
             it.query().setUserId_Equal(id)
         }
-        return optDbUser.map { mappingToUser(it) }.orElse(null)
+        if (!optDbUser.isPresent) return null
+        val dbUser = optDbUser.get()
+        userBhv.load(dbUser) {
+            it.loadUserFollowByFromUserId { }
+            it.loadUserFollowByToUserId { }
+        }
+        return mappingToUser(dbUser)
     }
 
     override fun findByUid(uid: String): User? {
         val optDbUser = userBhv.selectEntity {
             it.query().setUid_Equal(uid)
         }
-        return optDbUser.map { mappingToUser(it) }.orElse(null)
+        if (!optDbUser.isPresent) return null
+        val dbUser = optDbUser.get()
+        userBhv.load(dbUser) {
+            it.loadUserFollowByFromUserId { }
+            it.loadUserFollowByToUserId { }
+        }
+        return mappingToUser(dbUser)
     }
 
     override fun register(user: User): User {
@@ -82,6 +100,36 @@ class UserRepositoryImpl(
         return findByUid(user.uid)!!
     }
 
+    override fun follow(fromId: Int, toId: Int) {
+        val exists = userFollowBhv.selectEntity {
+            it.query().setFromUserId_Equal(fromId)
+            it.query().setToUserId_Equal(toId)
+        }
+        if (exists.isPresent) return
+        val f = DbUserFollow()
+        f.fromUserId = fromId
+        f.toUserId = toId
+        userFollowBhv.insert(f)
+    }
+
+    override fun unfollow(fromId: Int, toId: Int) {
+        val exists = userFollowBhv.selectEntity {
+            it.query().setFromUserId_Equal(fromId)
+            it.query().setToUserId_Equal(toId)
+        }
+        if (!exists.isPresent) return
+        userFollowBhv.delete(exists.get())
+    }
+
+    private fun loadUserFollow(dbUserList: List<DbUser>) {
+        if (dbUserList.isNotEmpty()) {
+            userBhv.load(dbUserList) {
+                it.loadUserFollowByFromUserId { }
+                it.loadUserFollowByToUserId { }
+            }
+        }
+    }
+
     private fun mappingToUsers(list: List<DbUser>): Users {
         return Users(list = list.map { mappingToUser(it) })
     }
@@ -92,7 +140,9 @@ class UserRepositoryImpl(
             uid = user.uid,
             authority = Authority.valueOf(user.authority),
             name = user.userName,
-            twitterUserName = user.twitterUserName
+            twitterUserName = user.twitterUserName,
+            follows = user.userFollowByFromUserIdList.map { it.toUserId },
+            followers = user.userFollowByToUserIdList.map { it.fromUserId }
         )
     }
 }

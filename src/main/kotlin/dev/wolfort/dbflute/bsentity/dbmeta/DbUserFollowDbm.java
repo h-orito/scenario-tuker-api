@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -13,17 +14,17 @@ import dev.wolfort.dbflute.allcommon.*;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The DB meta of user. (Singleton)
+ * The DB meta of user_follow. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class DbUserDbm extends AbstractDBMeta {
+public class DbUserFollowDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final DbUserDbm _instance = new DbUserDbm();
-    private DbUserDbm() {}
-    public static DbUserDbm getInstance() { return _instance; }
+    private static final DbUserFollowDbm _instance = new DbUserFollowDbm();
+    private DbUserFollowDbm() {}
+    public static DbUserFollowDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -42,26 +43,37 @@ public class DbUserDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((DbUser)et).getUserId(), (et, vl) -> ((DbUser)et).setUserId(cti(vl)), "userId");
-        setupEpg(_epgMap, et -> ((DbUser)et).getUserName(), (et, vl) -> ((DbUser)et).setUserName((String)vl), "userName");
-        setupEpg(_epgMap, et -> ((DbUser)et).getUid(), (et, vl) -> ((DbUser)et).setUid((String)vl), "uid");
-        setupEpg(_epgMap, et -> ((DbUser)et).getTwitterUserName(), (et, vl) -> ((DbUser)et).setTwitterUserName((String)vl), "twitterUserName");
-        setupEpg(_epgMap, et -> ((DbUser)et).getAuthority(), (et, vl) -> ((DbUser)et).setAuthority((String)vl), "authority");
-        setupEpg(_epgMap, et -> ((DbUser)et).getRegisterDatetime(), (et, vl) -> ((DbUser)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
-        setupEpg(_epgMap, et -> ((DbUser)et).getRegisterTrace(), (et, vl) -> ((DbUser)et).setRegisterTrace((String)vl), "registerTrace");
-        setupEpg(_epgMap, et -> ((DbUser)et).getUpdateDatetime(), (et, vl) -> ((DbUser)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
-        setupEpg(_epgMap, et -> ((DbUser)et).getUpdateTrace(), (et, vl) -> ((DbUser)et).setUpdateTrace((String)vl), "updateTrace");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getUserFollowId(), (et, vl) -> ((DbUserFollow)et).setUserFollowId(cti(vl)), "userFollowId");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getFromUserId(), (et, vl) -> ((DbUserFollow)et).setFromUserId(cti(vl)), "fromUserId");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getToUserId(), (et, vl) -> ((DbUserFollow)et).setToUserId(cti(vl)), "toUserId");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getRegisterDatetime(), (et, vl) -> ((DbUserFollow)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getRegisterTrace(), (et, vl) -> ((DbUserFollow)et).setRegisterTrace((String)vl), "registerTrace");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getUpdateDatetime(), (et, vl) -> ((DbUserFollow)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((DbUserFollow)et).getUpdateTrace(), (et, vl) -> ((DbUserFollow)et).setUpdateTrace((String)vl), "updateTrace");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((DbUserFollow)et).getUserByFromUserId(), (et, vl) -> ((DbUserFollow)et).setUserByFromUserId((OptionalEntity<DbUser>)vl), "userByFromUserId");
+        setupEfpg(_efpgMap, et -> ((DbUserFollow)et).getUserByToUserId(), (et, vl) -> ((DbUserFollow)et).setUserByToUserId((OptionalEntity<DbUser>)vl), "userByToUserId");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "user";
-    protected final String _tableDispName = "USER";
-    protected final String _tablePropertyName = "user";
-    protected final TableSqlName _tableSqlName = new TableSqlName("USER", _tableDbName);
+    protected final String _tableDbName = "user_follow";
+    protected final String _tableDispName = "USER_FOLLOW";
+    protected final String _tablePropertyName = "userFollow";
+    protected final TableSqlName _tableSqlName = new TableSqlName("USER_FOLLOW", _tableDbName);
     { _tableSqlName.xacceptFilter(DbDBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -71,41 +83,29 @@ public class DbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,userFollowByFromUserIdList,userFollowByToUserIdList", null, false);
-    protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnUid = cci("uid", "uid", null, null, String.class, "uid", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTwitterUserName = cci("twitter_user_name", "twitter_user_name", null, null, String.class, "twitterUserName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnAuthority = cci("authority", "authority", null, null, String.class, "authority", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnUserFollowId = cci("user_follow_id", "user_follow_id", null, null, Integer.class, "userFollowId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnFromUserId = cci("from_user_id", "from_user_id", null, null, Integer.class, "fromUserId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "userByFromUserId", null, null, false);
+    protected final ColumnInfo _columnToUserId = cci("to_user_id", "to_user_id", null, null, Integer.class, "toUserId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "userByToUserId", null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateTrace = cci("update_trace", "update_trace", null, null, String.class, "updateTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
 
     /**
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnUserId() { return _columnUserId; }
+    public ColumnInfo columnUserFollowId() { return _columnUserFollowId; }
     /**
-     * user_name: {NotNull, VARCHAR(50)}
+     * from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnUserName() { return _columnUserName; }
+    public ColumnInfo columnFromUserId() { return _columnFromUserId; }
     /**
-     * uid: {UQ, NotNull, VARCHAR(255)}
+     * to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnUid() { return _columnUid; }
-    /**
-     * twitter_user_name: {VARCHAR(50)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnTwitterUserName() { return _columnTwitterUserName; }
-    /**
-     * authority: {NotNull, VARCHAR(50)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnAuthority() { return _columnAuthority; }
+    public ColumnInfo columnToUserId() { return _columnToUserId; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -129,11 +129,9 @@ public class DbUserDbm extends AbstractDBMeta {
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
-        ls.add(columnUserId());
-        ls.add(columnUserName());
-        ls.add(columnUid());
-        ls.add(columnTwitterUserName());
-        ls.add(columnAuthority());
+        ls.add(columnUserFollowId());
+        ls.add(columnFromUserId());
+        ls.add(columnToUserId());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());
@@ -149,14 +147,19 @@ public class DbUserDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnUserId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnUserFollowId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    public UniqueInfo uniqueOf() { return hpcui(columnUid()); }
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnFromUserId());
+        ls.add(columnToUserId());
+        return hpcui(ls);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -166,34 +169,26 @@ public class DbUserDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * USER by my from_user_id, named 'userByFromUserId'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserByFromUserId() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnFromUserId(), DbUserDbm.getInstance().columnUserId());
+        return cfi("fk_user_follow_from_user", "userByFromUserId", this, DbUserDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userFollowByFromUserIdList", false);
+    }
+    /**
+     * USER by my to_user_id, named 'userByToUserId'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignUserByToUserId() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnToUserId(), DbUserDbm.getInstance().columnUserId());
+        return cfi("fk_user_follow_to_user", "userByToUserId", this, DbUserDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "userFollowByToUserIdList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
-    /**
-     * PARTICIPATE by user_id, named 'participateList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerParticipateList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbParticipateDbm.getInstance().columnUserId());
-        return cri("fk_participate_user", "participateList", this, DbParticipateDbm.getInstance(), mp, false, "user");
-    }
-    /**
-     * USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerUserFollowByFromUserIdList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserFollowDbm.getInstance().columnFromUserId());
-        return cri("fk_user_follow_from_user", "userFollowByFromUserIdList", this, DbUserFollowDbm.getInstance(), mp, false, "userByFromUserId");
-    }
-    /**
-     * USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerUserFollowByToUserIdList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserFollowDbm.getInstance().columnToUserId());
-        return cri("fk_user_follow_to_user", "userFollowByToUserIdList", this, DbUserFollowDbm.getInstance(), mp, false, "userByToUserId");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
@@ -210,27 +205,27 @@ public class DbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbUser"; }
-    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbUserCB"; }
-    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbUserBhv"; }
+    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbUserFollow"; }
+    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbUserFollowCB"; }
+    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbUserFollowBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<DbUser> getEntityType() { return DbUser.class; }
+    public Class<DbUserFollow> getEntityType() { return DbUserFollow.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public DbUser newEntity() { return new DbUser(); }
+    public DbUserFollow newEntity() { return new DbUserFollow(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((DbUser)et, mp); }
+    { doAcceptPrimaryKeyMap((DbUserFollow)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((DbUser)et, mp); }
+    { doAcceptAllColumnMap((DbUserFollow)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

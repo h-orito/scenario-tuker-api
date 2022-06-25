@@ -8,6 +8,14 @@ entity User {
     twitter_user_name: varchar(50)
 }
 
+entity UserFollow {
+    * user_follow_id: int unsigned <<generated>>
+    * from_user_id: int unsigned
+    * to_user_id: int unsigned
+}
+
+User ||-o{ UserFollow
+
 entity RuleBook {
     * rule_book_id: int unsigned <<generated>>
     --

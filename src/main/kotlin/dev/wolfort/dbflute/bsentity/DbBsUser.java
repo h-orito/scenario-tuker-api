@@ -32,13 +32,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [referrer table]
- *     PARTICIPATE
+ *     PARTICIPATE, USER_FOLLOW
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     participateList
+ *     participateList, userFollowByFromUserIdList, userFollowByToUserIdList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -161,6 +161,46 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         _participateList = participateList;
     }
 
+    /** USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'. */
+    protected List<DbUserFollow> _userFollowByFromUserIdList;
+
+    /**
+     * [get] USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
+     * @return The entity list of referrer property 'userFollowByFromUserIdList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserFollow> getUserFollowByFromUserIdList() {
+        if (_userFollowByFromUserIdList == null) { _userFollowByFromUserIdList = newReferrerList(); }
+        return _userFollowByFromUserIdList;
+    }
+
+    /**
+     * [set] USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
+     * @param userFollowByFromUserIdList The entity list of referrer property 'userFollowByFromUserIdList'. (NullAllowed)
+     */
+    public void setUserFollowByFromUserIdList(List<DbUserFollow> userFollowByFromUserIdList) {
+        _userFollowByFromUserIdList = userFollowByFromUserIdList;
+    }
+
+    /** USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'. */
+    protected List<DbUserFollow> _userFollowByToUserIdList;
+
+    /**
+     * [get] USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
+     * @return The entity list of referrer property 'userFollowByToUserIdList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserFollow> getUserFollowByToUserIdList() {
+        if (_userFollowByToUserIdList == null) { _userFollowByToUserIdList = newReferrerList(); }
+        return _userFollowByToUserIdList;
+    }
+
+    /**
+     * [set] USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
+     * @param userFollowByToUserIdList The entity list of referrer property 'userFollowByToUserIdList'. (NullAllowed)
+     */
+    public void setUserFollowByToUserIdList(List<DbUserFollow> userFollowByToUserIdList) {
+        _userFollowByToUserIdList = userFollowByToUserIdList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -192,6 +232,10 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         StringBuilder sb = new StringBuilder();
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
+        if (_userFollowByFromUserIdList != null) { for (DbUserFollow et : _userFollowByFromUserIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userFollowByFromUserIdList")); } } }
+        if (_userFollowByToUserIdList != null) { for (DbUserFollow et : _userFollowByToUserIdList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userFollowByToUserIdList")); } } }
         return sb.toString();
     }
 
@@ -219,6 +263,10 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         StringBuilder sb = new StringBuilder();
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
+        if (_userFollowByFromUserIdList != null && !_userFollowByFromUserIdList.isEmpty())
+        { sb.append(dm).append("userFollowByFromUserIdList"); }
+        if (_userFollowByToUserIdList != null && !_userFollowByToUserIdList.isEmpty())
+        { sb.append(dm).append("userFollowByToUserIdList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
