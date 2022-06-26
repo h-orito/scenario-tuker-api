@@ -19,7 +19,8 @@ enum class RoleType {
     PlayerCharacter6,
     PlayerCharacter7,
     PlayerCharacter8,
-    Audience;
+    Audience,
+    Participant;
 
     companion object {
         val murderMysteries: List<RoleType> = listOf(
@@ -32,7 +33,8 @@ enum class RoleType {
             PlayerCharacter6,
             PlayerCharacter7,
             PlayerCharacter8,
-            Audience
+            Audience,
+            Participant
         )
 
         val trpgs: List<RoleType> = listOf(
@@ -45,7 +47,8 @@ enum class RoleType {
             HandOut6,
             HandOut7,
             HandOut8,
-            Audience
+            Audience,
+            Participant
         )
     }
 }
