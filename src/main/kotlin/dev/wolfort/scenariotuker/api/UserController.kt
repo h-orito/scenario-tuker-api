@@ -7,16 +7,20 @@ import dev.wolfort.scenariotuker.application.service.ParticipateService
 import dev.wolfort.scenariotuker.application.service.RuleBookService
 import dev.wolfort.scenariotuker.application.service.ScenarioService
 import dev.wolfort.scenariotuker.application.service.UserService
+import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
 import dev.wolfort.scenariotuker.domain.model.participate.RoleType
 import dev.wolfort.scenariotuker.domain.model.user.User
 import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.domain.model.user.Users
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
+import org.hibernate.validator.constraints.Length
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -69,12 +73,23 @@ class UserController(
     }
 
     @GetMapping("/{userId}/participates")
-    private fun userParticipates(@PathVariable userId: Int): ParticipatesResponse {
+    private fun userParticipates(
+        @PathVariable userId: Int,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser?
+    ): ParticipatesResponse {
         userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
-        val participates = participateService.findAllByUserId(userId)
+        var participates = participateService.findAllByUserId(userId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
         val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
         val users = userService.findAllByIds(participates.list.map { it.userId })
+        val myself = sTukerUser?.let { userService.findByUid(it.uid) }
+        // 自分以外の場合感想の内容は隠す（別途取得させる）
+        if (users.list.none { it.id == myself?.id }) {
+            participates = participates.copy(
+                list = participates.list.map { it.copy(impression = it.impression?.copy(content = "")) }
+            )
+        }
+
         return ParticipatesResponse(participates, scenarios, ruleBooks, users)
     }
 
@@ -87,8 +102,8 @@ class UserController(
     private fun myself(
         @AuthenticationPrincipal user: ScenarioTukerUser,
         @RequestBody body: MyselfPutRequest
-    ) {
-        userService.update(body.toUpdateResource(user.uid))
+    ): User {
+        return userService.update(body.toUpdateResource(user.uid))
     }
 
     data class MyselfPutRequest(
@@ -103,7 +118,7 @@ class UserController(
 
     @PostMapping("/myself/participates")
     private fun post(
-        @RequestBody request: ParticipatePostRequest,
+        @RequestBody @Validated request: ParticipatePostRequest,
         @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
     ): ParticipateResponse {
         val user = userService.findByUid(sTukerUser.uid)
@@ -118,14 +133,29 @@ class UserController(
         var id: Int? = null,
         var scenarioId: Int = 0,
         var roleTypes: List<RoleType> = emptyList(),
-        var dispOrder: Int?
+        var dispOrder: Int? = 0,
+        @Valid
+        var impression: ParticipateImpressionPostRequest? = null
     ) {
+
+        data class ParticipateImpressionPostRequest(
+            var hasSpoiler: Boolean = true,
+            var disclosureRange: DisclosureRange = DisclosureRange.OnlyMe,
+            @field:Length(max = 10000)
+            var content: String? = null
+        )
+
         fun toParticipate(userId: Int) = Participate(
             id = id ?: 0,
             scenarioId = scenarioId,
             userId = userId,
             roleTypes = roleTypes,
-            dispOrder = dispOrder ?: 0
+            dispOrder = dispOrder ?: 0,
+            impression = if (impression?.content.isNullOrBlank()) null else ParticipateImpression(
+                hasSpoiler = impression!!.hasSpoiler,
+                disclosureRange = impression!!.disclosureRange,
+                content = impression!!.content!!.trim()
+            )
         )
     }
 

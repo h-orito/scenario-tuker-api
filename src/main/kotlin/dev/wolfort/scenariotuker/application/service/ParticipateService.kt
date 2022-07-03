@@ -27,7 +27,8 @@ class ParticipateService(
         existing.list.find { it.scenarioId == participate.scenarioId }?.let { existingParticipate ->
             return participateRepository.update(
                 existingParticipate.copy(
-                    roleTypes = (existingParticipate.roleTypes + participate.roleTypes).distinct()
+                    roleTypes = (existingParticipate.roleTypes + participate.roleTypes).distinct(),
+                    impression = participate.impression
                 )
             )
         }

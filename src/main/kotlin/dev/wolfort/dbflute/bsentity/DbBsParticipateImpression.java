@@ -13,49 +13,51 @@ import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The entity of PARTICIPATE as TABLE. <br>
+ * The entity of PARTICIPATE_IMPRESSION as TABLE. <br>
  * <pre>
  * [primary-key]
- *     participate_id
+ *     participate_impression_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, disp_order, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_impression_id, participate_id, has_spoiler, disclosure_range, impression, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     participate_id
+ *     participate_impression_id
  *
  * [version-no]
  *     
  *
  * [foreign table]
- *     SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
+ *     PARTICIPATE
  *
  * [referrer table]
- *     PARTICIPATE_ROLE, PARTICIPATE_IMPRESSION
+ *     
  *
  * [foreign property]
- *     scenario, user, participateImpressionAsOne
+ *     participate
  *
  * [referrer property]
- *     participateRoleList
+ *     
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+ * Integer participateImpressionId = entity.getParticipateImpressionId();
  * Integer participateId = entity.getParticipateId();
- * Integer scenarioId = entity.getScenarioId();
- * Integer userId = entity.getUserId();
- * Integer dispOrder = entity.getDispOrder();
+ * Boolean hasSpoiler = entity.getHasSpoiler();
+ * String disclosureRange = entity.getDisclosureRange();
+ * String impression = entity.getImpression();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
+ * entity.setParticipateImpressionId(participateImpressionId);
  * entity.setParticipateId(participateId);
- * entity.setScenarioId(scenarioId);
- * entity.setUserId(userId);
- * entity.setDispOrder(dispOrder);
+ * entity.setHasSpoiler(hasSpoiler);
+ * entity.setDisclosureRange(disclosureRange);
+ * entity.setImpression(impression);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -64,7 +66,7 @@ import dev.wolfort.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbBsParticipate extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
+public abstract class DbBsParticipateImpression extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -75,17 +77,20 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** participate_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    /** participate_impression_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    protected Integer _participateImpressionId;
+
+    /** participate_id: {UQ, NotNull, INT UNSIGNED(10), FK to participate} */
     protected Integer _participateId;
 
-    /** scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} */
-    protected Integer _scenarioId;
+    /** has_spoiler: {NotNull, BIT} */
+    protected Boolean _hasSpoiler;
 
-    /** user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} */
-    protected Integer _userId;
+    /** disclosure_range: {NotNull, VARCHAR(50)} */
+    protected String _disclosureRange;
 
-    /** disp_order: {NotNull, INT UNSIGNED(10)} */
-    protected Integer _dispOrder;
+    /** impression: {NotNull, TEXT(65535)} */
+    protected String _impression;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -109,7 +114,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "participate";
+        return "participate_impression";
     }
 
     // ===================================================================================
@@ -117,112 +122,48 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_participateId == null) { return false; }
+        if (_participateImpressionId == null) { return false; }
         return true;
     }
 
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
-     * @param userId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param participateId : UQ, NotNull, INT UNSIGNED(10), FK to participate. (NotNull)
      */
-    public void uniqueBy(Integer scenarioId, Integer userId) {
+    public void uniqueBy(Integer participateId) {
         __uniqueDrivenProperties.clear();
-        __uniqueDrivenProperties.addPropertyName("scenarioId");
-        __uniqueDrivenProperties.addPropertyName("userId");
-        setScenarioId(scenarioId);setUserId(userId);
+        __uniqueDrivenProperties.addPropertyName("participateId");
+        setParticipateId(participateId);
     }
 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** SCENARIO by my scenario_id, named 'scenario'. */
-    protected OptionalEntity<DbScenario> _scenario;
+    /** PARTICIPATE by my participate_id, named 'participate'. */
+    protected OptionalEntity<DbParticipate> _participate;
 
     /**
-     * [get] SCENARIO by my scenario_id, named 'scenario'. <br>
+     * [get] PARTICIPATE by my participate_id, named 'participate'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'scenario'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     * @return The entity of foreign property 'participate'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public OptionalEntity<DbScenario> getScenario() {
-        if (_scenario == null) { _scenario = OptionalEntity.relationEmpty(this, "scenario"); }
-        return _scenario;
+    public OptionalEntity<DbParticipate> getParticipate() {
+        if (_participate == null) { _participate = OptionalEntity.relationEmpty(this, "participate"); }
+        return _participate;
     }
 
     /**
-     * [set] SCENARIO by my scenario_id, named 'scenario'.
-     * @param scenario The entity of foreign property 'scenario'. (NullAllowed)
+     * [set] PARTICIPATE by my participate_id, named 'participate'.
+     * @param participate The entity of foreign property 'participate'. (NullAllowed)
      */
-    public void setScenario(OptionalEntity<DbScenario> scenario) {
-        _scenario = scenario;
-    }
-
-    /** USER by my user_id, named 'user'. */
-    protected OptionalEntity<DbUser> _user;
-
-    /**
-     * [get] USER by my user_id, named 'user'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'user'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<DbUser> getUser() {
-        if (_user == null) { _user = OptionalEntity.relationEmpty(this, "user"); }
-        return _user;
-    }
-
-    /**
-     * [set] USER by my user_id, named 'user'.
-     * @param user The entity of foreign property 'user'. (NullAllowed)
-     */
-    public void setUser(OptionalEntity<DbUser> user) {
-        _user = user;
-    }
-
-    /** participate_impression by participate_id, named 'participateImpressionAsOne'. */
-    protected OptionalEntity<DbParticipateImpression> _participateImpressionAsOne;
-
-    /**
-     * [get] participate_impression by participate_id, named 'participateImpressionAsOne'.
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return the entity of foreign property(referrer-as-one) 'participateImpressionAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
-     */
-    public OptionalEntity<DbParticipateImpression> getParticipateImpressionAsOne() {
-        if (_participateImpressionAsOne == null) { _participateImpressionAsOne = OptionalEntity.relationEmpty(this, "participateImpressionAsOne"); }
-        return _participateImpressionAsOne;
-    }
-
-    /**
-     * [set] participate_impression by participate_id, named 'participateImpressionAsOne'.
-     * @param participateImpressionAsOne The entity of foreign property(referrer-as-one) 'participateImpressionAsOne'. (NullAllowed)
-     */
-    public void setParticipateImpressionAsOne(OptionalEntity<DbParticipateImpression> participateImpressionAsOne) {
-        _participateImpressionAsOne = participateImpressionAsOne;
+    public void setParticipate(OptionalEntity<DbParticipate> participate) {
+        _participate = participate;
     }
 
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** PARTICIPATE_ROLE by participate_id, named 'participateRoleList'. */
-    protected List<DbParticipateRole> _participateRoleList;
-
-    /**
-     * [get] PARTICIPATE_ROLE by participate_id, named 'participateRoleList'.
-     * @return The entity list of referrer property 'participateRoleList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbParticipateRole> getParticipateRoleList() {
-        if (_participateRoleList == null) { _participateRoleList = newReferrerList(); }
-        return _participateRoleList;
-    }
-
-    /**
-     * [set] PARTICIPATE_ROLE by participate_id, named 'participateRoleList'.
-     * @param participateRoleList The entity list of referrer property 'participateRoleList'. (NullAllowed)
-     */
-    public void setParticipateRoleList(List<DbParticipateRole> participateRoleList) {
-        _participateRoleList = participateRoleList;
-    }
-
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -232,9 +173,9 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     //                                                                      ==============
     @Override
     protected boolean doEquals(Object obj) {
-        if (obj instanceof DbBsParticipate) {
-            DbBsParticipate other = (DbBsParticipate)obj;
-            if (!xSV(_participateId, other._participateId)) { return false; }
+        if (obj instanceof DbBsParticipateImpression) {
+            DbBsParticipateImpression other = (DbBsParticipateImpression)obj;
+            if (!xSV(_participateImpressionId, other._participateImpressionId)) { return false; }
             return true;
         } else {
             return false;
@@ -245,21 +186,15 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     protected int doHashCode(int initial) {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
-        hs = xCH(hs, _participateId);
+        hs = xCH(hs, _participateImpressionId);
         return hs;
     }
 
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_scenario != null && _scenario.isPresent())
-        { sb.append(li).append(xbRDS(_scenario, "scenario")); }
-        if (_user != null && _user.isPresent())
-        { sb.append(li).append(xbRDS(_user, "user")); }
-        if (_participateImpressionAsOne != null && _participateImpressionAsOne.isPresent())
-        { sb.append(li).append(xbRDS(_participateImpressionAsOne, "participateImpressionAsOne")); }
-        if (_participateRoleList != null) { for (DbParticipateRole et : _participateRoleList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "participateRoleList")); } } }
+        if (_participate != null && _participate.isPresent())
+        { sb.append(li).append(xbRDS(_participate, "participate")); }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -269,10 +204,11 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
+        sb.append(dm).append(xfND(_participateImpressionId));
         sb.append(dm).append(xfND(_participateId));
-        sb.append(dm).append(xfND(_scenarioId));
-        sb.append(dm).append(xfND(_userId));
-        sb.append(dm).append(xfND(_dispOrder));
+        sb.append(dm).append(xfND(_hasSpoiler));
+        sb.append(dm).append(xfND(_disclosureRange));
+        sb.append(dm).append(xfND(_impression));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -287,14 +223,8 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_scenario != null && _scenario.isPresent())
-        { sb.append(dm).append("scenario"); }
-        if (_user != null && _user.isPresent())
-        { sb.append(dm).append("user"); }
-        if (_participateImpressionAsOne != null && _participateImpressionAsOne.isPresent())
-        { sb.append(dm).append("participateImpressionAsOne"); }
-        if (_participateRoleList != null && !_participateRoleList.isEmpty())
-        { sb.append(dm).append("participateRoleList"); }
+        if (_participate != null && _participate.isPresent())
+        { sb.append(dm).append("participate"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -302,15 +232,33 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     @Override
-    public DbParticipate clone() {
-        return (DbParticipate)super.clone();
+    public DbParticipateImpression clone() {
+        return (DbParticipateImpression)super.clone();
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] participate_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * [get] participate_impression_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'participate_impression_id'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getParticipateImpressionId() {
+        checkSpecifiedProperty("participateImpressionId");
+        return _participateImpressionId;
+    }
+
+    /**
+     * [set] participate_impression_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @param participateImpressionId The value of the column 'participate_impression_id'. (basically NotNull if update: for the constraint)
+     */
+    public void setParticipateImpressionId(Integer participateImpressionId) {
+        registerModifiedProperty("participateImpressionId");
+        _participateImpressionId = participateImpressionId;
+    }
+
+    /**
+     * [get] participate_id: {UQ, NotNull, INT UNSIGNED(10), FK to participate} <br>
      * @return The value of the column 'participate_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getParticipateId() {
@@ -319,7 +267,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] participate_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * [set] participate_id: {UQ, NotNull, INT UNSIGNED(10), FK to participate} <br>
      * @param participateId The value of the column 'participate_id'. (basically NotNull if update: for the constraint)
      */
     public void setParticipateId(Integer participateId) {
@@ -328,57 +276,57 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} <br>
-     * @return The value of the column 'scenario_id'. (basically NotNull if selected: for the constraint)
+     * [get] has_spoiler: {NotNull, BIT} <br>
+     * @return The value of the column 'has_spoiler'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getScenarioId() {
-        checkSpecifiedProperty("scenarioId");
-        return _scenarioId;
+    public Boolean getHasSpoiler() {
+        checkSpecifiedProperty("hasSpoiler");
+        return _hasSpoiler;
     }
 
     /**
-     * [set] scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} <br>
-     * @param scenarioId The value of the column 'scenario_id'. (basically NotNull if update: for the constraint)
+     * [set] has_spoiler: {NotNull, BIT} <br>
+     * @param hasSpoiler The value of the column 'has_spoiler'. (basically NotNull if update: for the constraint)
      */
-    public void setScenarioId(Integer scenarioId) {
-        registerModifiedProperty("scenarioId");
-        _scenarioId = scenarioId;
+    public void setHasSpoiler(Boolean hasSpoiler) {
+        registerModifiedProperty("hasSpoiler");
+        _hasSpoiler = hasSpoiler;
     }
 
     /**
-     * [get] user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
+     * [get] disclosure_range: {NotNull, VARCHAR(50)} <br>
+     * @return The value of the column 'disclosure_range'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getUserId() {
-        checkSpecifiedProperty("userId");
-        return _userId;
+    public String getDisclosureRange() {
+        checkSpecifiedProperty("disclosureRange");
+        return convertEmptyToNull(_disclosureRange);
     }
 
     /**
-     * [set] user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
+     * [set] disclosure_range: {NotNull, VARCHAR(50)} <br>
+     * @param disclosureRange The value of the column 'disclosure_range'. (basically NotNull if update: for the constraint)
      */
-    public void setUserId(Integer userId) {
-        registerModifiedProperty("userId");
-        _userId = userId;
+    public void setDisclosureRange(String disclosureRange) {
+        registerModifiedProperty("disclosureRange");
+        _disclosureRange = disclosureRange;
     }
 
     /**
-     * [get] disp_order: {NotNull, INT UNSIGNED(10)} <br>
-     * @return The value of the column 'disp_order'. (basically NotNull if selected: for the constraint)
+     * [get] impression: {NotNull, TEXT(65535)} <br>
+     * @return The value of the column 'impression'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getDispOrder() {
-        checkSpecifiedProperty("dispOrder");
-        return _dispOrder;
+    public String getImpression() {
+        checkSpecifiedProperty("impression");
+        return convertEmptyToNull(_impression);
     }
 
     /**
-     * [set] disp_order: {NotNull, INT UNSIGNED(10)} <br>
-     * @param dispOrder The value of the column 'disp_order'. (basically NotNull if update: for the constraint)
+     * [set] impression: {NotNull, TEXT(65535)} <br>
+     * @param impression The value of the column 'impression'. (basically NotNull if update: for the constraint)
      */
-    public void setDispOrder(Integer dispOrder) {
-        registerModifiedProperty("dispOrder");
-        _dispOrder = dispOrder;
+    public void setImpression(String impression) {
+        registerModifiedProperty("impression");
+        _impression = impression;
     }
 
     /**

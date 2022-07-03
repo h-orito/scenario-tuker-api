@@ -294,6 +294,9 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
         if (bq.hasConditionQueryUser()) {
             uq.queryUser().reflectRelationOnUnionQuery(bq.queryUser(), uq.queryUser());
         }
+        if (bq.hasConditionQueryParticipateImpressionAsOne()) {
+            uq.queryParticipateImpressionAsOne().reflectRelationOnUnionQuery(bq.queryParticipateImpressionAsOne(), uq.queryParticipateImpressionAsOne());
+        }
     }
 
     // ===================================================================================
@@ -338,6 +341,24 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
     }
     protected void xsetupOuterJoinUser() { xregOutJo("user"); }
     public boolean hasConditionQueryUser() { return xhasQueRlMap("user"); }
+
+    /**
+     * Get the condition-query for relation table. <br>
+     * participate_impression by participate_id, named 'participateImpressionAsOne'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public DbParticipateImpressionCQ queryParticipateImpressionAsOne() { return xdfgetConditionQueryParticipateImpressionAsOne(); }
+    public DbParticipateImpressionCQ xdfgetConditionQueryParticipateImpressionAsOne() {
+        String prop = "participateImpressionAsOne";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryParticipateImpressionAsOne()); xsetupOuterJoinParticipateImpressionAsOne(); }
+        return xgetQueRlMap(prop);
+    }
+    protected DbParticipateImpressionCQ xcreateQueryParticipateImpressionAsOne() {
+        String nrp = xresolveNRP("participate", "participateImpressionAsOne"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbParticipateImpressionCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "participateImpressionAsOne", nrp);
+    }
+    protected void xsetupOuterJoinParticipateImpressionAsOne() { xregOutJo("participateImpressionAsOne"); }
+    public boolean hasConditionQueryParticipateImpressionAsOne() { return xhasQueRlMap("participateImpressionAsOne"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

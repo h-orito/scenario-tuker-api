@@ -17,9 +17,9 @@ create table user (
 );
 
 create table user_follow (
-    user_follow_id   int unsigned not null auto_increment,
-    from_user_id     int unsigned not null,
-    to_user_id       int unsigned not null,
+    user_follow_id    int unsigned not null auto_increment,
+    from_user_id      int unsigned not null,
+    to_user_id        int unsigned not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
@@ -56,10 +56,10 @@ create table rule_book_dictionary (
     rule_book_dictionary_id int unsigned not null auto_increment,
     rule_book_id            int unsigned,
     rule_book_name          varchar(255) not null,
-    register_datetime      datetime not null,
-    register_trace         varchar(64) not null,
-    update_datetime        datetime not null,
-    update_trace           varchar(64) not null,
+    register_datetime       datetime not null,
+    register_trace          varchar(64) not null,
+    update_datetime         datetime not null,
+    update_trace            varchar(64) not null,
     primary key (rule_book_dictionary_id)
 );
 
@@ -147,6 +147,27 @@ create table participate_role (
 
 alter table participate_role
     add constraint fk_participate_role_participate foreign key (participate_id)
+    references participate (participate_id)
+    on update restrict
+    on delete restrict
+;
+
+create table participate_impression (
+	participate_impression_id int unsigned not null auto_increment,
+	participate_id            int unsigned not null,
+	has_spoiler               boolean not null,
+	disclosure_range          varchar(50) not null,
+	impression                text not null,
+	register_datetime         datetime not null,
+	register_trace            varchar(64) not null,
+	update_datetime           datetime not null,
+	update_trace              varchar(64) not null,
+	primary key (participate_impression_id),
+	unique (participate_id)
+);
+
+alter table participate_impression
+    add constraint fk_participate_impression_participate foreign key (participate_id)
     references participate (participate_id)
     on update restrict
     on delete restrict

@@ -2,6 +2,7 @@ package dev.wolfort.scenariotuker.api.response.participate
 
 import dev.wolfort.scenariotuker.api.response.scenario.ScenarioResponse
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
 import dev.wolfort.scenariotuker.domain.model.participate.RoleType
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBook
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
@@ -12,7 +13,8 @@ data class ParticipateResponse(
     val scenario: ScenarioResponse,
     val user: User,
     val roleTypes: List<RoleType>,
-    val dispOrder: Int
+    val dispOrder: Int,
+    val impression: ParticipateImpression?
 ) {
     constructor(
         participate: Participate,
@@ -24,6 +26,7 @@ data class ParticipateResponse(
         scenario = ScenarioResponse(scenario, ruleBook),
         user = user,
         roleTypes = participate.roleTypes,
-        dispOrder = participate.dispOrder
+        dispOrder = participate.dispOrder,
+        impression = participate.impression
     )
 }

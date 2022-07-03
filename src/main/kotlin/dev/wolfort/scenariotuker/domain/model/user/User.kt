@@ -13,4 +13,7 @@ data class User(
     val twitterUserName: String?,
     val follows: List<Int>,
     val followers: List<Int>
-)
+) {
+    fun isFollowing(user: User): Boolean = follows.contains(user.id)
+    fun isFollowedBy(user: User): Boolean = followers.contains(user.id)
+}

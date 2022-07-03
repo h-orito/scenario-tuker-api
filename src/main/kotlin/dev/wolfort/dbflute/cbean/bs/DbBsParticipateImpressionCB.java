@@ -21,20 +21,20 @@ import dev.wolfort.dbflute.cbean.cq.*;
 import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of participate.
+ * The base condition-bean of participate_impression.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsParticipateCB extends AbstractConditionBean {
+public class DbBsParticipateImpressionCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbParticipateCQ _conditionQuery;
+    protected DbParticipateImpressionCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsParticipateCB() {
+    public DbBsParticipateImpressionCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -77,7 +77,7 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "participate";
+        return "participate_impression";
     }
 
     // ===================================================================================
@@ -85,36 +85,35 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param participateId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param participateImpressionId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbParticipateCB acceptPK(Integer participateId) {
-        assertObjectNotNull("participateId", participateId);
-        DbBsParticipateCB cb = this;
-        cb.query().setParticipateId_Equal(participateId);
-        return (DbParticipateCB)this;
+    public DbParticipateImpressionCB acceptPK(Integer participateImpressionId) {
+        assertObjectNotNull("participateImpressionId", participateImpressionId);
+        DbBsParticipateImpressionCB cb = this;
+        cb.query().setParticipateImpressionId_Equal(participateImpressionId);
+        return (DbParticipateImpressionCB)this;
     }
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
-     * @param userId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param participateId : UQ, NotNull, INT UNSIGNED(10), FK to participate. (NotNull)
      * @return this. (NotNull)
      */
-    public DbParticipateCB acceptUniqueOf(Integer scenarioId, Integer userId) {
-        assertObjectNotNull("scenarioId", scenarioId);assertObjectNotNull("userId", userId);
-        DbBsParticipateCB cb = this;
-        cb.query().setScenarioId_Equal(scenarioId);cb.query().setUserId_Equal(userId);
-        return (DbParticipateCB)this;
+    public DbParticipateImpressionCB acceptUniqueOf(Integer participateId) {
+        assertObjectNotNull("participateId", participateId);
+        DbBsParticipateImpressionCB cb = this;
+        cb.query().setParticipateId_Equal(participateId);
+        return (DbParticipateImpressionCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_ParticipateId_Asc();
+        query().addOrderBy_ParticipateImpressionId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_ParticipateId_Desc();
+        query().addOrderBy_ParticipateImpressionId_Desc();
         return this;
     }
 
@@ -178,34 +177,34 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbParticipateCQ query() {
+    public DbParticipateImpressionCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbParticipateCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbParticipateImpressionCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbParticipateCQ doGetConditionQuery() {
+    protected DbParticipateImpressionCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbParticipateCQ createLocalCQ() {
+    protected DbParticipateImpressionCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbParticipateCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbParticipateCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbParticipateImpressionCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbParticipateImpressionCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbParticipateCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbParticipateCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbParticipateImpressionCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbParticipateImpressionCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -229,10 +228,10 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbParticipateCB> unionCBLambda) {
-        final DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbParticipateImpressionCB> unionCBLambda) {
+        final DbParticipateImpressionCB cb = new DbParticipateImpressionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbParticipateCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbParticipateImpressionCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -246,88 +245,42 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbParticipateCB> unionCBLambda) {
-        final DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbParticipateImpressionCB> unionCBLambda) {
+        final DbParticipateImpressionCB cb = new DbParticipateImpressionCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbParticipateCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbParticipateImpressionCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected DbScenarioNss _nssScenario;
-    public DbScenarioNss xdfgetNssScenario() {
-        if (_nssScenario == null) { _nssScenario = new DbScenarioNss(null); }
-        return _nssScenario;
+    protected DbParticipateNss _nssParticipate;
+    public DbParticipateNss xdfgetNssParticipate() {
+        if (_nssParticipate == null) { _nssParticipate = new DbParticipateNss(null); }
+        return _nssParticipate;
     }
     /**
      * Set up relation columns to select clause. <br>
-     * SCENARIO by my scenario_id, named 'scenario'.
+     * PARTICIPATE by my participate_id, named 'participate'.
      * <pre>
-     * <span style="color: #0000C0">participateBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Scenario()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">participateImpressionBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Participate()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">participate</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">participateImpression</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">participateImpression</span>.<span style="color: #CC4747">getParticipate()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
      * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public DbScenarioNss setupSelect_Scenario() {
-        assertSetupSelectPurpose("scenario");
+    public DbParticipateNss setupSelect_Participate() {
+        assertSetupSelectPurpose("participate");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnScenarioId();
+            specify().columnParticipateId();
         }
-        doSetupSelect(() -> query().queryScenario());
-        if (_nssScenario == null || !_nssScenario.hasConditionQuery())
-        { _nssScenario = new DbScenarioNss(query().queryScenario()); }
-        return _nssScenario;
-    }
-
-    /**
-     * Set up relation columns to select clause. <br>
-     * USER by my user_id, named 'user'.
-     * <pre>
-     * <span style="color: #0000C0">participateBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_User()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">participate</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     */
-    public void setupSelect_User() {
-        assertSetupSelectPurpose("user");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnUserId();
-        }
-        doSetupSelect(() -> query().queryUser());
-    }
-
-    protected DbParticipateImpressionNss _nssParticipateImpressionAsOne;
-    public DbParticipateImpressionNss xdfgetNssParticipateImpressionAsOne() {
-        if (_nssParticipateImpressionAsOne == null) { _nssParticipateImpressionAsOne = new DbParticipateImpressionNss(null); }
-        return _nssParticipateImpressionAsOne;
-    }
-    /**
-     * Set up relation columns to select clause. <br>
-     * participate_impression by participate_id, named 'participateImpressionAsOne'.
-     * <pre>
-     * <span style="color: #0000C0">participateBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_ParticipateImpressionAsOne()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">participate</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getParticipateImpressionAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
-     */
-    public DbParticipateImpressionNss setupSelect_ParticipateImpressionAsOne() {
-        assertSetupSelectPurpose("participateImpressionAsOne");
-        doSetupSelect(() -> query().queryParticipateImpressionAsOne());
-        if (_nssParticipateImpressionAsOne == null || !_nssParticipateImpressionAsOne.hasConditionQuery())
-        { _nssParticipateImpressionAsOne = new DbParticipateImpressionNss(query().queryParticipateImpressionAsOne()); }
-        return _nssParticipateImpressionAsOne;
+        doSetupSelect(() -> query().queryParticipate());
+        if (_nssParticipate == null || !_nssParticipate.hasConditionQuery())
+        { _nssParticipate = new DbParticipateNss(query().queryParticipate()); }
+        return _nssParticipate;
     }
 
     // [DBFlute-0.7.4]
@@ -370,34 +323,37 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbParticipateCQ> {
-        protected DbScenarioCB.HpSpecification _scenario;
-        protected DbUserCB.HpSpecification _user;
-        protected DbParticipateImpressionCB.HpSpecification _participateImpressionAsOne;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbParticipateCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<DbParticipateImpressionCQ> {
+        protected DbParticipateCB.HpSpecification _participate;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbParticipateImpressionCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * participate_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * participate_impression_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnParticipateImpressionId() { return doColumn("participate_impression_id"); }
+        /**
+         * participate_id: {UQ, NotNull, INT UNSIGNED(10), FK to participate}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnParticipateId() { return doColumn("participate_id"); }
         /**
-         * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+         * has_spoiler: {NotNull, BIT}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioId() { return doColumn("scenario_id"); }
+        public SpecifiedColumn columnHasSpoiler() { return doColumn("has_spoiler"); }
         /**
-         * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+         * disclosure_range: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
+        public SpecifiedColumn columnDisclosureRange() { return doColumn("disclosure_range"); }
         /**
-         * disp_order: {NotNull, INT UNSIGNED(10)}
+         * impression: {NotNull, TEXT(65535)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnDispOrder() { return doColumn("disp_order"); }
+        public SpecifiedColumn columnImpression() { return doColumn("impression"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -422,102 +378,41 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnParticipateId(); // PK
-            if (qyCall().qy().hasConditionQueryScenario()
-                    || qyCall().qy().xgetReferrerQuery() instanceof DbScenarioCQ) {
-                columnScenarioId(); // FK or one-to-one referrer
-            }
-            if (qyCall().qy().hasConditionQueryUser()
-                    || qyCall().qy().xgetReferrerQuery() instanceof DbUserCQ) {
-                columnUserId(); // FK or one-to-one referrer
+            columnParticipateImpressionId(); // PK
+            if (qyCall().qy().hasConditionQueryParticipate()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbParticipateCQ) {
+                columnParticipateId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "participate"; }
+        protected String getTableDbName() { return "participate_impression"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * SCENARIO by my scenario_id, named 'scenario'.
+         * PARTICIPATE by my participate_id, named 'participate'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public DbScenarioCB.HpSpecification specifyScenario() {
-            assertRelation("scenario");
-            if (_scenario == null) {
-                _scenario = new DbScenarioCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryScenario()
-                                    , () -> _qyCall.qy().queryScenario())
+        public DbParticipateCB.HpSpecification specifyParticipate() {
+            assertRelation("participate");
+            if (_participate == null) {
+                _participate = new DbParticipateCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryParticipate()
+                                    , () -> _qyCall.qy().queryParticipate())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _scenario.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryScenario()
-                      , () -> xsyncQyCall().qy().queryScenario()));
+                    _participate.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryParticipate()
+                      , () -> xsyncQyCall().qy().queryParticipate()));
                 }
             }
-            return _scenario;
-        }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * USER by my user_id, named 'user'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public DbUserCB.HpSpecification specifyUser() {
-            assertRelation("user");
-            if (_user == null) {
-                _user = new DbUserCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUser()
-                                    , () -> _qyCall.qy().queryUser())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _user.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUser()
-                      , () -> xsyncQyCall().qy().queryUser()));
-                }
-            }
-            return _user;
-        }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * participate_impression by participate_id, named 'participateImpressionAsOne'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public DbParticipateImpressionCB.HpSpecification specifyParticipateImpressionAsOne() {
-            assertRelation("participateImpressionAsOne");
-            if (_participateImpressionAsOne == null) {
-                _participateImpressionAsOne = new DbParticipateImpressionCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryParticipateImpressionAsOne()
-                                    , () -> _qyCall.qy().queryParticipateImpressionAsOne())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _participateImpressionAsOne.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryParticipateImpressionAsOne()
-                      , () -> xsyncQyCall().qy().queryParticipateImpressionAsOne()));
-                }
-            }
-            return _participateImpressionAsOne;
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from participate_role where ...) as FOO_MAX} <br>
-         * PARTICIPATE_ROLE by participate_id, named 'participateRoleList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(roleCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     roleCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     roleCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbParticipateRole.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbParticipateRoleCB, DbParticipateCQ> derivedParticipateRole() {
-            assertDerived("participateRoleList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateRoleCB> sq, DbParticipateCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveParticipateRoleList(fn, sq, al, op), _dbmetaProvider);
+            return _participate;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbParticipateCB, DbParticipateCQ> myselfDerived() {
+        public HpSDRFunction<DbParticipateImpressionCB, DbParticipateImpressionCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateCB> sq, DbParticipateCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateImpressionCB> sq, DbParticipateImpressionCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -530,9 +425,9 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbParticipateCB dreamCruiseCB() {
-        DbParticipateCB cb = new DbParticipateCB();
-        cb.xsetupForDreamCruise((DbParticipateCB) this);
+    public DbParticipateImpressionCB dreamCruiseCB() {
+        DbParticipateImpressionCB cb = new DbParticipateImpressionCB();
+        cb.xsetupForDreamCruise((DbParticipateImpressionCB) this);
         return cb;
     }
 
@@ -557,15 +452,15 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbParticipateCB> columnQuery(final SpecifyQuery<DbParticipateCB> colCBLambda) {
+    public HpColQyOperand<DbParticipateImpressionCB> columnQuery(final SpecifyQuery<DbParticipateImpressionCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbParticipateCB xcreateColumnQueryCB() {
-        DbParticipateCB cb = new DbParticipateCB();
-        cb.xsetupForColumnQuery((DbParticipateCB)this);
+    protected DbParticipateImpressionCB xcreateColumnQueryCB() {
+        DbParticipateImpressionCB cb = new DbParticipateImpressionCB();
+        cb.xsetupForColumnQuery((DbParticipateImpressionCB)this);
         return cb;
     }
 
@@ -585,8 +480,8 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbParticipateCB> orCBLambda) {
-        xorSQ((DbParticipateCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbParticipateImpressionCB> orCBLambda) {
+        xorSQ((DbParticipateImpressionCB)this, orCBLambda);
     }
 
     /**
@@ -604,8 +499,8 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbParticipateCB> andCBLambda) {
-        xorSQAP((DbParticipateCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbParticipateImpressionCB> andCBLambda) {
+        xorSQAP((DbParticipateImpressionCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -635,11 +530,11 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbParticipateCB cb;
+        final DbParticipateImpressionCB cb;
         if (mainCB != null) {
-            cb = (DbParticipateCB)mainCB;
+            cb = (DbParticipateImpressionCB)mainCB;
         } else {
-            cb = new DbParticipateCB();
+            cb = new DbParticipateImpressionCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -648,8 +543,8 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbParticipateCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbParticipateCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbParticipateImpressionCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbParticipateImpressionCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

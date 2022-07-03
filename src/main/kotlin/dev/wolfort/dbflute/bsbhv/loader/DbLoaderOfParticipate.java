@@ -27,13 +27,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     SCENARIO, USER
+ *     SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
  *
  * [referrer table]
- *     PARTICIPATE_ROLE
+ *     PARTICIPATE_ROLE, PARTICIPATE_IMPRESSION
  *
  * [foreign property]
- *     scenario, user
+ *     scenario, user, participateImpressionAsOne
  *
  * [referrer property]
  *     participateRoleList
@@ -110,6 +110,13 @@ public class DbLoaderOfParticipate {
         if (_foreignUserLoader == null)
         { _foreignUserLoader = new DbLoaderOfUser().ready(myBhv().pulloutUser(_selectedList), _selector); }
         return _foreignUserLoader;
+    }
+
+    protected DbLoaderOfParticipateImpression _foreignParticipateImpressionAsOneLoader;
+    public DbLoaderOfParticipateImpression pulloutParticipateImpressionAsOne() {
+        if (_foreignParticipateImpressionAsOneLoader == null)
+        { _foreignParticipateImpressionAsOneLoader = new DbLoaderOfParticipateImpression().ready(myBhv().pulloutParticipateImpressionAsOne(_selectedList), _selector); }
+        return _foreignParticipateImpressionAsOneLoader;
     }
 
     // ===================================================================================

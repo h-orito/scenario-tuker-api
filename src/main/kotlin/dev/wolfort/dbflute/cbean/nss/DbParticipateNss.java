@@ -34,4 +34,13 @@ public class DbParticipateNss {
     public void withUser() {
         _query.xdoNss(() -> _query.queryUser());
     }
+    /**
+     * With nested relation columns to select clause. <br>
+     * participate_impression by participate_id, named 'participateImpressionAsOne'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
+     */
+    public DbParticipateImpressionNss withParticipateImpressionAsOne() {
+        _query.xdoNss(() -> _query.queryParticipateImpressionAsOne());
+        return new DbParticipateImpressionNss(_query.queryParticipateImpressionAsOne());
+    }
 }

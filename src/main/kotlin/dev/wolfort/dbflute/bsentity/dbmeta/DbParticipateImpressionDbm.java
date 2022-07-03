@@ -14,17 +14,17 @@ import dev.wolfort.dbflute.allcommon.*;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The DB meta of participate. (Singleton)
+ * The DB meta of participate_impression. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class DbParticipateDbm extends AbstractDBMeta {
+public class DbParticipateImpressionDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final DbParticipateDbm _instance = new DbParticipateDbm();
-    private DbParticipateDbm() {}
-    public static DbParticipateDbm getInstance() { return _instance; }
+    private static final DbParticipateImpressionDbm _instance = new DbParticipateImpressionDbm();
+    private DbParticipateImpressionDbm() {}
+    public static DbParticipateImpressionDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -43,14 +43,15 @@ public class DbParticipateDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getParticipateId(), (et, vl) -> ((DbParticipate)et).setParticipateId(cti(vl)), "participateId");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getScenarioId(), (et, vl) -> ((DbParticipate)et).setScenarioId(cti(vl)), "scenarioId");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getUserId(), (et, vl) -> ((DbParticipate)et).setUserId(cti(vl)), "userId");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getDispOrder(), (et, vl) -> ((DbParticipate)et).setDispOrder(cti(vl)), "dispOrder");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getRegisterDatetime(), (et, vl) -> ((DbParticipate)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getRegisterTrace(), (et, vl) -> ((DbParticipate)et).setRegisterTrace((String)vl), "registerTrace");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getUpdateDatetime(), (et, vl) -> ((DbParticipate)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
-        setupEpg(_epgMap, et -> ((DbParticipate)et).getUpdateTrace(), (et, vl) -> ((DbParticipate)et).setUpdateTrace((String)vl), "updateTrace");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getParticipateImpressionId(), (et, vl) -> ((DbParticipateImpression)et).setParticipateImpressionId(cti(vl)), "participateImpressionId");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getParticipateId(), (et, vl) -> ((DbParticipateImpression)et).setParticipateId(cti(vl)), "participateId");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getHasSpoiler(), (et, vl) -> ((DbParticipateImpression)et).setHasSpoiler((Boolean)vl), "hasSpoiler");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getDisclosureRange(), (et, vl) -> ((DbParticipateImpression)et).setDisclosureRange((String)vl), "disclosureRange");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getImpression(), (et, vl) -> ((DbParticipateImpression)et).setImpression((String)vl), "impression");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getRegisterDatetime(), (et, vl) -> ((DbParticipateImpression)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getRegisterTrace(), (et, vl) -> ((DbParticipateImpression)et).setRegisterTrace((String)vl), "registerTrace");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getUpdateDatetime(), (et, vl) -> ((DbParticipateImpression)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((DbParticipateImpression)et).getUpdateTrace(), (et, vl) -> ((DbParticipateImpression)et).setUpdateTrace((String)vl), "updateTrace");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -62,9 +63,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((DbParticipate)et).getScenario(), (et, vl) -> ((DbParticipate)et).setScenario((OptionalEntity<DbScenario>)vl), "scenario");
-        setupEfpg(_efpgMap, et -> ((DbParticipate)et).getUser(), (et, vl) -> ((DbParticipate)et).setUser((OptionalEntity<DbUser>)vl), "user");
-        setupEfpg(_efpgMap, et -> ((DbParticipate)et).getParticipateImpressionAsOne(), (et, vl) -> ((DbParticipate)et).setParticipateImpressionAsOne((OptionalEntity<DbParticipateImpression>)vl), "participateImpressionAsOne");
+        setupEfpg(_efpgMap, et -> ((DbParticipateImpression)et).getParticipate(), (et, vl) -> ((DbParticipateImpression)et).setParticipate((OptionalEntity<DbParticipate>)vl), "participate");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -72,10 +71,10 @@ public class DbParticipateDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "participate";
-    protected final String _tableDispName = "PARTICIPATE";
-    protected final String _tablePropertyName = "participate";
-    protected final TableSqlName _tableSqlName = new TableSqlName("PARTICIPATE", _tableDbName);
+    protected final String _tableDbName = "participate_impression";
+    protected final String _tableDispName = "PARTICIPATE_IMPRESSION";
+    protected final String _tablePropertyName = "participateImpression";
+    protected final TableSqlName _tableSqlName = new TableSqlName("PARTICIPATE_IMPRESSION", _tableDbName);
     { _tableSqlName.xacceptFilter(DbDBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -85,35 +84,41 @@ public class DbParticipateDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRoleList", null, false);
-    protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "user", null, null, false);
-    protected final ColumnInfo _columnDispOrder = cci("disp_order", "disp_order", null, null, Integer.class, "dispOrder", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnParticipateImpressionId = cci("participate_impression_id", "participate_impression_id", null, null, Integer.class, "participateImpressionId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "participate", null, null, false);
+    protected final ColumnInfo _columnHasSpoiler = cci("has_spoiler", "has_spoiler", null, null, Boolean.class, "hasSpoiler", null, false, false, true, "BIT", null, null, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnDisclosureRange = cci("disclosure_range", "disclosure_range", null, null, String.class, "disclosureRange", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnImpression = cci("impression", "impression", null, null, String.class, "impression", null, false, false, true, "TEXT", 65535, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateTrace = cci("update_trace", "update_trace", null, null, String.class, "updateTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
 
     /**
-     * participate_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * participate_impression_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnParticipateImpressionId() { return _columnParticipateImpressionId; }
+    /**
+     * participate_id: {UQ, NotNull, INT UNSIGNED(10), FK to participate}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnParticipateId() { return _columnParticipateId; }
     /**
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * has_spoiler: {NotNull, BIT}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnScenarioId() { return _columnScenarioId; }
+    public ColumnInfo columnHasSpoiler() { return _columnHasSpoiler; }
     /**
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * disclosure_range: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnUserId() { return _columnUserId; }
+    public ColumnInfo columnDisclosureRange() { return _columnDisclosureRange; }
     /**
-     * disp_order: {NotNull, INT UNSIGNED(10)}
+     * impression: {NotNull, TEXT(65535)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnDispOrder() { return _columnDispOrder; }
+    public ColumnInfo columnImpression() { return _columnImpression; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -137,10 +142,11 @@ public class DbParticipateDbm extends AbstractDBMeta {
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
+        ls.add(columnParticipateImpressionId());
         ls.add(columnParticipateId());
-        ls.add(columnScenarioId());
-        ls.add(columnUserId());
-        ls.add(columnDispOrder());
+        ls.add(columnHasSpoiler());
+        ls.add(columnDisclosureRange());
+        ls.add(columnImpression());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());
@@ -156,19 +162,14 @@ public class DbParticipateDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnParticipateId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnParticipateImpressionId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
     // -----------------------------------------------------
     //                                        Unique Element
     //                                        --------------
-    public UniqueInfo uniqueOf() {
-        List<ColumnInfo> ls = newArrayListSized(4);
-        ls.add(columnScenarioId());
-        ls.add(columnUserId());
-        return hpcui(ls);
-    }
+    public UniqueInfo uniqueOf() { return hpcui(columnParticipateId()); }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -179,41 +180,17 @@ public class DbParticipateDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * SCENARIO by my scenario_id, named 'scenario'.
+     * PARTICIPATE by my participate_id, named 'participate'.
      * @return The information object of foreign property. (NotNull)
      */
-    public ForeignInfo foreignScenario() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioDbm.getInstance().columnScenarioId());
-        return cfi("fk_participate_scenario", "scenario", this, DbScenarioDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
-    }
-    /**
-     * USER by my user_id, named 'user'.
-     * @return The information object of foreign property. (NotNull)
-     */
-    public ForeignInfo foreignUser() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserDbm.getInstance().columnUserId());
-        return cfi("fk_participate_user", "user", this, DbUserDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
-    }
-    /**
-     * participate_impression by participate_id, named 'participateImpressionAsOne'.
-     * @return The information object of foreign property(referrer-as-one). (NotNull)
-     */
-    public ForeignInfo foreignParticipateImpressionAsOne() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateImpressionDbm.getInstance().columnParticipateId());
-        return cfi("fk_participate_impression_participate", "participateImpressionAsOne", this, DbParticipateImpressionDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, true, false, true, false, null, null, false, "participate", false);
+    public ForeignInfo foreignParticipate() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateDbm.getInstance().columnParticipateId());
+        return cfi("fk_participate_impression_participate", "participate", this, DbParticipateDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, true, false, false, false, null, null, false, "participateImpressionAsOne", false);
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
-    /**
-     * PARTICIPATE_ROLE by participate_id, named 'participateRoleList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerParticipateRoleList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateRoleDbm.getInstance().columnParticipateId());
-        return cri("fk_participate_role_participate", "participateRoleList", this, DbParticipateRoleDbm.getInstance(), mp, false, "participate");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
@@ -230,27 +207,27 @@ public class DbParticipateDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbParticipate"; }
-    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbParticipateCB"; }
-    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbParticipateBhv"; }
+    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbParticipateImpression"; }
+    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbParticipateImpressionCB"; }
+    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbParticipateImpressionBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<DbParticipate> getEntityType() { return DbParticipate.class; }
+    public Class<DbParticipateImpression> getEntityType() { return DbParticipateImpression.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public DbParticipate newEntity() { return new DbParticipate(); }
+    public DbParticipateImpression newEntity() { return new DbParticipateImpression(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((DbParticipate)et, mp); }
+    { doAcceptPrimaryKeyMap((DbParticipateImpression)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((DbParticipate)et, mp); }
+    { doAcceptAllColumnMap((DbParticipateImpression)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

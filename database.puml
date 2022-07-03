@@ -63,10 +63,20 @@ Scenario ||--o{ Participate
 entity ParticipateRole {
     * participate_role_id: int unsigned <<generated>>
     --
-    * participate_id: int unsigned
+    * participate_id: int unsigned <<foreign key>>
     * participate_role_type: varchar(50)
 }
 
 Participate ||--|{ ParticipateRole
 
+entity ParticipateImpression {
+	* participate_impression_id: int unsigned <<generated>>
+	--
+	* participate_id: int unsigned <<foreign key>>
+	* has_spoiler: boolean
+	* disclosure_range: varchar(50)
+	* impression: text
+}
+
+Participate ||--o| ParticipateImpression
 @enduml
