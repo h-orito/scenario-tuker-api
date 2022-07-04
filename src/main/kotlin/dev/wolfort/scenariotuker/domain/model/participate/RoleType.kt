@@ -20,6 +20,7 @@ enum class RoleType {
     PlayerCharacter7,
     PlayerCharacter8,
     Audience,
+    Participating,
     Participant,
     PlanningToParticipate,
     AbleToGameMaster,
@@ -38,6 +39,7 @@ enum class RoleType {
             PlayerCharacter7,
             PlayerCharacter8,
             Audience,
+            Participating,
             Participant,
             PlanningToParticipate,
             AbleToGameMaster
@@ -54,6 +56,7 @@ enum class RoleType {
             HandOut7,
             HandOut8,
             Audience,
+            Participating,
             Participant,
             PlanningToParticipate,
             AbleToKeeper
