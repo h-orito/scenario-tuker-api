@@ -1,5 +1,6 @@
 package dev.wolfort.scenariotuker.domain.model.participate
 
+import dev.wolfort.scenariotuker.domain.model.user.TwitterUser
 import dev.wolfort.scenariotuker.domain.model.user.User
 
 data class ParticipateImpression(
@@ -7,15 +8,24 @@ data class ParticipateImpression(
     val disclosureRange: DisclosureRange,
     val content: String
 ) {
-    fun canView(owner: User, myself: User?): Boolean {
+    fun canView(
+        owner: User,
+        myself: User?,
+        followings: List<TwitterUser>,
+        followers: List<TwitterUser>
+    ): Boolean {
         // 自分は常に見られる
         if (owner.id == myself?.id) return true
         if (disclosureRange == DisclosureRange.Everyone) return true
         myself ?: return false
 
         return when (disclosureRange) {
-            DisclosureRange.Follower -> owner.isFollowedBy(myself)
-            DisclosureRange.EachFollow -> owner.isFollowing(myself) && owner.isFollowedBy(myself)
+            DisclosureRange.Follower -> followings.any { following -> following.id == owner.twitter.id }
+            DisclosureRange.EachFollow -> {
+                val isUserFollowedByMyself = followings.any { following -> following.id == owner.twitter.id }
+                val isUserFollowingToMyself = followers.any { follower -> follower.id == owner.twitter.id }
+                isUserFollowedByMyself && isUserFollowingToMyself
+            }
             else -> false
         }
     }

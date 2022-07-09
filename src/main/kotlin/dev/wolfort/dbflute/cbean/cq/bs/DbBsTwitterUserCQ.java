@@ -13,20 +13,20 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of user_follow.
+ * The base condition-query of twitter_user.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
+public class DbBsTwitterUserCQ extends DbAbstractBsTwitterUserCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbUserFollowCIQ _inlineQuery;
+    protected DbTwitterUserCIQ _inlineQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsUserFollowCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public DbBsTwitterUserCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
@@ -35,103 +35,163 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from user_follow) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from twitter_user) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
      * @return The condition-query for InlineView query. (NotNull)
      */
-    public DbUserFollowCIQ inline() {
+    public DbTwitterUserCIQ inline() {
         if (_inlineQuery == null) { _inlineQuery = xcreateCIQ(); }
         _inlineQuery.xsetOnClause(false); return _inlineQuery;
     }
 
-    protected DbUserFollowCIQ xcreateCIQ() {
-        DbUserFollowCIQ ciq = xnewCIQ();
+    protected DbTwitterUserCIQ xcreateCIQ() {
+        DbTwitterUserCIQ ciq = xnewCIQ();
         ciq.xsetBaseCB(_baseCB);
         return ciq;
     }
 
-    protected DbUserFollowCIQ xnewCIQ() {
-        return new DbUserFollowCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
+    protected DbTwitterUserCIQ xnewCIQ() {
+        return new DbTwitterUserCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
     }
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join user_follow on ... and FOO = [value] ...}
+     * {select ... from ... left outer join twitter_user on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
      * @return The condition-query for OnClause query. (NotNull)
      * @throws IllegalConditionBeanOperationException When this condition-query is base query.
      */
-    public DbUserFollowCIQ on() {
+    public DbTwitterUserCIQ on() {
         if (isBaseQuery()) { throw new IllegalConditionBeanOperationException("OnClause for local table is unavailable!"); }
-        DbUserFollowCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
+        DbTwitterUserCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
     }
 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
-    protected ConditionValue _userFollowId;
-    public ConditionValue xdfgetUserFollowId()
-    { if (_userFollowId == null) { _userFollowId = nCV(); }
-      return _userFollowId; }
-    protected ConditionValue xgetCValueUserFollowId() { return xdfgetUserFollowId(); }
+    protected ConditionValue _twitterUserId;
+    public ConditionValue xdfgetTwitterUserId()
+    { if (_twitterUserId == null) { _twitterUserId = nCV(); }
+      return _twitterUserId; }
+    protected ConditionValue xgetCValueTwitterUserId() { return xdfgetTwitterUserId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UserFollowId_Asc() { regOBA("user_follow_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_TwitterUserId_Asc() { regOBA("twitter_user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UserFollowId_Desc() { regOBD("user_follow_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_TwitterUserId_Desc() { regOBD("twitter_user_id"); return this; }
 
-    protected ConditionValue _fromUserId;
-    public ConditionValue xdfgetFromUserId()
-    { if (_fromUserId == null) { _fromUserId = nCV(); }
-      return _fromUserId; }
-    protected ConditionValue xgetCValueFromUserId() { return xdfgetFromUserId(); }
+    protected ConditionValue _userId;
+    public ConditionValue xdfgetUserId()
+    { if (_userId == null) { _userId = nCV(); }
+      return _userId; }
+    protected ConditionValue xgetCValueUserId() { return xdfgetUserId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_FromUserId_Asc() { regOBA("from_user_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_FromUserId_Desc() { regOBD("from_user_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }
 
-    protected ConditionValue _toUserId;
-    public ConditionValue xdfgetToUserId()
-    { if (_toUserId == null) { _toUserId = nCV(); }
-      return _toUserId; }
-    protected ConditionValue xgetCValueToUserId() { return xdfgetToUserId(); }
+    protected ConditionValue _twitterId;
+    public ConditionValue xdfgetTwitterId()
+    { if (_twitterId == null) { _twitterId = nCV(); }
+      return _twitterId; }
+    protected ConditionValue xgetCValueTwitterId() { return xdfgetTwitterId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * twitter_id: {NotNull, VARCHAR(255)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_ToUserId_Asc() { regOBA("to_user_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_TwitterId_Asc() { regOBA("twitter_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * twitter_id: {NotNull, VARCHAR(255)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_ToUserId_Desc() { regOBD("to_user_id"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_TwitterId_Desc() { regOBD("twitter_id"); return this; }
+
+    protected ConditionValue _screenName;
+    public ConditionValue xdfgetScreenName()
+    { if (_screenName == null) { _screenName = nCV(); }
+      return _screenName; }
+    protected ConditionValue xgetCValueScreenName() { return xdfgetScreenName(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_ScreenName_Asc() { regOBA("screen_name"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_ScreenName_Desc() { regOBD("screen_name"); return this; }
+
+    protected ConditionValue _accessToken;
+    public ConditionValue xdfgetAccessToken()
+    { if (_accessToken == null) { _accessToken = nCV(); }
+      return _accessToken; }
+    protected ConditionValue xgetCValueAccessToken() { return xdfgetAccessToken(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * access_token: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_AccessToken_Asc() { regOBA("access_token"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * access_token: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_AccessToken_Desc() { regOBD("access_token"); return this; }
+
+    protected ConditionValue _tokenSecret;
+    public ConditionValue xdfgetTokenSecret()
+    { if (_tokenSecret == null) { _tokenSecret = nCV(); }
+      return _tokenSecret; }
+    protected ConditionValue xgetCValueTokenSecret() { return xdfgetTokenSecret(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_TokenSecret_Asc() { regOBA("token_secret"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsTwitterUserCQ addOrderBy_TokenSecret_Desc() { regOBD("token_secret"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
@@ -144,14 +204,14 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * register_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
 
     protected ConditionValue _registerTrace;
     public ConditionValue xdfgetRegisterTrace()
@@ -164,14 +224,14 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * register_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_RegisterTrace_Asc() { regOBA("register_trace"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_RegisterTrace_Asc() { regOBA("register_trace"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * register_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_RegisterTrace_Desc() { regOBD("register_trace"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_RegisterTrace_Desc() { regOBD("register_trace"); return this; }
 
     protected ConditionValue _updateDatetime;
     public ConditionValue xdfgetUpdateDatetime()
@@ -184,14 +244,14 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * update_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * update_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
 
     protected ConditionValue _updateTrace;
     public ConditionValue xdfgetUpdateTrace()
@@ -204,14 +264,14 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * update_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UpdateTrace_Asc() { regOBA("update_trace"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UpdateTrace_Asc() { regOBA("update_trace"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * update_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addOrderBy_UpdateTrace_Desc() { regOBD("update_trace"); return this; }
+    public DbBsTwitterUserCQ addOrderBy_UpdateTrace_Desc() { regOBD("update_trace"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -230,7 +290,7 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public DbBsTwitterUserCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -246,19 +306,16 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public DbBsUserFollowCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public DbBsTwitterUserCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
-        DbUserFollowCQ bq = (DbUserFollowCQ)bqs;
-        DbUserFollowCQ uq = (DbUserFollowCQ)uqs;
-        if (bq.hasConditionQueryUserByFromUserId()) {
-            uq.queryUserByFromUserId().reflectRelationOnUnionQuery(bq.queryUserByFromUserId(), uq.queryUserByFromUserId());
-        }
-        if (bq.hasConditionQueryUserByToUserId()) {
-            uq.queryUserByToUserId().reflectRelationOnUnionQuery(bq.queryUserByToUserId(), uq.queryUserByToUserId());
+        DbTwitterUserCQ bq = (DbTwitterUserCQ)bqs;
+        DbTwitterUserCQ uq = (DbTwitterUserCQ)uqs;
+        if (bq.hasConditionQueryUser()) {
+            uq.queryUser().reflectRelationOnUnionQuery(bq.queryUser(), uq.queryUser());
         }
     }
 
@@ -267,43 +324,23 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * USER by my from_user_id, named 'userByFromUserId'.
+     * USER by my user_id, named 'user'.
      * @return The instance of condition-query. (NotNull)
      */
-    public DbUserCQ queryUserByFromUserId() {
-        return xdfgetConditionQueryUserByFromUserId();
+    public DbUserCQ queryUser() {
+        return xdfgetConditionQueryUser();
     }
-    public DbUserCQ xdfgetConditionQueryUserByFromUserId() {
-        String prop = "userByFromUserId";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserByFromUserId()); xsetupOuterJoinUserByFromUserId(); }
+    public DbUserCQ xdfgetConditionQueryUser() {
+        String prop = "user";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUser()); xsetupOuterJoinUser(); }
         return xgetQueRlMap(prop);
     }
-    protected DbUserCQ xcreateQueryUserByFromUserId() {
-        String nrp = xresolveNRP("user_follow", "userByFromUserId"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new DbUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userByFromUserId", nrp);
+    protected DbUserCQ xcreateQueryUser() {
+        String nrp = xresolveNRP("twitter_user", "user"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "user", nrp);
     }
-    protected void xsetupOuterJoinUserByFromUserId() { xregOutJo("userByFromUserId"); }
-    public boolean hasConditionQueryUserByFromUserId() { return xhasQueRlMap("userByFromUserId"); }
-
-    /**
-     * Get the condition-query for relation table. <br>
-     * USER by my to_user_id, named 'userByToUserId'.
-     * @return The instance of condition-query. (NotNull)
-     */
-    public DbUserCQ queryUserByToUserId() {
-        return xdfgetConditionQueryUserByToUserId();
-    }
-    public DbUserCQ xdfgetConditionQueryUserByToUserId() {
-        String prop = "userByToUserId";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryUserByToUserId()); xsetupOuterJoinUserByToUserId(); }
-        return xgetQueRlMap(prop);
-    }
-    protected DbUserCQ xcreateQueryUserByToUserId() {
-        String nrp = xresolveNRP("user_follow", "userByToUserId"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new DbUserCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "userByToUserId", nrp);
-    }
-    protected void xsetupOuterJoinUserByToUserId() { xregOutJo("userByToUserId"); }
-    public boolean hasConditionQueryUserByToUserId() { return xhasQueRlMap("userByToUserId"); }
+    protected void xsetupOuterJoinUser() { xregOutJo("user"); }
+    public boolean hasConditionQueryUser() { return xhasQueRlMap("user"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
@@ -312,39 +349,39 @@ public class DbBsUserFollowCQ extends DbAbstractBsUserFollowCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, DbUserFollowCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
-    public String keepScalarCondition(DbUserFollowCQ sq) { return xkeepSQue("scalarCondition", sq); }
+    public Map<String, DbTwitterUserCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(DbTwitterUserCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, DbUserFollowCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
-    public String keepSpecifyMyselfDerived(DbUserFollowCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
+    public Map<String, DbTwitterUserCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(DbTwitterUserCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, DbUserFollowCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
-    public String keepQueryMyselfDerived(DbUserFollowCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, DbTwitterUserCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(DbTwitterUserCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
     public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
-    protected Map<String, DbUserFollowCQ> _myselfExistsMap;
-    public Map<String, DbUserFollowCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
-    public String keepMyselfExists(DbUserFollowCQ sq) { return xkeepSQue("myselfExists", sq); }
+    protected Map<String, DbTwitterUserCQ> _myselfExistsMap;
+    public Map<String, DbTwitterUserCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(DbTwitterUserCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, DbUserFollowCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
-    public String keepMyselfInScope(DbUserFollowCQ sq) { return xkeepSQue("myselfInScope", sq); }
+    public Map<String, DbTwitterUserCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(DbTwitterUserCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xCB() { return DbUserFollowCB.class.getName(); }
-    protected String xCQ() { return DbUserFollowCQ.class.getName(); }
+    protected String xCB() { return DbTwitterUserCB.class.getName(); }
+    protected String xCQ() { return DbTwitterUserCQ.class.getName(); }
     protected String xCHp() { return HpQDRFunction.class.getName(); }
     protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }

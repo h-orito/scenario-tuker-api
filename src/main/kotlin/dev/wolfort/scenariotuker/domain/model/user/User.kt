@@ -10,10 +10,5 @@ data class User(
     @JsonIgnore
     val authority: Authority,
     val name: String,
-    val twitterUserName: String?,
-    val follows: List<Int>,
-    val followers: List<Int>
-) {
-    fun isFollowing(user: User): Boolean = follows.contains(user.id)
-    fun isFollowedBy(user: User): Boolean = followers.contains(user.id)
-}
+    val twitter: TwitterUser
+)

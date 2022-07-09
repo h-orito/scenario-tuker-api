@@ -46,3 +46,12 @@ firebase:
       path: ${SCENARIO_TUKER_FIREBASE_ADMINSDK_PATH}
   database:
     url: ${SCENARIO_TUKER_FIREBASE_DATABASE_URL}
+
+twitter:
+  oauth:
+    consumer-key: ${SCENARIO_TUKER_TWITTER_CONSUMER_KEY}
+    consumer-secret: ${SCENARIO_TUKER_TWITTER_CONSUMER_SECRET}
+
+encrypt:
+  secret: ${SCENARIO_TUKER_ENCRYPT_SECRET}
+  salt: ${SCENARIO_TUKER_ENCRYPT_SALT}

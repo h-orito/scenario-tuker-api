@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of user_follow.
+ * The condition-query for in-line of twitter_user.
  * @author DBFlute(AutoGenerator)
  */
-public class DbUserFollowCIQ extends DbAbstractBsUserFollowCQ {
+public class DbTwitterUserCIQ extends DbAbstractBsTwitterUserCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsUserFollowCQ _myCQ;
+    protected DbBsTwitterUserCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbUserFollowCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsUserFollowCQ myCQ) {
+    public DbTwitterUserCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsTwitterUserCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,23 +61,26 @@ public class DbUserFollowCIQ extends DbAbstractBsUserFollowCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueUserFollowId() { return _myCQ.xdfgetUserFollowId(); }
-    protected ConditionValue xgetCValueFromUserId() { return _myCQ.xdfgetFromUserId(); }
-    protected ConditionValue xgetCValueToUserId() { return _myCQ.xdfgetToUserId(); }
+    protected ConditionValue xgetCValueTwitterUserId() { return _myCQ.xdfgetTwitterUserId(); }
+    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    protected ConditionValue xgetCValueTwitterId() { return _myCQ.xdfgetTwitterId(); }
+    protected ConditionValue xgetCValueScreenName() { return _myCQ.xdfgetScreenName(); }
+    protected ConditionValue xgetCValueAccessToken() { return _myCQ.xdfgetAccessToken(); }
+    protected ConditionValue xgetCValueTokenSecret() { return _myCQ.xdfgetTokenSecret(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbUserFollowCQ sq)
+    public String keepScalarCondition(DbTwitterUserCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbUserFollowCQ sq)
+    public String keepSpecifyMyselfDerived(DbTwitterUserCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbUserFollowCQ sq)
+    public String keepQueryMyselfDerived(DbTwitterUserCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbUserFollowCQ sq)
+    public String keepMyselfExists(DbTwitterUserCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -87,6 +90,6 @@ public class DbUserFollowCIQ extends DbAbstractBsUserFollowCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbUserFollowCB.class.getName(); }
-    protected String xinCQ() { return DbUserFollowCQ.class.getName(); }
+    protected String xinCB() { return DbTwitterUserCB.class.getName(); }
+    protected String xinCQ() { return DbTwitterUserCQ.class.getName(); }
 }

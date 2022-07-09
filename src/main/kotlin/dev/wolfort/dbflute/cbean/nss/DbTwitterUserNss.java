@@ -1,18 +1,18 @@
 package dev.wolfort.dbflute.cbean.nss;
 
-import dev.wolfort.dbflute.cbean.cq.DbUserFollowCQ;
+import dev.wolfort.dbflute.cbean.cq.DbTwitterUserCQ;
 
 /**
- * The nest select set-upper of user_follow.
+ * The nest select set-upper of twitter_user.
  * @author DBFlute(AutoGenerator)
  */
-public class DbUserFollowNss {
+public class DbTwitterUserNss {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected final DbUserFollowCQ _query;
-    public DbUserFollowNss(DbUserFollowCQ query) { _query = query; }
+    protected final DbTwitterUserCQ _query;
+    public DbTwitterUserNss(DbTwitterUserCQ query) { _query = query; }
     public boolean hasConditionQuery() { return _query != null; }
 
     // ===================================================================================
@@ -20,16 +20,11 @@ public class DbUserFollowNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * USER by my from_user_id, named 'userByFromUserId'.
+     * USER by my user_id, named 'user'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public void withUserByFromUserId() {
-        _query.xdoNss(() -> _query.queryUserByFromUserId());
-    }
-    /**
-     * With nested relation columns to select clause. <br>
-     * USER by my to_user_id, named 'userByToUserId'.
-     */
-    public void withUserByToUserId() {
-        _query.xdoNss(() -> _query.queryUserByToUserId());
+    public DbUserNss withUser() {
+        _query.xdoNss(() -> _query.queryUser());
+        return new DbUserNss(_query.queryUser());
     }
 }

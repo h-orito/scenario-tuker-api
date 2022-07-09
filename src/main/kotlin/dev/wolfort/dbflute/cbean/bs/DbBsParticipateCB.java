@@ -284,6 +284,11 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         return _nssScenario;
     }
 
+    protected DbUserNss _nssUser;
+    public DbUserNss xdfgetNssUser() {
+        if (_nssUser == null) { _nssUser = new DbUserNss(null); }
+        return _nssUser;
+    }
     /**
      * Set up relation columns to select clause. <br>
      * USER by my user_id, named 'user'.
@@ -295,13 +300,17 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_User() {
+    public DbUserNss setupSelect_User() {
         assertSetupSelectPurpose("user");
         if (hasSpecifiedLocalColumn()) {
             specify().columnUserId();
         }
         doSetupSelect(() -> query().queryUser());
+        if (_nssUser == null || !_nssUser.hasConditionQuery())
+        { _nssUser = new DbUserNss(query().queryUser()); }
+        return _nssUser;
     }
 
     protected DbParticipateImpressionNss _nssParticipateImpressionAsOne;

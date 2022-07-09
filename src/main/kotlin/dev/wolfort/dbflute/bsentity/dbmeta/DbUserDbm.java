@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -45,7 +46,6 @@ public class DbUserDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DbUser)et).getUserId(), (et, vl) -> ((DbUser)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((DbUser)et).getUserName(), (et, vl) -> ((DbUser)et).setUserName((String)vl), "userName");
         setupEpg(_epgMap, et -> ((DbUser)et).getUid(), (et, vl) -> ((DbUser)et).setUid((String)vl), "uid");
-        setupEpg(_epgMap, et -> ((DbUser)et).getTwitterUserName(), (et, vl) -> ((DbUser)et).setTwitterUserName((String)vl), "twitterUserName");
         setupEpg(_epgMap, et -> ((DbUser)et).getAuthority(), (et, vl) -> ((DbUser)et).setAuthority((String)vl), "authority");
         setupEpg(_epgMap, et -> ((DbUser)et).getRegisterDatetime(), (et, vl) -> ((DbUser)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbUser)et).getRegisterTrace(), (et, vl) -> ((DbUser)et).setRegisterTrace((String)vl), "registerTrace");
@@ -54,6 +54,18 @@ public class DbUserDbm extends AbstractDBMeta {
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
+
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((DbUser)et).getTwitterUserAsOne(), (et, vl) -> ((DbUser)et).setTwitterUserAsOne((OptionalEntity<DbTwitterUser>)vl), "twitterUserAsOne");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -71,10 +83,9 @@ public class DbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,userFollowByFromUserIdList,userFollowByToUserIdList", null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList", null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUid = cci("uid", "uid", null, null, String.class, "uid", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnTwitterUserName = cci("twitter_user_name", "twitter_user_name", null, null, String.class, "twitterUserName", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAuthority = cci("authority", "authority", null, null, String.class, "authority", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
@@ -96,11 +107,6 @@ public class DbUserDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUid() { return _columnUid; }
-    /**
-     * twitter_user_name: {VARCHAR(50)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnTwitterUserName() { return _columnTwitterUserName; }
     /**
      * authority: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
@@ -132,7 +138,6 @@ public class DbUserDbm extends AbstractDBMeta {
         ls.add(columnUserId());
         ls.add(columnUserName());
         ls.add(columnUid());
-        ls.add(columnTwitterUserName());
         ls.add(columnAuthority());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
@@ -166,6 +171,14 @@ public class DbUserDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * twitter_user by user_id, named 'twitterUserAsOne'.
+     * @return The information object of foreign property(referrer-as-one). (NotNull)
+     */
+    public ForeignInfo foreignTwitterUserAsOne() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbTwitterUserDbm.getInstance().columnUserId());
+        return cfi("fk_twitter_user_user", "twitterUserAsOne", this, DbTwitterUserDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, true, false, true, false, null, null, false, "user", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
@@ -177,22 +190,6 @@ public class DbUserDbm extends AbstractDBMeta {
     public ReferrerInfo referrerParticipateList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbParticipateDbm.getInstance().columnUserId());
         return cri("fk_participate_user", "participateList", this, DbParticipateDbm.getInstance(), mp, false, "user");
-    }
-    /**
-     * USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerUserFollowByFromUserIdList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserFollowDbm.getInstance().columnFromUserId());
-        return cri("fk_user_follow_from_user", "userFollowByFromUserIdList", this, DbUserFollowDbm.getInstance(), mp, false, "userByFromUserId");
-    }
-    /**
-     * USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerUserFollowByToUserIdList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserFollowDbm.getInstance().columnToUserId());
-        return cri("fk_user_follow_to_user", "userFollowByToUserIdList", this, DbUserFollowDbm.getInstance(), mp, false, "userByToUserId");
     }
 
     // ===================================================================================

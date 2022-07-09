@@ -13,19 +13,19 @@ import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The entity of USER_FOLLOW as TABLE. <br>
+ * The entity of TWITTER_USER as TABLE. <br>
  * <pre>
  * [primary-key]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [column]
- *     user_follow_id, from_user_id, to_user_id, register_datetime, register_trace, update_datetime, update_trace
+ *     twitter_user_id, user_id, twitter_id, screen_name, access_token, token_secret, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [version-no]
  *     
@@ -37,23 +37,29 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign property]
- *     userByFromUserId, userByToUserId
+ *     user
  *
  * [referrer property]
  *     
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer userFollowId = entity.getUserFollowId();
- * Integer fromUserId = entity.getFromUserId();
- * Integer toUserId = entity.getToUserId();
+ * Integer twitterUserId = entity.getTwitterUserId();
+ * Integer userId = entity.getUserId();
+ * String twitterId = entity.getTwitterId();
+ * String screenName = entity.getScreenName();
+ * String accessToken = entity.getAccessToken();
+ * String tokenSecret = entity.getTokenSecret();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
- * entity.setUserFollowId(userFollowId);
- * entity.setFromUserId(fromUserId);
- * entity.setToUserId(toUserId);
+ * entity.setTwitterUserId(twitterUserId);
+ * entity.setUserId(userId);
+ * entity.setTwitterId(twitterId);
+ * entity.setScreenName(screenName);
+ * entity.setAccessToken(accessToken);
+ * entity.setTokenSecret(tokenSecret);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -62,7 +68,7 @@ import dev.wolfort.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbBsUserFollow extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
+public abstract class DbBsTwitterUser extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -73,14 +79,23 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
-    protected Integer _userFollowId;
+    /** twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    protected Integer _twitterUserId;
 
-    /** from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user} */
-    protected Integer _fromUserId;
+    /** user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user} */
+    protected Integer _userId;
 
-    /** to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} */
-    protected Integer _toUserId;
+    /** twitter_id: {NotNull, VARCHAR(255)} */
+    protected String _twitterId;
+
+    /** screen_name: {NotNull, VARCHAR(255)} */
+    protected String _screenName;
+
+    /** access_token: {NotNull, VARCHAR(255)} */
+    protected String _accessToken;
+
+    /** token_secret: {NotNull, VARCHAR(255)} */
+    protected String _tokenSecret;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -104,7 +119,7 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "user_follow";
+        return "twitter_user";
     }
 
     // ===================================================================================
@@ -112,66 +127,43 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_userFollowId == null) { return false; }
+        if (_twitterUserId == null) { return false; }
         return true;
     }
 
     /**
      * To be unique by the unique column. <br>
      * You can update the entity by the key when entity update (NOT batch update).
-     * @param fromUserId : UQ+, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     * @param toUserId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param userId : UQ, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
      */
-    public void uniqueBy(Integer fromUserId, Integer toUserId) {
+    public void uniqueBy(Integer userId) {
         __uniqueDrivenProperties.clear();
-        __uniqueDrivenProperties.addPropertyName("fromUserId");
-        __uniqueDrivenProperties.addPropertyName("toUserId");
-        setFromUserId(fromUserId);setToUserId(toUserId);
+        __uniqueDrivenProperties.addPropertyName("userId");
+        setUserId(userId);
     }
 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** USER by my from_user_id, named 'userByFromUserId'. */
-    protected OptionalEntity<DbUser> _userByFromUserId;
+    /** USER by my user_id, named 'user'. */
+    protected OptionalEntity<DbUser> _user;
 
     /**
-     * [get] USER by my from_user_id, named 'userByFromUserId'. <br>
+     * [get] USER by my user_id, named 'user'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'userByFromUserId'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     * @return The entity of foreign property 'user'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public OptionalEntity<DbUser> getUserByFromUserId() {
-        if (_userByFromUserId == null) { _userByFromUserId = OptionalEntity.relationEmpty(this, "userByFromUserId"); }
-        return _userByFromUserId;
+    public OptionalEntity<DbUser> getUser() {
+        if (_user == null) { _user = OptionalEntity.relationEmpty(this, "user"); }
+        return _user;
     }
 
     /**
-     * [set] USER by my from_user_id, named 'userByFromUserId'.
-     * @param userByFromUserId The entity of foreign property 'userByFromUserId'. (NullAllowed)
+     * [set] USER by my user_id, named 'user'.
+     * @param user The entity of foreign property 'user'. (NullAllowed)
      */
-    public void setUserByFromUserId(OptionalEntity<DbUser> userByFromUserId) {
-        _userByFromUserId = userByFromUserId;
-    }
-
-    /** USER by my to_user_id, named 'userByToUserId'. */
-    protected OptionalEntity<DbUser> _userByToUserId;
-
-    /**
-     * [get] USER by my to_user_id, named 'userByToUserId'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'userByToUserId'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<DbUser> getUserByToUserId() {
-        if (_userByToUserId == null) { _userByToUserId = OptionalEntity.relationEmpty(this, "userByToUserId"); }
-        return _userByToUserId;
-    }
-
-    /**
-     * [set] USER by my to_user_id, named 'userByToUserId'.
-     * @param userByToUserId The entity of foreign property 'userByToUserId'. (NullAllowed)
-     */
-    public void setUserByToUserId(OptionalEntity<DbUser> userByToUserId) {
-        _userByToUserId = userByToUserId;
+    public void setUser(OptionalEntity<DbUser> user) {
+        _user = user;
     }
 
     // ===================================================================================
@@ -186,9 +178,9 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     //                                                                      ==============
     @Override
     protected boolean doEquals(Object obj) {
-        if (obj instanceof DbBsUserFollow) {
-            DbBsUserFollow other = (DbBsUserFollow)obj;
-            if (!xSV(_userFollowId, other._userFollowId)) { return false; }
+        if (obj instanceof DbBsTwitterUser) {
+            DbBsTwitterUser other = (DbBsTwitterUser)obj;
+            if (!xSV(_twitterUserId, other._twitterUserId)) { return false; }
             return true;
         } else {
             return false;
@@ -199,17 +191,15 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     protected int doHashCode(int initial) {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
-        hs = xCH(hs, _userFollowId);
+        hs = xCH(hs, _twitterUserId);
         return hs;
     }
 
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_userByFromUserId != null && _userByFromUserId.isPresent())
-        { sb.append(li).append(xbRDS(_userByFromUserId, "userByFromUserId")); }
-        if (_userByToUserId != null && _userByToUserId.isPresent())
-        { sb.append(li).append(xbRDS(_userByToUserId, "userByToUserId")); }
+        if (_user != null && _user.isPresent())
+        { sb.append(li).append(xbRDS(_user, "user")); }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -219,9 +209,12 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(xfND(_userFollowId));
-        sb.append(dm).append(xfND(_fromUserId));
-        sb.append(dm).append(xfND(_toUserId));
+        sb.append(dm).append(xfND(_twitterUserId));
+        sb.append(dm).append(xfND(_userId));
+        sb.append(dm).append(xfND(_twitterId));
+        sb.append(dm).append(xfND(_screenName));
+        sb.append(dm).append(xfND(_accessToken));
+        sb.append(dm).append(xfND(_tokenSecret));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -236,10 +229,8 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_userByFromUserId != null && _userByFromUserId.isPresent())
-        { sb.append(dm).append("userByFromUserId"); }
-        if (_userByToUserId != null && _userByToUserId.isPresent())
-        { sb.append(dm).append("userByToUserId"); }
+        if (_user != null && _user.isPresent())
+        { sb.append(dm).append("user"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -247,65 +238,119 @@ public abstract class DbBsUserFollow extends AbstractEntity implements DomainEnt
     }
 
     @Override
-    public DbUserFollow clone() {
-        return (DbUserFollow)super.clone();
+    public DbTwitterUser clone() {
+        return (DbTwitterUser)super.clone();
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @return The value of the column 'user_follow_id'. (basically NotNull if selected: for the constraint)
+     * [get] twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'twitter_user_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getUserFollowId() {
-        checkSpecifiedProperty("userFollowId");
-        return _userFollowId;
+    public Integer getTwitterUserId() {
+        checkSpecifiedProperty("twitterUserId");
+        return _twitterUserId;
     }
 
     /**
-     * [set] user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @param userFollowId The value of the column 'user_follow_id'. (basically NotNull if update: for the constraint)
+     * [set] twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @param twitterUserId The value of the column 'twitter_user_id'. (basically NotNull if update: for the constraint)
      */
-    public void setUserFollowId(Integer userFollowId) {
-        registerModifiedProperty("userFollowId");
-        _userFollowId = userFollowId;
+    public void setTwitterUserId(Integer twitterUserId) {
+        registerModifiedProperty("twitterUserId");
+        _twitterUserId = twitterUserId;
     }
 
     /**
-     * [get] from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @return The value of the column 'from_user_id'. (basically NotNull if selected: for the constraint)
+     * [get] user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user} <br>
+     * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getFromUserId() {
-        checkSpecifiedProperty("fromUserId");
-        return _fromUserId;
+    public Integer getUserId() {
+        checkSpecifiedProperty("userId");
+        return _userId;
     }
 
     /**
-     * [set] from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @param fromUserId The value of the column 'from_user_id'. (basically NotNull if update: for the constraint)
+     * [set] user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user} <br>
+     * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
-    public void setFromUserId(Integer fromUserId) {
-        registerModifiedProperty("fromUserId");
-        _fromUserId = fromUserId;
+    public void setUserId(Integer userId) {
+        registerModifiedProperty("userId");
+        _userId = userId;
     }
 
     /**
-     * [get] to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @return The value of the column 'to_user_id'. (basically NotNull if selected: for the constraint)
+     * [get] twitter_id: {NotNull, VARCHAR(255)} <br>
+     * @return The value of the column 'twitter_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getToUserId() {
-        checkSpecifiedProperty("toUserId");
-        return _toUserId;
+    public String getTwitterId() {
+        checkSpecifiedProperty("twitterId");
+        return convertEmptyToNull(_twitterId);
     }
 
     /**
-     * [set] to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
-     * @param toUserId The value of the column 'to_user_id'. (basically NotNull if update: for the constraint)
+     * [set] twitter_id: {NotNull, VARCHAR(255)} <br>
+     * @param twitterId The value of the column 'twitter_id'. (basically NotNull if update: for the constraint)
      */
-    public void setToUserId(Integer toUserId) {
-        registerModifiedProperty("toUserId");
-        _toUserId = toUserId;
+    public void setTwitterId(String twitterId) {
+        registerModifiedProperty("twitterId");
+        _twitterId = twitterId;
+    }
+
+    /**
+     * [get] screen_name: {NotNull, VARCHAR(255)} <br>
+     * @return The value of the column 'screen_name'. (basically NotNull if selected: for the constraint)
+     */
+    public String getScreenName() {
+        checkSpecifiedProperty("screenName");
+        return convertEmptyToNull(_screenName);
+    }
+
+    /**
+     * [set] screen_name: {NotNull, VARCHAR(255)} <br>
+     * @param screenName The value of the column 'screen_name'. (basically NotNull if update: for the constraint)
+     */
+    public void setScreenName(String screenName) {
+        registerModifiedProperty("screenName");
+        _screenName = screenName;
+    }
+
+    /**
+     * [get] access_token: {NotNull, VARCHAR(255)} <br>
+     * @return The value of the column 'access_token'. (basically NotNull if selected: for the constraint)
+     */
+    public String getAccessToken() {
+        checkSpecifiedProperty("accessToken");
+        return convertEmptyToNull(_accessToken);
+    }
+
+    /**
+     * [set] access_token: {NotNull, VARCHAR(255)} <br>
+     * @param accessToken The value of the column 'access_token'. (basically NotNull if update: for the constraint)
+     */
+    public void setAccessToken(String accessToken) {
+        registerModifiedProperty("accessToken");
+        _accessToken = accessToken;
+    }
+
+    /**
+     * [get] token_secret: {NotNull, VARCHAR(255)} <br>
+     * @return The value of the column 'token_secret'. (basically NotNull if selected: for the constraint)
+     */
+    public String getTokenSecret() {
+        checkSpecifiedProperty("tokenSecret");
+        return convertEmptyToNull(_tokenSecret);
+    }
+
+    /**
+     * [set] token_secret: {NotNull, VARCHAR(255)} <br>
+     * @param tokenSecret The value of the column 'token_secret'. (basically NotNull if update: for the constraint)
+     */
+    public void setTokenSecret(String tokenSecret) {
+        registerModifiedProperty("tokenSecret");
+        _tokenSecret = tokenSecret;
     }
 
     /**

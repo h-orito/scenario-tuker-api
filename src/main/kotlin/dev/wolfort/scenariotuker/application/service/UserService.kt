@@ -1,15 +1,15 @@
 package dev.wolfort.scenariotuker.application.service
 
-import dev.wolfort.scenariotuker.domain.model.user.User
-import dev.wolfort.scenariotuker.domain.model.user.UserQuery
-import dev.wolfort.scenariotuker.domain.model.user.UserRepository
-import dev.wolfort.scenariotuker.domain.model.user.Users
+import dev.wolfort.scenariotuker.domain.model.user.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.Authority
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(private val userRepository: UserRepository) {
+class UserService(
+    private val userRepository: UserRepository,
+    private val twitterRepository: TwitterRepository
+) {
 
     fun findAll(): Users = userRepository.findAll()
 
@@ -22,51 +22,50 @@ class UserService(private val userRepository: UserRepository) {
     fun findByUid(uid: String): User? = userRepository.findByUid(uid)
 
     fun register(resource: UserCreateResource): User {
+        val twitterUserId = twitterRepository.getUserIdByUsername(
+            accessToken = resource.accessToken,
+            tokenSecret = resource.tokenSecret,
+            screenName = resource.screenName
+        ) ?: throw SystemException("failed to get twitter user id. screenName: ${resource.screenName}")
+
+        val user = resource.toUser(twitterUserId)
         userRepository.findByUid(resource.uid)?.let {
-            // twitter名のみupdate
-            return userRepository.update(it.copy(twitterUserName = resource.twitterUserName))
+            // twitterのみupdate
+            return userRepository.update(user)
         }
-        return userRepository.register(resource.toUser())
+        return userRepository.register(user)
     }
 
     fun update(resource: UserUpdateResource): User {
         val existing =
             userRepository.findByUid(resource.uid) ?: throw SystemException("user not found. uid: ${resource.uid}")
         // nameのみupdate
-        return userRepository.update(resource.toUser(existing.twitterUserName))
+        return userRepository.update(existing.copy(name = resource.name))
     }
-
-    fun follow(fromId: Int, toId: Int) = userRepository.follow(fromId, toId)
-    fun unfollow(fromId: Int, toId: Int) = userRepository.unfollow(fromId, toId)
 
     data class UserCreateResource(
         val uid: String,
         val name: String,
-        val twitterUserName: String?
+        val screenName: String,
+        val accessToken: String,
+        val tokenSecret: String
     ) {
-        fun toUser(): User = User(
+        fun toUser(twitterUserId: String): User = User(
             id = 0,
             uid = uid,
             authority = Authority.User,
             name = name,
-            twitterUserName = twitterUserName,
-            follows = emptyList(),
-            followers = emptyList()
+            twitter = TwitterUser(
+                id = twitterUserId,
+                screenName = screenName,
+                accessToken = accessToken,
+                tokenSecret = tokenSecret
+            )
         )
     }
 
     data class UserUpdateResource(
         val uid: String,
         val name: String
-    ) {
-        fun toUser(twitterUserName: String?): User = User(
-            id = 0,
-            uid = uid,
-            authority = Authority.User,
-            name = name,
-            twitterUserName = twitterUserName,
-            follows = emptyList(),
-            followers = emptyList()
-        )
-    }
+    )
 }

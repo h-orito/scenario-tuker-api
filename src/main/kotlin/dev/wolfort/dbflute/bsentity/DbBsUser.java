@@ -3,9 +3,11 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
@@ -17,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, uid, twitter_user_name, authority, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, authority, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -29,23 +31,22 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     TWITTER_USER(AsOne)
  *
  * [referrer table]
- *     PARTICIPATE, USER_FOLLOW
+ *     PARTICIPATE, TWITTER_USER
  *
  * [foreign property]
- *     
+ *     twitterUserAsOne
  *
  * [referrer property]
- *     participateList, userFollowByFromUserIdList, userFollowByToUserIdList
+ *     participateList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer userId = entity.getUserId();
  * String userName = entity.getUserName();
  * String uid = entity.getUid();
- * String twitterUserName = entity.getTwitterUserName();
  * String authority = entity.getAuthority();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
@@ -54,7 +55,6 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setUserId(userId);
  * entity.setUserName(userName);
  * entity.setUid(uid);
- * entity.setTwitterUserName(twitterUserName);
  * entity.setAuthority(authority);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
@@ -83,9 +83,6 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
 
     /** uid: {UQ, NotNull, VARCHAR(255)} */
     protected String _uid;
-
-    /** twitter_user_name: {VARCHAR(50)} */
-    protected String _twitterUserName;
 
     /** authority: {NotNull, VARCHAR(50)} */
     protected String _authority;
@@ -138,6 +135,27 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** twitter_user by user_id, named 'twitterUserAsOne'. */
+    protected OptionalEntity<DbTwitterUser> _twitterUserAsOne;
+
+    /**
+     * [get] twitter_user by user_id, named 'twitterUserAsOne'.
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return the entity of foreign property(referrer-as-one) 'twitterUserAsOne'. (NotNull, EmptyAllowed: when e.g. no data, no setupSelect)
+     */
+    public OptionalEntity<DbTwitterUser> getTwitterUserAsOne() {
+        if (_twitterUserAsOne == null) { _twitterUserAsOne = OptionalEntity.relationEmpty(this, "twitterUserAsOne"); }
+        return _twitterUserAsOne;
+    }
+
+    /**
+     * [set] twitter_user by user_id, named 'twitterUserAsOne'.
+     * @param twitterUserAsOne The entity of foreign property(referrer-as-one) 'twitterUserAsOne'. (NullAllowed)
+     */
+    public void setTwitterUserAsOne(OptionalEntity<DbTwitterUser> twitterUserAsOne) {
+        _twitterUserAsOne = twitterUserAsOne;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -159,46 +177,6 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
      */
     public void setParticipateList(List<DbParticipate> participateList) {
         _participateList = participateList;
-    }
-
-    /** USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'. */
-    protected List<DbUserFollow> _userFollowByFromUserIdList;
-
-    /**
-     * [get] USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * @return The entity list of referrer property 'userFollowByFromUserIdList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbUserFollow> getUserFollowByFromUserIdList() {
-        if (_userFollowByFromUserIdList == null) { _userFollowByFromUserIdList = newReferrerList(); }
-        return _userFollowByFromUserIdList;
-    }
-
-    /**
-     * [set] USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * @param userFollowByFromUserIdList The entity list of referrer property 'userFollowByFromUserIdList'. (NullAllowed)
-     */
-    public void setUserFollowByFromUserIdList(List<DbUserFollow> userFollowByFromUserIdList) {
-        _userFollowByFromUserIdList = userFollowByFromUserIdList;
-    }
-
-    /** USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'. */
-    protected List<DbUserFollow> _userFollowByToUserIdList;
-
-    /**
-     * [get] USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * @return The entity list of referrer property 'userFollowByToUserIdList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbUserFollow> getUserFollowByToUserIdList() {
-        if (_userFollowByToUserIdList == null) { _userFollowByToUserIdList = newReferrerList(); }
-        return _userFollowByToUserIdList;
-    }
-
-    /**
-     * [set] USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * @param userFollowByToUserIdList The entity list of referrer property 'userFollowByToUserIdList'. (NullAllowed)
-     */
-    public void setUserFollowByToUserIdList(List<DbUserFollow> userFollowByToUserIdList) {
-        _userFollowByToUserIdList = userFollowByToUserIdList;
     }
 
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
@@ -230,13 +208,14 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_twitterUserAsOne != null && _twitterUserAsOne.isPresent())
+        { sb.append(li).append(xbRDS(_twitterUserAsOne, "twitterUserAsOne")); }
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
-        if (_userFollowByFromUserIdList != null) { for (DbUserFollow et : _userFollowByFromUserIdList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "userFollowByFromUserIdList")); } } }
-        if (_userFollowByToUserIdList != null) { for (DbUserFollow et : _userFollowByToUserIdList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "userFollowByToUserIdList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -245,7 +224,6 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_userName));
         sb.append(dm).append(xfND(_uid));
-        sb.append(dm).append(xfND(_twitterUserName));
         sb.append(dm).append(xfND(_authority));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
@@ -261,12 +239,10 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_twitterUserAsOne != null && _twitterUserAsOne.isPresent())
+        { sb.append(dm).append("twitterUserAsOne"); }
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
-        if (_userFollowByFromUserIdList != null && !_userFollowByFromUserIdList.isEmpty())
-        { sb.append(dm).append("userFollowByFromUserIdList"); }
-        if (_userFollowByToUserIdList != null && !_userFollowByToUserIdList.isEmpty())
-        { sb.append(dm).append("userFollowByToUserIdList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -333,24 +309,6 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     public void setUid(String uid) {
         registerModifiedProperty("uid");
         _uid = uid;
-    }
-
-    /**
-     * [get] twitter_user_name: {VARCHAR(50)} <br>
-     * @return The value of the column 'twitter_user_name'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getTwitterUserName() {
-        checkSpecifiedProperty("twitterUserName");
-        return convertEmptyToNull(_twitterUserName);
-    }
-
-    /**
-     * [set] twitter_user_name: {VARCHAR(50)} <br>
-     * @param twitterUserName The value of the column 'twitter_user_name'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setTwitterUserName(String twitterUserName) {
-        registerModifiedProperty("twitterUserName");
-        _twitterUserName = twitterUserName;
     }
 
     /**

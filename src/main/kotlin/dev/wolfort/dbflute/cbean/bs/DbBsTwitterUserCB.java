@@ -18,22 +18,23 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of user_follow.
+ * The base condition-bean of twitter_user.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsUserFollowCB extends AbstractConditionBean {
+public class DbBsTwitterUserCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbUserFollowCQ _conditionQuery;
+    protected DbTwitterUserCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsUserFollowCB() {
+    public DbBsTwitterUserCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -76,7 +77,7 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "user_follow";
+        return "twitter_user";
     }
 
     // ===================================================================================
@@ -84,36 +85,35 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param userFollowId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param twitterUserId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbUserFollowCB acceptPK(Integer userFollowId) {
-        assertObjectNotNull("userFollowId", userFollowId);
-        DbBsUserFollowCB cb = this;
-        cb.query().setUserFollowId_Equal(userFollowId);
-        return (DbUserFollowCB)this;
+    public DbTwitterUserCB acceptPK(Integer twitterUserId) {
+        assertObjectNotNull("twitterUserId", twitterUserId);
+        DbBsTwitterUserCB cb = this;
+        cb.query().setTwitterUserId_Equal(twitterUserId);
+        return (DbTwitterUserCB)this;
     }
 
     /**
      * Accept the query condition of unique key as equal.
-     * @param fromUserId : UQ+, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     * @param toUserId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param userId : UQ, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
      * @return this. (NotNull)
      */
-    public DbUserFollowCB acceptUniqueOf(Integer fromUserId, Integer toUserId) {
-        assertObjectNotNull("fromUserId", fromUserId);assertObjectNotNull("toUserId", toUserId);
-        DbBsUserFollowCB cb = this;
-        cb.query().setFromUserId_Equal(fromUserId);cb.query().setToUserId_Equal(toUserId);
-        return (DbUserFollowCB)this;
+    public DbTwitterUserCB acceptUniqueOf(Integer userId) {
+        assertObjectNotNull("userId", userId);
+        DbBsTwitterUserCB cb = this;
+        cb.query().setUserId_Equal(userId);
+        return (DbTwitterUserCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_UserFollowId_Asc();
+        query().addOrderBy_TwitterUserId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_UserFollowId_Desc();
+        query().addOrderBy_TwitterUserId_Desc();
         return this;
     }
 
@@ -177,34 +177,34 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbUserFollowCQ query() {
+    public DbTwitterUserCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbUserFollowCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbTwitterUserCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbUserFollowCQ doGetConditionQuery() {
+    protected DbTwitterUserCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbUserFollowCQ createLocalCQ() {
+    protected DbTwitterUserCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbUserFollowCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbUserFollowCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbTwitterUserCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbTwitterUserCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbUserFollowCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbUserFollowCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbTwitterUserCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbTwitterUserCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -228,10 +228,10 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbUserFollowCB> unionCBLambda) {
-        final DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbTwitterUserCB> unionCBLambda) {
+        final DbTwitterUserCB cb = new DbTwitterUserCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbUserFollowCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbTwitterUserCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -245,53 +245,42 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbUserFollowCB> unionCBLambda) {
-        final DbUserFollowCB cb = new DbUserFollowCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbTwitterUserCB> unionCBLambda) {
+        final DbTwitterUserCB cb = new DbTwitterUserCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbUserFollowCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbTwitterUserCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    /**
-     * Set up relation columns to select clause. <br>
-     * USER by my from_user_id, named 'userByFromUserId'.
-     * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserByFromUserId()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
-     *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userFollow</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userFollow</span>.<span style="color: #CC4747">getUserByFromUserId()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
-     * });
-     * </pre>
-     */
-    public void setupSelect_UserByFromUserId() {
-        assertSetupSelectPurpose("userByFromUserId");
-        if (hasSpecifiedLocalColumn()) {
-            specify().columnFromUserId();
-        }
-        doSetupSelect(() -> query().queryUserByFromUserId());
+    protected DbUserNss _nssUser;
+    public DbUserNss xdfgetNssUser() {
+        if (_nssUser == null) { _nssUser = new DbUserNss(null); }
+        return _nssUser;
     }
-
     /**
      * Set up relation columns to select clause. <br>
-     * USER by my to_user_id, named 'userByToUserId'.
+     * USER by my user_id, named 'user'.
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_UserByToUserId()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">twitterUserBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_User()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">userFollow</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">userFollow</span>.<span style="color: #CC4747">getUserByToUserId()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">twitterUser</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">twitterUser</span>.<span style="color: #CC4747">getUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_UserByToUserId() {
-        assertSetupSelectPurpose("userByToUserId");
+    public DbUserNss setupSelect_User() {
+        assertSetupSelectPurpose("user");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnToUserId();
+            specify().columnUserId();
         }
-        doSetupSelect(() -> query().queryUserByToUserId());
+        doSetupSelect(() -> query().queryUser());
+        if (_nssUser == null || !_nssUser.hasConditionQuery())
+        { _nssUser = new DbUserNss(query().queryUser()); }
+        return _nssUser;
     }
 
     // [DBFlute-0.7.4]
@@ -334,28 +323,42 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbUserFollowCQ> {
-        protected DbUserCB.HpSpecification _userByFromUserId;
-        protected DbUserCB.HpSpecification _userByToUserId;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbUserFollowCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<DbTwitterUserCQ> {
+        protected DbUserCB.HpSpecification _user;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbTwitterUserCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * user_follow_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnUserFollowId() { return doColumn("user_follow_id"); }
+        public SpecifiedColumn columnTwitterUserId() { return doColumn("twitter_user_id"); }
         /**
-         * from_user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user}
+         * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnFromUserId() { return doColumn("from_user_id"); }
+        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
         /**
-         * to_user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+         * twitter_id: {NotNull, VARCHAR(255)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnToUserId() { return doColumn("to_user_id"); }
+        public SpecifiedColumn columnTwitterId() { return doColumn("twitter_id"); }
+        /**
+         * screen_name: {NotNull, VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnScreenName() { return doColumn("screen_name"); }
+        /**
+         * access_token: {NotNull, VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnAccessToken() { return doColumn("access_token"); }
+        /**
+         * token_secret: {NotNull, VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnTokenSecret() { return doColumn("token_secret"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -380,65 +383,41 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnUserFollowId(); // PK
-            if (qyCall().qy().hasConditionQueryUserByFromUserId()
+            columnTwitterUserId(); // PK
+            if (qyCall().qy().hasConditionQueryUser()
                     || qyCall().qy().xgetReferrerQuery() instanceof DbUserCQ) {
-                columnFromUserId(); // FK or one-to-one referrer
-            }
-            if (qyCall().qy().hasConditionQueryUserByToUserId()
-                    || qyCall().qy().xgetReferrerQuery() instanceof DbUserCQ) {
-                columnToUserId(); // FK or one-to-one referrer
+                columnUserId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "user_follow"; }
+        protected String getTableDbName() { return "twitter_user"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * USER by my from_user_id, named 'userByFromUserId'.
+         * USER by my user_id, named 'user'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public DbUserCB.HpSpecification specifyUserByFromUserId() {
-            assertRelation("userByFromUserId");
-            if (_userByFromUserId == null) {
-                _userByFromUserId = new DbUserCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserByFromUserId()
-                                    , () -> _qyCall.qy().queryUserByFromUserId())
+        public DbUserCB.HpSpecification specifyUser() {
+            assertRelation("user");
+            if (_user == null) {
+                _user = new DbUserCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUser()
+                                    , () -> _qyCall.qy().queryUser())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _userByFromUserId.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserByFromUserId()
-                      , () -> xsyncQyCall().qy().queryUserByFromUserId()));
+                    _user.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUser()
+                      , () -> xsyncQyCall().qy().queryUser()));
                 }
             }
-            return _userByFromUserId;
-        }
-        /**
-         * Prepare to specify functions about relation table. <br>
-         * USER by my to_user_id, named 'userByToUserId'.
-         * @return The instance for specification for relation table to specify. (NotNull)
-         */
-        public DbUserCB.HpSpecification specifyUserByToUserId() {
-            assertRelation("userByToUserId");
-            if (_userByToUserId == null) {
-                _userByToUserId = new DbUserCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUserByToUserId()
-                                    , () -> _qyCall.qy().queryUserByToUserId())
-                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
-                if (xhasSyncQyCall()) { // inherits it
-                    _userByToUserId.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUserByToUserId()
-                      , () -> xsyncQyCall().qy().queryUserByToUserId()));
-                }
-            }
-            return _userByToUserId;
+            return _user;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbUserFollowCB, DbUserFollowCQ> myselfDerived() {
+        public HpSDRFunction<DbTwitterUserCB, DbTwitterUserCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserFollowCB> sq, DbUserFollowCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbTwitterUserCB> sq, DbTwitterUserCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -451,9 +430,9 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbUserFollowCB dreamCruiseCB() {
-        DbUserFollowCB cb = new DbUserFollowCB();
-        cb.xsetupForDreamCruise((DbUserFollowCB) this);
+    public DbTwitterUserCB dreamCruiseCB() {
+        DbTwitterUserCB cb = new DbTwitterUserCB();
+        cb.xsetupForDreamCruise((DbTwitterUserCB) this);
         return cb;
     }
 
@@ -478,15 +457,15 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbUserFollowCB> columnQuery(final SpecifyQuery<DbUserFollowCB> colCBLambda) {
+    public HpColQyOperand<DbTwitterUserCB> columnQuery(final SpecifyQuery<DbTwitterUserCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbUserFollowCB xcreateColumnQueryCB() {
-        DbUserFollowCB cb = new DbUserFollowCB();
-        cb.xsetupForColumnQuery((DbUserFollowCB)this);
+    protected DbTwitterUserCB xcreateColumnQueryCB() {
+        DbTwitterUserCB cb = new DbTwitterUserCB();
+        cb.xsetupForColumnQuery((DbTwitterUserCB)this);
         return cb;
     }
 
@@ -506,8 +485,8 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbUserFollowCB> orCBLambda) {
-        xorSQ((DbUserFollowCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbTwitterUserCB> orCBLambda) {
+        xorSQ((DbTwitterUserCB)this, orCBLambda);
     }
 
     /**
@@ -525,8 +504,8 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbUserFollowCB> andCBLambda) {
-        xorSQAP((DbUserFollowCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbTwitterUserCB> andCBLambda) {
+        xorSQAP((DbTwitterUserCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -556,11 +535,11 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbUserFollowCB cb;
+        final DbTwitterUserCB cb;
         if (mainCB != null) {
-            cb = (DbUserFollowCB)mainCB;
+            cb = (DbTwitterUserCB)mainCB;
         } else {
-            cb = new DbUserFollowCB();
+            cb = new DbTwitterUserCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -569,8 +548,8 @@ public class DbBsUserFollowCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbUserFollowCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbUserFollowCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbTwitterUserCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbTwitterUserCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

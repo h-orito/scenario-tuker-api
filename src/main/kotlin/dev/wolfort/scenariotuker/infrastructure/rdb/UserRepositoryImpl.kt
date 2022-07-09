@@ -1,81 +1,74 @@
 package dev.wolfort.scenariotuker.infrastructure.rdb
 
+import dev.wolfort.dbflute.exbhv.DbTwitterUserBhv
 import dev.wolfort.dbflute.exbhv.DbUserBhv
-import dev.wolfort.dbflute.exbhv.DbUserFollowBhv
+import dev.wolfort.dbflute.exentity.DbTwitterUser
 import dev.wolfort.dbflute.exentity.DbUser
-import dev.wolfort.dbflute.exentity.DbUserFollow
-import dev.wolfort.scenariotuker.domain.model.user.User
-import dev.wolfort.scenariotuker.domain.model.user.UserQuery
-import dev.wolfort.scenariotuker.domain.model.user.UserRepository
-import dev.wolfort.scenariotuker.domain.model.user.Users
+import dev.wolfort.scenariotuker.domain.model.user.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.Authority
+import dev.wolfort.scenariotuker.util.Encryptor
 import org.springframework.stereotype.Repository
 
 @Repository
 class UserRepositoryImpl(
     private val userBhv: DbUserBhv,
-    private val userFollowBhv: DbUserFollowBhv
+    private val twitterUserBhv: DbTwitterUserBhv,
+    private val encryptor: Encryptor
 ) : UserRepository {
 
     override fun findAll(): Users {
         val dbUserList = userBhv.selectList {
+            it.setupSelect_TwitterUserAsOne()
             it.query().addOrderBy_UserId_Asc()
         }
-        loadUserFollow(dbUserList)
         return mappingToUsers(dbUserList)
     }
 
     override fun findAllByIds(ids: List<Int>): Users {
         if (ids.isEmpty()) return Users(list = emptyList())
         val dbUserList = userBhv.selectList {
+            it.setupSelect_TwitterUserAsOne()
             it.query().setUserId_InScope(ids)
         }
-        loadUserFollow(dbUserList)
         return mappingToUsers(ids.mapNotNull { id -> dbUserList.find { it.userId == id } })
     }
 
     override fun search(query: UserQuery): Users {
         val dbUserList = userBhv.selectList {
+            it.setupSelect_TwitterUserAsOne()
             if (!query.name.isNullOrEmpty()) {
                 it.query().setUserName_LikeSearch(query.name) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
-            if (!query.twitterUserName.isNullOrEmpty()) {
-                it.query().setTwitterUserName_LikeSearch(query.twitterUserName) { op ->
+            if (!query.screenName.isNullOrEmpty()) {
+                it.query().queryTwitterUserAsOne().setScreenName_LikeSearch(query.screenName) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
             it.query().addOrderBy_UserId_Asc()
         }
-        loadUserFollow(dbUserList)
         return mappingToUsers(dbUserList)
     }
 
     override fun findById(id: Int): User? {
         val optDbUser = userBhv.selectEntity {
+            it.setupSelect_TwitterUserAsOne()
             it.query().setUserId_Equal(id)
         }
         if (!optDbUser.isPresent) return null
         val dbUser = optDbUser.get()
-        userBhv.load(dbUser) {
-            it.loadUserFollowByFromUserId { }
-            it.loadUserFollowByToUserId { }
-        }
         return mappingToUser(dbUser)
     }
 
     override fun findByUid(uid: String): User? {
         val optDbUser = userBhv.selectEntity {
+            it.setupSelect_TwitterUserAsOne()
             it.query().setUid_Equal(uid)
         }
         if (!optDbUser.isPresent) return null
         val dbUser = optDbUser.get()
-        userBhv.load(dbUser) {
-            it.loadUserFollowByFromUserId { }
-            it.loadUserFollowByToUserId { }
-        }
         return mappingToUser(dbUser)
     }
 
@@ -84,50 +77,41 @@ class UserRepositoryImpl(
         u.uid = user.uid
         u.authority = user.authority.name
         u.userName = user.name
-        u.twitterUserName = user.twitterUserName
         userBhv.insert(u)
-        return findById(u.userId)!!
+        val userId = u.userId
+        val t = DbTwitterUser()
+        t.userId = userId
+        t.twitterId = user.twitter.id
+        t.screenName = user.twitter.screenName
+        t.accessToken = encryptor.encrypt(user.twitter.accessToken)
+        t.tokenSecret = encryptor.encrypt(user.twitter.tokenSecret)
+        twitterUserBhv.insert(t)
+        return findById(userId)!!
     }
 
     override fun update(user: User): User {
         val exists = findByUid(user.uid) ?: throw SystemException("user not found. uid: ${user.uid}")
-
         val u = DbUser()
         u.userId = exists.id
         u.userName = user.name
-        u.twitterUserName = user.twitterUserName
         userBhv.update(u)
+        upsertTwitter(user)
         return findByUid(user.uid)!!
     }
 
-    override fun follow(fromId: Int, toId: Int) {
-        val exists = userFollowBhv.selectEntity {
-            it.query().setFromUserId_Equal(fromId)
-            it.query().setToUserId_Equal(toId)
+    private fun upsertTwitter(user: User) {
+        val exists = twitterUserBhv.selectEntity {
+            it.query().setUserId_Equal(user.id)
         }
-        if (exists.isPresent) return
-        val f = DbUserFollow()
-        f.fromUserId = fromId
-        f.toUserId = toId
-        userFollowBhv.insert(f)
-    }
-
-    override fun unfollow(fromId: Int, toId: Int) {
-        val exists = userFollowBhv.selectEntity {
-            it.query().setFromUserId_Equal(fromId)
-            it.query().setToUserId_Equal(toId)
+        val t = if (exists.isPresent) exists.get() else DbTwitterUser()
+        t.userId = user.id
+        user.twitter.let {
+            t.twitterId = it.id
+            t.screenName = it.screenName
+            t.accessToken = encryptor.encrypt(it.accessToken)
+            t.tokenSecret = encryptor.encrypt(it.tokenSecret)
         }
-        if (!exists.isPresent) return
-        userFollowBhv.delete(exists.get())
-    }
-
-    private fun loadUserFollow(dbUserList: List<DbUser>) {
-        if (dbUserList.isNotEmpty()) {
-            userBhv.load(dbUserList) {
-                it.loadUserFollowByFromUserId { }
-                it.loadUserFollowByToUserId { }
-            }
-        }
+        twitterUserBhv.insertOrUpdate(t)
     }
 
     private fun mappingToUsers(list: List<DbUser>): Users {
@@ -140,9 +124,14 @@ class UserRepositoryImpl(
             uid = user.uid,
             authority = Authority.valueOf(user.authority),
             name = user.userName,
-            twitterUserName = user.twitterUserName,
-            follows = user.userFollowByFromUserIdList.map { it.toUserId },
-            followers = user.userFollowByToUserIdList.map { it.fromUserId }
+            twitter = user.twitterUserAsOne.get().let {
+                TwitterUser(
+                    id = it.twitterId,
+                    screenName = it.screenName,
+                    accessToken = encryptor.decrypt(it.accessToken),
+                    tokenSecret = encryptor.decrypt(it.tokenSecret)
+                )
+            }
         )
     }
 }

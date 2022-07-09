@@ -18,6 +18,7 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of user.
@@ -253,6 +254,32 @@ public class DbBsUserCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected DbTwitterUserNss _nssTwitterUserAsOne;
+    public DbTwitterUserNss xdfgetNssTwitterUserAsOne() {
+        if (_nssTwitterUserAsOne == null) { _nssTwitterUserAsOne = new DbTwitterUserNss(null); }
+        return _nssTwitterUserAsOne;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * twitter_user by user_id, named 'twitterUserAsOne'.
+     * <pre>
+     * <span style="color: #0000C0">userBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_TwitterUserAsOne(${dynamicFixedConditionVariables})</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">user</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">user</span>.<span style="color: #CC4747">getTwitterUserAsOne()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public DbTwitterUserNss setupSelect_TwitterUserAsOne() {
+        assertSetupSelectPurpose("twitterUserAsOne");
+        doSetupSelect(() -> query().queryTwitterUserAsOne());
+        if (_nssTwitterUserAsOne == null || !_nssTwitterUserAsOne.hasConditionQuery())
+        { _nssTwitterUserAsOne = new DbTwitterUserNss(query().queryTwitterUserAsOne()); }
+        return _nssTwitterUserAsOne;
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -294,6 +321,7 @@ public class DbBsUserCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<DbUserCQ> {
+        protected DbTwitterUserCB.HpSpecification _twitterUserAsOne;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbUserCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -313,11 +341,6 @@ public class DbBsUserCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUid() { return doColumn("uid"); }
-        /**
-         * twitter_user_name: {VARCHAR(50)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnTwitterUserName() { return doColumn("twitter_user_name"); }
         /**
          * authority: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
@@ -352,6 +375,26 @@ public class DbBsUserCB extends AbstractConditionBean {
         @Override
         protected String getTableDbName() { return "user"; }
         /**
+         * Prepare to specify functions about relation table. <br>
+         * twitter_user by user_id, named 'twitterUserAsOne'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public DbTwitterUserCB.HpSpecification specifyTwitterUserAsOne() {
+            assertRelation("twitterUserAsOne");
+            if (_twitterUserAsOne == null) {
+                _twitterUserAsOne = new DbTwitterUserCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryTwitterUserAsOne()
+                                    , () -> _qyCall.qy().queryTwitterUserAsOne())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _twitterUserAsOne.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryTwitterUserAsOne()
+                      , () -> xsyncQyCall().qy().queryTwitterUserAsOne()));
+                }
+            }
+            return _twitterUserAsOne;
+        }
+        /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from participate where ...) as FOO_MAX} <br>
          * PARTICIPATE by user_id, named 'participateList'.
@@ -367,40 +410,6 @@ public class DbBsUserCB extends AbstractConditionBean {
             assertDerived("participateList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateCB> sq, DbUserCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsderiveParticipateList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from user_follow where ...) as FOO_MAX} <br>
-         * USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     followCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     followCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbUserFollow.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbUserFollowCB, DbUserCQ> derivedUserFollowByFromUserId() {
-            assertDerived("userFollowByFromUserIdList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserFollowCB> sq, DbUserCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveUserFollowByFromUserIdList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from user_follow where ...) as FOO_MAX} <br>
-         * USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(followCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     followCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     followCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbUserFollow.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbUserFollowCB, DbUserCQ> derivedUserFollowByToUserId() {
-            assertDerived("userFollowByToUserIdList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserFollowCB> sq, DbUserCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveUserFollowByToUserIdList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

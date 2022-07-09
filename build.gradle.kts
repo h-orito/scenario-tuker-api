@@ -50,6 +50,8 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.10.7")
     implementation("io.jsonwebtoken:jjwt-jackson:0.10.7")
     implementation("com.google.firebase:firebase-admin:6.8.1")
+    // twitter
+    implementation("io.github.redouane59.twitter:twittered:2.13")
     // mockito
     testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0")
 }

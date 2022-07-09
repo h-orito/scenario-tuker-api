@@ -7,19 +7,19 @@ import dev.wolfort.dbflute.exbhv.*;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The referrer loader of USER_FOLLOW as TABLE. <br>
+ * The referrer loader of TWITTER_USER as TABLE. <br>
  * <pre>
  * [primary key]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [column]
- *     user_follow_id, from_user_id, to_user_id, register_datetime, register_trace, update_datetime, update_trace
+ *     twitter_user_id, user_id, twitter_id, screen_name, access_token, token_secret, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [version-no]
  *     
@@ -31,51 +31,44 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign property]
- *     userByFromUserId, userByToUserId
+ *     user
  *
  * [referrer property]
  *     
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public class DbLoaderOfUserFollow {
+public class DbLoaderOfTwitterUser {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected List<DbUserFollow> _selectedList;
+    protected List<DbTwitterUser> _selectedList;
     protected BehaviorSelector _selector;
-    protected DbUserFollowBhv _myBhv; // lazy-loaded
+    protected DbTwitterUserBhv _myBhv; // lazy-loaded
 
     // ===================================================================================
     //                                                                   Ready for Loading
     //                                                                   =================
-    public DbLoaderOfUserFollow ready(List<DbUserFollow> selectedList, BehaviorSelector selector)
+    public DbLoaderOfTwitterUser ready(List<DbTwitterUser> selectedList, BehaviorSelector selector)
     { _selectedList = selectedList; _selector = selector; return this; }
 
-    protected DbUserFollowBhv myBhv()
-    { if (_myBhv != null) { return _myBhv; } else { _myBhv = _selector.select(DbUserFollowBhv.class); return _myBhv; } }
+    protected DbTwitterUserBhv myBhv()
+    { if (_myBhv != null) { return _myBhv; } else { _myBhv = _selector.select(DbTwitterUserBhv.class); return _myBhv; } }
 
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
-    protected DbLoaderOfUser _foreignUserByFromUserIdLoader;
-    public DbLoaderOfUser pulloutUserByFromUserId() {
-        if (_foreignUserByFromUserIdLoader == null)
-        { _foreignUserByFromUserIdLoader = new DbLoaderOfUser().ready(myBhv().pulloutUserByFromUserId(_selectedList), _selector); }
-        return _foreignUserByFromUserIdLoader;
-    }
-
-    protected DbLoaderOfUser _foreignUserByToUserIdLoader;
-    public DbLoaderOfUser pulloutUserByToUserId() {
-        if (_foreignUserByToUserIdLoader == null)
-        { _foreignUserByToUserIdLoader = new DbLoaderOfUser().ready(myBhv().pulloutUserByToUserId(_selectedList), _selector); }
-        return _foreignUserByToUserIdLoader;
+    protected DbLoaderOfUser _foreignUserLoader;
+    public DbLoaderOfUser pulloutUser() {
+        if (_foreignUserLoader == null)
+        { _foreignUserLoader = new DbLoaderOfUser().ready(myBhv().pulloutUser(_selectedList), _selector); }
+        return _foreignUserLoader;
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-    public List<DbUserFollow> getSelectedList() { return _selectedList; }
+    public List<DbTwitterUser> getSelectedList() { return _selectedList; }
     public BehaviorSelector getSelector() { return _selector; }
 }

@@ -2,6 +2,7 @@ package dev.wolfort.scenariotuker.api
 
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
+import dev.wolfort.scenariotuker.application.coordinator.ParticipateCoordinator
 import dev.wolfort.scenariotuker.application.service.ParticipateService
 import dev.wolfort.scenariotuker.application.service.RuleBookService
 import dev.wolfort.scenariotuker.application.service.ScenarioService
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/participates")
 class ParticipateController(
+    private val participateCoordinator: ParticipateCoordinator,
     private val participateService: ParticipateService,
     private val scenarioService: ScenarioService,
     private val ruleBookService: RuleBookService,
@@ -47,9 +49,6 @@ class ParticipateController(
         @AuthenticationPrincipal sTukerUser: ScenarioTukerUser?
     ): ParticipateImpression? {
         val myself = sTukerUser?.let { userService.findByUid(it.uid) }
-        val participate = participateService.findById(participateId) ?: return null
-        val user = userService.findById(participate.userId)!!
-        return if (participate.canViewImpression(user, myself)) participate.impression
-        else null
+        return participateCoordinator.getImpressionIfAllowed(participateId, myself)
     }
 }

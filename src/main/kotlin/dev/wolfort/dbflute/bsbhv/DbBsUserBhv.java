@@ -28,7 +28,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, uid, twitter_user_name, authority, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, authority, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -40,16 +40,16 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     
+ *     TWITTER_USER(AsOne)
  *
  * [referrer table]
- *     PARTICIPATE, USER_FOLLOW
+ *     PARTICIPATE, TWITTER_USER
  *
  * [foreign property]
- *     
+ *     twitterUserAsOne
  *
  * [referrer property]
- *     participateList, userFollowByFromUserIdList, userFollowByToUserIdList
+ *     participateList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -450,137 +450,17 @@ public abstract class DbBsUserBhv extends AbstractBehaviorWritable<DbUser, DbUse
         return helpLoadReferrerInternally(userList, option, "participateList");
     }
 
-    /**
-     * Load referrer of userFollowByFromUserIdList by the set-upper of referrer. <br>
-     * USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * <pre>
-     * <span style="color: #0000C0">userBhv</span>.<span style="color: #CC4747">loadUserFollowByFromUserId</span>(<span style="color: #553000">userList</span>, <span style="color: #553000">followCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">followCB</span>.setupSelect...
-     *     <span style="color: #553000">followCB</span>.query().set...
-     *     <span style="color: #553000">followCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * <span style="color: #70226C">for</span> (DbUser user : <span style="color: #553000">userList</span>) {
-     *     ... = user.<span style="color: #CC4747">getUserFollowByFromUserIdList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setFromUserId_InScope(pkList);
-     * cb.query().addOrderBy_FromUserId_Asc();
-     * </pre>
-     * @param userList The entity list of user. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<DbUserFollow> loadUserFollowByFromUserId(List<DbUser> userList, ReferrerConditionSetupper<DbUserFollowCB> refCBLambda) {
-        xassLRArg(userList, refCBLambda);
-        return doLoadUserFollowByFromUserId(userList, new LoadReferrerOption<DbUserFollowCB, DbUserFollow>().xinit(refCBLambda));
-    }
-
-    /**
-     * Load referrer of userFollowByFromUserIdList by the set-upper of referrer. <br>
-     * USER_FOLLOW by from_user_id, named 'userFollowByFromUserIdList'.
-     * <pre>
-     * <span style="color: #0000C0">userBhv</span>.<span style="color: #CC4747">loadUserFollowByFromUserId</span>(<span style="color: #553000">user</span>, <span style="color: #553000">followCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">followCB</span>.setupSelect...
-     *     <span style="color: #553000">followCB</span>.query().set...
-     *     <span style="color: #553000">followCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * ... = <span style="color: #553000">user</span>.<span style="color: #CC4747">getUserFollowByFromUserIdList()</span>;
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setFromUserId_InScope(pkList);
-     * cb.query().addOrderBy_FromUserId_Asc();
-     * </pre>
-     * @param user The entity of user. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<DbUserFollow> loadUserFollowByFromUserId(DbUser user, ReferrerConditionSetupper<DbUserFollowCB> refCBLambda) {
-        xassLRArg(user, refCBLambda);
-        return doLoadUserFollowByFromUserId(xnewLRLs(user), new LoadReferrerOption<DbUserFollowCB, DbUserFollow>().xinit(refCBLambda));
-    }
-
-    protected NestedReferrerListGateway<DbUserFollow> doLoadUserFollowByFromUserId(List<DbUser> userList, LoadReferrerOption<DbUserFollowCB, DbUserFollow> option) {
-        return helpLoadReferrerInternally(userList, option, "userFollowByFromUserIdList");
-    }
-
-    /**
-     * Load referrer of userFollowByToUserIdList by the set-upper of referrer. <br>
-     * USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * <pre>
-     * <span style="color: #0000C0">userBhv</span>.<span style="color: #CC4747">loadUserFollowByToUserId</span>(<span style="color: #553000">userList</span>, <span style="color: #553000">followCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">followCB</span>.setupSelect...
-     *     <span style="color: #553000">followCB</span>.query().set...
-     *     <span style="color: #553000">followCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * <span style="color: #70226C">for</span> (DbUser user : <span style="color: #553000">userList</span>) {
-     *     ... = user.<span style="color: #CC4747">getUserFollowByToUserIdList()</span>;
-     * }
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setToUserId_InScope(pkList);
-     * cb.query().addOrderBy_ToUserId_Asc();
-     * </pre>
-     * @param userList The entity list of user. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<DbUserFollow> loadUserFollowByToUserId(List<DbUser> userList, ReferrerConditionSetupper<DbUserFollowCB> refCBLambda) {
-        xassLRArg(userList, refCBLambda);
-        return doLoadUserFollowByToUserId(userList, new LoadReferrerOption<DbUserFollowCB, DbUserFollow>().xinit(refCBLambda));
-    }
-
-    /**
-     * Load referrer of userFollowByToUserIdList by the set-upper of referrer. <br>
-     * USER_FOLLOW by to_user_id, named 'userFollowByToUserIdList'.
-     * <pre>
-     * <span style="color: #0000C0">userBhv</span>.<span style="color: #CC4747">loadUserFollowByToUserId</span>(<span style="color: #553000">user</span>, <span style="color: #553000">followCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">followCB</span>.setupSelect...
-     *     <span style="color: #553000">followCB</span>.query().set...
-     *     <span style="color: #553000">followCB</span>.query().addOrderBy...
-     * }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
-     * <span style="color: #3F7E5E">//}).withNestedReferrer(referrerList -&gt; {</span>
-     * <span style="color: #3F7E5E">//    ...</span>
-     * <span style="color: #3F7E5E">//});</span>
-     * ... = <span style="color: #553000">user</span>.<span style="color: #CC4747">getUserFollowByToUserIdList()</span>;
-     * </pre>
-     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
-     * The condition-bean, which the set-upper provides, has settings before callback as follows:
-     * <pre>
-     * cb.query().setToUserId_InScope(pkList);
-     * cb.query().addOrderBy_ToUserId_Asc();
-     * </pre>
-     * @param user The entity of user. (NotNull)
-     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
-     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
-     */
-    public NestedReferrerListGateway<DbUserFollow> loadUserFollowByToUserId(DbUser user, ReferrerConditionSetupper<DbUserFollowCB> refCBLambda) {
-        xassLRArg(user, refCBLambda);
-        return doLoadUserFollowByToUserId(xnewLRLs(user), new LoadReferrerOption<DbUserFollowCB, DbUserFollow>().xinit(refCBLambda));
-    }
-
-    protected NestedReferrerListGateway<DbUserFollow> doLoadUserFollowByToUserId(List<DbUser> userList, LoadReferrerOption<DbUserFollowCB, DbUserFollow> option) {
-        return helpLoadReferrerInternally(userList, option, "userFollowByToUserIdList");
-    }
-
     // ===================================================================================
     //                                                                   Pull out Relation
     //                                                                   =================
+    /**
+     * Pull out the list of referrer-as-one table 'DbTwitterUser'.
+     * @param userList The list of user. (NotNull, EmptyAllowed)
+     * @return The list of referrer-as-one table. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<DbTwitterUser> pulloutTwitterUserAsOne(List<DbUser> userList)
+    { return helpPulloutInternally(userList, "twitterUserAsOne"); }
+
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============

@@ -22,19 +22,19 @@ import dev.wolfort.dbflute.bsentity.dbmeta.*;
 import dev.wolfort.dbflute.cbean.*;
 
 /**
- * The behavior of USER_FOLLOW as TABLE. <br>
+ * The behavior of TWITTER_USER as TABLE. <br>
  * <pre>
  * [primary key]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [column]
- *     user_follow_id, from_user_id, to_user_id, register_datetime, register_trace, update_datetime, update_trace
+ *     twitter_user_id, user_id, twitter_id, screen_name, access_token, token_secret, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     user_follow_id
+ *     twitter_user_id
  *
  * [version-no]
  *     
@@ -46,14 +46,14 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign property]
- *     userByFromUserId, userByToUserId
+ *     user
  *
  * [referrer property]
  *     
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserFollow, DbUserFollowCB> {
+public abstract class DbBsTwitterUserBhv extends AbstractBehaviorWritable<DbTwitterUser, DbTwitterUserCB> {
 
     // ===================================================================================
     //                                                                          Definition
@@ -65,15 +65,15 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     //                                                                             DB Meta
     //                                                                             =======
     /** {@inheritDoc} */
-    public DbUserFollowDbm asDBMeta() { return DbUserFollowDbm.getInstance(); }
+    public DbTwitterUserDbm asDBMeta() { return DbTwitterUserDbm.getInstance(); }
     /** {@inheritDoc} */
-    public String asTableDbName() { return "user_follow"; }
+    public String asTableDbName() { return "twitter_user"; }
 
     // ===================================================================================
     //                                                                        New Instance
     //                                                                        ============
     /** {@inheritDoc} */
-    public DbUserFollowCB newConditionBean() { return new DbUserFollowCB(); }
+    public DbTwitterUserCB newConditionBean() { return new DbTwitterUserCB(); }
 
     // ===================================================================================
     //                                                                        Count Select
@@ -82,14 +82,14 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Select the count of uniquely-selected records by the condition-bean. {IgnorePagingCondition, IgnoreSpecifyColumn}<br>
      * SpecifyColumn is ignored but you can use it only to remove text type column for union's distinct.
      * <pre>
-     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #70226C">int</span> count = <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectCount</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The count for the condition. (NotMinus)
      */
-    public int selectCount(CBCall<DbUserFollowCB> cbLambda) {
+    public int selectCount(CBCall<DbTwitterUserCB> cbLambda) {
         return facadeSelectCount(createCB(cbLambda));
     }
 
@@ -103,38 +103,38 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * <span style="color: #AD4747; font-size: 120%">If it might be no data, isPresent() and orElse(), ...</span>
      * <pre>
      * <span style="color: #3F7E5E">// if the data always exists as your business rule</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">userFollow</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">alwaysPresent</span>(<span style="color: #553000">twitterUser</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present, or exception</span>
-     *     ... = <span style="color: #553000">userFollow</span>.get...
+     *     ... = <span style="color: #553000">twitterUser</span>.get...
      * });
      *
      * <span style="color: #3F7E5E">// if it might be no data, ...</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectEntity</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">userFollow</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * }).<span style="color: #CC4747">ifPresent</span>(<span style="color: #553000">twitterUser</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if present</span>
-     *     ... = <span style="color: #553000">userFollow</span>.get...
+     *     ... = <span style="color: #553000">twitterUser</span>.get...
      * }).<span style="color: #994747">orElse</span>(() <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// called if not present</span>
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The optional entity selected by the condition. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<DbUserFollow> selectEntity(CBCall<DbUserFollowCB> cbLambda) {
+    public OptionalEntity<DbTwitterUser> selectEntity(CBCall<DbTwitterUserCB> cbLambda) {
         return facadeSelectEntity(createCB(cbLambda));
     }
 
-    protected OptionalEntity<DbUserFollow> facadeSelectEntity(DbUserFollowCB cb) {
+    protected OptionalEntity<DbTwitterUser> facadeSelectEntity(DbTwitterUserCB cb) {
         return doSelectOptionalEntity(cb, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends DbUserFollow> OptionalEntity<ENTITY> doSelectOptionalEntity(DbUserFollowCB cb, Class<? extends ENTITY> tp) {
+    protected <ENTITY extends DbTwitterUser> OptionalEntity<ENTITY> doSelectOptionalEntity(DbTwitterUserCB cb, Class<? extends ENTITY> tp) {
         return createOptionalEntity(doSelectEntity(cb, tp), cb);
     }
 
@@ -144,72 +144,71 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Select the entity by the condition-bean with deleted check. <br>
      * <span style="color: #AD4747; font-size: 120%">If the data is always present as your business rule, this method is good.</span>
      * <pre>
-     * DbUserFollow <span style="color: #553000">userFollow</span> = <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
-     * ... = <span style="color: #553000">userFollow</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
+     * DbTwitterUser <span style="color: #553000">twitterUser</span> = <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectEntityWithDeletedCheck</span>(cb <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> cb.acceptPK(1));
+     * ... = <span style="color: #553000">twitterUser</span>.get...(); <span style="color: #3F7E5E">// the entity always be not null</span>
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The entity selected by the condition. (NotNull: if no data, throws exception)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public DbUserFollow selectEntityWithDeletedCheck(CBCall<DbUserFollowCB> cbLambda) {
+    public DbTwitterUser selectEntityWithDeletedCheck(CBCall<DbTwitterUserCB> cbLambda) {
         return facadeSelectEntityWithDeletedCheck(createCB(cbLambda));
     }
 
     /**
      * Select the entity by the primary-key value.
-     * @param userFollowId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param twitterUserId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return The optional entity selected by the PK. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<DbUserFollow> selectByPK(Integer userFollowId) {
-        return facadeSelectByPK(userFollowId);
+    public OptionalEntity<DbTwitterUser> selectByPK(Integer twitterUserId) {
+        return facadeSelectByPK(twitterUserId);
     }
 
-    protected OptionalEntity<DbUserFollow> facadeSelectByPK(Integer userFollowId) {
-        return doSelectOptionalByPK(userFollowId, typeOfSelectedEntity());
+    protected OptionalEntity<DbTwitterUser> facadeSelectByPK(Integer twitterUserId) {
+        return doSelectOptionalByPK(twitterUserId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends DbUserFollow> ENTITY doSelectByPK(Integer userFollowId, Class<? extends ENTITY> tp) {
-        return doSelectEntity(xprepareCBAsPK(userFollowId), tp);
+    protected <ENTITY extends DbTwitterUser> ENTITY doSelectByPK(Integer twitterUserId, Class<? extends ENTITY> tp) {
+        return doSelectEntity(xprepareCBAsPK(twitterUserId), tp);
     }
 
-    protected <ENTITY extends DbUserFollow> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer userFollowId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectByPK(userFollowId, tp), userFollowId);
+    protected <ENTITY extends DbTwitterUser> OptionalEntity<ENTITY> doSelectOptionalByPK(Integer twitterUserId, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectByPK(twitterUserId, tp), twitterUserId);
     }
 
-    protected DbUserFollowCB xprepareCBAsPK(Integer userFollowId) {
-        assertObjectNotNull("userFollowId", userFollowId);
-        return newConditionBean().acceptPK(userFollowId);
+    protected DbTwitterUserCB xprepareCBAsPK(Integer twitterUserId) {
+        assertObjectNotNull("twitterUserId", twitterUserId);
+        return newConditionBean().acceptPK(twitterUserId);
     }
 
     /**
      * Select the entity by the unique-key value.
-     * @param fromUserId : UQ+, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     * @param toUserId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param userId : UQ, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
      * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
      * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
      */
-    public OptionalEntity<DbUserFollow> selectByUniqueOf(Integer fromUserId, Integer toUserId) {
-        return facadeSelectByUniqueOf(fromUserId, toUserId);
+    public OptionalEntity<DbTwitterUser> selectByUniqueOf(Integer userId) {
+        return facadeSelectByUniqueOf(userId);
     }
 
-    protected OptionalEntity<DbUserFollow> facadeSelectByUniqueOf(Integer fromUserId, Integer toUserId) {
-        return doSelectByUniqueOf(fromUserId, toUserId, typeOfSelectedEntity());
+    protected OptionalEntity<DbTwitterUser> facadeSelectByUniqueOf(Integer userId) {
+        return doSelectByUniqueOf(userId, typeOfSelectedEntity());
     }
 
-    protected <ENTITY extends DbUserFollow> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer fromUserId, Integer toUserId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(fromUserId, toUserId), tp), fromUserId, toUserId);
+    protected <ENTITY extends DbTwitterUser> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer userId, Class<? extends ENTITY> tp) {
+        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(userId), tp), userId);
     }
 
-    protected DbUserFollowCB xprepareCBAsUniqueOf(Integer fromUserId, Integer toUserId) {
-        assertObjectNotNull("fromUserId", fromUserId);assertObjectNotNull("toUserId", toUserId);
-        return newConditionBean().acceptUniqueOf(fromUserId, toUserId);
+    protected DbTwitterUserCB xprepareCBAsUniqueOf(Integer userId) {
+        assertObjectNotNull("userId", userId);
+        return newConditionBean().acceptUniqueOf(userId);
     }
 
     // ===================================================================================
@@ -218,19 +217,19 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     /**
      * Select the list as result bean.
      * <pre>
-     * ListResultBean&lt;DbUserFollow&gt; <span style="color: #553000">userFollowList</span> = <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * ListResultBean&lt;DbTwitterUser&gt; <span style="color: #553000">twitterUserList</span> = <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectList</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...;
      *     <span style="color: #553000">cb</span>.query().addOrderBy...;
      * });
-     * <span style="color: #70226C">for</span> (DbUserFollow <span style="color: #553000">userFollow</span> : <span style="color: #553000">userFollowList</span>) {
-     *     ... = <span style="color: #553000">userFollow</span>.get...;
+     * <span style="color: #70226C">for</span> (DbTwitterUser <span style="color: #553000">twitterUser</span> : <span style="color: #553000">twitterUserList</span>) {
+     *     ... = <span style="color: #553000">twitterUser</span>.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The result bean of selected list. (NotNull: if no data, returns empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public ListResultBean<DbUserFollow> selectList(CBCall<DbUserFollowCB> cbLambda) {
+    public ListResultBean<DbTwitterUser> selectList(CBCall<DbTwitterUserCB> cbLambda) {
         return facadeSelectList(createCB(cbLambda));
     }
 
@@ -244,7 +243,7 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Select the page as result bean. <br>
      * (both count-select and paging-select are executed)
      * <pre>
-     * PagingResultBean&lt;DbUserFollow&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * PagingResultBean&lt;DbTwitterUser&gt; <span style="color: #553000">page</span> = <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectPage</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      *     <span style="color: #553000">cb</span>.query().addOrderBy...
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">paging</span>(20, 3); <span style="color: #3F7E5E">// 20 records per a page and current page number is 3</span>
@@ -254,15 +253,15 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * <span style="color: #70226C">boolean</span> isExistPrePage = <span style="color: #553000">page</span>.isExistPrePage();
      * <span style="color: #70226C">boolean</span> isExistNextPage = <span style="color: #553000">page</span>.isExistNextPage();
      * ...
-     * <span style="color: #70226C">for</span> (DbUserFollow userFollow : <span style="color: #553000">page</span>) {
-     *     ... = userFollow.get...;
+     * <span style="color: #70226C">for</span> (DbTwitterUser twitterUser : <span style="color: #553000">page</span>) {
+     *     ... = twitterUser.get...;
      * }
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The result bean of selected page. (NotNull: if no data, returns bean as empty list)
      * @throws DangerousResultSizeException When the result size is over the specified safety size.
      */
-    public PagingResultBean<DbUserFollow> selectPage(CBCall<DbUserFollowCB> cbLambda) {
+    public PagingResultBean<DbTwitterUser> selectPage(CBCall<DbTwitterUserCB> cbLambda) {
         return facadeSelectPage(createCB(cbLambda));
     }
 
@@ -272,16 +271,16 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     /**
      * Select the cursor by the condition-bean.
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectCursor</span>(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().set...
      * }, <span style="color: #553000">member</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     ... = <span style="color: #553000">member</span>.getMemberName();
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
-     * @param entityLambda The handler of entity row of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
+     * @param entityLambda The handler of entity row of DbTwitterUser. (NotNull)
      */
-    public void selectCursor(CBCall<DbUserFollowCB> cbLambda, EntityRowHandler<DbUserFollow> entityLambda) {
+    public void selectCursor(CBCall<DbTwitterUserCB> cbLambda, EntityRowHandler<DbTwitterUser> entityLambda) {
         facadeSelectCursor(createCB(cbLambda), entityLambda);
     }
 
@@ -292,7 +291,7 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Select the scalar value derived by a function from uniquely-selected records. <br>
      * You should call a function method after this method called like as follows:
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">selectScalar</span>(Date.class).max(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">column...</span>; <span style="color: #3F7E5E">// required for the function</span>
      *     <span style="color: #553000">cb</span>.query().set...
      * });
@@ -301,7 +300,7 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * @param resultType The type of result. (NotNull)
      * @return The scalar function object to specify function for scalar value. (NotNull)
      */
-    public <RESULT> HpSLSFunction<DbUserFollowCB, RESULT> selectScalar(Class<RESULT> resultType) {
+    public <RESULT> HpSLSFunction<DbTwitterUserCB, RESULT> selectScalar(Class<RESULT> resultType) {
         return facadeScalarSelect(resultType);
     }
 
@@ -346,12 +345,12 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param userFollowList The entity list of userFollow. (NotNull)
+     * @param twitterUserList The entity list of twitterUser. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(List<DbUserFollow> userFollowList, ReferrerLoaderHandler<DbLoaderOfUserFollow> loaderLambda) {
-        xassLRArg(userFollowList, loaderLambda);
-        loaderLambda.handle(new DbLoaderOfUserFollow().ready(userFollowList, _behaviorSelector));
+    public void load(List<DbTwitterUser> twitterUserList, ReferrerLoaderHandler<DbLoaderOfTwitterUser> loaderLambda) {
+        xassLRArg(twitterUserList, loaderLambda);
+        loaderLambda.handle(new DbLoaderOfTwitterUser().ready(twitterUserList, _behaviorSelector));
     }
 
     /**
@@ -379,12 +378,12 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * </pre>
      * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
      * The condition-bean, which the set-upper provides, has order by FK before callback.
-     * @param userFollow The entity of userFollow. (NotNull)
+     * @param twitterUser The entity of twitterUser. (NotNull)
      * @param loaderLambda The callback to handle the referrer loader for actually loading referrer. (NotNull)
      */
-    public void load(DbUserFollow userFollow, ReferrerLoaderHandler<DbLoaderOfUserFollow> loaderLambda) {
-        xassLRArg(userFollow, loaderLambda);
-        loaderLambda.handle(new DbLoaderOfUserFollow().ready(xnewLRAryLs(userFollow), _behaviorSelector));
+    public void load(DbTwitterUser twitterUser, ReferrerLoaderHandler<DbLoaderOfTwitterUser> loaderLambda) {
+        xassLRArg(twitterUser, loaderLambda);
+        loaderLambda.handle(new DbLoaderOfTwitterUser().ready(xnewLRAryLs(twitterUser), _behaviorSelector));
     }
 
     // ===================================================================================
@@ -392,30 +391,30 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     //                                                                   =================
     /**
      * Pull out the list of foreign table 'DbUser'.
-     * @param userFollowList The list of userFollow. (NotNull, EmptyAllowed)
+     * @param twitterUserList The list of twitterUser. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<DbUser> pulloutUserByFromUserId(List<DbUserFollow> userFollowList)
-    { return helpPulloutInternally(userFollowList, "userByFromUserId"); }
-
-    /**
-     * Pull out the list of foreign table 'DbUser'.
-     * @param userFollowList The list of userFollow. (NotNull, EmptyAllowed)
-     * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
-     */
-    public List<DbUser> pulloutUserByToUserId(List<DbUserFollow> userFollowList)
-    { return helpPulloutInternally(userFollowList, "userByToUserId"); }
+    public List<DbUser> pulloutUser(List<DbTwitterUser> twitterUserList)
+    { return helpPulloutInternally(twitterUserList, "user"); }
 
     // ===================================================================================
     //                                                                      Extract Column
     //                                                                      ==============
     /**
-     * Extract the value list of (single) primary key userFollowId.
-     * @param userFollowList The list of userFollow. (NotNull, EmptyAllowed)
+     * Extract the value list of (single) primary key twitterUserId.
+     * @param twitterUserList The list of twitterUser. (NotNull, EmptyAllowed)
      * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<Integer> extractUserFollowIdList(List<DbUserFollow> userFollowList)
-    { return helpExtractListInternally(userFollowList, "userFollowId"); }
+    public List<Integer> extractTwitterUserIdList(List<DbTwitterUser> twitterUserList)
+    { return helpExtractListInternally(twitterUserList, "twitterUserId"); }
+
+    /**
+     * Extract the value list of (single) unique key userId.
+     * @param twitterUserList The list of twitterUser. (NotNull, EmptyAllowed)
+     * @return The list of the column value. (NotNull, EmptyAllowed, NotNullElement)
+     */
+    public List<Integer> extractUserIdList(List<DbTwitterUser> twitterUserList)
+    { return helpExtractListInternally(twitterUserList, "userId"); }
 
     // ===================================================================================
     //                                                                       Entity Update
@@ -423,80 +422,80 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     /**
      * Insert the entity modified-only. (DefaultConstraintsEnabled)
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * userFollow.setFoo...(value);
-     * userFollow.setBar...(value);
+     * twitterUser.setFoo...(value);
+     * twitterUser.setBar...(value);
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userFollow.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userFollow.set...;</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">insert</span>(userFollow);
-     * ... = userFollow.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * <span style="color: #3F7E5E">//twitterUser.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//twitterUser.set...;</span>
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">insert</span>(twitterUser);
+     * ... = twitterUser.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
      * <p>While, when the entity is created by select, all columns are registered.</p>
-     * @param userFollow The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param twitterUser The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insert(DbUserFollow userFollow) {
-        doInsert(userFollow, null);
+    public void insert(DbTwitterUser twitterUser) {
+        doInsert(twitterUser, null);
     }
 
     /**
      * Update the entity modified-only. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can update by unique keys using entity's uniqueOf().
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
-     * userFollow.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * userFollow.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
+     * twitterUser.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * twitterUser.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userFollow.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userFollow.set...;</span>
+     * <span style="color: #3F7E5E">//twitterUser.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//twitterUser.set...;</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userFollow.<span style="color: #CC4747">setVersionNo</span>(value);
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">update</span>(userFollow);
+     * twitterUser.<span style="color: #CC4747">setVersionNo</span>(value);
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">update</span>(twitterUser);
      * </pre>
-     * @param userFollow The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param twitterUser The entity of update. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void update(DbUserFollow userFollow) {
-        doUpdate(userFollow, null);
+    public void update(DbTwitterUser twitterUser) {
+        doUpdate(twitterUser, null);
     }
 
     /**
      * Insert or update the entity modified-only. (DefaultConstraintsEnabled, NonExclusiveControl) <br>
      * if (the entity has no PK) { insert() } else { update(), but no data, insert() } <br>
      * <p><span style="color: #994747; font-size: 120%">Also you can update by unique keys using entity's uniqueOf().</span></p>
-     * @param userFollow The entity of insert or update. (NotNull, ...depends on insert or update)
+     * @param twitterUser The entity of insert or update. (NotNull, ...depends on insert or update)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void insertOrUpdate(DbUserFollow userFollow) {
-        doInsertOrUpdate(userFollow, null, null);
+    public void insertOrUpdate(DbTwitterUser twitterUser) {
+        doInsertOrUpdate(twitterUser, null, null);
     }
 
     /**
      * Delete the entity. (ZeroUpdateException, NonExclusiveControl) <br>
      * By PK as default, and also you can delete by unique keys using entity's uniqueOf().
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
-     * userFollow.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
+     * twitterUser.setPK...(value); <span style="color: #3F7E5E">// required</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userFollow.<span style="color: #CC4747">setVersionNo</span>(value);
+     * twitterUser.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #70226C">try</span> {
-     *     <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">delete</span>(userFollow);
+     *     <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">delete</span>(twitterUser);
      * } <span style="color: #70226C">catch</span> (EntityAlreadyUpdatedException e) { <span style="color: #3F7E5E">// if concurrent update</span>
      *     ...
      * }
      * </pre>
-     * @param userFollow The entity of delete. (NotNull, PrimaryKeyNotNull)
+     * @param twitterUser The entity of delete. (NotNull, PrimaryKeyNotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void delete(DbUserFollow userFollow) {
-        doDelete(userFollow, null);
+    public void delete(DbTwitterUser twitterUser) {
+        doDelete(twitterUser, null);
     }
 
     // ===================================================================================
@@ -508,26 +507,26 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * <p><span style="color: #CC4747; font-size: 120%">The columns of least common multiple are registered like this:</span></p>
      * <pre>
      * <span style="color: #70226C">for</span> (... : ...) {
-     *     DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
-     *     userFollow.setFooName("foo");
+     *     DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
+     *     twitterUser.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         userFollow.setFooPrice(123);
+     *         twitterUser.setFooPrice(123);
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are registered</span>
      *     <span style="color: #3F7E5E">// FOO_PRICE not-called in any entities are registered as null without default value</span>
      *     <span style="color: #3F7E5E">// columns not-called in all entities are registered as null or default value</span>
-     *     userFollowList.add(userFollow);
+     *     twitterUserList.add(twitterUser);
      * }
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">batchInsert</span>(userFollowList);
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">batchInsert</span>(twitterUserList);
      * </pre>
      * <p>While, when the entities are created by select, all columns are registered.</p>
      * <p>And if the table has an identity, entities after the process don't have incremented values.
      * (When you use the (normal) insert(), you can get the incremented value from your entity)</p>
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNullAllowed: when auto-increment)
      * @return The array of inserted count. (NotNull, EmptyAllowed)
      */
-    public int[] batchInsert(List<DbUserFollow> userFollowList) {
-        return doBatchInsert(userFollowList, null);
+    public int[] batchInsert(List<DbTwitterUser> twitterUserList) {
+        return doBatchInsert(twitterUserList, null);
     }
 
     /**
@@ -536,37 +535,37 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * <span style="color: #CC4747; font-size: 120%">You should specify same-set columns to all entities like this:</span>
      * <pre>
      * for (... : ...) {
-     *     DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
-     *     userFollow.setFooName("foo");
+     *     DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
+     *     twitterUser.setFooName("foo");
      *     <span style="color: #70226C">if</span> (...) {
-     *         userFollow.setFooPrice(123);
+     *         twitterUser.setFooPrice(123);
      *     } <span style="color: #70226C">else</span> {
-     *         userFollow.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
-     *         <span style="color: #3F7E5E">//userFollow.setFooDate(...); // *not allowed, fragmented</span>
+     *         twitterUser.setFooPrice(null); <span style="color: #3F7E5E">// updated as null</span>
+     *         <span style="color: #3F7E5E">//twitterUser.setFooDate(...); // *not allowed, fragmented</span>
      *     }
      *     <span style="color: #3F7E5E">// FOO_NAME and FOO_PRICE (and record meta columns) are updated</span>
      *     <span style="color: #3F7E5E">// (others are not updated: their values are kept)</span>
-     *     userFollowList.add(userFollow);
+     *     twitterUserList.add(twitterUser);
      * }
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">batchUpdate</span>(userFollowList);
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">batchUpdate</span>(twitterUserList);
      * </pre>
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchUpdate(List<DbUserFollow> userFollowList) {
-        return doBatchUpdate(userFollowList, null);
+    public int[] batchUpdate(List<DbTwitterUser> twitterUserList) {
+        return doBatchUpdate(twitterUserList, null);
     }
 
     /**
      * Batch-delete the entity list. (NonExclusiveControl) <br>
      * This method uses executeBatch() of java.sql.PreparedStatement.
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      */
-    public int[] batchDelete(List<DbUserFollow> userFollowList) {
-        return doBatchDelete(userFollowList, null);
+    public int[] batchDelete(List<DbTwitterUser> twitterUserList) {
+        return doBatchDelete(twitterUserList, null);
     }
 
     // ===================================================================================
@@ -575,8 +574,8 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
     /**
      * Insert the several entities by query (modified-only for fixed value).
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;DbUserFollow, DbUserFollowCB&gt;() {
-     *     public ConditionBean setup(DbUserFollow entity, DbUserFollowCB intoCB) {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">queryInsert</span>(new QueryInsertSetupper&lt;DbTwitterUser, DbTwitterUserCB&gt;() {
+     *     public ConditionBean setup(DbTwitterUser entity, DbTwitterUserCB intoCB) {
      *         FooCB cb = FooCB();
      *         cb.setupSelect_Bar();
      *
@@ -598,48 +597,48 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * @param manyArgLambda The callback to set up query-insert. (NotNull)
      * @return The inserted count.
      */
-    public int queryInsert(QueryInsertSetupper<DbUserFollow, DbUserFollowCB> manyArgLambda) {
+    public int queryInsert(QueryInsertSetupper<DbTwitterUser, DbTwitterUserCB> manyArgLambda) {
         return doQueryInsert(manyArgLambda, null);
     }
 
     /**
      * Update the several entities by query non-strictly modified-only. (NonExclusiveControl)
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//userFollow.setPK...(value);</span>
-     * userFollow.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//twitterUser.setPK...(value);</span>
+     * twitterUser.setFoo...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set values of common columns</span>
-     * <span style="color: #3F7E5E">//userFollow.setRegisterUser(value);</span>
-     * <span style="color: #3F7E5E">//userFollow.set...;</span>
+     * <span style="color: #3F7E5E">//twitterUser.setRegisterUser(value);</span>
+     * <span style="color: #3F7E5E">//twitterUser.set...;</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//userFollow.setVersionNo(value);</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">queryUpdate</span>(userFollow, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//twitterUser.setVersionNo(value);</span>
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">queryUpdate</span>(twitterUser, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param userFollow The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param twitterUser The entity that contains update values. (NotNull, PrimaryKeyNullAllowed)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition.
      */
-    public int queryUpdate(DbUserFollow userFollow, CBCall<DbUserFollowCB> cbLambda) {
-        return doQueryUpdate(userFollow, createCB(cbLambda), null);
+    public int queryUpdate(DbTwitterUser twitterUser, CBCall<DbTwitterUserCB> cbLambda) {
+        return doQueryUpdate(twitterUser, createCB(cbLambda), null);
     }
 
     /**
      * Delete the several entities by query. (NonExclusiveControl)
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">queryDelete</span>(userFollow, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">queryDelete</span>(twitterUser, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition.
      */
-    public int queryDelete(CBCall<DbUserFollowCB> cbLambda) {
+    public int queryDelete(CBCall<DbTwitterUserCB> cbLambda) {
         return doQueryDelete(createCB(cbLambda), null);
     }
 
@@ -654,22 +653,22 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * For example, disableCommonColumnAutoSetup(), disablePrimaryKeyIdentity(). <br>
      * Other specifications are same as insert(entity).
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
      * <span style="color: #3F7E5E">// if auto-increment, you don't need to set the PK value</span>
-     * userFollow.setFoo...(value);
-     * userFollow.setBar...(value);
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">varyingInsert</span>(userFollow, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * twitterUser.setFoo...(value);
+     * twitterUser.setBar...(value);
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">varyingInsert</span>(twitterUser, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #3F7E5E">// you can insert by your values for common columns</span>
      *     <span style="color: #553000">op</span>.disableCommonColumnAutoSetup();
      * });
-     * ... = userFollow.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
+     * ... = twitterUser.getPK...(); <span style="color: #3F7E5E">// if auto-increment, you can get the value after</span>
      * </pre>
-     * @param userFollow The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
+     * @param twitterUser The entity of insert. (NotNull, PrimaryKeyNullAllowed: when auto-increment)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsert(DbUserFollow userFollow, WritableOptionCall<DbUserFollowCB, InsertOption<DbUserFollowCB>> opLambda) {
-        doInsert(userFollow, createInsertOption(opLambda));
+    public void varyingInsert(DbTwitterUser twitterUser, WritableOptionCall<DbTwitterUserCB, InsertOption<DbTwitterUserCB>> opLambda) {
+        doInsert(twitterUser, createInsertOption(opLambda));
     }
 
     /**
@@ -677,53 +676,53 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification), disableCommonColumnAutoSetup(). <br>
      * Other specifications are same as update(entity).
      * <pre>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
-     * userFollow.setPK...(value); <span style="color: #3F7E5E">// required</span>
-     * userFollow.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
+     * twitterUser.setPK...(value); <span style="color: #3F7E5E">// required</span>
+     * twitterUser.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// if exclusive control, the value of concurrency column is required</span>
-     * userFollow.<span style="color: #CC4747">setVersionNo</span>(value);
+     * twitterUser.<span style="color: #CC4747">setVersionNo</span>(value);
      * <span style="color: #3F7E5E">// you can update by self calculation values</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(userFollow, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">varyingUpdate</span>(twitterUser, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *         <span style="color: #553000">cb</span>.specify().<span style="color: #CC4747">columnXxxCount()</span>;
      *     }).plus(1); <span style="color: #3F7E5E">// XXX_COUNT = XXX_COUNT + 1</span>
      * });
      * </pre>
-     * @param userFollow The entity of update. (NotNull, PrimaryKeyNotNull)
+     * @param twitterUser The entity of update. (NotNull, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingUpdate(DbUserFollow userFollow, WritableOptionCall<DbUserFollowCB, UpdateOption<DbUserFollowCB>> opLambda) {
-        doUpdate(userFollow, createUpdateOption(opLambda));
+    public void varyingUpdate(DbTwitterUser twitterUser, WritableOptionCall<DbTwitterUserCB, UpdateOption<DbTwitterUserCB>> opLambda) {
+        doUpdate(twitterUser, createUpdateOption(opLambda));
     }
 
     /**
      * Insert or update the entity with varying requests. (ExclusiveControl: when update) <br>
      * Other specifications are same as insertOrUpdate(entity).
-     * @param userFollow The entity of insert or update. (NotNull)
+     * @param twitterUser The entity of insert or update. (NotNull)
      * @param insertOpLambda The callback for option of insert for varying requests. (NotNull)
      * @param updateOpLambda The callback for option of update for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      * @throws EntityAlreadyExistsException When the entity already exists. (unique constraint violation)
      */
-    public void varyingInsertOrUpdate(DbUserFollow userFollow, WritableOptionCall<DbUserFollowCB, InsertOption<DbUserFollowCB>> insertOpLambda, WritableOptionCall<DbUserFollowCB, UpdateOption<DbUserFollowCB>> updateOpLambda) {
-        doInsertOrUpdate(userFollow, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
+    public void varyingInsertOrUpdate(DbTwitterUser twitterUser, WritableOptionCall<DbTwitterUserCB, InsertOption<DbTwitterUserCB>> insertOpLambda, WritableOptionCall<DbTwitterUserCB, UpdateOption<DbTwitterUserCB>> updateOpLambda) {
+        doInsertOrUpdate(twitterUser, createInsertOption(insertOpLambda), createUpdateOption(updateOpLambda));
     }
 
     /**
      * Delete the entity with varying requests. (ZeroUpdateException, NonExclusiveControl) <br>
      * Now a valid option does not exist. <br>
      * Other specifications are same as delete(entity).
-     * @param userFollow The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
+     * @param twitterUser The entity of delete. (NotNull, PrimaryKeyNotNull, ConcurrencyColumnNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @throws EntityAlreadyDeletedException When the entity has already been deleted. (not found)
      * @throws EntityDuplicatedException When the entity has been duplicated.
      */
-    public void varyingDelete(DbUserFollow userFollow, WritableOptionCall<DbUserFollowCB, DeleteOption<DbUserFollowCB>> opLambda) {
-        doDelete(userFollow, createDeleteOption(opLambda));
+    public void varyingDelete(DbTwitterUser twitterUser, WritableOptionCall<DbTwitterUserCB, DeleteOption<DbTwitterUserCB>> opLambda) {
+        doDelete(twitterUser, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -734,12 +733,12 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * For example, disableCommonColumnAutoSetup()
      * , disablePrimaryKeyIdentity(), limitBatchInsertLogging(). <br>
      * Other specifications are same as batchInsert(entityList).
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchInsert(List<DbUserFollow> userFollowList, WritableOptionCall<DbUserFollowCB, InsertOption<DbUserFollowCB>> opLambda) {
-        return doBatchInsert(userFollowList, createInsertOption(opLambda));
+    public int[] varyingBatchInsert(List<DbTwitterUser> twitterUserList, WritableOptionCall<DbTwitterUserCB, InsertOption<DbTwitterUserCB>> opLambda) {
+        return doBatchInsert(twitterUserList, createInsertOption(opLambda));
     }
 
     /**
@@ -747,24 +746,24 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * For example, self(selfCalculationSpecification), specify(updateColumnSpecification)
      * , disableCommonColumnAutoSetup(), limitBatchUpdateLogging(). <br>
      * Other specifications are same as batchUpdate(entityList).
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The array of updated count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchUpdate(List<DbUserFollow> userFollowList, WritableOptionCall<DbUserFollowCB, UpdateOption<DbUserFollowCB>> opLambda) {
-        return doBatchUpdate(userFollowList, createUpdateOption(opLambda));
+    public int[] varyingBatchUpdate(List<DbTwitterUser> twitterUserList, WritableOptionCall<DbTwitterUserCB, UpdateOption<DbTwitterUserCB>> opLambda) {
+        return doBatchUpdate(twitterUserList, createUpdateOption(opLambda));
     }
 
     /**
      * Batch-delete the list with varying requests. <br>
      * For example, limitBatchDeleteLogging(). <br>
      * Other specifications are same as batchDelete(entityList).
-     * @param userFollowList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
+     * @param twitterUserList The list of the entity. (NotNull, EmptyAllowed, PrimaryKeyNotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The array of deleted count. (NotNull, EmptyAllowed)
      */
-    public int[] varyingBatchDelete(List<DbUserFollow> userFollowList, WritableOptionCall<DbUserFollowCB, DeleteOption<DbUserFollowCB>> opLambda) {
-        return doBatchDelete(userFollowList, createDeleteOption(opLambda));
+    public int[] varyingBatchDelete(List<DbTwitterUser> twitterUserList, WritableOptionCall<DbTwitterUserCB, DeleteOption<DbTwitterUserCB>> opLambda) {
+        return doBatchDelete(twitterUserList, createDeleteOption(opLambda));
     }
 
     // -----------------------------------------------------
@@ -778,7 +777,7 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * @param opLambda The callback for option of insert for varying requests. (NotNull)
      * @return The inserted count.
      */
-    public int varyingQueryInsert(QueryInsertSetupper<DbUserFollow, DbUserFollowCB> manyArgLambda, WritableOptionCall<DbUserFollowCB, InsertOption<DbUserFollowCB>> opLambda) {
+    public int varyingQueryInsert(QueryInsertSetupper<DbTwitterUser, DbTwitterUserCB> manyArgLambda, WritableOptionCall<DbTwitterUserCB, InsertOption<DbTwitterUserCB>> opLambda) {
         return doQueryInsert(manyArgLambda, createInsertOption(opLambda));
     }
 
@@ -789,14 +788,14 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Other specifications are same as queryUpdate(entity, cb).
      * <pre>
      * <span style="color: #3F7E5E">// ex) you can update by self calculation values</span>
-     * DbUserFollow userFollow = <span style="color: #70226C">new</span> DbUserFollow();
+     * DbTwitterUser twitterUser = <span style="color: #70226C">new</span> DbTwitterUser();
      * <span style="color: #3F7E5E">// you don't need to set PK value</span>
-     * <span style="color: #3F7E5E">//userFollow.setPK...(value);</span>
-     * userFollow.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
+     * <span style="color: #3F7E5E">//twitterUser.setPK...(value);</span>
+     * twitterUser.setOther...(value); <span style="color: #3F7E5E">// you should set only modified columns</span>
      * <span style="color: #3F7E5E">// you don't need to set a value of concurrency column</span>
      * <span style="color: #3F7E5E">// (auto-increment for version number is valid though non-exclusive control)</span>
-     * <span style="color: #3F7E5E">//userFollow.setVersionNo(value);</span>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(userFollow, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #3F7E5E">//twitterUser.setVersionNo(value);</span>
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">varyingQueryUpdate</span>(twitterUser, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>.self(<span style="color: #553000">colCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
@@ -804,14 +803,14 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      *     }).plus(1); <span style="color: #3F7E5E">// FOO_COUNT = FOO_COUNT + 1</span>
      * });
      * </pre>
-     * @param userFollow The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param twitterUser The entity that contains update values. (NotNull) {PrimaryKeyNotRequired}
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @param opLambda The callback for option of update for varying requests. (NotNull)
      * @return The updated count.
      * @throws NonQueryUpdateNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryUpdate(DbUserFollow userFollow, CBCall<DbUserFollowCB> cbLambda, WritableOptionCall<DbUserFollowCB, UpdateOption<DbUserFollowCB>> opLambda) {
-        return doQueryUpdate(userFollow, createCB(cbLambda), createUpdateOption(opLambda));
+    public int varyingQueryUpdate(DbTwitterUser twitterUser, CBCall<DbTwitterUserCB> cbLambda, WritableOptionCall<DbTwitterUserCB, UpdateOption<DbTwitterUserCB>> opLambda) {
+        return doQueryUpdate(twitterUser, createCB(cbLambda), createUpdateOption(opLambda));
     }
 
     /**
@@ -819,18 +818,18 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * For example, allowNonQueryDelete(). <br>
      * Other specifications are same as queryDelete(cb).
      * <pre>
-     * <span style="color: #0000C0">userFollowBhv</span>.<span style="color: #CC4747">queryDelete</span>(userFollow, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">twitterUserBhv</span>.<span style="color: #CC4747">queryDelete</span>(twitterUser, <span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.query().setFoo...
      * }, <span style="color: #553000">op</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">op</span>...
      * });
      * </pre>
-     * @param cbLambda The callback for condition-bean of DbUserFollow. (NotNull)
+     * @param cbLambda The callback for condition-bean of DbTwitterUser. (NotNull)
      * @param opLambda The callback for option of delete for varying requests. (NotNull)
      * @return The deleted count.
      * @throws NonQueryDeleteNotAllowedException When the query has no condition (if not allowed).
      */
-    public int varyingQueryDelete(CBCall<DbUserFollowCB> cbLambda, WritableOptionCall<DbUserFollowCB, DeleteOption<DbUserFollowCB>> opLambda) {
+    public int varyingQueryDelete(CBCall<DbTwitterUserCB> cbLambda, WritableOptionCall<DbTwitterUserCB, DeleteOption<DbTwitterUserCB>> opLambda) {
         return doQueryDelete(createCB(cbLambda), createDeleteOption(opLambda));
     }
 
@@ -841,40 +840,40 @@ public abstract class DbBsUserFollowBhv extends AbstractBehaviorWritable<DbUserF
      * Prepare the all facade executor of outside-SQL to execute it.
      * <pre>
      * <span style="color: #3F7E5E">// main style</span>
-     * userFollowBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
-     * userFollowBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * userFollowBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
-     * userFollowBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
-     * userFollowBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
-     * userFollowBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
-     * userFollowBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
+     * twitterUserBhv.outideSql().selectEntity(pmb); <span style="color: #3F7E5E">// optional</span>
+     * twitterUserBhv.outideSql().selectList(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * twitterUserBhv.outideSql().selectPage(pmb); <span style="color: #3F7E5E">// PagingResultBean</span>
+     * twitterUserBhv.outideSql().selectPagedListOnly(pmb); <span style="color: #3F7E5E">// ListResultBean</span>
+     * twitterUserBhv.outideSql().selectCursor(pmb, handler); <span style="color: #3F7E5E">// (by handler)</span>
+     * twitterUserBhv.outideSql().execute(pmb); <span style="color: #3F7E5E">// int (updated count)</span>
+     * twitterUserBhv.outideSql().call(pmb); <span style="color: #3F7E5E">// void (pmb has OUT parameters)</span>
      *
      * <span style="color: #3F7E5E">// traditional style</span>
-     * userFollowBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
-     * userFollowBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
-     * userFollowBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
-     * userFollowBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
-     * userFollowBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
-     * userFollowBhv.outideSql().traditionalStyle().execute(path, pmb);
+     * twitterUserBhv.outideSql().traditionalStyle().selectEntity(path, pmb, entityType);
+     * twitterUserBhv.outideSql().traditionalStyle().selectList(path, pmb, entityType);
+     * twitterUserBhv.outideSql().traditionalStyle().selectPage(path, pmb, entityType);
+     * twitterUserBhv.outideSql().traditionalStyle().selectPagedListOnly(path, pmb, entityType);
+     * twitterUserBhv.outideSql().traditionalStyle().selectCursor(path, pmb, handler);
+     * twitterUserBhv.outideSql().traditionalStyle().execute(path, pmb);
      *
      * <span style="color: #3F7E5E">// options</span>
-     * userFollowBhv.outideSql().removeBlockComment().selectList()
-     * userFollowBhv.outideSql().removeLineComment().selectList()
-     * userFollowBhv.outideSql().formatSql().selectList()
+     * twitterUserBhv.outideSql().removeBlockComment().selectList()
+     * twitterUserBhv.outideSql().removeLineComment().selectList()
+     * twitterUserBhv.outideSql().formatSql().selectList()
      * </pre>
      * <p>The invoker of behavior command should be not null when you call this method.</p>
      * @return The new-created all facade executor of outside-SQL. (NotNull)
      */
-    public OutsideSqlAllFacadeExecutor<DbUserFollowBhv> outsideSql() {
+    public OutsideSqlAllFacadeExecutor<DbTwitterUserBhv> outsideSql() {
         return doOutsideSql();
     }
 
     // ===================================================================================
     //                                                                         Type Helper
     //                                                                         ===========
-    protected Class<? extends DbUserFollow> typeOfSelectedEntity() { return DbUserFollow.class; }
-    protected Class<DbUserFollow> typeOfHandlingEntity() { return DbUserFollow.class; }
-    protected Class<DbUserFollowCB> typeOfHandlingConditionBean() { return DbUserFollowCB.class; }
+    protected Class<? extends DbTwitterUser> typeOfSelectedEntity() { return DbTwitterUser.class; }
+    protected Class<DbTwitterUser> typeOfHandlingEntity() { return DbTwitterUser.class; }
+    protected Class<DbTwitterUserCB> typeOfHandlingConditionBean() { return DbTwitterUserCB.class; }
 
     // ===================================================================================
     //                                                                            Accessor

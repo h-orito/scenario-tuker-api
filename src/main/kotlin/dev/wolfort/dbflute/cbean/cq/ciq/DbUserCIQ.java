@@ -64,37 +64,16 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     public String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_ExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepUserId_ExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepUserId_NotExistsReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepUserId_SpecifyDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByFromUserIdListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdList(DbUserFollowCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepUserId_QueryDerivedReferrer_UserFollowByToUserIdListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
     protected ConditionValue xgetCValueUid() { return _myCQ.xdfgetUid(); }
-    protected ConditionValue xgetCValueTwitterUserName() { return _myCQ.xdfgetTwitterUserName(); }
     protected ConditionValue xgetCValueAuthority() { return _myCQ.xdfgetAuthority(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }

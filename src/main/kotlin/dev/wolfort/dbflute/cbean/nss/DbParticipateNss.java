@@ -30,9 +30,11 @@ public class DbParticipateNss {
     /**
      * With nested relation columns to select clause. <br>
      * USER by my user_id, named 'user'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public void withUser() {
+    public DbUserNss withUser() {
         _query.xdoNss(() -> _query.queryUser());
+        return new DbUserNss(_query.queryUser());
     }
     /**
      * With nested relation columns to select clause. <br>

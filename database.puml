@@ -5,8 +5,19 @@ entity User {
     * user_id: int unsigned <<generated>>
     --
     * user_name: varchar(50)
-    twitter_user_name: varchar(50)
 }
+
+entity TwitterUser {
+	* twitter_user_id: int unsigned <<generated>>
+	--
+	* user_id: int unsigned <<foreign key>>
+	* twitter_id: varchar(255)
+	* screen_name: varchar(255)
+	* access_token: varchar(255)
+	* token_secret: varchar(255)
+}
+
+User ||-|| TwitterUser
 
 entity UserFollow {
     * user_follow_id: int unsigned <<generated>>

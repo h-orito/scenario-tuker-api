@@ -1,5 +1,6 @@
 package dev.wolfort.scenariotuker.fw.security
 
+import dev.wolfort.scenariotuker.domain.model.user.TwitterUser
 import dev.wolfort.scenariotuker.domain.model.user.User
 import dev.wolfort.scenariotuker.domain.model.user.UserRepository
 import org.dbflute.hook.AccessContext
@@ -38,9 +39,12 @@ class ScenarioTukerUserDetailService(
                 uid = uid,
                 authority = Authority.User,
                 name = "未設定",
-                twitterUserName = null,
-                follows = emptyList(),
-                followers = emptyList()
+                twitter = TwitterUser(
+                    id = "dummy",
+                    screenName = "未設定",
+                    accessToken = "dummy",
+                    tokenSecret = "dummy"
+                )
             )
         )
         return ScenarioTukerUser(

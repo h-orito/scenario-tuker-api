@@ -1,5 +1,6 @@
 package dev.wolfort.scenariotuker.domain.model.participate
 
+import dev.wolfort.scenariotuker.domain.model.user.TwitterUser
 import dev.wolfort.scenariotuker.domain.model.user.User
 
 data class Participate(
@@ -10,6 +11,11 @@ data class Participate(
     val dispOrder: Int,
     val impression: ParticipateImpression?
 ) {
-    fun canViewImpression(owner: User, myself: User?): Boolean =
-        impression?.canView(owner, myself) ?: false
+    fun canViewImpression(
+        owner: User,
+        myself: User?,
+        followings: List<TwitterUser>,
+        followers: List<TwitterUser>
+    ): Boolean =
+        impression?.canView(owner, myself, followings, followers) ?: false
 }

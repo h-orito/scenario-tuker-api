@@ -38,3 +38,12 @@ firebase:
       path: ${FIREBASE_ADMINSDK_PATH}
   database:
     url: ${FIREBASE_DATABASE_URL}
+
+twitter:
+  oauth:
+    consumer-key: ${TWITTER_CONSUMER_KEY}
+    consumer-secret: ${TWITTER_CONSUMER_SECRET}
+
+encrypt:
+  secret: ymUS3XGjKiBRwixt
+  salt: 1287

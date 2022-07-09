@@ -6,7 +6,6 @@ create table user (
     user_id           int unsigned not null auto_increment,
     user_name         varchar(50) not null,
     uid               varchar(255) not null,
-    twitter_user_name varchar(50),
     authority         varchar(50) not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
@@ -16,27 +15,23 @@ create table user (
     unique (uid)
 );
 
-create table user_follow (
-    user_follow_id    int unsigned not null auto_increment,
-    from_user_id      int unsigned not null,
-    to_user_id        int unsigned not null,
+create table twitter_user (
+	twitter_user_id   int unsigned not null auto_increment,
+	user_id           int unsigned not null,
+	twitter_id        varchar(255) not null,
+	screen_name       varchar(255) not null,
+	access_token      varchar(255) not null,
+	token_secret      varchar(255) not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
     update_trace      varchar(64) not null,
-    primary key (user_follow_id),
-    unique (from_user_id, to_user_id)
+	primary key (twitter_user_id),
+	unique (user_id)
 );
 
-alter table user_follow
-    add constraint fk_user_follow_from_user foreign key (from_user_id)
-    references user (user_id)
-    on update restrict
-    on delete restrict
-;
-
-alter table user_follow
-    add constraint fk_user_follow_to_user foreign key (to_user_id)
+alter table twitter_user
+    add constraint fk_twitter_user_user foreign key (user_id)
     references user (user_id)
     on update restrict
     on delete restrict

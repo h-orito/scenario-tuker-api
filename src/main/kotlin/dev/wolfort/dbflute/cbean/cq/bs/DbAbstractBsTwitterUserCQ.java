@@ -16,15 +16,15 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of user.
+ * The abstract condition-query of twitter_user.
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
+public abstract class DbAbstractBsTwitterUserCQ extends AbstractConditionQuery {
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbAbstractBsUserCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public DbAbstractBsTwitterUserCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
@@ -37,7 +37,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     }
 
     public String asTableDbName() {
-        return "user";
+        return "twitter_user";
     }
 
     // ===================================================================================
@@ -45,7 +45,136 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_Equal(Integer twitterUserId) {
+        doSetTwitterUserId_Equal(twitterUserId);
+    }
+
+    protected void doSetTwitterUserId_Equal(Integer twitterUserId) {
+        regTwitterUserId(CK_EQ, twitterUserId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_NotEqual(Integer twitterUserId) {
+        doSetTwitterUserId_NotEqual(twitterUserId);
+    }
+
+    protected void doSetTwitterUserId_NotEqual(Integer twitterUserId) {
+        regTwitterUserId(CK_NES, twitterUserId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_GreaterThan(Integer twitterUserId) {
+        regTwitterUserId(CK_GT, twitterUserId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_LessThan(Integer twitterUserId) {
+        regTwitterUserId(CK_LT, twitterUserId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_GreaterEqual(Integer twitterUserId) {
+        regTwitterUserId(CK_GE, twitterUserId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserId The value of twitterUserId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_LessEqual(Integer twitterUserId) {
+        regTwitterUserId(CK_LE, twitterUserId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of twitterUserId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of twitterUserId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setTwitterUserId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setTwitterUserId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of twitterUserId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of twitterUserId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setTwitterUserId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueTwitterUserId(), "twitter_user_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserIdList The collection of twitterUserId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_InScope(Collection<Integer> twitterUserIdList) {
+        doSetTwitterUserId_InScope(twitterUserIdList);
+    }
+
+    protected void doSetTwitterUserId_InScope(Collection<Integer> twitterUserIdList) {
+        regINS(CK_INS, cTL(twitterUserIdList), xgetCValueTwitterUserId(), "twitter_user_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param twitterUserIdList The collection of twitterUserId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTwitterUserId_NotInScope(Collection<Integer> twitterUserIdList) {
+        doSetTwitterUserId_NotInScope(twitterUserIdList);
+    }
+
+    protected void doSetTwitterUserId_NotInScope(Collection<Integer> twitterUserIdList) {
+        regINS(CK_NINS, cTL(twitterUserIdList), xgetCValueTwitterUserId(), "twitter_user_id");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     */
+    public void setTwitterUserId_IsNull() { regTwitterUserId(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * twitter_user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     */
+    public void setTwitterUserId_IsNotNull() { regTwitterUserId(CK_ISNN, DOBJ); }
+
+    protected void regTwitterUserId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTwitterUserId(), "twitter_user_id"); }
+    protected abstract ConditionValue xgetCValueTwitterUserId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -58,7 +187,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -71,7 +200,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -80,7 +209,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -89,7 +218,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -98,7 +227,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -109,7 +238,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -122,7 +251,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -133,7 +262,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userIdList The collection of userId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -146,7 +275,7 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * user_id: {UQ, NotNull, INT UNSIGNED(10), FK to user}
      * @param userIdList The collection of userId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
@@ -157,498 +286,548 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(userIdList), xgetCValueUserId(), "user_id");
     }
 
-    /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select user_id from participate where ...)} <br>
-     * participate by user_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsParticipate</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of ParticipateList for 'exists'. (NotNull)
-     */
-    public void existsParticipate(SubQuery<DbParticipateCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_ParticipateList(cb.query());
-        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "participateList");
-    }
-    public abstract String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select user_id from participate where ...)} <br>
-     * participate by user_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsParticipate</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_ParticipateList for 'not exists'. (NotNull)
-     */
-    public void notExistsParticipate(SubQuery<DbParticipateCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_ParticipateList(cb.query());
-        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "participateList");
-    }
-    public abstract String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq);
-
-    public void xsderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_ParticipateList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "participateList", al, op);
-    }
-    public abstract String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from participate where ...)} <br>
-     * participate by user_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedParticipate()</span>.<span style="color: #CC4747">max</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     participateCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbParticipateCB> derivedParticipate() {
-        return xcreateQDRFunctionParticipateList();
-    }
-    protected HpQDRFunction<DbParticipateCB> xcreateQDRFunctionParticipateList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveParticipateList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_ParticipateList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_ParticipateListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "participateList", rd, vl, prpp, op);
-    }
-    public abstract String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq);
-    public abstract String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl);
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     */
-    public void setUserId_IsNull() { regUserId(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * user_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     */
-    public void setUserId_IsNotNull() { regUserId(CK_ISNN, DOBJ); }
-
     protected void regUserId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserId(), "user_id"); }
     protected abstract ConditionValue xgetCValueUserId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_Equal(String userName) {
-        doSetUserName_Equal(fRES(userName));
+    public void setTwitterId_Equal(String twitterId) {
+        doSetTwitterId_Equal(fRES(twitterId));
     }
 
-    protected void doSetUserName_Equal(String userName) {
-        regUserName(CK_EQ, userName);
+    protected void doSetTwitterId_Equal(String twitterId) {
+        regTwitterId(CK_EQ, twitterId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_NotEqual(String userName) {
-        doSetUserName_NotEqual(fRES(userName));
+    public void setTwitterId_NotEqual(String twitterId) {
+        doSetTwitterId_NotEqual(fRES(twitterId));
     }
 
-    protected void doSetUserName_NotEqual(String userName) {
-        regUserName(CK_NES, userName);
+    protected void doSetTwitterId_NotEqual(String twitterId) {
+        regTwitterId(CK_NES, twitterId);
     }
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_GreaterThan(String userName) {
-        regUserName(CK_GT, fRES(userName));
+    public void setTwitterId_GreaterThan(String twitterId) {
+        regTwitterId(CK_GT, fRES(twitterId));
     }
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_LessThan(String userName) {
-        regUserName(CK_LT, fRES(userName));
+    public void setTwitterId_LessThan(String twitterId) {
+        regTwitterId(CK_LT, fRES(twitterId));
     }
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_GreaterEqual(String userName) {
-        regUserName(CK_GE, fRES(userName));
+    public void setTwitterId_GreaterEqual(String twitterId) {
+        regTwitterId(CK_GE, fRES(twitterId));
     }
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_LessEqual(String userName) {
-        regUserName(CK_LE, fRES(userName));
+    public void setTwitterId_LessEqual(String twitterId) {
+        regTwitterId(CK_LE, fRES(twitterId));
     }
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userNameList The collection of userName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterIdList The collection of twitterId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_InScope(Collection<String> userNameList) {
-        doSetUserName_InScope(userNameList);
+    public void setTwitterId_InScope(Collection<String> twitterIdList) {
+        doSetTwitterId_InScope(twitterIdList);
     }
 
-    protected void doSetUserName_InScope(Collection<String> userNameList) {
-        regINS(CK_INS, cTL(userNameList), xgetCValueUserName(), "user_name");
+    protected void doSetTwitterId_InScope(Collection<String> twitterIdList) {
+        regINS(CK_INS, cTL(twitterIdList), xgetCValueTwitterId(), "twitter_id");
     }
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userNameList The collection of userName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterIdList The collection of twitterId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUserName_NotInScope(Collection<String> userNameList) {
-        doSetUserName_NotInScope(userNameList);
+    public void setTwitterId_NotInScope(Collection<String> twitterIdList) {
+        doSetTwitterId_NotInScope(twitterIdList);
     }
 
-    protected void doSetUserName_NotInScope(Collection<String> userNameList) {
-        regINS(CK_NINS, cTL(userNameList), xgetCValueUserName(), "user_name");
+    protected void doSetTwitterId_NotInScope(Collection<String> twitterIdList) {
+        regINS(CK_NINS, cTL(twitterIdList), xgetCValueTwitterId(), "twitter_id");
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setUserName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param userName The value of userName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setTwitterId_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param twitterId The value of twitterId as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setUserName_LikeSearch(String userName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setUserName_LikeSearch(userName, xcLSOP(opLambda));
+    public void setTwitterId_LikeSearch(String twitterId, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTwitterId_LikeSearch(twitterId, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setUserName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param userName The value of userName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setTwitterId_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param twitterId The value of twitterId as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    protected void setUserName_LikeSearch(String userName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(userName), xgetCValueUserName(), "user_name", likeSearchOption);
+    protected void setTwitterId_LikeSearch(String twitterId, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(twitterId), xgetCValueTwitterId(), "twitter_id", likeSearchOption);
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setUserName_NotLikeSearch(String userName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setUserName_NotLikeSearch(userName, xcLSOP(opLambda));
+    public void setTwitterId_NotLikeSearch(String twitterId, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTwitterId_NotLikeSearch(twitterId, xcLSOP(opLambda));
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * user_name: {NotNull, VARCHAR(50)}
-     * @param userName The value of userName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * twitter_id: {NotNull, VARCHAR(255)}
+     * @param twitterId The value of twitterId as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    protected void setUserName_NotLikeSearch(String userName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(userName), xgetCValueUserName(), "user_name", likeSearchOption);
+    protected void setTwitterId_NotLikeSearch(String twitterId, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(twitterId), xgetCValueTwitterId(), "twitter_id", likeSearchOption);
     }
 
-    protected void regUserName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUserName(), "user_name"); }
-    protected abstract ConditionValue xgetCValueUserName();
+    protected void regTwitterId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTwitterId(), "twitter_id"); }
+    protected abstract ConditionValue xgetCValueTwitterId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_Equal(String uid) {
-        doSetUid_Equal(fRES(uid));
+    public void setScreenName_Equal(String screenName) {
+        doSetScreenName_Equal(fRES(screenName));
     }
 
-    protected void doSetUid_Equal(String uid) {
-        regUid(CK_EQ, uid);
+    protected void doSetScreenName_Equal(String screenName) {
+        regScreenName(CK_EQ, screenName);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_NotEqual(String uid) {
-        doSetUid_NotEqual(fRES(uid));
+    public void setScreenName_NotEqual(String screenName) {
+        doSetScreenName_NotEqual(fRES(screenName));
     }
 
-    protected void doSetUid_NotEqual(String uid) {
-        regUid(CK_NES, uid);
+    protected void doSetScreenName_NotEqual(String screenName) {
+        regScreenName(CK_NES, screenName);
     }
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_GreaterThan(String uid) {
-        regUid(CK_GT, fRES(uid));
+    public void setScreenName_GreaterThan(String screenName) {
+        regScreenName(CK_GT, fRES(screenName));
     }
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_LessThan(String uid) {
-        regUid(CK_LT, fRES(uid));
+    public void setScreenName_LessThan(String screenName) {
+        regScreenName(CK_LT, fRES(screenName));
     }
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_GreaterEqual(String uid) {
-        regUid(CK_GE, fRES(uid));
+    public void setScreenName_GreaterEqual(String screenName) {
+        regScreenName(CK_GE, fRES(screenName));
     }
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_LessEqual(String uid) {
-        regUid(CK_LE, fRES(uid));
+    public void setScreenName_LessEqual(String screenName) {
+        regScreenName(CK_LE, fRES(screenName));
     }
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uidList The collection of uid as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenNameList The collection of screenName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_InScope(Collection<String> uidList) {
-        doSetUid_InScope(uidList);
+    public void setScreenName_InScope(Collection<String> screenNameList) {
+        doSetScreenName_InScope(screenNameList);
     }
 
-    protected void doSetUid_InScope(Collection<String> uidList) {
-        regINS(CK_INS, cTL(uidList), xgetCValueUid(), "uid");
+    protected void doSetScreenName_InScope(Collection<String> screenNameList) {
+        regINS(CK_INS, cTL(screenNameList), xgetCValueScreenName(), "screen_name");
     }
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uidList The collection of uid as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenNameList The collection of screenName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setUid_NotInScope(Collection<String> uidList) {
-        doSetUid_NotInScope(uidList);
+    public void setScreenName_NotInScope(Collection<String> screenNameList) {
+        doSetScreenName_NotInScope(screenNameList);
     }
 
-    protected void doSetUid_NotInScope(Collection<String> uidList) {
-        regINS(CK_NINS, cTL(uidList), xgetCValueUid(), "uid");
+    protected void doSetScreenName_NotInScope(Collection<String> screenNameList) {
+        regINS(CK_NINS, cTL(screenNameList), xgetCValueScreenName(), "screen_name");
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setUid_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param uid The value of uid as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setScreenName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param screenName The value of screenName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setUid_LikeSearch(String uid, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setUid_LikeSearch(uid, xcLSOP(opLambda));
+    public void setScreenName_LikeSearch(String screenName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setScreenName_LikeSearch(screenName, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setUid_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param uid The value of uid as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setScreenName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param screenName The value of screenName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    protected void setUid_LikeSearch(String uid, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(uid), xgetCValueUid(), "uid", likeSearchOption);
+    protected void setScreenName_LikeSearch(String screenName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(screenName), xgetCValueScreenName(), "screen_name", likeSearchOption);
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setUid_NotLikeSearch(String uid, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setUid_NotLikeSearch(uid, xcLSOP(opLambda));
+    public void setScreenName_NotLikeSearch(String screenName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setScreenName_NotLikeSearch(screenName, xcLSOP(opLambda));
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * uid: {UQ, NotNull, VARCHAR(255)}
-     * @param uid The value of uid as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * screen_name: {NotNull, VARCHAR(255)}
+     * @param screenName The value of screenName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    protected void setUid_NotLikeSearch(String uid, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(uid), xgetCValueUid(), "uid", likeSearchOption);
+    protected void setScreenName_NotLikeSearch(String screenName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(screenName), xgetCValueScreenName(), "screen_name", likeSearchOption);
     }
 
-    protected void regUid(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueUid(), "uid"); }
-    protected abstract ConditionValue xgetCValueUid();
+    protected void regScreenName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScreenName(), "screen_name"); }
+    protected abstract ConditionValue xgetCValueScreenName();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_Equal(String authority) {
-        doSetAuthority_Equal(fRES(authority));
+    public void setAccessToken_Equal(String accessToken) {
+        doSetAccessToken_Equal(fRES(accessToken));
     }
 
-    protected void doSetAuthority_Equal(String authority) {
-        regAuthority(CK_EQ, authority);
+    protected void doSetAccessToken_Equal(String accessToken) {
+        regAccessToken(CK_EQ, accessToken);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_NotEqual(String authority) {
-        doSetAuthority_NotEqual(fRES(authority));
+    public void setAccessToken_NotEqual(String accessToken) {
+        doSetAccessToken_NotEqual(fRES(accessToken));
     }
 
-    protected void doSetAuthority_NotEqual(String authority) {
-        regAuthority(CK_NES, authority);
+    protected void doSetAccessToken_NotEqual(String accessToken) {
+        regAccessToken(CK_NES, accessToken);
     }
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_GreaterThan(String authority) {
-        regAuthority(CK_GT, fRES(authority));
+    public void setAccessToken_GreaterThan(String accessToken) {
+        regAccessToken(CK_GT, fRES(accessToken));
     }
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_LessThan(String authority) {
-        regAuthority(CK_LT, fRES(authority));
+    public void setAccessToken_LessThan(String accessToken) {
+        regAccessToken(CK_LT, fRES(accessToken));
     }
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_GreaterEqual(String authority) {
-        regAuthority(CK_GE, fRES(authority));
+    public void setAccessToken_GreaterEqual(String accessToken) {
+        regAccessToken(CK_GE, fRES(accessToken));
     }
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_LessEqual(String authority) {
-        regAuthority(CK_LE, fRES(authority));
+    public void setAccessToken_LessEqual(String accessToken) {
+        regAccessToken(CK_LE, fRES(accessToken));
     }
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authorityList The collection of authority as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessTokenList The collection of accessToken as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_InScope(Collection<String> authorityList) {
-        doSetAuthority_InScope(authorityList);
+    public void setAccessToken_InScope(Collection<String> accessTokenList) {
+        doSetAccessToken_InScope(accessTokenList);
     }
 
-    protected void doSetAuthority_InScope(Collection<String> authorityList) {
-        regINS(CK_INS, cTL(authorityList), xgetCValueAuthority(), "authority");
+    protected void doSetAccessToken_InScope(Collection<String> accessTokenList) {
+        regINS(CK_INS, cTL(accessTokenList), xgetCValueAccessToken(), "access_token");
     }
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authorityList The collection of authority as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessTokenList The collection of accessToken as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setAuthority_NotInScope(Collection<String> authorityList) {
-        doSetAuthority_NotInScope(authorityList);
+    public void setAccessToken_NotInScope(Collection<String> accessTokenList) {
+        doSetAccessToken_NotInScope(accessTokenList);
     }
 
-    protected void doSetAuthority_NotInScope(Collection<String> authorityList) {
-        regINS(CK_NINS, cTL(authorityList), xgetCValueAuthority(), "authority");
+    protected void doSetAccessToken_NotInScope(Collection<String> accessTokenList) {
+        regINS(CK_NINS, cTL(accessTokenList), xgetCValueAccessToken(), "access_token");
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setAuthority_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param authority The value of authority as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setAccessToken_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param accessToken The value of accessToken as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setAuthority_LikeSearch(String authority, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setAuthority_LikeSearch(authority, xcLSOP(opLambda));
+    public void setAccessToken_LikeSearch(String accessToken, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setAccessToken_LikeSearch(accessToken, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setAuthority_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param authority The value of authority as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setAccessToken_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param accessToken The value of accessToken as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    protected void setAuthority_LikeSearch(String authority, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(authority), xgetCValueAuthority(), "authority", likeSearchOption);
+    protected void setAccessToken_LikeSearch(String accessToken, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(accessToken), xgetCValueAccessToken(), "access_token", likeSearchOption);
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setAuthority_NotLikeSearch(String authority, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setAuthority_NotLikeSearch(authority, xcLSOP(opLambda));
+    public void setAccessToken_NotLikeSearch(String accessToken, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setAccessToken_NotLikeSearch(accessToken, xcLSOP(opLambda));
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * authority: {NotNull, VARCHAR(50)}
-     * @param authority The value of authority as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * access_token: {NotNull, VARCHAR(255)}
+     * @param accessToken The value of accessToken as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    protected void setAuthority_NotLikeSearch(String authority, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(authority), xgetCValueAuthority(), "authority", likeSearchOption);
+    protected void setAccessToken_NotLikeSearch(String accessToken, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(accessToken), xgetCValueAccessToken(), "access_token", likeSearchOption);
     }
 
-    protected void regAuthority(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAuthority(), "authority"); }
-    protected abstract ConditionValue xgetCValueAuthority();
+    protected void regAccessToken(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueAccessToken(), "access_token"); }
+    protected abstract ConditionValue xgetCValueAccessToken();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_Equal(String tokenSecret) {
+        doSetTokenSecret_Equal(fRES(tokenSecret));
+    }
+
+    protected void doSetTokenSecret_Equal(String tokenSecret) {
+        regTokenSecret(CK_EQ, tokenSecret);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_NotEqual(String tokenSecret) {
+        doSetTokenSecret_NotEqual(fRES(tokenSecret));
+    }
+
+    protected void doSetTokenSecret_NotEqual(String tokenSecret) {
+        regTokenSecret(CK_NES, tokenSecret);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_GreaterThan(String tokenSecret) {
+        regTokenSecret(CK_GT, fRES(tokenSecret));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_LessThan(String tokenSecret) {
+        regTokenSecret(CK_LT, fRES(tokenSecret));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_GreaterEqual(String tokenSecret) {
+        regTokenSecret(CK_GE, fRES(tokenSecret));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_LessEqual(String tokenSecret) {
+        regTokenSecret(CK_LE, fRES(tokenSecret));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecretList The collection of tokenSecret as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_InScope(Collection<String> tokenSecretList) {
+        doSetTokenSecret_InScope(tokenSecretList);
+    }
+
+    protected void doSetTokenSecret_InScope(Collection<String> tokenSecretList) {
+        regINS(CK_INS, cTL(tokenSecretList), xgetCValueTokenSecret(), "token_secret");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecretList The collection of tokenSecret as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setTokenSecret_NotInScope(Collection<String> tokenSecretList) {
+        doSetTokenSecret_NotInScope(tokenSecretList);
+    }
+
+    protected void doSetTokenSecret_NotInScope(Collection<String> tokenSecretList) {
+        regINS(CK_NINS, cTL(tokenSecretList), xgetCValueTokenSecret(), "token_secret");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setTokenSecret_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param tokenSecret The value of tokenSecret as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setTokenSecret_LikeSearch(String tokenSecret, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTokenSecret_LikeSearch(tokenSecret, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)} <br>
+     * <pre>e.g. setTokenSecret_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param tokenSecret The value of tokenSecret as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setTokenSecret_LikeSearch(String tokenSecret, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(tokenSecret), xgetCValueTokenSecret(), "token_secret", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setTokenSecret_NotLikeSearch(String tokenSecret, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setTokenSecret_NotLikeSearch(tokenSecret, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * token_secret: {NotNull, VARCHAR(255)}
+     * @param tokenSecret The value of tokenSecret as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setTokenSecret_NotLikeSearch(String tokenSecret, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(tokenSecret), xgetCValueTokenSecret(), "token_secret", likeSearchOption);
+    }
+
+    protected void regTokenSecret(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueTokenSecret(), "token_secret"); }
+    protected abstract ConditionValue xgetCValueTokenSecret();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
@@ -1084,8 +1263,8 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_Equal() {
-        return xcreateSLCFunction(CK_EQ, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_Equal() {
+        return xcreateSLCFunction(CK_EQ, DbTwitterUserCB.class);
     }
 
     /**
@@ -1099,8 +1278,8 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_NotEqual() {
-        return xcreateSLCFunction(CK_NES, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_NotEqual() {
+        return xcreateSLCFunction(CK_NES, DbTwitterUserCB.class);
     }
 
     /**
@@ -1114,8 +1293,8 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_GreaterThan() {
-        return xcreateSLCFunction(CK_GT, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_GreaterThan() {
+        return xcreateSLCFunction(CK_GT, DbTwitterUserCB.class);
     }
 
     /**
@@ -1129,8 +1308,8 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_LessThan() {
-        return xcreateSLCFunction(CK_LT, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_LessThan() {
+        return xcreateSLCFunction(CK_LT, DbTwitterUserCB.class);
     }
 
     /**
@@ -1144,16 +1323,16 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_GreaterEqual() {
-        return xcreateSLCFunction(CK_GE, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_GreaterEqual() {
+        return xcreateSLCFunction(CK_GE, DbTwitterUserCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessEqual. <br>
      * {where FOO &lt;= (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;DbUserCB&gt;() {
-     *     public void query(DbUserCB subCB) {
+     * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;DbTwitterUserCB&gt;() {
+     *     public void query(DbTwitterUserCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
      *     }
@@ -1161,56 +1340,56 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbUserCB> scalar_LessEqual() {
-        return xcreateSLCFunction(CK_LE, DbUserCB.class);
+    public HpSLCFunction<DbTwitterUserCB> scalar_LessEqual() {
+        return xcreateSLCFunction(CK_LE, DbTwitterUserCB.class);
     }
 
     @SuppressWarnings("unchecked")
     protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSLCCustomized<CB> cs, ScalarConditionOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbUserCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        DbTwitterUserCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
         cs.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, cs, op);
     }
-    public abstract String keepScalarCondition(DbUserCQ sq);
+    public abstract String keepScalarCondition(DbTwitterUserCQ sq);
 
-    protected DbUserCB xcreateScalarConditionCB() {
-        DbUserCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
+    protected DbTwitterUserCB xcreateScalarConditionCB() {
+        DbTwitterUserCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
-    protected DbUserCB xcreateScalarConditionPartitionByCB() {
-        DbUserCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
+    protected DbTwitterUserCB xcreateScalarConditionPartitionByCB() {
+        DbTwitterUserCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String fn, SubQuery<DbUserCB> sq, String al, DerivedReferrerOption op) {
+    public void xsmyselfDerive(String fn, SubQuery<DbTwitterUserCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbUserCB cb = new DbUserCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "user_id";
+        DbTwitterUserCB cb = new DbTwitterUserCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "twitter_user_id";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(DbUserCQ sq);
+    public abstract String keepSpecifyMyselfDerived(DbTwitterUserCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
-    public HpQDRFunction<DbUserCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived(DbUserCB.class);
+    public HpQDRFunction<DbTwitterUserCB> myselfDerived() {
+        return xcreateQDRFunctionMyselfDerived(DbTwitterUserCB.class);
     }
     @SuppressWarnings("unchecked")
     protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbUserCB cb = new DbUserCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
-        String pk = "user_id";
+        DbTwitterUserCB cb = new DbTwitterUserCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "twitter_user_id";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
         registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(DbUserCQ sq);
+    public abstract String keepQueryMyselfDerived(DbTwitterUserCQ sq);
     public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
@@ -1220,13 +1399,13 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
      * Prepare for MyselfExists (correlated sub-query).
      * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<DbUserCB> subCBLambda) {
+    public void myselfExists(SubQuery<DbTwitterUserCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
-        DbUserCB cb = new DbUserCB(); cb.xsetupForMyselfExists(this);
+        DbTwitterUserCB cb = new DbTwitterUserCB(); cb.xsetupForMyselfExists(this);
         lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(DbUserCQ sq);
+    public abstract String keepMyselfExists(DbTwitterUserCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order
@@ -1270,12 +1449,12 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
-    protected DbUserCB newMyCB() {
-        return new DbUserCB();
+    protected DbTwitterUserCB newMyCB() {
+        return new DbTwitterUserCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xabUDT() { return Date.class.getName(); }
-    protected String xabCQ() { return DbUserCQ.class.getName(); }
+    protected String xabCQ() { return DbTwitterUserCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSLCS() { return HpSLCSetupper.class.getName(); }
     protected String xabSCP() { return SubQuery.class.getName(); }

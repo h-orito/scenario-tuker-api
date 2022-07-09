@@ -43,17 +43,16 @@ class UserController(
 
     data class SearchRequest(
         var name: String? = null,
-        var twitter_user_name: String? = null,
+        var screen_name: String? = null,
     ) {
-        fun isEmpty() = name.isNullOrEmpty() && twitter_user_name.isNullOrEmpty()
-        fun toQuery() = UserQuery(name = name, twitterUserName = twitter_user_name)
+        fun isEmpty() = name.isNullOrEmpty() && screen_name.isNullOrEmpty()
+        fun toQuery() = UserQuery(name = name, screenName = screen_name)
     }
 
     @GetMapping("/{userId}")
     private fun get(@PathVariable userId: Int): UserResponse? {
         val user = userService.findById(userId) ?: return null
-        val users = userService.findAllByIds((user.follows + user.followers).distinct())
-        return UserResponse(user, users)
+        return UserResponse(user)
     }
 
     @PostMapping
@@ -61,14 +60,23 @@ class UserController(
         userService.register(request.toUserCreateResource())
 
     data class PostRequest(
+        @field:NotNull
         val uid: String = "",
+        @field:NotNull
         val name: String = "",
-        val twitterUserName: String? = null
+        @field:NotNull
+        val screenName: String = "",
+        @field:NotNull
+        val accessToken: String = "",
+        @field:NotNull
+        val tokenSecret: String = ""
     ) {
         fun toUserCreateResource() = UserService.UserCreateResource(
             uid = uid,
             name = name,
-            twitterUserName = twitterUserName
+            screenName = screenName,
+            accessToken = accessToken,
+            tokenSecret = tokenSecret
         )
     }
 
@@ -108,7 +116,7 @@ class UserController(
 
     data class MyselfPutRequest(
         var name: String = "",
-        var twitterUserName: String? = null
+        var screenName: String = ""
     ) {
         fun toUpdateResource(uid: String) = UserService.UserUpdateResource(
             uid = uid,
@@ -185,31 +193,4 @@ class UserController(
         }
         participateService.delete(participateId)
     }
-
-    @PostMapping("/myself/follow")
-    private fun postFollow(
-        @RequestBody @Validated request: FollowPostRequest,
-        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
-    ): User {
-        val user = userService.findByUid(sTukerUser.uid)
-            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
-        userService.follow(user.id, request.userId!!)
-        return userService.findById(user.id)!!
-    }
-
-    @DeleteMapping("/myself/follow/{userId}")
-    private fun deleteFollow(
-        @PathVariable userId: Int,
-        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
-    ): User {
-        val user = userService.findByUid(sTukerUser.uid)
-            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
-        userService.unfollow(user.id, userId)
-        return userService.findById(user.id)!!
-    }
-
-    data class FollowPostRequest(
-        @field:NotNull
-        var userId: Int? = null
-    )
 }
