@@ -95,7 +95,7 @@ class UserRepositoryImpl(
         u.userId = exists.id
         u.userName = user.name
         userBhv.update(u)
-        upsertTwitter(user)
+        upsertTwitter(user.copy(id = exists.id))
         return findByUid(user.uid)!!
     }
 

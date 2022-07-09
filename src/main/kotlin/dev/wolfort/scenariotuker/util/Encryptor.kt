@@ -26,7 +26,7 @@ class Encryptor {
     fun decrypt(encrypted: String): String {
         return try {
             encryptor().decrypt(encrypted)
-        } catch( e: Exception) {
+        } catch (e: Exception) {
             encrypted
         }
     }
