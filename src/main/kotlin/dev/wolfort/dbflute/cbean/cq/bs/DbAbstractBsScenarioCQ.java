@@ -178,6 +178,25 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
 
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select scenario_id from scenario_author where ...)} <br>
+     * scenario_author by scenario_id, named 'scenarioAuthorAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsScenarioAuthor</span>(authorCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     authorCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ScenarioAuthorList for 'exists'. (NotNull)
+     */
+    public void existsScenarioAuthor(SubQuery<DbScenarioAuthorCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepScenarioId_ExistsReferrer_ScenarioAuthorList(cb.query());
+        registerExistsReferrer(cb.query(), "scenario_id", "scenario_id", pp, "scenarioAuthorList");
+    }
+    public abstract String keepScenarioId_ExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select scenario_id from scenario_dictionary where ...)} <br>
      * scenario_dictionary by scenario_id, named 'scenarioDictionaryAsOne'.
      * <pre>
@@ -216,6 +235,25 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
 
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select scenario_id from scenario_author where ...)} <br>
+     * scenario_author by scenario_id, named 'scenarioAuthorAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsScenarioAuthor</span>(authorCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     authorCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ScenarioId_NotExistsReferrer_ScenarioAuthorList for 'not exists'. (NotNull)
+     */
+    public void notExistsScenarioAuthor(SubQuery<DbScenarioAuthorCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepScenarioId_NotExistsReferrer_ScenarioAuthorList(cb.query());
+        registerNotExistsReferrer(cb.query(), "scenario_id", "scenario_id", pp, "scenarioAuthorList");
+    }
+    public abstract String keepScenarioId_NotExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select scenario_id from scenario_dictionary where ...)} <br>
      * scenario_dictionary by scenario_id, named 'scenarioDictionaryAsOne'.
      * <pre>
@@ -240,6 +278,14 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "scenario_id", "scenario_id", pp, "participateList", al, op);
     }
     public abstract String keepScenarioId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq);
+
+    public void xsderiveScenarioAuthorList(String fn, SubQuery<DbScenarioAuthorCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "scenario_id", "scenario_id", pp, "scenarioAuthorList", al, op);
+    }
+    public abstract String keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq);
 
     public void xsderiveScenarioDictionaryList(String fn, SubQuery<DbScenarioDictionaryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
@@ -275,6 +321,33 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
     }
     public abstract String keepScenarioId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq);
     public abstract String keepScenarioId_QueryDerivedReferrer_ParticipateListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from scenario_author where ...)} <br>
+     * scenario_author by scenario_id, named 'scenarioAuthorAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedScenarioAuthor()</span>.<span style="color: #CC4747">max</span>(authorCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     authorCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     authorCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbScenarioAuthorCB> derivedScenarioAuthor() {
+        return xcreateQDRFunctionScenarioAuthorList();
+    }
+    protected HpQDRFunction<DbScenarioAuthorCB> xcreateQDRFunctionScenarioAuthorList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveScenarioAuthorList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveScenarioAuthorList(String fn, SubQuery<DbScenarioAuthorCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepScenarioId_QueryDerivedReferrer_ScenarioAuthorList(cb.query()); String prpp = keepScenarioId_QueryDerivedReferrer_ScenarioAuthorListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "scenario_id", "scenario_id", sqpp, "scenarioAuthorList", rd, vl, prpp, op);
+    }
+    public abstract String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq);
+    public abstract String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorListParameter(Object vl);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -587,6 +660,159 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
 
     protected void regScenarioType(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioType(), "scenario_type"); }
     protected abstract ConditionValue xgetCValueScenarioType();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_Equal(String scenarioUrl) {
+        doSetScenarioUrl_Equal(fRES(scenarioUrl));
+    }
+
+    protected void doSetScenarioUrl_Equal(String scenarioUrl) {
+        regScenarioUrl(CK_EQ, scenarioUrl);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_NotEqual(String scenarioUrl) {
+        doSetScenarioUrl_NotEqual(fRES(scenarioUrl));
+    }
+
+    protected void doSetScenarioUrl_NotEqual(String scenarioUrl) {
+        regScenarioUrl(CK_NES, scenarioUrl);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_GreaterThan(String scenarioUrl) {
+        regScenarioUrl(CK_GT, fRES(scenarioUrl));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_LessThan(String scenarioUrl) {
+        regScenarioUrl(CK_LT, fRES(scenarioUrl));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_GreaterEqual(String scenarioUrl) {
+        regScenarioUrl(CK_GE, fRES(scenarioUrl));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_LessEqual(String scenarioUrl) {
+        regScenarioUrl(CK_LE, fRES(scenarioUrl));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrlList The collection of scenarioUrl as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_InScope(Collection<String> scenarioUrlList) {
+        doSetScenarioUrl_InScope(scenarioUrlList);
+    }
+
+    protected void doSetScenarioUrl_InScope(Collection<String> scenarioUrlList) {
+        regINS(CK_INS, cTL(scenarioUrlList), xgetCValueScenarioUrl(), "scenario_url");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrlList The collection of scenarioUrl as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioUrl_NotInScope(Collection<String> scenarioUrlList) {
+        doSetScenarioUrl_NotInScope(scenarioUrlList);
+    }
+
+    protected void doSetScenarioUrl_NotInScope(Collection<String> scenarioUrlList) {
+        regINS(CK_NINS, cTL(scenarioUrlList), xgetCValueScenarioUrl(), "scenario_url");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)} <br>
+     * <pre>e.g. setScenarioUrl_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param scenarioUrl The value of scenarioUrl as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setScenarioUrl_LikeSearch(String scenarioUrl, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setScenarioUrl_LikeSearch(scenarioUrl, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)} <br>
+     * <pre>e.g. setScenarioUrl_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param scenarioUrl The value of scenarioUrl as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setScenarioUrl_LikeSearch(String scenarioUrl, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(scenarioUrl), xgetCValueScenarioUrl(), "scenario_url", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setScenarioUrl_NotLikeSearch(String scenarioUrl, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setScenarioUrl_NotLikeSearch(scenarioUrl, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @param scenarioUrl The value of scenarioUrl as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setScenarioUrl_NotLikeSearch(String scenarioUrl, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(scenarioUrl), xgetCValueScenarioUrl(), "scenario_url", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     */
+    public void setScenarioUrl_IsNull() { regScenarioUrl(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     */
+    public void setScenarioUrl_IsNullOrEmpty() { regScenarioUrl(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * scenario_url: {VARCHAR(255)}
+     */
+    public void setScenarioUrl_IsNotNull() { regScenarioUrl(CK_ISNN, DOBJ); }
+
+    protected void regScenarioUrl(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioUrl(), "scenario_url"); }
+    protected abstract ConditionValue xgetCValueScenarioUrl();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

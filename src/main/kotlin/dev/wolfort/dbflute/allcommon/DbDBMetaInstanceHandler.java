@@ -31,12 +31,14 @@ public class DbDBMetaInstanceHandler implements DBMetaProvider {
     protected static final Map<String, String> _tableDbNameClassNameMap;
     static {
         final Map<String, String> tmpMap = newHashMap();
+        tmpMap.put("author", "dev.wolfort.dbflute.bsentity.dbmeta.DbAuthorDbm");
         tmpMap.put("participate", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateDbm");
         tmpMap.put("participate_impression", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateImpressionDbm");
         tmpMap.put("participate_role", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateRoleDbm");
         tmpMap.put("rule_book", "dev.wolfort.dbflute.bsentity.dbmeta.DbRuleBookDbm");
         tmpMap.put("rule_book_dictionary", "dev.wolfort.dbflute.bsentity.dbmeta.DbRuleBookDictionaryDbm");
         tmpMap.put("scenario", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioDbm");
+        tmpMap.put("scenario_author", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioAuthorDbm");
         tmpMap.put("scenario_dictionary", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioDictionaryDbm");
         tmpMap.put("twitter_user", "dev.wolfort.dbflute.bsentity.dbmeta.DbTwitterUserDbm");
         tmpMap.put("user", "dev.wolfort.dbflute.bsentity.dbmeta.DbUserDbm");

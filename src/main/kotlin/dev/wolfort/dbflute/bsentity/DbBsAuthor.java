@@ -3,61 +3,53 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
-import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The entity of SCENARIO as TABLE. <br>
+ * The entity of AUTHOR as TABLE. <br>
  * <pre>
  * [primary-key]
- *     scenario_id
+ *     author_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
+ *     author_id, author_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     scenario_id
+ *     author_id
  *
  * [version-no]
  *     
  *
  * [foreign table]
- *     RULE_BOOK
+ *     
  *
  * [referrer table]
- *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
+ *     SCENARIO_AUTHOR
  *
  * [foreign property]
- *     ruleBook
+ *     
  *
  * [referrer property]
- *     participateList, scenarioAuthorList, scenarioDictionaryList
+ *     scenarioAuthorList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
- * Integer scenarioId = entity.getScenarioId();
- * String scenarioName = entity.getScenarioName();
- * String scenarioType = entity.getScenarioType();
- * String scenarioUrl = entity.getScenarioUrl();
- * Integer ruleBookId = entity.getRuleBookId();
+ * Integer authorId = entity.getAuthorId();
+ * String authorName = entity.getAuthorName();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
- * entity.setScenarioId(scenarioId);
- * entity.setScenarioName(scenarioName);
- * entity.setScenarioType(scenarioType);
- * entity.setScenarioUrl(scenarioUrl);
- * entity.setRuleBookId(ruleBookId);
+ * entity.setAuthorId(authorId);
+ * entity.setAuthorName(authorName);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -66,7 +58,7 @@ import dev.wolfort.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbBsScenario extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
+public abstract class DbBsAuthor extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -77,20 +69,11 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** scenario_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
-    protected Integer _scenarioId;
+    /** author_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    protected Integer _authorId;
 
-    /** scenario_name: {NotNull, VARCHAR(255)} */
-    protected String _scenarioName;
-
-    /** scenario_type: {NotNull, VARCHAR(50)} */
-    protected String _scenarioType;
-
-    /** scenario_url: {VARCHAR(255)} */
-    protected String _scenarioUrl;
-
-    /** rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} */
-    protected Integer _ruleBookId;
+    /** author_name: {NotNull, VARCHAR(100)} */
+    protected String _authorName;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -114,7 +97,7 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "scenario";
+        return "author";
     }
 
     // ===================================================================================
@@ -122,62 +105,21 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_scenarioId == null) { return false; }
+        if (_authorId == null) { return false; }
         return true;
     }
 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** RULE_BOOK by my rule_book_id, named 'ruleBook'. */
-    protected OptionalEntity<DbRuleBook> _ruleBook;
-
-    /**
-     * [get] RULE_BOOK by my rule_book_id, named 'ruleBook'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'ruleBook'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<DbRuleBook> getRuleBook() {
-        if (_ruleBook == null) { _ruleBook = OptionalEntity.relationEmpty(this, "ruleBook"); }
-        return _ruleBook;
-    }
-
-    /**
-     * [set] RULE_BOOK by my rule_book_id, named 'ruleBook'.
-     * @param ruleBook The entity of foreign property 'ruleBook'. (NullAllowed)
-     */
-    public void setRuleBook(OptionalEntity<DbRuleBook> ruleBook) {
-        _ruleBook = ruleBook;
-    }
-
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** PARTICIPATE by scenario_id, named 'participateList'. */
-    protected List<DbParticipate> _participateList;
-
-    /**
-     * [get] PARTICIPATE by scenario_id, named 'participateList'.
-     * @return The entity list of referrer property 'participateList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbParticipate> getParticipateList() {
-        if (_participateList == null) { _participateList = newReferrerList(); }
-        return _participateList;
-    }
-
-    /**
-     * [set] PARTICIPATE by scenario_id, named 'participateList'.
-     * @param participateList The entity list of referrer property 'participateList'. (NullAllowed)
-     */
-    public void setParticipateList(List<DbParticipate> participateList) {
-        _participateList = participateList;
-    }
-
-    /** SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'. */
+    /** SCENARIO_AUTHOR by author_id, named 'scenarioAuthorList'. */
     protected List<DbScenarioAuthor> _scenarioAuthorList;
 
     /**
-     * [get] SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'.
+     * [get] SCENARIO_AUTHOR by author_id, named 'scenarioAuthorList'.
      * @return The entity list of referrer property 'scenarioAuthorList'. (NotNull: even if no loading, returns empty list)
      */
     public List<DbScenarioAuthor> getScenarioAuthorList() {
@@ -186,31 +128,11 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [set] SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'.
+     * [set] SCENARIO_AUTHOR by author_id, named 'scenarioAuthorList'.
      * @param scenarioAuthorList The entity list of referrer property 'scenarioAuthorList'. (NullAllowed)
      */
     public void setScenarioAuthorList(List<DbScenarioAuthor> scenarioAuthorList) {
         _scenarioAuthorList = scenarioAuthorList;
-    }
-
-    /** SCENARIO_DICTIONARY by scenario_id, named 'scenarioDictionaryList'. */
-    protected List<DbScenarioDictionary> _scenarioDictionaryList;
-
-    /**
-     * [get] SCENARIO_DICTIONARY by scenario_id, named 'scenarioDictionaryList'.
-     * @return The entity list of referrer property 'scenarioDictionaryList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbScenarioDictionary> getScenarioDictionaryList() {
-        if (_scenarioDictionaryList == null) { _scenarioDictionaryList = newReferrerList(); }
-        return _scenarioDictionaryList;
-    }
-
-    /**
-     * [set] SCENARIO_DICTIONARY by scenario_id, named 'scenarioDictionaryList'.
-     * @param scenarioDictionaryList The entity list of referrer property 'scenarioDictionaryList'. (NullAllowed)
-     */
-    public void setScenarioDictionaryList(List<DbScenarioDictionary> scenarioDictionaryList) {
-        _scenarioDictionaryList = scenarioDictionaryList;
     }
 
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
@@ -222,9 +144,9 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     //                                                                      ==============
     @Override
     protected boolean doEquals(Object obj) {
-        if (obj instanceof DbBsScenario) {
-            DbBsScenario other = (DbBsScenario)obj;
-            if (!xSV(_scenarioId, other._scenarioId)) { return false; }
+        if (obj instanceof DbBsAuthor) {
+            DbBsAuthor other = (DbBsAuthor)obj;
+            if (!xSV(_authorId, other._authorId)) { return false; }
             return true;
         } else {
             return false;
@@ -235,35 +157,23 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     protected int doHashCode(int initial) {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
-        hs = xCH(hs, _scenarioId);
+        hs = xCH(hs, _authorId);
         return hs;
     }
 
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_ruleBook != null && _ruleBook.isPresent())
-        { sb.append(li).append(xbRDS(_ruleBook, "ruleBook")); }
-        if (_participateList != null) { for (DbParticipate et : _participateList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
         if (_scenarioAuthorList != null) { for (DbScenarioAuthor et : _scenarioAuthorList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioAuthorList")); } } }
-        if (_scenarioDictionaryList != null) { for (DbScenarioDictionary et : _scenarioDictionaryList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioDictionaryList")); } } }
         return sb.toString();
-    }
-    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
-        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
-        sb.append(dm).append(xfND(_scenarioId));
-        sb.append(dm).append(xfND(_scenarioName));
-        sb.append(dm).append(xfND(_scenarioType));
-        sb.append(dm).append(xfND(_scenarioUrl));
-        sb.append(dm).append(xfND(_ruleBookId));
+        sb.append(dm).append(xfND(_authorId));
+        sb.append(dm).append(xfND(_authorName));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -278,14 +188,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_ruleBook != null && _ruleBook.isPresent())
-        { sb.append(dm).append("ruleBook"); }
-        if (_participateList != null && !_participateList.isEmpty())
-        { sb.append(dm).append("participateList"); }
         if (_scenarioAuthorList != null && !_scenarioAuthorList.isEmpty())
         { sb.append(dm).append("scenarioAuthorList"); }
-        if (_scenarioDictionaryList != null && !_scenarioDictionaryList.isEmpty())
-        { sb.append(dm).append("scenarioDictionaryList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -293,101 +197,47 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     }
 
     @Override
-    public DbScenario clone() {
-        return (DbScenario)super.clone();
+    public DbAuthor clone() {
+        return (DbAuthor)super.clone();
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] scenario_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @return The value of the column 'scenario_id'. (basically NotNull if selected: for the constraint)
+     * [get] author_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'author_id'. (basically NotNull if selected: for the constraint)
      */
-    public Integer getScenarioId() {
-        checkSpecifiedProperty("scenarioId");
-        return _scenarioId;
+    public Integer getAuthorId() {
+        checkSpecifiedProperty("authorId");
+        return _authorId;
     }
 
     /**
-     * [set] scenario_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
-     * @param scenarioId The value of the column 'scenario_id'. (basically NotNull if update: for the constraint)
+     * [set] author_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @param authorId The value of the column 'author_id'. (basically NotNull if update: for the constraint)
      */
-    public void setScenarioId(Integer scenarioId) {
-        registerModifiedProperty("scenarioId");
-        _scenarioId = scenarioId;
+    public void setAuthorId(Integer authorId) {
+        registerModifiedProperty("authorId");
+        _authorId = authorId;
     }
 
     /**
-     * [get] scenario_name: {NotNull, VARCHAR(255)} <br>
-     * @return The value of the column 'scenario_name'. (basically NotNull if selected: for the constraint)
+     * [get] author_name: {NotNull, VARCHAR(100)} <br>
+     * @return The value of the column 'author_name'. (basically NotNull if selected: for the constraint)
      */
-    public String getScenarioName() {
-        checkSpecifiedProperty("scenarioName");
-        return convertEmptyToNull(_scenarioName);
+    public String getAuthorName() {
+        checkSpecifiedProperty("authorName");
+        return convertEmptyToNull(_authorName);
     }
 
     /**
-     * [set] scenario_name: {NotNull, VARCHAR(255)} <br>
-     * @param scenarioName The value of the column 'scenario_name'. (basically NotNull if update: for the constraint)
+     * [set] author_name: {NotNull, VARCHAR(100)} <br>
+     * @param authorName The value of the column 'author_name'. (basically NotNull if update: for the constraint)
      */
-    public void setScenarioName(String scenarioName) {
-        registerModifiedProperty("scenarioName");
-        _scenarioName = scenarioName;
-    }
-
-    /**
-     * [get] scenario_type: {NotNull, VARCHAR(50)} <br>
-     * @return The value of the column 'scenario_type'. (basically NotNull if selected: for the constraint)
-     */
-    public String getScenarioType() {
-        checkSpecifiedProperty("scenarioType");
-        return convertEmptyToNull(_scenarioType);
-    }
-
-    /**
-     * [set] scenario_type: {NotNull, VARCHAR(50)} <br>
-     * @param scenarioType The value of the column 'scenario_type'. (basically NotNull if update: for the constraint)
-     */
-    public void setScenarioType(String scenarioType) {
-        registerModifiedProperty("scenarioType");
-        _scenarioType = scenarioType;
-    }
-
-    /**
-     * [get] scenario_url: {VARCHAR(255)} <br>
-     * @return The value of the column 'scenario_url'. (NullAllowed even if selected: for no constraint)
-     */
-    public String getScenarioUrl() {
-        checkSpecifiedProperty("scenarioUrl");
-        return convertEmptyToNull(_scenarioUrl);
-    }
-
-    /**
-     * [set] scenario_url: {VARCHAR(255)} <br>
-     * @param scenarioUrl The value of the column 'scenario_url'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setScenarioUrl(String scenarioUrl) {
-        registerModifiedProperty("scenarioUrl");
-        _scenarioUrl = scenarioUrl;
-    }
-
-    /**
-     * [get] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
-     * @return The value of the column 'rule_book_id'. (NullAllowed even if selected: for no constraint)
-     */
-    public Integer getRuleBookId() {
-        checkSpecifiedProperty("ruleBookId");
-        return _ruleBookId;
-    }
-
-    /**
-     * [set] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
-     * @param ruleBookId The value of the column 'rule_book_id'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setRuleBookId(Integer ruleBookId) {
-        registerModifiedProperty("ruleBookId");
-        _ruleBookId = ruleBookId;
+    public void setAuthorName(String authorName) {
+        registerModifiedProperty("authorName");
+        _authorName = authorName;
     }
 
     /**

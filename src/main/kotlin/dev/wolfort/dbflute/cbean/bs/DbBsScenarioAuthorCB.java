@@ -18,22 +18,23 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of scenario.
+ * The base condition-bean of scenario_author.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsScenarioCB extends AbstractConditionBean {
+public class DbBsScenarioAuthorCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbScenarioCQ _conditionQuery;
+    protected DbScenarioAuthorCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsScenarioCB() {
+    public DbBsScenarioAuthorCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -76,7 +77,7 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "scenario";
+        return "scenario_author";
     }
 
     // ===================================================================================
@@ -84,23 +85,36 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param scenarioId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param scenarioAuthorId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbScenarioCB acceptPK(Integer scenarioId) {
-        assertObjectNotNull("scenarioId", scenarioId);
-        DbBsScenarioCB cb = this;
-        cb.query().setScenarioId_Equal(scenarioId);
-        return (DbScenarioCB)this;
+    public DbScenarioAuthorCB acceptPK(Integer scenarioAuthorId) {
+        assertObjectNotNull("scenarioAuthorId", scenarioAuthorId);
+        DbBsScenarioAuthorCB cb = this;
+        cb.query().setScenarioAuthorId_Equal(scenarioAuthorId);
+        return (DbScenarioAuthorCB)this;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
+     * @param authorId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to author. (NotNull)
+     * @return this. (NotNull)
+     */
+    public DbScenarioAuthorCB acceptUniqueOf(Integer scenarioId, Integer authorId) {
+        assertObjectNotNull("scenarioId", scenarioId);assertObjectNotNull("authorId", authorId);
+        DbBsScenarioAuthorCB cb = this;
+        cb.query().setScenarioId_Equal(scenarioId);cb.query().setAuthorId_Equal(authorId);
+        return (DbScenarioAuthorCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_ScenarioId_Asc();
+        query().addOrderBy_ScenarioAuthorId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_ScenarioId_Desc();
+        query().addOrderBy_ScenarioAuthorId_Desc();
         return this;
     }
 
@@ -164,34 +178,34 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbScenarioCQ query() {
+    public DbScenarioAuthorCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbScenarioCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbScenarioAuthorCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbScenarioCQ doGetConditionQuery() {
+    protected DbScenarioAuthorCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbScenarioCQ createLocalCQ() {
+    protected DbScenarioAuthorCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbScenarioCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbScenarioCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbScenarioAuthorCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbScenarioAuthorCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbScenarioCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbScenarioCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbScenarioAuthorCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbScenarioAuthorCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -215,10 +229,10 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbScenarioCB> unionCBLambda) {
-        final DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbScenarioAuthorCB> unionCBLambda) {
+        final DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbScenarioCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbScenarioAuthorCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -232,10 +246,10 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbScenarioCB> unionCBLambda) {
-        final DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbScenarioAuthorCB> unionCBLambda) {
+        final DbScenarioAuthorCB cb = new DbScenarioAuthorCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbScenarioCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbScenarioAuthorCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
@@ -243,22 +257,51 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     //                                                                         ===========
     /**
      * Set up relation columns to select clause. <br>
-     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * AUTHOR by my author_id, named 'author'.
      * <pre>
-     * <span style="color: #0000C0">scenarioBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_RuleBook()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">scenarioAuthorBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Author()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">scenario</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">scenario</span>.<span style="color: #CC4747">getRuleBook()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">scenarioAuthor</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">scenarioAuthor</span>.<span style="color: #CC4747">getAuthor()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
      */
-    public void setupSelect_RuleBook() {
-        assertSetupSelectPurpose("ruleBook");
+    public void setupSelect_Author() {
+        assertSetupSelectPurpose("author");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnRuleBookId();
+            specify().columnAuthorId();
         }
-        doSetupSelect(() -> query().queryRuleBook());
+        doSetupSelect(() -> query().queryAuthor());
+    }
+
+    protected DbScenarioNss _nssScenario;
+    public DbScenarioNss xdfgetNssScenario() {
+        if (_nssScenario == null) { _nssScenario = new DbScenarioNss(null); }
+        return _nssScenario;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * SCENARIO by my scenario_id, named 'scenario'.
+     * <pre>
+     * <span style="color: #0000C0">scenarioAuthorBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Scenario()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">scenarioAuthor</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">scenarioAuthor</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public DbScenarioNss setupSelect_Scenario() {
+        assertSetupSelectPurpose("scenario");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnScenarioId();
+        }
+        doSetupSelect(() -> query().queryScenario());
+        if (_nssScenario == null || !_nssScenario.hasConditionQuery())
+        { _nssScenario = new DbScenarioNss(query().queryScenario()); }
+        return _nssScenario;
     }
 
     // [DBFlute-0.7.4]
@@ -301,37 +344,28 @@ public class DbBsScenarioCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbScenarioCQ> {
-        protected DbRuleBookCB.HpSpecification _ruleBook;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbScenarioCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<DbScenarioAuthorCQ> {
+        protected DbAuthorCB.HpSpecification _author;
+        protected DbScenarioCB.HpSpecification _scenario;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbScenarioAuthorCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * scenario_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * scenario_author_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnScenarioAuthorId() { return doColumn("scenario_author_id"); }
+        /**
+         * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnScenarioId() { return doColumn("scenario_id"); }
         /**
-         * scenario_name: {NotNull, VARCHAR(255)}
+         * author_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to author}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioName() { return doColumn("scenario_name"); }
-        /**
-         * scenario_type: {NotNull, VARCHAR(50)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnScenarioType() { return doColumn("scenario_type"); }
-        /**
-         * scenario_url: {VARCHAR(255)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnScenarioUrl() { return doColumn("scenario_url"); }
-        /**
-         * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnRuleBookId() { return doColumn("rule_book_id"); }
+        public SpecifiedColumn columnAuthorId() { return doColumn("author_id"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -356,92 +390,65 @@ public class DbBsScenarioCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnScenarioId(); // PK
-            if (qyCall().qy().hasConditionQueryRuleBook()
-                    || qyCall().qy().xgetReferrerQuery() instanceof DbRuleBookCQ) {
-                columnRuleBookId(); // FK or one-to-one referrer
+            columnScenarioAuthorId(); // PK
+            if (qyCall().qy().hasConditionQueryAuthor()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbAuthorCQ) {
+                columnAuthorId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryScenario()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbScenarioCQ) {
+                columnScenarioId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "scenario"; }
+        protected String getTableDbName() { return "scenario_author"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+         * AUTHOR by my author_id, named 'author'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public DbRuleBookCB.HpSpecification specifyRuleBook() {
-            assertRelation("ruleBook");
-            if (_ruleBook == null) {
-                _ruleBook = new DbRuleBookCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryRuleBook()
-                                    , () -> _qyCall.qy().queryRuleBook())
+        public DbAuthorCB.HpSpecification specifyAuthor() {
+            assertRelation("author");
+            if (_author == null) {
+                _author = new DbAuthorCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryAuthor()
+                                    , () -> _qyCall.qy().queryAuthor())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _ruleBook.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryRuleBook()
-                      , () -> xsyncQyCall().qy().queryRuleBook()));
+                    _author.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryAuthor()
+                      , () -> xsyncQyCall().qy().queryAuthor()));
                 }
             }
-            return _ruleBook;
+            return _author;
         }
         /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from participate where ...) as FOO_MAX} <br>
-         * PARTICIPATE by scenario_id, named 'participateList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     participateCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     participateCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbParticipate.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
+         * Prepare to specify functions about relation table. <br>
+         * SCENARIO by my scenario_id, named 'scenario'.
+         * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public HpSDRFunction<DbParticipateCB, DbScenarioCQ> derivedParticipate() {
-            assertDerived("participateList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateCB> sq, DbScenarioCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveParticipateList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from scenario_author where ...) as FOO_MAX} <br>
-         * SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(authorCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     authorCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     authorCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbScenarioAuthor.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbScenarioAuthorCB, DbScenarioCQ> derivedScenarioAuthor() {
-            assertDerived("scenarioAuthorList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioAuthorCB> sq, DbScenarioCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveScenarioAuthorList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from scenario_dictionary where ...) as FOO_MAX} <br>
-         * SCENARIO_DICTIONARY by scenario_id, named 'scenarioDictionaryList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     dictionaryCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     dictionaryCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbScenarioDictionary.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbScenarioDictionaryCB, DbScenarioCQ> derivedScenarioDictionary() {
-            assertDerived("scenarioDictionaryList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioDictionaryCB> sq, DbScenarioCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveScenarioDictionaryList(fn, sq, al, op), _dbmetaProvider);
+        public DbScenarioCB.HpSpecification specifyScenario() {
+            assertRelation("scenario");
+            if (_scenario == null) {
+                _scenario = new DbScenarioCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryScenario()
+                                    , () -> _qyCall.qy().queryScenario())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _scenario.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryScenario()
+                      , () -> xsyncQyCall().qy().queryScenario()));
+                }
+            }
+            return _scenario;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbScenarioCB, DbScenarioCQ> myselfDerived() {
+        public HpSDRFunction<DbScenarioAuthorCB, DbScenarioAuthorCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioCB> sq, DbScenarioCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioAuthorCB> sq, DbScenarioAuthorCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -454,9 +461,9 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbScenarioCB dreamCruiseCB() {
-        DbScenarioCB cb = new DbScenarioCB();
-        cb.xsetupForDreamCruise((DbScenarioCB) this);
+    public DbScenarioAuthorCB dreamCruiseCB() {
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB();
+        cb.xsetupForDreamCruise((DbScenarioAuthorCB) this);
         return cb;
     }
 
@@ -481,15 +488,15 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbScenarioCB> columnQuery(final SpecifyQuery<DbScenarioCB> colCBLambda) {
+    public HpColQyOperand<DbScenarioAuthorCB> columnQuery(final SpecifyQuery<DbScenarioAuthorCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbScenarioCB xcreateColumnQueryCB() {
-        DbScenarioCB cb = new DbScenarioCB();
-        cb.xsetupForColumnQuery((DbScenarioCB)this);
+    protected DbScenarioAuthorCB xcreateColumnQueryCB() {
+        DbScenarioAuthorCB cb = new DbScenarioAuthorCB();
+        cb.xsetupForColumnQuery((DbScenarioAuthorCB)this);
         return cb;
     }
 
@@ -509,8 +516,8 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbScenarioCB> orCBLambda) {
-        xorSQ((DbScenarioCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbScenarioAuthorCB> orCBLambda) {
+        xorSQ((DbScenarioAuthorCB)this, orCBLambda);
     }
 
     /**
@@ -528,8 +535,8 @@ public class DbBsScenarioCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbScenarioCB> andCBLambda) {
-        xorSQAP((DbScenarioCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbScenarioAuthorCB> andCBLambda) {
+        xorSQAP((DbScenarioAuthorCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -559,11 +566,11 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbScenarioCB cb;
+        final DbScenarioAuthorCB cb;
         if (mainCB != null) {
-            cb = (DbScenarioCB)mainCB;
+            cb = (DbScenarioAuthorCB)mainCB;
         } else {
-            cb = new DbScenarioCB();
+            cb = new DbScenarioAuthorCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -572,8 +579,8 @@ public class DbBsScenarioCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbScenarioCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbScenarioCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbScenarioAuthorCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbScenarioAuthorCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

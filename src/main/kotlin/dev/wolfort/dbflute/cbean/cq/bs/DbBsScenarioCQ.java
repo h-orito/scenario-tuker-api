@@ -82,17 +82,26 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public Map<String, DbParticipateCQ> xdfgetScenarioId_ExistsReferrer_ParticipateList() { return xgetSQueMap("scenarioId_ExistsReferrer_ParticipateList"); }
     public String keepScenarioId_ExistsReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_ParticipateList", sq); }
 
+    public Map<String, DbScenarioAuthorCQ> xdfgetScenarioId_ExistsReferrer_ScenarioAuthorList() { return xgetSQueMap("scenarioId_ExistsReferrer_ScenarioAuthorList"); }
+    public String keepScenarioId_ExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_ScenarioAuthorList", sq); }
+
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_ExistsReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_ExistsReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_ExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_ScenarioDictionaryList", sq); }
 
     public Map<String, DbParticipateCQ> xdfgetScenarioId_NotExistsReferrer_ParticipateList() { return xgetSQueMap("scenarioId_NotExistsReferrer_ParticipateList"); }
     public String keepScenarioId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_ParticipateList", sq); }
 
+    public Map<String, DbScenarioAuthorCQ> xdfgetScenarioId_NotExistsReferrer_ScenarioAuthorList() { return xgetSQueMap("scenarioId_NotExistsReferrer_ScenarioAuthorList"); }
+    public String keepScenarioId_NotExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_ScenarioAuthorList", sq); }
+
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_NotExistsReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_NotExistsReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_NotExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_ScenarioDictionaryList", sq); }
 
     public Map<String, DbParticipateCQ> xdfgetScenarioId_SpecifyDerivedReferrer_ParticipateList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_ParticipateList"); }
     public String keepScenarioId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_ParticipateList", sq); }
+
+    public Map<String, DbScenarioAuthorCQ> xdfgetScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_ScenarioAuthorList"); }
+    public String keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_ScenarioAuthorList", sq); }
 
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList", sq); }
@@ -101,6 +110,11 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public String keepScenarioId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_ParticipateList", sq); }
     public Map<String, Object> xdfgetScenarioId_QueryDerivedReferrer_ParticipateListParameter() { return xgetSQuePmMap("scenarioId_QueryDerivedReferrer_ParticipateList"); }
     public String keepScenarioId_QueryDerivedReferrer_ParticipateListParameter(Object pm) { return xkeepSQuePm("scenarioId_QueryDerivedReferrer_ParticipateList", pm); }
+
+    public Map<String, DbScenarioAuthorCQ> xdfgetScenarioId_QueryDerivedReferrer_ScenarioAuthorList() { return xgetSQueMap("scenarioId_QueryDerivedReferrer_ScenarioAuthorList"); }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_ScenarioAuthorList", sq); }
+    public Map<String, Object> xdfgetScenarioId_QueryDerivedReferrer_ScenarioAuthorListParameter() { return xgetSQuePmMap("scenarioId_QueryDerivedReferrer_ScenarioAuthorList"); }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorListParameter(Object pm) { return xkeepSQuePm("scenarioId_QueryDerivedReferrer_ScenarioAuthorList", pm); }
 
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_QueryDerivedReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_QueryDerivedReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_ScenarioDictionaryList", sq); }
@@ -160,6 +174,26 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
      * @return this. (NotNull)
      */
     public DbBsScenarioCQ addOrderBy_ScenarioType_Desc() { regOBD("scenario_type"); return this; }
+
+    protected ConditionValue _scenarioUrl;
+    public ConditionValue xdfgetScenarioUrl()
+    { if (_scenarioUrl == null) { _scenarioUrl = nCV(); }
+      return _scenarioUrl; }
+    protected ConditionValue xgetCValueScenarioUrl() { return xdfgetScenarioUrl(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_ScenarioUrl_Asc() { regOBA("scenario_url"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * scenario_url: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_ScenarioUrl_Desc() { regOBD("scenario_url"); return this; }
 
     protected ConditionValue _ruleBookId;
     public ConditionValue xdfgetRuleBookId()

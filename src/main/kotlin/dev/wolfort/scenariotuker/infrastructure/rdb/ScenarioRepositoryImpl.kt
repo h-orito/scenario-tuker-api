@@ -1,8 +1,10 @@
 package dev.wolfort.scenariotuker.infrastructure.rdb
 
+import dev.wolfort.dbflute.exbhv.DbScenarioAuthorBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioDictionaryBhv
 import dev.wolfort.dbflute.exentity.DbScenario
+import dev.wolfort.dbflute.exentity.DbScenarioAuthor
 import dev.wolfort.dbflute.exentity.DbScenarioDictionary
 import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class ScenarioRepositoryImpl(
     private val scenarioBhv: DbScenarioBhv,
+    private val scenarioAuthorBhv: DbScenarioAuthorBhv,
     private val scenarioDictionaryBhv: DbScenarioDictionaryBhv
 ) : ScenarioRepository {
 
@@ -18,7 +21,10 @@ class ScenarioRepositoryImpl(
         val dbScenarioList = scenarioBhv.selectList {
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.loadScenarioDictionary(dbScenarioList) {}
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
         return mappingToScenarios(dbScenarioList)
     }
 
@@ -27,7 +33,10 @@ class ScenarioRepositoryImpl(
         val dbScenarioList = scenarioBhv.selectList {
             it.query().setScenarioId_InScope(ids)
         }
-        scenarioBhv.loadScenarioDictionary(dbScenarioList) {}
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
         // リクエスト順に並び替える
         return mappingToScenarios(ids.map { id -> dbScenarioList.first { it.scenarioId == id } })
     }
@@ -45,7 +54,10 @@ class ScenarioRepositoryImpl(
             it.query().setScenarioType_Equal(query.type.name)
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.loadScenarioDictionary(dbScenarioList) {}
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
         return mappingToScenarios(dbScenarioList)
     }
 
@@ -54,7 +66,24 @@ class ScenarioRepositoryImpl(
             it.query().setRuleBookId_Equal(ruleBookId)
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.loadScenarioDictionary(dbScenarioList) {}
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
+        return mappingToScenarios(dbScenarioList)
+    }
+
+    override fun findByAuthorId(authorId: Int): Scenarios {
+        val dbScenarioList = scenarioBhv.selectList {
+            it.query().existsScenarioAuthor { saCB ->
+                saCB.query().setAuthorId_Equal(authorId)
+            }
+            it.query().addOrderBy_ScenarioId_Asc()
+        }
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
         return mappingToScenarios(dbScenarioList)
     }
 
@@ -64,7 +93,10 @@ class ScenarioRepositoryImpl(
         }
         if (!optDbScenario.isPresent) return null
         val dbScenario = optDbScenario.get()
-        scenarioBhv.loadScenarioDictionary(dbScenario) {}
+        scenarioBhv.load(dbScenario) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
         return mappingToScenario(dbScenario)
     }
 
@@ -72,9 +104,10 @@ class ScenarioRepositoryImpl(
         val s = DbScenario()
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
+        s.scenarioUrl = scenario.url?.value
         s.ruleBookId = scenario.ruleBookId
         scenarioBhv.insert(s)
-
+        scenario.authorIds.forEach { insertScenarioAuthor(s.scenarioId, it) }
         scenario.dictionaryNames.forEach { insertScenarioDictionary(s.scenarioId, it) }
         return findById(s.scenarioId)!!
     }
@@ -86,8 +119,12 @@ class ScenarioRepositoryImpl(
         s.scenarioId = scenario.id
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
+        s.scenarioUrl = scenario.url?.value
         s.ruleBookId = scenario.ruleBookId
         scenarioBhv.update(s)
+
+        scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
+        scenario.authorIds.forEach { insertScenarioAuthor(scenario.id, it) }
 
         scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
         scenario.dictionaryNames.forEach { insertScenarioDictionary(scenario.id, it) }
@@ -95,9 +132,12 @@ class ScenarioRepositoryImpl(
         return findById(scenario.id)!!
     }
 
-    override fun delete(id: Int) {
-        scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(id) }
-        scenarioBhv.queryDelete { it.query().setScenarioId_Equal(id) }
+
+    private fun insertScenarioAuthor(scenarioId: Int, authorId: Int) {
+        val sa = DbScenarioAuthor()
+        sa.scenarioId = scenarioId
+        sa.authorId = authorId
+        scenarioAuthorBhv.insert(sa)
     }
 
     private fun insertScenarioDictionary(scenarioId: Int, name: String) {
@@ -117,7 +157,9 @@ class ScenarioRepositoryImpl(
             name = scenario.scenarioName,
             dictionaryNames = scenario.scenarioDictionaryList.map { it.scenarioName },
             type = ScenarioType.valueOf(scenario.scenarioType),
+            url = scenario.scenarioUrl?.let { ScenarioUrl(it) },
             ruleBookId = scenario.ruleBookId,
+            authorIds = scenario.scenarioAuthorList.map { it.authorId }
         )
     }
 }

@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of scenario.
+ * The condition-query for in-line of scenario_author.
  * @author DBFlute(AutoGenerator)
  */
-public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
+public class DbScenarioAuthorCIQ extends DbAbstractBsScenarioAuthorCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsScenarioCQ _myCQ;
+    protected DbBsScenarioAuthorCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbScenarioCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsScenarioCQ myCQ) {
+    public DbScenarioAuthorCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsScenarioAuthorCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,55 +61,23 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
+    protected ConditionValue xgetCValueScenarioAuthorId() { return _myCQ.xdfgetScenarioAuthorId(); }
     protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
-    public String keepScenarioId_ExistsReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepScenarioId_ExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepScenarioId_ExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepScenarioId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepScenarioId_NotExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepScenarioId_NotExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepScenarioId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ScenarioAuthorListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue xgetCValueScenarioName() { return _myCQ.xdfgetScenarioName(); }
-    protected ConditionValue xgetCValueScenarioType() { return _myCQ.xdfgetScenarioType(); }
-    protected ConditionValue xgetCValueScenarioUrl() { return _myCQ.xdfgetScenarioUrl(); }
-    protected ConditionValue xgetCValueRuleBookId() { return _myCQ.xdfgetRuleBookId(); }
+    protected ConditionValue xgetCValueAuthorId() { return _myCQ.xdfgetAuthorId(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbScenarioCQ sq)
+    public String keepScalarCondition(DbScenarioAuthorCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbScenarioCQ sq)
+    public String keepSpecifyMyselfDerived(DbScenarioAuthorCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbScenarioCQ sq)
+    public String keepQueryMyselfDerived(DbScenarioAuthorCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbScenarioCQ sq)
+    public String keepMyselfExists(DbScenarioAuthorCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -119,6 +87,6 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbScenarioCB.class.getName(); }
-    protected String xinCQ() { return DbScenarioCQ.class.getName(); }
+    protected String xinCB() { return DbScenarioAuthorCB.class.getName(); }
+    protected String xinCQ() { return DbScenarioAuthorCQ.class.getName(); }
 }

@@ -5,5 +5,9 @@ data class Scenario(
     val name: String,
     val dictionaryNames: List<String>,
     val type: ScenarioType,
-    val ruleBookId: Int?
-)
+    val url: ScenarioUrl?,
+    val ruleBookId: Int?,
+    val authorIds: List<Int>
+) {
+    fun assert() = url?.assert()
+}

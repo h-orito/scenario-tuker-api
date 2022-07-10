@@ -3,10 +3,7 @@ package dev.wolfort.scenariotuker.api
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.user.UserResponse
-import dev.wolfort.scenariotuker.application.service.ParticipateService
-import dev.wolfort.scenariotuker.application.service.RuleBookService
-import dev.wolfort.scenariotuker.application.service.ScenarioService
-import dev.wolfort.scenariotuker.application.service.UserService
+import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
@@ -29,7 +26,8 @@ class UserController(
     private val userService: UserService,
     private val participateService: ParticipateService,
     private val scenarioService: ScenarioService,
-    private val ruleBookService: RuleBookService
+    private val ruleBookService: RuleBookService,
+    private val authorService: AuthorService
 ) {
 
     @GetMapping
@@ -89,6 +87,7 @@ class UserController(
         var participates = participateService.findAllByUserId(userId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
         val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
+        val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
         val myself = sTukerUser?.let { userService.findByUid(it.uid) }
         // 自分以外の場合感想の内容は隠す（別途取得させる）
@@ -98,7 +97,7 @@ class UserController(
             )
         }
 
-        return ParticipatesResponse(participates, scenarios, ruleBooks, users)
+        return ParticipatesResponse(participates, scenarios, ruleBooks, authors, users)
     }
 
     @GetMapping("/myself")
@@ -133,8 +132,9 @@ class UserController(
             ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
         val participate = participateService.register(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
+        val authors = authorService.findAllByIds(scenario.authorIds)
         val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
-        return ParticipateResponse(participate, scenario, ruleBook, user)
+        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
     }
 
     data class ParticipatePostRequest(
@@ -176,8 +176,9 @@ class UserController(
             ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
         val participate = participateService.update(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
+        val authors = authorService.findAllByIds(scenario.authorIds)
         val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
-        return ParticipateResponse(participate, scenario, ruleBook, user)
+        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
     }
 
     @DeleteMapping("/myself/participates/{participateId}")

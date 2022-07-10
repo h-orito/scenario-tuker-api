@@ -3,10 +3,7 @@ package dev.wolfort.scenariotuker.api
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.application.coordinator.ParticipateCoordinator
-import dev.wolfort.scenariotuker.application.service.ParticipateService
-import dev.wolfort.scenariotuker.application.service.RuleBookService
-import dev.wolfort.scenariotuker.application.service.ScenarioService
-import dev.wolfort.scenariotuker.application.service.UserService
+import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
 import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -22,6 +19,7 @@ class ParticipateController(
     private val participateService: ParticipateService,
     private val scenarioService: ScenarioService,
     private val ruleBookService: RuleBookService,
+    private val authorService: AuthorService,
     private val userService: UserService
 ) {
 
@@ -30,8 +28,9 @@ class ParticipateController(
         val participates = participateService.findAll()
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
         val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
+        val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
-        return ParticipatesResponse(participates, scenarios, ruleBooks, users)
+        return ParticipatesResponse(participates, scenarios, ruleBooks, authors, users)
     }
 
     @GetMapping("/{participateId}")
@@ -39,8 +38,9 @@ class ParticipateController(
         val participate = participateService.findById(participateId) ?: return null
         val scenario = scenarioService.findById(participate.scenarioId)!!
         val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
+        val authors = authorService.findAllByIds(scenario.authorIds)
         val user = userService.findById(participate.userId)!!
-        return ParticipateResponse(participate, scenario, ruleBook, user)
+        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
     }
 
     @GetMapping("/{participateId}/impression")

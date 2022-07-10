@@ -14,17 +14,17 @@ import dev.wolfort.dbflute.allcommon.*;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The DB meta of scenario. (Singleton)
+ * The DB meta of scenario_author. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class DbScenarioDbm extends AbstractDBMeta {
+public class DbScenarioAuthorDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final DbScenarioDbm _instance = new DbScenarioDbm();
-    private DbScenarioDbm() {}
-    public static DbScenarioDbm getInstance() { return _instance; }
+    private static final DbScenarioAuthorDbm _instance = new DbScenarioAuthorDbm();
+    private DbScenarioAuthorDbm() {}
+    public static DbScenarioAuthorDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -43,15 +43,13 @@ public class DbScenarioDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioId(), (et, vl) -> ((DbScenario)et).setScenarioId(cti(vl)), "scenarioId");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioName(), (et, vl) -> ((DbScenario)et).setScenarioName((String)vl), "scenarioName");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioType(), (et, vl) -> ((DbScenario)et).setScenarioType((String)vl), "scenarioType");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioUrl(), (et, vl) -> ((DbScenario)et).setScenarioUrl((String)vl), "scenarioUrl");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getRuleBookId(), (et, vl) -> ((DbScenario)et).setRuleBookId(cti(vl)), "ruleBookId");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterDatetime(), (et, vl) -> ((DbScenario)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterTrace(), (et, vl) -> ((DbScenario)et).setRegisterTrace((String)vl), "registerTrace");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getUpdateDatetime(), (et, vl) -> ((DbScenario)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getUpdateTrace(), (et, vl) -> ((DbScenario)et).setUpdateTrace((String)vl), "updateTrace");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getScenarioAuthorId(), (et, vl) -> ((DbScenarioAuthor)et).setScenarioAuthorId(cti(vl)), "scenarioAuthorId");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getScenarioId(), (et, vl) -> ((DbScenarioAuthor)et).setScenarioId(cti(vl)), "scenarioId");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getAuthorId(), (et, vl) -> ((DbScenarioAuthor)et).setAuthorId(cti(vl)), "authorId");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getRegisterDatetime(), (et, vl) -> ((DbScenarioAuthor)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getRegisterTrace(), (et, vl) -> ((DbScenarioAuthor)et).setRegisterTrace((String)vl), "registerTrace");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getUpdateDatetime(), (et, vl) -> ((DbScenarioAuthor)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((DbScenarioAuthor)et).getUpdateTrace(), (et, vl) -> ((DbScenarioAuthor)et).setUpdateTrace((String)vl), "updateTrace");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
@@ -63,7 +61,8 @@ public class DbScenarioDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((DbScenario)et).getRuleBook(), (et, vl) -> ((DbScenario)et).setRuleBook((OptionalEntity<DbRuleBook>)vl), "ruleBook");
+        setupEfpg(_efpgMap, et -> ((DbScenarioAuthor)et).getAuthor(), (et, vl) -> ((DbScenarioAuthor)et).setAuthor((OptionalEntity<DbAuthor>)vl), "author");
+        setupEfpg(_efpgMap, et -> ((DbScenarioAuthor)et).getScenario(), (et, vl) -> ((DbScenarioAuthor)et).setScenario((OptionalEntity<DbScenario>)vl), "scenario");
     }
     public PropertyGateway findForeignPropertyGateway(String prop)
     { return doFindEfpg(_efpgMap, prop); }
@@ -71,10 +70,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "scenario";
-    protected final String _tableDispName = "SCENARIO";
-    protected final String _tablePropertyName = "scenario";
-    protected final TableSqlName _tableSqlName = new TableSqlName("SCENARIO", _tableDbName);
+    protected final String _tableDbName = "scenario_author";
+    protected final String _tableDispName = "SCENARIO_AUTHOR";
+    protected final String _tablePropertyName = "scenarioAuthor";
+    protected final TableSqlName _tableSqlName = new TableSqlName("SCENARIO_AUTHOR", _tableDbName);
     { _tableSqlName.xacceptFilter(DbDBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -84,41 +83,29 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,scenarioAuthorList,scenarioDictionaryList", null, false);
-    protected final ColumnInfo _columnScenarioName = cci("scenario_name", "scenario_name", null, null, String.class, "scenarioName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnScenarioType = cci("scenario_type", "scenario_type", null, null, String.class, "scenarioType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnScenarioUrl = cci("scenario_url", "scenario_url", null, null, String.class, "scenarioUrl", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnRuleBookId = cci("rule_book_id", "rule_book_id", null, null, Integer.class, "ruleBookId", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, "ruleBook", null, null, false);
+    protected final ColumnInfo _columnScenarioAuthorId = cci("scenario_author_id", "scenario_author_id", null, null, Integer.class, "scenarioAuthorId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
+    protected final ColumnInfo _columnAuthorId = cci("author_id", "author_id", null, null, Integer.class, "authorId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "author", null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateTrace = cci("update_trace", "update_trace", null, null, String.class, "updateTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
 
     /**
-     * scenario_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_author_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnScenarioAuthorId() { return _columnScenarioAuthorId; }
+    /**
+     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnScenarioId() { return _columnScenarioId; }
     /**
-     * scenario_name: {NotNull, VARCHAR(255)}
+     * author_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to author}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnScenarioName() { return _columnScenarioName; }
-    /**
-     * scenario_type: {NotNull, VARCHAR(50)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnScenarioType() { return _columnScenarioType; }
-    /**
-     * scenario_url: {VARCHAR(255)}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnScenarioUrl() { return _columnScenarioUrl; }
-    /**
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnRuleBookId() { return _columnRuleBookId; }
+    public ColumnInfo columnAuthorId() { return _columnAuthorId; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -142,11 +129,9 @@ public class DbScenarioDbm extends AbstractDBMeta {
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
+        ls.add(columnScenarioAuthorId());
         ls.add(columnScenarioId());
-        ls.add(columnScenarioName());
-        ls.add(columnScenarioType());
-        ls.add(columnScenarioUrl());
-        ls.add(columnRuleBookId());
+        ls.add(columnAuthorId());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());
@@ -162,9 +147,19 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnScenarioId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnScenarioAuthorId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
+
+    // -----------------------------------------------------
+    //                                        Unique Element
+    //                                        --------------
+    public UniqueInfo uniqueOf() {
+        List<ColumnInfo> ls = newArrayListSized(4);
+        ls.add(columnScenarioId());
+        ls.add(columnAuthorId());
+        return hpcui(ls);
+    }
 
     // ===================================================================================
     //                                                                       Relation Info
@@ -175,41 +170,25 @@ public class DbScenarioDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
-     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * AUTHOR by my author_id, named 'author'.
      * @return The information object of foreign property. (NotNull)
      */
-    public ForeignInfo foreignRuleBook() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRuleBookId(), DbRuleBookDbm.getInstance().columnRuleBookId());
-        return cfi("fk_scenario_rule_book", "ruleBook", this, DbRuleBookDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "scenarioList", false);
+    public ForeignInfo foreignAuthor() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnAuthorId(), DbAuthorDbm.getInstance().columnAuthorId());
+        return cfi("fk_scenario_author_author", "author", this, DbAuthorDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "scenarioAuthorList", false);
+    }
+    /**
+     * SCENARIO by my scenario_id, named 'scenario'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignScenario() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioDbm.getInstance().columnScenarioId());
+        return cfi("fk_scenario_author_scenario", "scenario", this, DbScenarioDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "scenarioAuthorList", false);
     }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
-    /**
-     * PARTICIPATE by scenario_id, named 'participateList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerParticipateList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbParticipateDbm.getInstance().columnScenarioId());
-        return cri("fk_participate_scenario", "participateList", this, DbParticipateDbm.getInstance(), mp, false, "scenario");
-    }
-    /**
-     * SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerScenarioAuthorList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioAuthorDbm.getInstance().columnScenarioId());
-        return cri("fk_scenario_author_scenario", "scenarioAuthorList", this, DbScenarioAuthorDbm.getInstance(), mp, false, "scenario");
-    }
-    /**
-     * SCENARIO_DICTIONARY by scenario_id, named 'scenarioDictionaryList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerScenarioDictionaryList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioDictionaryDbm.getInstance().columnScenarioId());
-        return cri("fk_scenario_dictionary_scenario", "scenarioDictionaryList", this, DbScenarioDictionaryDbm.getInstance(), mp, false, "scenario");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
@@ -226,27 +205,27 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbScenario"; }
-    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbScenarioCB"; }
-    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbScenarioBhv"; }
+    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbScenarioAuthor"; }
+    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbScenarioAuthorCB"; }
+    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbScenarioAuthorBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<DbScenario> getEntityType() { return DbScenario.class; }
+    public Class<DbScenarioAuthor> getEntityType() { return DbScenarioAuthor.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public DbScenario newEntity() { return new DbScenario(); }
+    public DbScenarioAuthor newEntity() { return new DbScenarioAuthor(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((DbScenario)et, mp); }
+    { doAcceptPrimaryKeyMap((DbScenarioAuthor)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((DbScenario)et, mp); }
+    { doAcceptAllColumnMap((DbScenarioAuthor)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

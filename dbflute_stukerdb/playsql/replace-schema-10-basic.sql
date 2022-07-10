@@ -69,6 +69,7 @@ create table scenario (
     scenario_id       int unsigned not null auto_increment,
     scenario_name     varchar(255) not null,
     scenario_type     varchar(50) not null,
+    scenario_url      varchar(255),
     rule_book_id      int unsigned,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
@@ -80,6 +81,42 @@ create table scenario (
 alter table scenario
     add constraint fk_scenario_rule_book foreign key (rule_book_id)
     references rule_book (rule_book_id)
+    on update restrict
+    on delete restrict
+;
+
+create table author (
+	author_id         int unsigned not null auto_increment,
+	author_name       varchar(100) not null,
+    register_datetime datetime not null,
+    register_trace    varchar(64) not null,
+    update_datetime   datetime not null,
+    update_trace      varchar(64) not null,
+    primary key (author_id)
+);
+
+create table scenario_author (
+	scenario_author_id int unsigned not null auto_increment,
+	scenario_id        int unsigned not null,
+	author_id          int unsigned not null,
+    register_datetime  datetime not null,
+    register_trace     varchar(64) not null,
+    update_datetime    datetime not null,
+    update_trace       varchar(64) not null,
+    primary key (scenario_author_id),
+    unique (scenario_id, author_id)
+);
+
+alter table scenario_author
+    add constraint fk_scenario_author_scenario foreign key (scenario_id)
+    references scenario (scenario_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table scenario_author
+    add constraint fk_scenario_author_author foreign key (author_id)
+    references author (author_id)
     on update restrict
     on delete restrict
 ;

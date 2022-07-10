@@ -10,11 +10,11 @@ interface ScenarioRepository {
 
     fun findByRuleBookId(ruleBookId: Int): Scenarios
 
+    fun findByAuthorId(authorId: Int): Scenarios
+
     fun findById(id: Int): Scenario?
 
     fun register(scenario: Scenario): Scenario
 
     fun update(scenario: Scenario): Scenario
-
-    fun delete(id: Int)
 }

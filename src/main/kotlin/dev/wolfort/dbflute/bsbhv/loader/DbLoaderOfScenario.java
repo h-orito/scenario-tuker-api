@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -30,13 +30,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     RULE_BOOK
  *
  * [referrer table]
- *     PARTICIPATE, SCENARIO_DICTIONARY
+ *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
  *
  * [foreign property]
  *     ruleBook
  *
  * [referrer property]
- *     participateList, scenarioDictionaryList
+ *     participateList, scenarioAuthorList, scenarioDictionaryList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -93,6 +93,40 @@ public class DbLoaderOfScenario {
     public NestedReferrerLoaderGateway<DbLoaderOfParticipate> loadParticipate(ReferrerConditionSetupper<DbParticipateCB> refCBLambda) {
         myBhv().loadParticipate(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerParticipate = refLs);
         return hd -> hd.handle(new DbLoaderOfParticipate().ready(_referrerParticipate, _selector));
+    }
+
+    protected List<DbScenarioAuthor> _referrerScenarioAuthor;
+
+    /**
+     * Load referrer of scenarioAuthorList by the set-upper of referrer. <br>
+     * SCENARIO_AUTHOR by scenario_id, named 'scenarioAuthorList'.
+     * <pre>
+     * <span style="color: #0000C0">scenarioBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">scenarioList</span>, <span style="color: #553000">scenarioLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">scenarioLoader</span>.<span style="color: #CC4747">loadScenarioAuthor</span>(<span style="color: #553000">authorCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">authorCB</span>.setupSelect...
+     *         <span style="color: #553000">authorCB</span>.query().set...
+     *         <span style="color: #553000">authorCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">authorLoader</span> -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    authorLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (DbScenario scenario : <span style="color: #553000">scenarioList</span>) {
+     *     ... = scenario.<span style="color: #CC4747">getScenarioAuthorList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setScenarioId_InScope(pkList);
+     * cb.query().addOrderBy_ScenarioId_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<DbLoaderOfScenarioAuthor> loadScenarioAuthor(ReferrerConditionSetupper<DbScenarioAuthorCB> refCBLambda) {
+        myBhv().loadScenarioAuthor(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerScenarioAuthor = refLs);
+        return hd -> hd.handle(new DbLoaderOfScenarioAuthor().ready(_referrerScenarioAuthor, _selector));
     }
 
     protected List<DbScenarioDictionary> _referrerScenarioDictionary;
