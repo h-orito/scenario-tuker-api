@@ -18,6 +18,7 @@ class ParticipateController(
     private val participateCoordinator: ParticipateCoordinator,
     private val participateService: ParticipateService,
     private val scenarioService: ScenarioService,
+    private val gameSystemService: GameSystemService,
     private val ruleBookService: RuleBookService,
     private val authorService: AuthorService,
     private val userService: UserService
@@ -27,20 +28,22 @@ class ParticipateController(
     private fun list(): ParticipatesResponse {
         val participates = participateService.findAll()
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
-        val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val ruleBooks = ruleBookService.findAllByIds(participates.list.flatMap { it.ruleBookIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
-        return ParticipatesResponse(participates, scenarios, ruleBooks, authors, users)
+        return ParticipatesResponse(participates, scenarios, gameSystems, ruleBooks, authors, users)
     }
 
     @GetMapping("/{participateId}")
     private fun get(@PathVariable participateId: Int): ParticipateResponse? {
         val participate = participateService.findById(participateId) ?: return null
         val scenario = scenarioService.findById(participate.scenarioId)!!
-        val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
+        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
         val authors = authorService.findAllByIds(scenario.authorIds)
         val user = userService.findById(participate.userId)!!
-        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
+        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
     }
 
     @GetMapping("/{participateId}/impression")

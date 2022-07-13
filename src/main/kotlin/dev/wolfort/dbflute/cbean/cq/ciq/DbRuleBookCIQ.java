@@ -62,27 +62,29 @@ public class DbRuleBookCIQ extends DbAbstractBsRuleBookCQ {
     //                                                                Override about Query
     //                                                                ====================
     protected ConditionValue xgetCValueRuleBookId() { return _myCQ.xdfgetRuleBookId(); }
+    public String keepRuleBookId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepRuleBookId_ExistsReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepRuleBookId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepRuleBookId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_ScenarioListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
     protected ConditionValue xgetCValueRuleBookName() { return _myCQ.xdfgetRuleBookName(); }
+    protected ConditionValue xgetCValueRuleBookType() { return _myCQ.xdfgetRuleBookType(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

@@ -241,6 +241,26 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * <pre>
+     * <span style="color: #0000C0">ruleBookBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_GameSystem()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">ruleBook</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">ruleBook</span>.<span style="color: #CC4747">getGameSystem()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_GameSystem() {
+        assertSetupSelectPurpose("gameSystem");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnGameSystemId();
+        }
+        doSetupSelect(() -> query().queryGameSystem());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -282,6 +302,7 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<DbRuleBookCQ> {
+        protected DbGameSystemCB.HpSpecification _gameSystem;
         public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbRuleBookCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
@@ -292,10 +313,20 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnRuleBookId() { return doColumn("rule_book_id"); }
         /**
+         * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
+        /**
          * rule_book_name: {NotNull, VARCHAR(255)}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRuleBookName() { return doColumn("rule_book_name"); }
+        /**
+         * rule_book_type: {NotNull, VARCHAR(50)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRuleBookType() { return doColumn("rule_book_type"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -321,9 +352,50 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnRuleBookId(); // PK
+            if (qyCall().qy().hasConditionQueryGameSystem()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbGameSystemCQ) {
+                columnGameSystemId(); // FK or one-to-one referrer
+            }
         }
         @Override
         protected String getTableDbName() { return "rule_book"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public DbGameSystemCB.HpSpecification specifyGameSystem() {
+            assertRelation("gameSystem");
+            if (_gameSystem == null) {
+                _gameSystem = new DbGameSystemCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGameSystem()
+                                    , () -> _qyCall.qy().queryGameSystem())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _gameSystem.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGameSystem()
+                      , () -> xsyncQyCall().qy().queryGameSystem()));
+                }
+            }
+            return _gameSystem;
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from participate_rule_book where ...) as FOO_MAX} <br>
+         * PARTICIPATE_RULE_BOOK by rule_book_id, named 'participateRuleBookList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     bookCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     bookCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, DbParticipateRuleBook.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<DbParticipateRuleBookCB, DbRuleBookCQ> derivedParticipateRuleBook() {
+            assertDerived("participateRuleBookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateRuleBookCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveParticipateRuleBookList(fn, sq, al, op), _dbmetaProvider);
+        }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from rule_book_dictionary where ...) as FOO_MAX} <br>
@@ -340,23 +412,6 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
             assertDerived("ruleBookDictionaryList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
             return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbRuleBookDictionaryCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsderiveRuleBookDictionaryList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from scenario where ...) as FOO_MAX} <br>
-         * SCENARIO by rule_book_id, named 'scenarioList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     scenarioCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     scenarioCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbScenario.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbScenarioCB, DbRuleBookCQ> derivedScenario() {
-            assertDerived("scenarioList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveScenarioList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

@@ -20,9 +20,9 @@ public class DbScenarioNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
      */
-    public void withRuleBook() {
-        _query.xdoNss(() -> _query.queryRuleBook());
+    public void withGameSystem() {
+        _query.xdoNss(() -> _query.queryGameSystem());
     }
 }

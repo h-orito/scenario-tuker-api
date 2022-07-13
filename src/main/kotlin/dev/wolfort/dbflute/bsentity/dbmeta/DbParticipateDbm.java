@@ -85,7 +85,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRoleList", null, false);
+    protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRoleList,participateRuleBookList", null, false);
     protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "user", null, null, false);
     protected final ColumnInfo _columnDispOrder = cci("disp_order", "disp_order", null, null, Integer.class, "dispOrder", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -213,6 +213,14 @@ public class DbParticipateDbm extends AbstractDBMeta {
     public ReferrerInfo referrerParticipateRoleList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateRoleDbm.getInstance().columnParticipateId());
         return cri("fk_participate_role_participate", "participateRoleList", this, DbParticipateRoleDbm.getInstance(), mp, false, "participate");
+    }
+    /**
+     * PARTICIPATE_RULE_BOOK by participate_id, named 'participateRuleBookList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerParticipateRuleBookList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateRuleBookDbm.getInstance().columnParticipateId());
+        return cri("fk_participate_rule_book_participate", "participateRuleBookList", this, DbParticipateRuleBookDbm.getInstance(), mp, false, "participate");
     }
 
     // ===================================================================================

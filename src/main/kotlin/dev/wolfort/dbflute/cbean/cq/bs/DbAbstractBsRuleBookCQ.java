@@ -159,6 +159,25 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
 
     /**
      * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select rule_book_id from participate_rule_book where ...)} <br>
+     * participate_rule_book by rule_book_id, named 'participateRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsParticipateRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of ParticipateRuleBookList for 'exists'. (NotNull)
+     */
+    public void existsParticipateRuleBook(SubQuery<DbParticipateRuleBookCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbParticipateRuleBookCB cb = new DbParticipateRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_ExistsReferrer_ParticipateRuleBookList(cb.query());
+        registerExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "participateRuleBookList");
+    }
+    public abstract String keepRuleBookId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
      * {exists (select rule_book_id from rule_book_dictionary where ...)} <br>
      * rule_book_dictionary by rule_book_id, named 'ruleBookDictionaryAsOne'.
      * <pre>
@@ -177,23 +196,23 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     public abstract String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
 
     /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select rule_book_id from scenario where ...)} <br>
-     * scenario by rule_book_id, named 'scenarioAsOne'.
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select rule_book_id from participate_rule_book where ...)} <br>
+     * participate_rule_book by rule_book_id, named 'participateRuleBookAsOne'.
      * <pre>
-     * cb.query().<span style="color: #CC4747">existsScenario</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     scenarioCB.query().set...
+     * cb.query().<span style="color: #CC4747">notExistsParticipateRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
      * });
      * </pre>
-     * @param subCBLambda The callback for sub-query of ScenarioList for 'exists'. (NotNull)
+     * @param subCBLambda The callback for sub-query of RuleBookId_NotExistsReferrer_ParticipateRuleBookList for 'not exists'. (NotNull)
      */
-    public void existsScenario(SubQuery<DbScenarioCB> subCBLambda) {
+    public void notExistsParticipateRuleBook(SubQuery<DbParticipateRuleBookCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
-        DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_ExistsReferrer_ScenarioList(cb.query());
-        registerExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "scenarioList");
+        DbParticipateRuleBookCB cb = new DbParticipateRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(cb.query());
+        registerNotExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "participateRuleBookList");
     }
-    public abstract String keepRuleBookId_ExistsReferrer_ScenarioList(DbScenarioCQ sq);
+    public abstract String keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq);
 
     /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
@@ -214,24 +233,13 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     }
     public abstract String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
 
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select rule_book_id from scenario where ...)} <br>
-     * scenario by rule_book_id, named 'scenarioAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsScenario</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     scenarioCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of RuleBookId_NotExistsReferrer_ScenarioList for 'not exists'. (NotNull)
-     */
-    public void notExistsScenario(SubQuery<DbScenarioCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_NotExistsReferrer_ScenarioList(cb.query());
-        registerNotExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "scenarioList");
+    public void xsderiveParticipateRuleBookList(String fn, SubQuery<DbParticipateRuleBookCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbParticipateRuleBookCB cb = new DbParticipateRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", pp, "participateRuleBookList", al, op);
     }
-    public abstract String keepRuleBookId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq);
+    public abstract String keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq);
 
     public void xsderiveRuleBookDictionaryList(String fn, SubQuery<DbRuleBookDictionaryCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
@@ -241,13 +249,32 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     }
     public abstract String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
 
-    public void xsderiveScenarioList(String fn, SubQuery<DbScenarioCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepRuleBookId_SpecifyDerivedReferrer_ScenarioList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", pp, "scenarioList", al, op);
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from participate_rule_book where ...)} <br>
+     * participate_rule_book by rule_book_id, named 'participateRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedParticipateRuleBook()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     bookCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbParticipateRuleBookCB> derivedParticipateRuleBook() {
+        return xcreateQDRFunctionParticipateRuleBookList();
     }
-    public abstract String keepRuleBookId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq);
+    protected HpQDRFunction<DbParticipateRuleBookCB> xcreateQDRFunctionParticipateRuleBookList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveParticipateRuleBookList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveParticipateRuleBookList(String fn, SubQuery<DbParticipateRuleBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbParticipateRuleBookCB cb = new DbParticipateRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(cb.query()); String prpp = keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", sqpp, "participateRuleBookList", rd, vl, prpp, op);
+    }
+    public abstract String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq);
+    public abstract String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object vl);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -277,33 +304,6 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     public abstract String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object vl);
 
     /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from scenario where ...)} <br>
-     * scenario by rule_book_id, named 'scenarioAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedScenario()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     scenarioCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     scenarioCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbScenarioCB> derivedScenario() {
-        return xcreateQDRFunctionScenarioList();
-    }
-    protected HpQDRFunction<DbScenarioCB> xcreateQDRFunctionScenarioList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveScenarioList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveScenarioList(String fn, SubQuery<DbScenarioCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbScenarioCB cb = new DbScenarioCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepRuleBookId_QueryDerivedReferrer_ScenarioList(cb.query()); String prpp = keepRuleBookId_QueryDerivedReferrer_ScenarioListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", sqpp, "scenarioList", rd, vl, prpp, op);
-    }
-    public abstract String keepRuleBookId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq);
-    public abstract String keepRuleBookId_QueryDerivedReferrer_ScenarioListParameter(Object vl);
-
-    /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
      * rule_book_id: {PK, ID, NotNull, INT UNSIGNED(10)}
      */
@@ -317,6 +317,123 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
 
     protected void regRuleBookId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRuleBookId(), "rule_book_id"); }
     protected abstract ConditionValue xgetCValueRuleBookId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_Equal(Integer gameSystemId) {
+        doSetGameSystemId_Equal(gameSystemId);
+    }
+
+    protected void doSetGameSystemId_Equal(Integer gameSystemId) {
+        regGameSystemId(CK_EQ, gameSystemId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_NotEqual(Integer gameSystemId) {
+        doSetGameSystemId_NotEqual(gameSystemId);
+    }
+
+    protected void doSetGameSystemId_NotEqual(Integer gameSystemId) {
+        regGameSystemId(CK_NES, gameSystemId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_GreaterThan(Integer gameSystemId) {
+        regGameSystemId(CK_GT, gameSystemId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_LessThan(Integer gameSystemId) {
+        regGameSystemId(CK_LT, gameSystemId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_GreaterEqual(Integer gameSystemId) {
+        regGameSystemId(CK_GE, gameSystemId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setGameSystemId_LessEqual(Integer gameSystemId) {
+        regGameSystemId(CK_LE, gameSystemId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setGameSystemId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueGameSystemId(), "game_system_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemIdList The collection of gameSystemId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameSystemId_InScope(Collection<Integer> gameSystemIdList) {
+        doSetGameSystemId_InScope(gameSystemIdList);
+    }
+
+    protected void doSetGameSystemId_InScope(Collection<Integer> gameSystemIdList) {
+        regINS(CK_INS, cTL(gameSystemIdList), xgetCValueGameSystemId(), "game_system_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemIdList The collection of gameSystemId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameSystemId_NotInScope(Collection<Integer> gameSystemIdList) {
+        doSetGameSystemId_NotInScope(gameSystemIdList);
+    }
+
+    protected void doSetGameSystemId_NotInScope(Collection<Integer> gameSystemIdList) {
+        regINS(CK_NINS, cTL(gameSystemIdList), xgetCValueGameSystemId(), "game_system_id");
+    }
+
+    protected void regGameSystemId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameSystemId(), "game_system_id"); }
+    protected abstract ConditionValue xgetCValueGameSystemId();
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
@@ -452,6 +569,141 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
 
     protected void regRuleBookName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRuleBookName(), "rule_book_name"); }
     protected abstract ConditionValue xgetCValueRuleBookName();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_Equal(String ruleBookType) {
+        doSetRuleBookType_Equal(fRES(ruleBookType));
+    }
+
+    protected void doSetRuleBookType_Equal(String ruleBookType) {
+        regRuleBookType(CK_EQ, ruleBookType);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_NotEqual(String ruleBookType) {
+        doSetRuleBookType_NotEqual(fRES(ruleBookType));
+    }
+
+    protected void doSetRuleBookType_NotEqual(String ruleBookType) {
+        regRuleBookType(CK_NES, ruleBookType);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_GreaterThan(String ruleBookType) {
+        regRuleBookType(CK_GT, fRES(ruleBookType));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_LessThan(String ruleBookType) {
+        regRuleBookType(CK_LT, fRES(ruleBookType));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_GreaterEqual(String ruleBookType) {
+        regRuleBookType(CK_GE, fRES(ruleBookType));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_LessEqual(String ruleBookType) {
+        regRuleBookType(CK_LE, fRES(ruleBookType));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookTypeList The collection of ruleBookType as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_InScope(Collection<String> ruleBookTypeList) {
+        doSetRuleBookType_InScope(ruleBookTypeList);
+    }
+
+    protected void doSetRuleBookType_InScope(Collection<String> ruleBookTypeList) {
+        regINS(CK_INS, cTL(ruleBookTypeList), xgetCValueRuleBookType(), "rule_book_type");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookTypeList The collection of ruleBookType as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRuleBookType_NotInScope(Collection<String> ruleBookTypeList) {
+        doSetRuleBookType_NotInScope(ruleBookTypeList);
+    }
+
+    protected void doSetRuleBookType_NotInScope(Collection<String> ruleBookTypeList) {
+        regINS(CK_NINS, cTL(ruleBookTypeList), xgetCValueRuleBookType(), "rule_book_type");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setRuleBookType_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param ruleBookType The value of ruleBookType as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setRuleBookType_LikeSearch(String ruleBookType, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setRuleBookType_LikeSearch(ruleBookType, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setRuleBookType_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param ruleBookType The value of ruleBookType as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setRuleBookType_LikeSearch(String ruleBookType, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(ruleBookType), xgetCValueRuleBookType(), "rule_book_type", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setRuleBookType_NotLikeSearch(String ruleBookType, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setRuleBookType_NotLikeSearch(ruleBookType, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @param ruleBookType The value of ruleBookType as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setRuleBookType_NotLikeSearch(String ruleBookType, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(ruleBookType), xgetCValueRuleBookType(), "rule_book_type", likeSearchOption);
+    }
+
+    protected void regRuleBookType(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRuleBookType(), "rule_book_type"); }
+    protected abstract ConditionValue xgetCValueRuleBookType();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

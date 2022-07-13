@@ -34,13 +34,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
  *
  * [referrer table]
- *     PARTICIPATE_ROLE, PARTICIPATE_IMPRESSION
+ *     PARTICIPATE_ROLE, PARTICIPATE_RULE_BOOK, PARTICIPATE_IMPRESSION
  *
  * [foreign property]
  *     scenario, user, participateImpressionAsOne
  *
  * [referrer property]
- *     participateRoleList
+ *     participateRoleList, participateRuleBookList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -223,6 +223,26 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         _participateRoleList = participateRoleList;
     }
 
+    /** PARTICIPATE_RULE_BOOK by participate_id, named 'participateRuleBookList'. */
+    protected List<DbParticipateRuleBook> _participateRuleBookList;
+
+    /**
+     * [get] PARTICIPATE_RULE_BOOK by participate_id, named 'participateRuleBookList'.
+     * @return The entity list of referrer property 'participateRuleBookList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbParticipateRuleBook> getParticipateRuleBookList() {
+        if (_participateRuleBookList == null) { _participateRuleBookList = newReferrerList(); }
+        return _participateRuleBookList;
+    }
+
+    /**
+     * [set] PARTICIPATE_RULE_BOOK by participate_id, named 'participateRuleBookList'.
+     * @param participateRuleBookList The entity list of referrer property 'participateRuleBookList'. (NullAllowed)
+     */
+    public void setParticipateRuleBookList(List<DbParticipateRuleBook> participateRuleBookList) {
+        _participateRuleBookList = participateRuleBookList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -260,6 +280,8 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         { sb.append(li).append(xbRDS(_participateImpressionAsOne, "participateImpressionAsOne")); }
         if (_participateRoleList != null) { for (DbParticipateRole et : _participateRoleList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateRoleList")); } } }
+        if (_participateRuleBookList != null) { for (DbParticipateRuleBook et : _participateRuleBookList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "participateRuleBookList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -295,6 +317,8 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         { sb.append(dm).append("participateImpressionAsOne"); }
         if (_participateRoleList != null && !_participateRoleList.isEmpty())
         { sb.append(dm).append("participateRoleList"); }
+        if (_participateRuleBookList != null && !_participateRuleBookList.isEmpty())
+        { sb.append(dm).append("participateRuleBookList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

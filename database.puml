@@ -19,19 +19,21 @@ entity TwitterUser {
 
 User ||-|| TwitterUser
 
-entity UserFollow {
-    * user_follow_id: int unsigned <<generated>>
-    * from_user_id: int unsigned
-    * to_user_id: int unsigned
+entity GameSystem {
+	* game_system_id: int unsigned <<generated>>
+	--
+	* game_system_name: varchar(255) <<unique>>
 }
-
-User ||-o{ UserFollow
 
 entity RuleBook {
     * rule_book_id: int unsigned <<generated>>
     --
+    * game_system_id: int unsigned <<foreign key>>
     * rule_book_name: varchar(255)
+    * rule_book_type: varchar(50)
 }
+
+GameSystem ||-o{ RuleBook
 
 entity RuleBookDictionary {
     * rule_book_dictionary_id: int unsigned <<generated>>
@@ -42,23 +44,32 @@ entity RuleBookDictionary {
 
 RuleBook ||-|{ RuleBookDictionary
 
-entity Author {
-	* author_id: int unsigned <<generated>>
-	--
-	* author_name: varchar(100)
-}
-
 entity Scenario {
     * scenario_id: int unsigned <<generated>>
     --
     * scenario_name: varchar(255)
     * scenario_type: varchar(50)
     scenario_url: varchar(255)
-    rule_book_id: int unsigned <<foreign key>>
-    author_id: int unsigned <<foreign key>>
+    game_system_id: int unsigned <<foreign key>>
 }
 
-Author ||-o{ Scenario
+GameSystem ||-o{ Scenario
+
+entity Author {
+	* author_id: int unsigned <<generated>>
+	--
+	* author_name: varchar(100)
+}
+
+entity ScenarioAuthor {
+	* scenario_author_id: int unsigned <<generated>>
+	--
+	* scenario_id: int unsigned <<foreign key>>
+	* author_id: int unsigned <<foreign key>>
+}
+
+ScenarioAuthor }o-|| Scenario
+ScenarioAuthor }o-|| Author
 
 entity ScenarioDictionary {
     * scenario_dictionary_id: int unsigned <<generated>>
@@ -68,7 +79,6 @@ entity ScenarioDictionary {
 }
 
 Scenario ||--|{ ScenarioDictionary
-Scenario }|--o| RuleBook
 
 entity Participate {
     * participate_id: int unsigned <<generated>>
@@ -100,4 +110,15 @@ entity ParticipateImpression {
 }
 
 Participate ||--o| ParticipateImpression
+
+entity ParticipateRuleBook {
+	* participate_rule_book_id: int unsigned <<generated>>
+	--
+	* participate_id: int unsigned <<foreign key>>
+	* rule_book_id: int unsigned <<foreign key>>
+}
+
+ParticipateRuleBook }o-|| Participate
+ParticipateRuleBook }o-|| RuleBook
+
 @enduml

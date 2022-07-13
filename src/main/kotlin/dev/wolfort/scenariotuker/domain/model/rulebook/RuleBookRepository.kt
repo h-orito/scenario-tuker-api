@@ -6,6 +6,8 @@ interface RuleBookRepository {
 
     fun findAllByIds(ids: List<Int>): RuleBooks
 
+    fun findAllByGameSystemId(gameSystemId: Int): RuleBooks
+
     fun findById(id: Int): RuleBook?
 
     fun search(query: RuleBookQuery): RuleBooks

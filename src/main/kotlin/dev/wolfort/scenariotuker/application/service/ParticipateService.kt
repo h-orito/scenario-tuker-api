@@ -17,7 +17,11 @@ class ParticipateService(
 
     fun findAll(): Participates = participateRepository.findAll()
 
-    fun findAllByUserId(userId: Int): Participates = participateRepository.findByUserId(userId)
+    fun findAllByUserId(userId: Int): Participates = participateRepository.findAllByUserId(userId)
+
+    fun findAllByScenarioId(scenarioId: Int): Participates = participateRepository.findAllByScenarioId(scenarioId)
+
+    fun findAllByRuleBookId(ruleBookId: Int): Participates = participateRepository.findAllByRuleBookId(ruleBookId)
 
     fun findById(id: Int): Participate? = participateRepository.findById(id)
 

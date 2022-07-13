@@ -64,13 +64,23 @@ public class DbParticipateCIQ extends DbAbstractBsParticipateCQ {
     protected ConditionValue xgetCValueParticipateId() { return _myCQ.xdfgetParticipateId(); }
     public String keepParticipateId_ExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepParticipateId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepParticipateId_NotExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepParticipateId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }

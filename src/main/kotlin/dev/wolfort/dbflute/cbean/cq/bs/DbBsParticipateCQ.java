@@ -82,16 +82,30 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
     public Map<String, DbParticipateRoleCQ> xdfgetParticipateId_ExistsReferrer_ParticipateRoleList() { return xgetSQueMap("participateId_ExistsReferrer_ParticipateRoleList"); }
     public String keepParticipateId_ExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq) { return xkeepSQue("participateId_ExistsReferrer_ParticipateRoleList", sq); }
 
+    public Map<String, DbParticipateRuleBookCQ> xdfgetParticipateId_ExistsReferrer_ParticipateRuleBookList() { return xgetSQueMap("participateId_ExistsReferrer_ParticipateRuleBookList"); }
+    public String keepParticipateId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("participateId_ExistsReferrer_ParticipateRuleBookList", sq); }
+
     public Map<String, DbParticipateRoleCQ> xdfgetParticipateId_NotExistsReferrer_ParticipateRoleList() { return xgetSQueMap("participateId_NotExistsReferrer_ParticipateRoleList"); }
     public String keepParticipateId_NotExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq) { return xkeepSQue("participateId_NotExistsReferrer_ParticipateRoleList", sq); }
 
+    public Map<String, DbParticipateRuleBookCQ> xdfgetParticipateId_NotExistsReferrer_ParticipateRuleBookList() { return xgetSQueMap("participateId_NotExistsReferrer_ParticipateRuleBookList"); }
+    public String keepParticipateId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("participateId_NotExistsReferrer_ParticipateRuleBookList", sq); }
+
     public Map<String, DbParticipateRoleCQ> xdfgetParticipateId_SpecifyDerivedReferrer_ParticipateRoleList() { return xgetSQueMap("participateId_SpecifyDerivedReferrer_ParticipateRoleList"); }
     public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq) { return xkeepSQue("participateId_SpecifyDerivedReferrer_ParticipateRoleList", sq); }
+
+    public Map<String, DbParticipateRuleBookCQ> xdfgetParticipateId_SpecifyDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("participateId_SpecifyDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("participateId_SpecifyDerivedReferrer_ParticipateRuleBookList", sq); }
 
     public Map<String, DbParticipateRoleCQ> xdfgetParticipateId_QueryDerivedReferrer_ParticipateRoleList() { return xgetSQueMap("participateId_QueryDerivedReferrer_ParticipateRoleList"); }
     public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq) { return xkeepSQue("participateId_QueryDerivedReferrer_ParticipateRoleList", sq); }
     public Map<String, Object> xdfgetParticipateId_QueryDerivedReferrer_ParticipateRoleListParameter() { return xgetSQuePmMap("participateId_QueryDerivedReferrer_ParticipateRoleList"); }
     public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleListParameter(Object pm) { return xkeepSQuePm("participateId_QueryDerivedReferrer_ParticipateRoleList", pm); }
+
+    public Map<String, DbParticipateRuleBookCQ> xdfgetParticipateId_QueryDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("participateId_QueryDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("participateId_QueryDerivedReferrer_ParticipateRuleBookList", sq); }
+    public Map<String, Object> xdfgetParticipateId_QueryDerivedReferrer_ParticipateRuleBookListParameter() { return xgetSQuePmMap("participateId_QueryDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object pm) { return xkeepSQuePm("participateId_QueryDerivedReferrer_ParticipateRuleBookList", pm); }
 
     /**
      * Add order-by as ascend. <br>

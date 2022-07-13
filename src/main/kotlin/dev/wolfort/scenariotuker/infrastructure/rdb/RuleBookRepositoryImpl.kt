@@ -4,10 +4,7 @@ import dev.wolfort.dbflute.exbhv.DbRuleBookBhv
 import dev.wolfort.dbflute.exbhv.DbRuleBookDictionaryBhv
 import dev.wolfort.dbflute.exentity.DbRuleBook
 import dev.wolfort.dbflute.exentity.DbRuleBookDictionary
-import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBook
-import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookQuery
-import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookRepository
-import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBooks
+import dev.wolfort.scenariotuker.domain.model.rulebook.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.stereotype.Repository
 
@@ -35,6 +32,15 @@ class RuleBookRepositoryImpl(
         return mappingToRuleBooks(ids.map { id -> dbRuleBookList.first { it.ruleBookId == id } })
     }
 
+    override fun findAllByGameSystemId(gameSystemId: Int): RuleBooks {
+        val dbRuleBookList = ruleBookBhv.selectList {
+            it.query().setGameSystemId_Equal(gameSystemId)
+            it.query().addOrderBy_RuleBookId_Asc()
+        }
+        ruleBookBhv.loadRuleBookDictionary(dbRuleBookList) {}
+        return mappingToRuleBooks(dbRuleBookList)
+    }
+
     override fun findById(id: Int): RuleBook? {
         val optDbRuleBook = ruleBookBhv.selectEntity {
             it.query().setRuleBookId_Equal(id)
@@ -46,12 +52,20 @@ class RuleBookRepositoryImpl(
     }
 
     override fun search(query: RuleBookQuery): RuleBooks {
-        if (query.name.isEmpty()) return RuleBooks(list = emptyList())
+        if (query.isEmpty()) return RuleBooks(list = emptyList())
         val list = ruleBookBhv.selectList {
-            it.query().existsRuleBookDictionary { dicCB ->
-                dicCB.query().setRuleBookName_LikeSearch(query.name) { op ->
-                    op.splitByBlank().likeContain().asOrSplit()
+            if (!query.name.isNullOrEmpty()) {
+                it.query().existsRuleBookDictionary { dicCB ->
+                    dicCB.query().setRuleBookName_LikeSearch(query.name) { op ->
+                        op.splitByBlank().likeContain().asOrSplit()
+                    }
                 }
+            }
+            query.gameSystemId?.let { gameSystemId ->
+                it.query().setGameSystemId_Equal(gameSystemId)
+            }
+            query.ruleBookType?.let { type ->
+                it.query().setRuleBookType_Equal(type.name)
             }
             it.query().addOrderBy_RuleBookId_Asc()
         }
@@ -62,6 +76,8 @@ class RuleBookRepositoryImpl(
     override fun register(ruleBook: RuleBook): RuleBook {
         val s = DbRuleBook()
         s.ruleBookName = ruleBook.name
+        s.ruleBookType = ruleBook.type.name
+        s.gameSystemId = ruleBook.gameSystemId
         ruleBookBhv.insert(s)
 
         ruleBook.dictionaryNames.forEach { insertRuleBookDictionary(s.ruleBookId, it) }
@@ -74,6 +90,8 @@ class RuleBookRepositoryImpl(
         val s = DbRuleBook()
         s.ruleBookId = ruleBook.id
         s.ruleBookName = ruleBook.name
+        s.ruleBookType = ruleBook.type.name
+        s.gameSystemId = ruleBook.gameSystemId
         ruleBookBhv.update(s)
 
         ruleBookDictionaryBhv.queryDelete { it.query().setRuleBookId_Equal(ruleBook.id) }
@@ -103,6 +121,8 @@ class RuleBookRepositoryImpl(
             id = ruleBook.ruleBookId,
             name = ruleBook.ruleBookName,
             dictionaryNames = ruleBook.ruleBookDictionaryList.map { it.ruleBookName },
+            type = RuleBookType.valueOf(ruleBook.ruleBookType),
+            gameSystemId = ruleBook.gameSystemId
         )
     }
 }

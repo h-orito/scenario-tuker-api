@@ -816,132 +816,132 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as equal. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as equal. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_Equal(Integer ruleBookId) {
-        doSetRuleBookId_Equal(ruleBookId);
+    public void setGameSystemId_Equal(Integer gameSystemId) {
+        doSetGameSystemId_Equal(gameSystemId);
     }
 
-    protected void doSetRuleBookId_Equal(Integer ruleBookId) {
-        regRuleBookId(CK_EQ, ruleBookId);
+    protected void doSetGameSystemId_Equal(Integer gameSystemId) {
+        regGameSystemId(CK_EQ, gameSystemId);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as notEqual. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_NotEqual(Integer ruleBookId) {
-        doSetRuleBookId_NotEqual(ruleBookId);
+    public void setGameSystemId_NotEqual(Integer gameSystemId) {
+        doSetGameSystemId_NotEqual(gameSystemId);
     }
 
-    protected void doSetRuleBookId_NotEqual(Integer ruleBookId) {
-        regRuleBookId(CK_NES, ruleBookId);
+    protected void doSetGameSystemId_NotEqual(Integer gameSystemId) {
+        regGameSystemId(CK_NES, gameSystemId);
     }
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_GreaterThan(Integer ruleBookId) {
-        regRuleBookId(CK_GT, ruleBookId);
+    public void setGameSystemId_GreaterThan(Integer gameSystemId) {
+        regGameSystemId(CK_GT, gameSystemId);
     }
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as lessThan. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_LessThan(Integer ruleBookId) {
-        regRuleBookId(CK_LT, ruleBookId);
+    public void setGameSystemId_LessThan(Integer gameSystemId) {
+        regGameSystemId(CK_LT, gameSystemId);
     }
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_GreaterEqual(Integer ruleBookId) {
-        regRuleBookId(CK_GE, ruleBookId);
+    public void setGameSystemId_GreaterEqual(Integer gameSystemId) {
+        regGameSystemId(CK_GE, gameSystemId);
     }
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookId The value of ruleBookId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemId The value of gameSystemId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
-    public void setRuleBookId_LessEqual(Integer ruleBookId) {
-        regRuleBookId(CK_LE, ruleBookId);
+    public void setGameSystemId_LessEqual(Integer gameSystemId) {
+        regGameSystemId(CK_LE, gameSystemId);
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param minNumber The min number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
-     * @param maxNumber The max number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
      */
-    public void setRuleBookId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
-        setRuleBookId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    public void setGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setGameSystemId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
     }
 
     /**
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param minNumber The min number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
-     * @param maxNumber The max number of ruleBookId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
      */
-    protected void setRuleBookId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
-        regROO(minNumber, maxNumber, xgetCValueRuleBookId(), "rule_book_id", rangeOfOption);
+    protected void setGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueGameSystemId(), "game_system_id", rangeOfOption);
     }
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookIdList The collection of ruleBookId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemIdList The collection of gameSystemId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setRuleBookId_InScope(Collection<Integer> ruleBookIdList) {
-        doSetRuleBookId_InScope(ruleBookIdList);
+    public void setGameSystemId_InScope(Collection<Integer> gameSystemIdList) {
+        doSetGameSystemId_InScope(gameSystemIdList);
     }
 
-    protected void doSetRuleBookId_InScope(Collection<Integer> ruleBookIdList) {
-        regINS(CK_INS, cTL(ruleBookIdList), xgetCValueRuleBookId(), "rule_book_id");
+    protected void doSetGameSystemId_InScope(Collection<Integer> gameSystemIdList) {
+        regINS(CK_INS, cTL(gameSystemIdList), xgetCValueGameSystemId(), "game_system_id");
     }
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
-     * @param ruleBookIdList The collection of ruleBookId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @param gameSystemIdList The collection of gameSystemId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setRuleBookId_NotInScope(Collection<Integer> ruleBookIdList) {
-        doSetRuleBookId_NotInScope(ruleBookIdList);
+    public void setGameSystemId_NotInScope(Collection<Integer> gameSystemIdList) {
+        doSetGameSystemId_NotInScope(gameSystemIdList);
     }
 
-    protected void doSetRuleBookId_NotInScope(Collection<Integer> ruleBookIdList) {
-        regINS(CK_NINS, cTL(ruleBookIdList), xgetCValueRuleBookId(), "rule_book_id");
+    protected void doSetGameSystemId_NotInScope(Collection<Integer> gameSystemIdList) {
+        regINS(CK_NINS, cTL(gameSystemIdList), xgetCValueGameSystemId(), "game_system_id");
     }
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
      */
-    public void setRuleBookId_IsNull() { regRuleBookId(CK_ISN, DOBJ); }
+    public void setGameSystemId_IsNull() { regGameSystemId(CK_ISN, DOBJ); }
 
     /**
      * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
      */
-    public void setRuleBookId_IsNotNull() { regRuleBookId(CK_ISNN, DOBJ); }
+    public void setGameSystemId_IsNotNull() { regGameSystemId(CK_ISNN, DOBJ); }
 
-    protected void regRuleBookId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRuleBookId(), "rule_book_id"); }
-    protected abstract ConditionValue xgetCValueRuleBookId();
+    protected void regGameSystemId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameSystemId(), "game_system_id"); }
+    protected abstract ConditionValue xgetCValueGameSystemId();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

@@ -3,9 +3,11 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
@@ -17,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     rule_book_id
  *
  * [column]
- *     rule_book_id, rule_book_name, register_datetime, register_trace, update_datetime, update_trace
+ *     rule_book_id, game_system_id, rule_book_name, rule_book_type, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -29,27 +31,31 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     
+ *     GAME_SYSTEM
  *
  * [referrer table]
- *     RULE_BOOK_DICTIONARY, SCENARIO
+ *     PARTICIPATE_RULE_BOOK, RULE_BOOK_DICTIONARY
  *
  * [foreign property]
- *     
+ *     gameSystem
  *
  * [referrer property]
- *     ruleBookDictionaryList, scenarioList
+ *     participateRuleBookList, ruleBookDictionaryList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer ruleBookId = entity.getRuleBookId();
+ * Integer gameSystemId = entity.getGameSystemId();
  * String ruleBookName = entity.getRuleBookName();
+ * String ruleBookType = entity.getRuleBookType();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
  * entity.setRuleBookId(ruleBookId);
+ * entity.setGameSystemId(gameSystemId);
  * entity.setRuleBookName(ruleBookName);
+ * entity.setRuleBookType(ruleBookType);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -72,8 +78,14 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     /** rule_book_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
     protected Integer _ruleBookId;
 
+    /** game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} */
+    protected Integer _gameSystemId;
+
     /** rule_book_name: {NotNull, VARCHAR(255)} */
     protected String _ruleBookName;
+
+    /** rule_book_type: {NotNull, VARCHAR(50)} */
+    protected String _ruleBookType;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -112,9 +124,50 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** GAME_SYSTEM by my game_system_id, named 'gameSystem'. */
+    protected OptionalEntity<DbGameSystem> _gameSystem;
+
+    /**
+     * [get] GAME_SYSTEM by my game_system_id, named 'gameSystem'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'gameSystem'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<DbGameSystem> getGameSystem() {
+        if (_gameSystem == null) { _gameSystem = OptionalEntity.relationEmpty(this, "gameSystem"); }
+        return _gameSystem;
+    }
+
+    /**
+     * [set] GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @param gameSystem The entity of foreign property 'gameSystem'. (NullAllowed)
+     */
+    public void setGameSystem(OptionalEntity<DbGameSystem> gameSystem) {
+        _gameSystem = gameSystem;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
+    /** PARTICIPATE_RULE_BOOK by rule_book_id, named 'participateRuleBookList'. */
+    protected List<DbParticipateRuleBook> _participateRuleBookList;
+
+    /**
+     * [get] PARTICIPATE_RULE_BOOK by rule_book_id, named 'participateRuleBookList'.
+     * @return The entity list of referrer property 'participateRuleBookList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbParticipateRuleBook> getParticipateRuleBookList() {
+        if (_participateRuleBookList == null) { _participateRuleBookList = newReferrerList(); }
+        return _participateRuleBookList;
+    }
+
+    /**
+     * [set] PARTICIPATE_RULE_BOOK by rule_book_id, named 'participateRuleBookList'.
+     * @param participateRuleBookList The entity list of referrer property 'participateRuleBookList'. (NullAllowed)
+     */
+    public void setParticipateRuleBookList(List<DbParticipateRuleBook> participateRuleBookList) {
+        _participateRuleBookList = participateRuleBookList;
+    }
+
     /** RULE_BOOK_DICTIONARY by rule_book_id, named 'ruleBookDictionaryList'. */
     protected List<DbRuleBookDictionary> _ruleBookDictionaryList;
 
@@ -133,26 +186,6 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
      */
     public void setRuleBookDictionaryList(List<DbRuleBookDictionary> ruleBookDictionaryList) {
         _ruleBookDictionaryList = ruleBookDictionaryList;
-    }
-
-    /** SCENARIO by rule_book_id, named 'scenarioList'. */
-    protected List<DbScenario> _scenarioList;
-
-    /**
-     * [get] SCENARIO by rule_book_id, named 'scenarioList'.
-     * @return The entity list of referrer property 'scenarioList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbScenario> getScenarioList() {
-        if (_scenarioList == null) { _scenarioList = newReferrerList(); }
-        return _scenarioList;
-    }
-
-    /**
-     * [set] SCENARIO by rule_book_id, named 'scenarioList'.
-     * @param scenarioList The entity list of referrer property 'scenarioList'. (NullAllowed)
-     */
-    public void setScenarioList(List<DbScenario> scenarioList) {
-        _scenarioList = scenarioList;
     }
 
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
@@ -184,18 +217,25 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(li).append(xbRDS(_gameSystem, "gameSystem")); }
+        if (_participateRuleBookList != null) { for (DbParticipateRuleBook et : _participateRuleBookList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "participateRuleBookList")); } } }
         if (_ruleBookDictionaryList != null) { for (DbRuleBookDictionary et : _ruleBookDictionaryList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "ruleBookDictionaryList")); } } }
-        if (_scenarioList != null) { for (DbScenario et : _scenarioList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioList")); } } }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_ruleBookId));
+        sb.append(dm).append(xfND(_gameSystemId));
         sb.append(dm).append(xfND(_ruleBookName));
+        sb.append(dm).append(xfND(_ruleBookType));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -210,10 +250,12 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(dm).append("gameSystem"); }
+        if (_participateRuleBookList != null && !_participateRuleBookList.isEmpty())
+        { sb.append(dm).append("participateRuleBookList"); }
         if (_ruleBookDictionaryList != null && !_ruleBookDictionaryList.isEmpty())
         { sb.append(dm).append("ruleBookDictionaryList"); }
-        if (_scenarioList != null && !_scenarioList.isEmpty())
-        { sb.append(dm).append("scenarioList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -247,6 +289,24 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     }
 
     /**
+     * [get] game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} <br>
+     * @return The value of the column 'game_system_id'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getGameSystemId() {
+        checkSpecifiedProperty("gameSystemId");
+        return _gameSystemId;
+    }
+
+    /**
+     * [set] game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} <br>
+     * @param gameSystemId The value of the column 'game_system_id'. (basically NotNull if update: for the constraint)
+     */
+    public void setGameSystemId(Integer gameSystemId) {
+        registerModifiedProperty("gameSystemId");
+        _gameSystemId = gameSystemId;
+    }
+
+    /**
      * [get] rule_book_name: {NotNull, VARCHAR(255)} <br>
      * @return The value of the column 'rule_book_name'. (basically NotNull if selected: for the constraint)
      */
@@ -262,6 +322,24 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
     public void setRuleBookName(String ruleBookName) {
         registerModifiedProperty("ruleBookName");
         _ruleBookName = ruleBookName;
+    }
+
+    /**
+     * [get] rule_book_type: {NotNull, VARCHAR(50)} <br>
+     * @return The value of the column 'rule_book_type'. (basically NotNull if selected: for the constraint)
+     */
+    public String getRuleBookType() {
+        checkSpecifiedProperty("ruleBookType");
+        return convertEmptyToNull(_ruleBookType);
+    }
+
+    /**
+     * [set] rule_book_type: {NotNull, VARCHAR(50)} <br>
+     * @param ruleBookType The value of the column 'rule_book_type'. (basically NotNull if update: for the constraint)
+     */
+    public void setRuleBookType(String ruleBookType) {
+        registerModifiedProperty("ruleBookType");
+        _ruleBookType = ruleBookType;
     }
 
     /**

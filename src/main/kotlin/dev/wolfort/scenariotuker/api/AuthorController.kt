@@ -2,7 +2,7 @@ package dev.wolfort.scenariotuker.api
 
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
 import dev.wolfort.scenariotuker.application.service.AuthorService
-import dev.wolfort.scenariotuker.application.service.RuleBookService
+import dev.wolfort.scenariotuker.application.service.GameSystemService
 import dev.wolfort.scenariotuker.application.service.ScenarioService
 import dev.wolfort.scenariotuker.domain.model.author.Author
 import dev.wolfort.scenariotuker.domain.model.author.AuthorQuery
@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull
 class AuthorController(
     private val authorService: AuthorService,
     private val scenarioService: ScenarioService,
-    private val ruleBookService: RuleBookService
+    private val gameSystemService: GameSystemService
 ) {
 
     @GetMapping
@@ -57,8 +57,8 @@ class AuthorController(
     @GetMapping("/{authorId}/scenarios")
     private fun getAuthorScenarios(@PathVariable authorId: Int): ScenariosResponse {
         val scenarios = scenarioService.findAllByAuthorId(authorId)
-        val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
-        return ScenariosResponse(scenarios, ruleBooks, authors)
+        return ScenariosResponse(scenarios, gameSystems, authors)
     }
 }

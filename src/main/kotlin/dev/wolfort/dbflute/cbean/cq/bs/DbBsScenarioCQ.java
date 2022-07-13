@@ -195,25 +195,25 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
      */
     public DbBsScenarioCQ addOrderBy_ScenarioUrl_Desc() { regOBD("scenario_url"); return this; }
 
-    protected ConditionValue _ruleBookId;
-    public ConditionValue xdfgetRuleBookId()
-    { if (_ruleBookId == null) { _ruleBookId = nCV(); }
-      return _ruleBookId; }
-    protected ConditionValue xgetCValueRuleBookId() { return xdfgetRuleBookId(); }
+    protected ConditionValue _gameSystemId;
+    public ConditionValue xdfgetGameSystemId()
+    { if (_gameSystemId == null) { _gameSystemId = nCV(); }
+      return _gameSystemId; }
+    protected ConditionValue xgetCValueGameSystemId() { return xdfgetGameSystemId(); }
 
     /**
      * Add order-by as ascend. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
      * @return this. (NotNull)
      */
-    public DbBsScenarioCQ addOrderBy_RuleBookId_Asc() { regOBA("rule_book_id"); return this; }
+    public DbBsScenarioCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book}
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
      * @return this. (NotNull)
      */
-    public DbBsScenarioCQ addOrderBy_RuleBookId_Desc() { regOBD("rule_book_id"); return this; }
+    public DbBsScenarioCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
@@ -336,8 +336,8 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         DbScenarioCQ bq = (DbScenarioCQ)bqs;
         DbScenarioCQ uq = (DbScenarioCQ)uqs;
-        if (bq.hasConditionQueryRuleBook()) {
-            uq.queryRuleBook().reflectRelationOnUnionQuery(bq.queryRuleBook(), uq.queryRuleBook());
+        if (bq.hasConditionQueryGameSystem()) {
+            uq.queryGameSystem().reflectRelationOnUnionQuery(bq.queryGameSystem(), uq.queryGameSystem());
         }
     }
 
@@ -346,23 +346,23 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     //                                                                       =============
     /**
      * Get the condition-query for relation table. <br>
-     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
      * @return The instance of condition-query. (NotNull)
      */
-    public DbRuleBookCQ queryRuleBook() {
-        return xdfgetConditionQueryRuleBook();
+    public DbGameSystemCQ queryGameSystem() {
+        return xdfgetConditionQueryGameSystem();
     }
-    public DbRuleBookCQ xdfgetConditionQueryRuleBook() {
-        String prop = "ruleBook";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryRuleBook()); xsetupOuterJoinRuleBook(); }
+    public DbGameSystemCQ xdfgetConditionQueryGameSystem() {
+        String prop = "gameSystem";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGameSystem()); xsetupOuterJoinGameSystem(); }
         return xgetQueRlMap(prop);
     }
-    protected DbRuleBookCQ xcreateQueryRuleBook() {
-        String nrp = xresolveNRP("scenario", "ruleBook"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new DbRuleBookCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "ruleBook", nrp);
+    protected DbGameSystemCQ xcreateQueryGameSystem() {
+        String nrp = xresolveNRP("scenario", "gameSystem"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbGameSystemCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "gameSystem", nrp);
     }
-    protected void xsetupOuterJoinRuleBook() { xregOutJo("ruleBook"); }
-    public boolean hasConditionQueryRuleBook() { return xhasQueRlMap("ruleBook"); }
+    protected void xsetupOuterJoinGameSystem() { xregOutJo("gameSystem"); }
+    public boolean hasConditionQueryGameSystem() { return xhasQueRlMap("gameSystem"); }
 
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;

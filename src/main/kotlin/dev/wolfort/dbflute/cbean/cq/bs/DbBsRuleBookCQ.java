@@ -79,33 +79,33 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
       return _ruleBookId; }
     protected ConditionValue xgetCValueRuleBookId() { return xdfgetRuleBookId(); }
 
+    public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_ExistsReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_ExistsReferrer_ParticipateRuleBookList"); }
+    public String keepRuleBookId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_ExistsReferrer_ParticipateRuleBookList", sq); }
+
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_ExistsReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_ExistsReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_ExistsReferrer_RuleBookDictionaryList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetRuleBookId_ExistsReferrer_ScenarioList() { return xgetSQueMap("ruleBookId_ExistsReferrer_ScenarioList"); }
-    public String keepRuleBookId_ExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("ruleBookId_ExistsReferrer_ScenarioList", sq); }
+    public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_NotExistsReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_ParticipateRuleBookList"); }
+    public String keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_ParticipateRuleBookList", sq); }
 
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_NotExistsReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_RuleBookDictionaryList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetRuleBookId_NotExistsReferrer_ScenarioList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_ScenarioList"); }
-    public String keepRuleBookId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_ScenarioList", sq); }
+    public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList", sq); }
 
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_ScenarioList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_ScenarioList"); }
-    public String keepRuleBookId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_ScenarioList", sq); }
+    public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList", sq); }
+    public Map<String, Object> xdfgetRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter() { return xgetSQuePmMap("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList"); }
+    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object pm) { return xkeepSQuePm("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList", pm); }
 
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList", sq); }
     public Map<String, Object> xdfgetRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter() { return xgetSQuePmMap("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object pm) { return xkeepSQuePm("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList", pm); }
-
-    public Map<String, DbScenarioCQ> xdfgetRuleBookId_QueryDerivedReferrer_ScenarioList() { return xgetSQueMap("ruleBookId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepRuleBookId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_ScenarioList", sq); }
-    public Map<String, Object> xdfgetRuleBookId_QueryDerivedReferrer_ScenarioListParameter() { return xgetSQuePmMap("ruleBookId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepRuleBookId_QueryDerivedReferrer_ScenarioListParameter(Object pm) { return xkeepSQuePm("ruleBookId_QueryDerivedReferrer_ScenarioList", pm); }
 
     /**
      * Add order-by as ascend. <br>
@@ -120,6 +120,26 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
      * @return this. (NotNull)
      */
     public DbBsRuleBookCQ addOrderBy_RuleBookId_Desc() { regOBD("rule_book_id"); return this; }
+
+    protected ConditionValue _gameSystemId;
+    public ConditionValue xdfgetGameSystemId()
+    { if (_gameSystemId == null) { _gameSystemId = nCV(); }
+      return _gameSystemId; }
+    protected ConditionValue xgetCValueGameSystemId() { return xdfgetGameSystemId(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @return this. (NotNull)
+     */
+    public DbBsRuleBookCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
+     * @return this. (NotNull)
+     */
+    public DbBsRuleBookCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
 
     protected ConditionValue _ruleBookName;
     public ConditionValue xdfgetRuleBookName()
@@ -140,6 +160,26 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
      * @return this. (NotNull)
      */
     public DbBsRuleBookCQ addOrderBy_RuleBookName_Desc() { regOBD("rule_book_name"); return this; }
+
+    protected ConditionValue _ruleBookType;
+    public ConditionValue xdfgetRuleBookType()
+    { if (_ruleBookType == null) { _ruleBookType = nCV(); }
+      return _ruleBookType; }
+    protected ConditionValue xgetCValueRuleBookType() { return xdfgetRuleBookType(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsRuleBookCQ addOrderBy_RuleBookType_Asc() { regOBA("rule_book_type"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * rule_book_type: {NotNull, VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsRuleBookCQ addOrderBy_RuleBookType_Desc() { regOBD("rule_book_type"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
@@ -260,11 +300,36 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        DbRuleBookCQ bq = (DbRuleBookCQ)bqs;
+        DbRuleBookCQ uq = (DbRuleBookCQ)uqs;
+        if (bq.hasConditionQueryGameSystem()) {
+            uq.queryGameSystem().reflectRelationOnUnionQuery(bq.queryGameSystem(), uq.queryGameSystem());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public DbGameSystemCQ queryGameSystem() {
+        return xdfgetConditionQueryGameSystem();
+    }
+    public DbGameSystemCQ xdfgetConditionQueryGameSystem() {
+        String prop = "gameSystem";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGameSystem()); xsetupOuterJoinGameSystem(); }
+        return xgetQueRlMap(prop);
+    }
+    protected DbGameSystemCQ xcreateQueryGameSystem() {
+        String nrp = xresolveNRP("rule_book", "gameSystem"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbGameSystemCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "gameSystem", nrp);
+    }
+    protected void xsetupOuterJoinGameSystem() { xregOutJo("gameSystem"); }
+    public boolean hasConditionQueryGameSystem() { return xhasQueRlMap("gameSystem"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

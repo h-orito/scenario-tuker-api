@@ -21,8 +21,10 @@ public class DbRuleBookDictionaryNss {
     /**
      * With nested relation columns to select clause. <br>
      * RULE_BOOK by my rule_book_id, named 'ruleBook'.
+     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
      */
-    public void withRuleBook() {
+    public DbRuleBookNss withRuleBook() {
         _query.xdoNss(() -> _query.queryRuleBook());
+        return new DbRuleBookNss(_query.queryRuleBook());
     }
 }

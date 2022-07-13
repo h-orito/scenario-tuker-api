@@ -3,9 +3,11 @@ package dev.wolfort.scenariotuker.infrastructure.rdb
 import dev.wolfort.dbflute.exbhv.DbParticipateBhv
 import dev.wolfort.dbflute.exbhv.DbParticipateImpressionBhv
 import dev.wolfort.dbflute.exbhv.DbParticipateRoleBhv
+import dev.wolfort.dbflute.exbhv.DbParticipateRuleBookBhv
 import dev.wolfort.dbflute.exentity.DbParticipate
 import dev.wolfort.dbflute.exentity.DbParticipateImpression
 import dev.wolfort.dbflute.exentity.DbParticipateRole
+import dev.wolfort.dbflute.exentity.DbParticipateRuleBook
 import dev.wolfort.scenariotuker.domain.model.participate.*
 import org.springframework.stereotype.Repository
 
@@ -13,7 +15,8 @@ import org.springframework.stereotype.Repository
 class ParticipateRepositoryImpl(
     private val participateBhv: DbParticipateBhv,
     private val participateRoleBhv: DbParticipateRoleBhv,
-    private val participateImpressionBhv: DbParticipateImpressionBhv
+    private val participateImpressionBhv: DbParticipateImpressionBhv,
+    private val participateRuleBookBhv: DbParticipateRuleBookBhv
 ) : ParticipateRepository {
 
     override fun findAll(): Participates {
@@ -22,7 +25,10 @@ class ParticipateRepositoryImpl(
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
-        participateBhv.loadParticipateRole(dbParticipateList) {}
+        participateBhv.load(dbParticipateList) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
         return mappingToParticipates(dbParticipateList)
     }
 
@@ -33,29 +39,54 @@ class ParticipateRepositoryImpl(
         }
         if (!optDbParticipate.isPresent) return null
         val dbParticipate = optDbParticipate.get()
-        participateBhv.loadParticipateRole(dbParticipate) {}
+        participateBhv.load(dbParticipate) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
         return mappingToParticipate(dbParticipate)
     }
 
-    override fun findByScenarioId(scenarioId: Int): Participates {
+    override fun findAllByScenarioId(scenarioId: Int): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.setupSelect_ParticipateImpressionAsOne()
             it.query().setScenarioId_Equal(scenarioId)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
-        participateBhv.loadParticipateRole(dbParticipateList) {}
+        participateBhv.load(dbParticipateList) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
         return mappingToParticipates(dbParticipateList)
     }
 
-    override fun findByUserId(userId: Int): Participates {
+    override fun findAllByRuleBookId(ruleBookId: Int): Participates {
+        val dbParticipateList = participateBhv.selectList {
+            it.setupSelect_ParticipateImpressionAsOne()
+            it.query().existsParticipateRuleBook { prCB ->
+                prCB.query().setRuleBookId_Equal(ruleBookId)
+            }
+            it.query().addOrderBy_DispOrder_Asc()
+            it.query().addOrderBy_ParticipateId_Asc()
+        }
+        participateBhv.load(dbParticipateList) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
+        return mappingToParticipates(dbParticipateList)
+    }
+
+    override fun findAllByUserId(userId: Int): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.setupSelect_ParticipateImpressionAsOne()
             it.query().setUserId_Equal(userId)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
-        participateBhv.loadParticipateRole(dbParticipateList) {}
+        participateBhv.load(dbParticipateList) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
         return mappingToParticipates(dbParticipateList)
     }
 
@@ -67,6 +98,7 @@ class ParticipateRepositoryImpl(
         participateBhv.insert(p)
         p.dispOrder = p.participateId
         participateBhv.update(p)
+        participate.ruleBookIds.forEach { insertParticipateRuleBook(p.participateId, it) }
         participate.roleTypes.forEach { roleType ->
             insertParticipateRole(p.participateId, roleType)
         }
@@ -82,6 +114,8 @@ class ParticipateRepositoryImpl(
         p.participateId = participate.id
         p.dispOrder = participate.dispOrder
         participateBhv.update(p)
+        participateRuleBookBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
+        participate.ruleBookIds.forEach { insertParticipateRuleBook(participate.id, it) }
         participateRoleBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
         participate.roleTypes.forEach { rollType ->
             insertParticipateRole(participate.id, rollType)
@@ -95,6 +129,7 @@ class ParticipateRepositoryImpl(
 
     override fun delete(id: Int) {
         deleteParticipateImpression(id)
+        participateRuleBookBhv.queryDelete { it.query().setParticipateId_Equal(id) }
         participateRoleBhv.queryDelete { it.query().setParticipateId_Equal(id) }
         participateBhv.queryDelete { it.query().setParticipateId_Equal(id) }
     }
@@ -104,6 +139,13 @@ class ParticipateRepositoryImpl(
         r.participateId = participateId
         r.participateRoleType = roleType.name
         participateRoleBhv.insert(r)
+    }
+
+    private fun insertParticipateRuleBook(participateId: Int, ruleBookId: Int) {
+        val pr = DbParticipateRuleBook()
+        pr.participateId = participateId
+        pr.ruleBookId = ruleBookId
+        participateRuleBookBhv.insert(pr)
     }
 
     private fun upsertParticipateImpression(
@@ -136,6 +178,7 @@ class ParticipateRepositoryImpl(
             id = participate.participateId,
             scenarioId = participate.scenarioId,
             userId = participate.userId,
+            ruleBookIds = participate.participateRuleBookList.map { it.ruleBookId },
             roleTypes = participate.participateRoleList.map { RoleType.valueOf(it.participateRoleType) },
             dispOrder = participate.dispOrder,
             impression = participate.participateImpressionAsOne.map {

@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -27,13 +27,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     RULE_BOOK
+ *     GAME_SYSTEM
  *
  * [referrer table]
  *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
  *
  * [foreign property]
- *     ruleBook
+ *     gameSystem
  *
  * [referrer property]
  *     participateList, scenarioAuthorList, scenarioDictionaryList
@@ -166,11 +166,11 @@ public class DbLoaderOfScenario {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
-    protected DbLoaderOfRuleBook _foreignRuleBookLoader;
-    public DbLoaderOfRuleBook pulloutRuleBook() {
-        if (_foreignRuleBookLoader == null)
-        { _foreignRuleBookLoader = new DbLoaderOfRuleBook().ready(myBhv().pulloutRuleBook(_selectedList), _selector); }
-        return _foreignRuleBookLoader;
+    protected DbLoaderOfGameSystem _foreignGameSystemLoader;
+    public DbLoaderOfGameSystem pulloutGameSystem() {
+        if (_foreignGameSystemLoader == null)
+        { _foreignGameSystemLoader = new DbLoaderOfGameSystem().ready(myBhv().pulloutGameSystem(_selectedList), _selector); }
+        return _foreignGameSystemLoader;
     }
 
     // ===================================================================================

@@ -18,6 +18,7 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
  * The base condition-bean of rule_book_dictionary.
@@ -241,6 +242,11 @@ public class DbBsRuleBookDictionaryCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected DbRuleBookNss _nssRuleBook;
+    public DbRuleBookNss xdfgetNssRuleBook() {
+        if (_nssRuleBook == null) { _nssRuleBook = new DbRuleBookNss(null); }
+        return _nssRuleBook;
+    }
     /**
      * Set up relation columns to select clause. <br>
      * RULE_BOOK by my rule_book_id, named 'ruleBook'.
@@ -252,13 +258,17 @@ public class DbBsRuleBookDictionaryCB extends AbstractConditionBean {
      *     ... = <span style="color: #553000">ruleBookDictionary</span>.<span style="color: #CC4747">getRuleBook()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_RuleBook() {
+    public DbRuleBookNss setupSelect_RuleBook() {
         assertSetupSelectPurpose("ruleBook");
         if (hasSpecifiedLocalColumn()) {
             specify().columnRuleBookId();
         }
         doSetupSelect(() -> query().queryRuleBook());
+        if (_nssRuleBook == null || !_nssRuleBook.hasConditionQuery())
+        { _nssRuleBook = new DbRuleBookNss(query().queryRuleBook()); }
+        return _nssRuleBook;
     }
 
     // [DBFlute-0.7.4]

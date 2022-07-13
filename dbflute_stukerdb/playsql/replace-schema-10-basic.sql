@@ -37,15 +37,34 @@ alter table twitter_user
     on delete restrict
 ;
 
+create table game_system (
+	game_system_id    int unsigned not null auto_increment,
+	game_system_name  varchar(255) not null,
+    register_datetime datetime not null,
+    register_trace    varchar(64) not null,
+    update_datetime   datetime not null,
+    update_trace      varchar(64) not null,
+    primary key (game_system_id)
+);
+
 create table rule_book (
     rule_book_id      int unsigned not null auto_increment,
+    game_system_id    int unsigned not null,
     rule_book_name    varchar(255) not null,
+    rule_book_type    varchar(50) not null,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
     update_trace      varchar(64) not null,
     primary key (rule_book_id)
 );
+
+alter table rule_book
+    add constraint fk_rule_book_game_system foreign key (game_system_id)
+    references game_system (game_system_id)
+    on update restrict
+    on delete restrict
+;
 
 create table rule_book_dictionary (
     rule_book_dictionary_id int unsigned not null auto_increment,
@@ -70,7 +89,7 @@ create table scenario (
     scenario_name     varchar(255) not null,
     scenario_type     varchar(50) not null,
     scenario_url      varchar(255),
-    rule_book_id      int unsigned,
+    game_system_id    int unsigned,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
@@ -79,8 +98,8 @@ create table scenario (
 );
 
 alter table scenario
-    add constraint fk_scenario_rule_book foreign key (rule_book_id)
-    references rule_book (rule_book_id)
+    add constraint fk_scenario_game_system foreign key (game_system_id)
+    references game_system (game_system_id)
     on update restrict
     on delete restrict
 ;
@@ -201,6 +220,32 @@ create table participate_impression (
 alter table participate_impression
     add constraint fk_participate_impression_participate foreign key (participate_id)
     references participate (participate_id)
+    on update restrict
+    on delete restrict
+;
+
+create table participate_rule_book (
+	participate_rule_book_id int unsigned not null auto_increment,
+	participate_id           int unsigned not null,
+	rule_book_id             int unsigned not null,
+	register_datetime        datetime not null,
+	register_trace           varchar(64) not null,
+	update_datetime          datetime not null,
+	update_trace             varchar(64) not null,
+	primary key (participate_rule_book_id),
+	unique (participate_id, rule_book_id)
+);
+
+alter table participate_rule_book
+    add constraint fk_participate_rule_book_participate foreign key (participate_id)
+    references participate (participate_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table participate_rule_book
+    add constraint fk_participate_rule_book_rule_book foreign key (rule_book_id)
+    references rule_book (rule_book_id)
     on update restrict
     on delete restrict
 ;

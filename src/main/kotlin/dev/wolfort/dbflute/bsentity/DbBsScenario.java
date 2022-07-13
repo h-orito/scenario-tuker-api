@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -31,13 +31,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     RULE_BOOK
+ *     GAME_SYSTEM
  *
  * [referrer table]
  *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
  *
  * [foreign property]
- *     ruleBook
+ *     gameSystem
  *
  * [referrer property]
  *     participateList, scenarioAuthorList, scenarioDictionaryList
@@ -48,7 +48,7 @@ import dev.wolfort.dbflute.exentity.*;
  * String scenarioName = entity.getScenarioName();
  * String scenarioType = entity.getScenarioType();
  * String scenarioUrl = entity.getScenarioUrl();
- * Integer ruleBookId = entity.getRuleBookId();
+ * Integer gameSystemId = entity.getGameSystemId();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -57,7 +57,7 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setScenarioName(scenarioName);
  * entity.setScenarioType(scenarioType);
  * entity.setScenarioUrl(scenarioUrl);
- * entity.setRuleBookId(ruleBookId);
+ * entity.setGameSystemId(gameSystemId);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -89,8 +89,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     /** scenario_url: {VARCHAR(255)} */
     protected String _scenarioUrl;
 
-    /** rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} */
-    protected Integer _ruleBookId;
+    /** game_system_id: {IX, INT UNSIGNED(10), FK to game_system} */
+    protected Integer _gameSystemId;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -129,25 +129,25 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** RULE_BOOK by my rule_book_id, named 'ruleBook'. */
-    protected OptionalEntity<DbRuleBook> _ruleBook;
+    /** GAME_SYSTEM by my game_system_id, named 'gameSystem'. */
+    protected OptionalEntity<DbGameSystem> _gameSystem;
 
     /**
-     * [get] RULE_BOOK by my rule_book_id, named 'ruleBook'. <br>
+     * [get] GAME_SYSTEM by my game_system_id, named 'gameSystem'. <br>
      * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'ruleBook'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     * @return The entity of foreign property 'gameSystem'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
      */
-    public OptionalEntity<DbRuleBook> getRuleBook() {
-        if (_ruleBook == null) { _ruleBook = OptionalEntity.relationEmpty(this, "ruleBook"); }
-        return _ruleBook;
+    public OptionalEntity<DbGameSystem> getGameSystem() {
+        if (_gameSystem == null) { _gameSystem = OptionalEntity.relationEmpty(this, "gameSystem"); }
+        return _gameSystem;
     }
 
     /**
-     * [set] RULE_BOOK by my rule_book_id, named 'ruleBook'.
-     * @param ruleBook The entity of foreign property 'ruleBook'. (NullAllowed)
+     * [set] GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @param gameSystem The entity of foreign property 'gameSystem'. (NullAllowed)
      */
-    public void setRuleBook(OptionalEntity<DbRuleBook> ruleBook) {
-        _ruleBook = ruleBook;
+    public void setGameSystem(OptionalEntity<DbGameSystem> gameSystem) {
+        _gameSystem = gameSystem;
     }
 
     // ===================================================================================
@@ -242,8 +242,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_ruleBook != null && _ruleBook.isPresent())
-        { sb.append(li).append(xbRDS(_ruleBook, "ruleBook")); }
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(li).append(xbRDS(_gameSystem, "gameSystem")); }
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
         if (_scenarioAuthorList != null) { for (DbScenarioAuthor et : _scenarioAuthorList)
@@ -263,7 +263,7 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_scenarioName));
         sb.append(dm).append(xfND(_scenarioType));
         sb.append(dm).append(xfND(_scenarioUrl));
-        sb.append(dm).append(xfND(_ruleBookId));
+        sb.append(dm).append(xfND(_gameSystemId));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -278,8 +278,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_ruleBook != null && _ruleBook.isPresent())
-        { sb.append(dm).append("ruleBook"); }
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(dm).append("gameSystem"); }
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
         if (_scenarioAuthorList != null && !_scenarioAuthorList.isEmpty())
@@ -373,21 +373,21 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     }
 
     /**
-     * [get] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
-     * @return The value of the column 'rule_book_id'. (NullAllowed even if selected: for no constraint)
+     * [get] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
+     * @return The value of the column 'game_system_id'. (NullAllowed even if selected: for no constraint)
      */
-    public Integer getRuleBookId() {
-        checkSpecifiedProperty("ruleBookId");
-        return _ruleBookId;
+    public Integer getGameSystemId() {
+        checkSpecifiedProperty("gameSystemId");
+        return _gameSystemId;
     }
 
     /**
-     * [set] rule_book_id: {IX, INT UNSIGNED(10), FK to rule_book} <br>
-     * @param ruleBookId The value of the column 'rule_book_id'. (NullAllowed: null update allowed for no constraint)
+     * [set] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
+     * @param gameSystemId The value of the column 'game_system_id'. (NullAllowed: null update allowed for no constraint)
      */
-    public void setRuleBookId(Integer ruleBookId) {
-        registerModifiedProperty("ruleBookId");
-        _ruleBookId = ruleBookId;
+    public void setGameSystemId(Integer gameSystemId) {
+        registerModifiedProperty("gameSystemId");
+        _gameSystemId = gameSystemId;
     }
 
     /**

@@ -6,11 +6,11 @@ interface ScenarioRepository {
 
     fun findAllByIds(ids: List<Int>): Scenarios
 
+    fun findAllByGameSystemId(gameSystemId: Int): Scenarios
+
+    fun findAllByAuthorId(authorId: Int): Scenarios
+
     fun search(query: ScenarioQuery): Scenarios
-
-    fun findByRuleBookId(ruleBookId: Int): Scenarios
-
-    fun findByAuthorId(authorId: Int): Scenarios
 
     fun findById(id: Int): Scenario?
 

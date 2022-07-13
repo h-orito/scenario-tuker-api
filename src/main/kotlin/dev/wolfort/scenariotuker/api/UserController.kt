@@ -26,6 +26,7 @@ class UserController(
     private val userService: UserService,
     private val participateService: ParticipateService,
     private val scenarioService: ScenarioService,
+    private val gameSystemService: GameSystemService,
     private val ruleBookService: RuleBookService,
     private val authorService: AuthorService
 ) {
@@ -86,8 +87,9 @@ class UserController(
         userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
         var participates = participateService.findAllByUserId(userId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
-        val ruleBooks = ruleBookService.findAllByIds(scenarios.list.mapNotNull { it.ruleBookId })
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val ruleBooks = ruleBookService.findAllByIds(participates.list.flatMap { it.ruleBookIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
         val myself = sTukerUser?.let { userService.findByUid(it.uid) }
         // 自分以外の場合感想の内容は隠す（別途取得させる）
@@ -97,7 +99,7 @@ class UserController(
             )
         }
 
-        return ParticipatesResponse(participates, scenarios, ruleBooks, authors, users)
+        return ParticipatesResponse(participates, scenarios, gameSystems, ruleBooks, authors, users)
     }
 
     @GetMapping("/myself")
@@ -133,13 +135,15 @@ class UserController(
         val participate = participateService.register(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
         val authors = authorService.findAllByIds(scenario.authorIds)
-        val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
-        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
+        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
+        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
     }
 
     data class ParticipatePostRequest(
         var id: Int? = null,
         var scenarioId: Int = 0,
+        val ruleBookIds: List<Int> = emptyList(),
         var roleTypes: List<RoleType> = emptyList(),
         var dispOrder: Int? = 0,
         @Valid
@@ -157,6 +161,7 @@ class UserController(
             id = id ?: 0,
             scenarioId = scenarioId,
             userId = userId,
+            ruleBookIds = ruleBookIds,
             roleTypes = roleTypes,
             dispOrder = dispOrder ?: 0,
             impression = if (impression?.content.isNullOrBlank()) null else ParticipateImpression(
@@ -177,8 +182,9 @@ class UserController(
         val participate = participateService.update(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
         val authors = authorService.findAllByIds(scenario.authorIds)
-        val ruleBook = scenario.ruleBookId?.let { ruleBookService.findById(it) }
-        return ParticipateResponse(participate, scenario, ruleBook, authors.list, user)
+        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
+        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
     }
 
     @DeleteMapping("/myself/participates/{participateId}")

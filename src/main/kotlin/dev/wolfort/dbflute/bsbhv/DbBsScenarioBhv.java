@@ -28,7 +28,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, rule_book_id, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -40,13 +40,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     RULE_BOOK
+ *     GAME_SYSTEM
  *
  * [referrer table]
  *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
  *
  * [foreign property]
- *     ruleBook
+ *     gameSystem
  *
  * [referrer property]
  *     participateList, scenarioAuthorList, scenarioDictionaryList
@@ -557,12 +557,12 @@ public abstract class DbBsScenarioBhv extends AbstractBehaviorWritable<DbScenari
     //                                                                   Pull out Relation
     //                                                                   =================
     /**
-     * Pull out the list of foreign table 'DbRuleBook'.
+     * Pull out the list of foreign table 'DbGameSystem'.
      * @param scenarioList The list of scenario. (NotNull, EmptyAllowed)
      * @return The list of foreign table. (NotNull, EmptyAllowed, NotNullElement)
      */
-    public List<DbRuleBook> pulloutRuleBook(List<DbScenario> scenarioList)
-    { return helpPulloutInternally(scenarioList, "ruleBook"); }
+    public List<DbGameSystem> pulloutGameSystem(List<DbScenario> scenarioList)
+    { return helpPulloutInternally(scenarioList, "gameSystem"); }
 
     // ===================================================================================
     //                                                                      Extract Column

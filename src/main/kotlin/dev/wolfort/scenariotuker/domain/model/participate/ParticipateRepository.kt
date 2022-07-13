@@ -6,9 +6,11 @@ interface ParticipateRepository {
 
     fun findById(id: Int): Participate?
 
-    fun findByScenarioId(scenarioId: Int): Participates
+    fun findAllByScenarioId(scenarioId: Int): Participates
 
-    fun findByUserId(userId: Int): Participates
+    fun findAllByRuleBookId(ruleBookId: Int): Participates
+
+    fun findAllByUserId(userId: Int): Participates
 
     fun register(participate: Participate): Participate
 

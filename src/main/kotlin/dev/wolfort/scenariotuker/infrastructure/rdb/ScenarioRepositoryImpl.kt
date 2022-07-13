@@ -48,8 +48,8 @@ class ScenarioRepositoryImpl(
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
-            query.ruleBookId?.let { ruleBookId ->
-                it.query().setRuleBookId_Equal(ruleBookId)
+            query.gameSystemId?.let { gameSystemId ->
+                it.query().setGameSystemId_Equal(gameSystemId)
             }
             it.query().setScenarioType_Equal(query.type.name)
             it.query().addOrderBy_ScenarioId_Asc()
@@ -61,9 +61,9 @@ class ScenarioRepositoryImpl(
         return mappingToScenarios(dbScenarioList)
     }
 
-    override fun findByRuleBookId(ruleBookId: Int): Scenarios {
+    override fun findAllByGameSystemId(gameSystemId: Int): Scenarios {
         val dbScenarioList = scenarioBhv.selectList {
-            it.query().setRuleBookId_Equal(ruleBookId)
+            it.query().setGameSystemId_Equal(gameSystemId)
             it.query().addOrderBy_ScenarioId_Asc()
         }
         scenarioBhv.load(dbScenarioList) {
@@ -73,7 +73,7 @@ class ScenarioRepositoryImpl(
         return mappingToScenarios(dbScenarioList)
     }
 
-    override fun findByAuthorId(authorId: Int): Scenarios {
+    override fun findAllByAuthorId(authorId: Int): Scenarios {
         val dbScenarioList = scenarioBhv.selectList {
             it.query().existsScenarioAuthor { saCB ->
                 saCB.query().setAuthorId_Equal(authorId)
@@ -105,7 +105,7 @@ class ScenarioRepositoryImpl(
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
         s.scenarioUrl = scenario.url?.value
-        s.ruleBookId = scenario.ruleBookId
+        s.gameSystemId = scenario.gameSystemId
         scenarioBhv.insert(s)
         scenario.authorIds.forEach { insertScenarioAuthor(s.scenarioId, it) }
         scenario.dictionaryNames.forEach { insertScenarioDictionary(s.scenarioId, it) }
@@ -120,7 +120,7 @@ class ScenarioRepositoryImpl(
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
         s.scenarioUrl = scenario.url?.value
-        s.ruleBookId = scenario.ruleBookId
+        s.gameSystemId = scenario.gameSystemId
         scenarioBhv.update(s)
 
         scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
@@ -158,7 +158,7 @@ class ScenarioRepositoryImpl(
             dictionaryNames = scenario.scenarioDictionaryList.map { it.scenarioName },
             type = ScenarioType.valueOf(scenario.scenarioType),
             url = scenario.scenarioUrl?.let { ScenarioUrl(it) },
-            ruleBookId = scenario.ruleBookId,
+            gameSystemId = scenario.gameSystemId,
             authorIds = scenario.scenarioAuthorList.map { it.authorId }
         )
     }
