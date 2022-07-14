@@ -46,9 +46,15 @@ class RuleBookController(
     data class SearchRequest(
         var name: String? = null,
         val game_system_id: Int? = null,
+        val game_system_name: String? = null,
         val rule_book_type: RuleBookType? = null
     ) {
-        fun toQuery() = RuleBookQuery(name = name, gameSystemId = game_system_id, ruleBookType = rule_book_type)
+        fun toQuery() = RuleBookQuery(
+            name = name,
+            gameSystemId = game_system_id,
+            gameSystemName = game_system_name,
+            ruleBookType = rule_book_type
+        )
     }
 
     @PostMapping

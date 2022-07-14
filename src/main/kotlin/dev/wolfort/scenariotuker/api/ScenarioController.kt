@@ -31,6 +31,8 @@ class ScenarioController(
 
     @GetMapping("/search")
     private fun search(request: SearchRequest): ScenariosResponse {
+        val query = request.toQuery()
+        if (query.isEmpty()) throw SystemException("scenario query is empty.")
         val scenarios = scenarioService.search(request.toQuery())
         val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
@@ -38,11 +40,20 @@ class ScenarioController(
     }
 
     data class SearchRequest(
-        var name: String? = "",
-        var gameSystemId: Int? = null,
-        var type: ScenarioType = ScenarioType.MurderMystery
+        var name: String? = null,
+        var game_system_id: Int? = null,
+        var game_system_name: String? = null,
+        var type: ScenarioType = ScenarioType.MurderMystery,
+        var author_name: String? = null
     ) {
-        fun toQuery() = ScenarioQuery(name = name, gameSystemId = gameSystemId, type = type)
+        fun toQuery() =
+            ScenarioQuery(
+                name = name,
+                gameSystemId = game_system_id,
+                gameSystemName = game_system_name,
+                type = type,
+                authorName = author_name
+            )
     }
 
     @GetMapping("/{scenarioId}")

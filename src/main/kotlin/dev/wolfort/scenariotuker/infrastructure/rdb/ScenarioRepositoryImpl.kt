@@ -51,6 +51,18 @@ class ScenarioRepositoryImpl(
             query.gameSystemId?.let { gameSystemId ->
                 it.query().setGameSystemId_Equal(gameSystemId)
             }
+            if (!query.gameSystemName.isNullOrEmpty()) {
+                it.query().queryGameSystem().setGameSystemName_LikeSearch(query.gameSystemName) { op ->
+                    op.splitByBlank().likeContain().asOrSplit()
+                }
+            }
+            if (!query.authorName.isNullOrEmpty()) {
+                it.query().existsScenarioAuthor { saCB ->
+                    saCB.query().queryAuthor().setAuthorName_LikeSearch(query.authorName) { op ->
+                        op.splitByBlank().likeContain().asOrSplit()
+                    }
+                }
+            }
             it.query().setScenarioType_Equal(query.type.name)
             it.query().addOrderBy_ScenarioId_Asc()
         }

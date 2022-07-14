@@ -64,6 +64,11 @@ class RuleBookRepositoryImpl(
             query.gameSystemId?.let { gameSystemId ->
                 it.query().setGameSystemId_Equal(gameSystemId)
             }
+            if (!query.gameSystemName.isNullOrEmpty()) {
+                it.query().queryGameSystem().setGameSystemName_LikeSearch(query.gameSystemName) { op ->
+                    op.splitByBlank().likeContain().asOrSplit()
+                }
+            }
             query.ruleBookType?.let { type ->
                 it.query().setRuleBookType_Equal(type.name)
             }
