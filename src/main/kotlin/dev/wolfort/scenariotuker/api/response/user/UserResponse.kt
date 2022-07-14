@@ -6,13 +6,15 @@ import dev.wolfort.scenariotuker.domain.model.user.User
 data class UserResponse(
     val id: Int,
     val name: String,
-    val twitter: TwitterUser
+    val twitter: TwitterUser,
+    val introduction: String?
 ) {
     constructor(
         user: User
     ) : this(
         id = user.id,
         name = user.name,
-        twitter = user.twitter
+        twitter = user.twitter,
+        introduction = user.introduction
     )
 }

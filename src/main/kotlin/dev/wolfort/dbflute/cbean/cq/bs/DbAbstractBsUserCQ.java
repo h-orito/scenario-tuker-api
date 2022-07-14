@@ -651,6 +651,159 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueAuthority();
 
     /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_Equal(String introduction) {
+        doSetIntroduction_Equal(fRES(introduction));
+    }
+
+    protected void doSetIntroduction_Equal(String introduction) {
+        regIntroduction(CK_EQ, introduction);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_NotEqual(String introduction) {
+        doSetIntroduction_NotEqual(fRES(introduction));
+    }
+
+    protected void doSetIntroduction_NotEqual(String introduction) {
+        regIntroduction(CK_NES, introduction);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_GreaterThan(String introduction) {
+        regIntroduction(CK_GT, fRES(introduction));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_LessThan(String introduction) {
+        regIntroduction(CK_LT, fRES(introduction));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_GreaterEqual(String introduction) {
+        regIntroduction(CK_GE, fRES(introduction));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_LessEqual(String introduction) {
+        regIntroduction(CK_LE, fRES(introduction));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introductionList The collection of introduction as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_InScope(Collection<String> introductionList) {
+        doSetIntroduction_InScope(introductionList);
+    }
+
+    protected void doSetIntroduction_InScope(Collection<String> introductionList) {
+        regINS(CK_INS, cTL(introductionList), xgetCValueIntroduction(), "introduction");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introductionList The collection of introduction as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setIntroduction_NotInScope(Collection<String> introductionList) {
+        doSetIntroduction_NotInScope(introductionList);
+    }
+
+    protected void doSetIntroduction_NotInScope(Collection<String> introductionList) {
+        regINS(CK_NINS, cTL(introductionList), xgetCValueIntroduction(), "introduction");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)} <br>
+     * <pre>e.g. setIntroduction_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param introduction The value of introduction as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setIntroduction_LikeSearch(String introduction, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setIntroduction_LikeSearch(introduction, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)} <br>
+     * <pre>e.g. setIntroduction_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param introduction The value of introduction as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setIntroduction_LikeSearch(String introduction, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(introduction), xgetCValueIntroduction(), "introduction", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setIntroduction_NotLikeSearch(String introduction, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setIntroduction_NotLikeSearch(introduction, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * introduction: {TEXT(65535)}
+     * @param introduction The value of introduction as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setIntroduction_NotLikeSearch(String introduction, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(introduction), xgetCValueIntroduction(), "introduction", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     */
+    public void setIntroduction_IsNull() { regIntroduction(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     */
+    public void setIntroduction_IsNullOrEmpty() { regIntroduction(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * introduction: {TEXT(65535)}
+     */
+    public void setIntroduction_IsNotNull() { regIntroduction(CK_ISNN, DOBJ); }
+
+    protected void regIntroduction(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueIntroduction(), "introduction"); }
+    protected abstract ConditionValue xgetCValueIntroduction();
+
+    /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)

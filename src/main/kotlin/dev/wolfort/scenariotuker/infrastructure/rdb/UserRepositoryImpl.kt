@@ -94,6 +94,7 @@ class UserRepositoryImpl(
         val u = DbUser()
         u.userId = exists.id
         u.userName = user.name
+        u.introduction = user.introduction
         userBhv.update(u)
         upsertTwitter(user.copy(id = exists.id))
         return findByUid(user.uid)!!
@@ -131,7 +132,8 @@ class UserRepositoryImpl(
                     accessToken = encryptor.decrypt(it.accessToken),
                     tokenSecret = encryptor.decrypt(it.tokenSecret)
                 )
-            }
+            },
+            introduction = user.introduction
         )
     }
 }

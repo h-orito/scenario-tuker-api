@@ -44,7 +44,8 @@ class ScenarioTukerUserDetailService(
                     screenName = "未設定",
                     accessToken = "dummy",
                     tokenSecret = "dummy"
-                )
+                ),
+                introduction = null
             )
         )
         return ScenarioTukerUser(

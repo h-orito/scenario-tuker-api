@@ -5,6 +5,7 @@ entity User {
     * user_id: int unsigned <<generated>>
     --
     * user_name: varchar(50)
+    introduction: text
 }
 
 entity TwitterUser {

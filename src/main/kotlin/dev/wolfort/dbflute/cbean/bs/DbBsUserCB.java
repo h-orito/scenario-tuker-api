@@ -347,6 +347,11 @@ public class DbBsUserCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnAuthority() { return doColumn("authority"); }
         /**
+         * introduction: {TEXT(65535)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnIntroduction() { return doColumn("introduction"); }
+        /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */

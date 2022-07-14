@@ -10,5 +10,6 @@ data class User(
     @JsonIgnore
     val authority: Authority,
     val name: String,
-    val twitter: TwitterUser
+    val twitter: TwitterUser,
+    val introduction: String?
 )

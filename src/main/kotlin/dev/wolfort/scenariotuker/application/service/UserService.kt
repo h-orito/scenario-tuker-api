@@ -39,8 +39,13 @@ class UserService(
     fun update(resource: UserUpdateResource): User {
         val existing =
             userRepository.findByUid(resource.uid) ?: throw SystemException("user not found. uid: ${resource.uid}")
-        // nameのみupdate
-        return userRepository.update(existing.copy(name = resource.name))
+        // 特定項目のみupdate
+        return userRepository.update(
+            existing.copy(
+                name = resource.name,
+                introduction = resource.introduction
+            )
+        )
     }
 
     data class UserCreateResource(
@@ -60,12 +65,14 @@ class UserService(
                 screenName = screenName,
                 accessToken = accessToken,
                 tokenSecret = tokenSecret
-            )
+            ),
+            introduction = null
         )
     }
 
     data class UserUpdateResource(
         val uid: String,
-        val name: String
+        val name: String,
+        val introduction: String?
     )
 }

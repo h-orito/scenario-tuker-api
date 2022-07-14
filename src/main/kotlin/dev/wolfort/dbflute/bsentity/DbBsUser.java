@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, uid, authority, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, authority, introduction, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -48,6 +48,7 @@ import dev.wolfort.dbflute.exentity.*;
  * String userName = entity.getUserName();
  * String uid = entity.getUid();
  * String authority = entity.getAuthority();
+ * String introduction = entity.getIntroduction();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -56,6 +57,7 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setUserName(userName);
  * entity.setUid(uid);
  * entity.setAuthority(authority);
+ * entity.setIntroduction(introduction);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -86,6 +88,9 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
 
     /** authority: {NotNull, VARCHAR(50)} */
     protected String _authority;
+
+    /** introduction: {TEXT(65535)} */
+    protected String _introduction;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -225,6 +230,7 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         sb.append(dm).append(xfND(_userName));
         sb.append(dm).append(xfND(_uid));
         sb.append(dm).append(xfND(_authority));
+        sb.append(dm).append(xfND(_introduction));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -327,6 +333,24 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     public void setAuthority(String authority) {
         registerModifiedProperty("authority");
         _authority = authority;
+    }
+
+    /**
+     * [get] introduction: {TEXT(65535)} <br>
+     * @return The value of the column 'introduction'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getIntroduction() {
+        checkSpecifiedProperty("introduction");
+        return convertEmptyToNull(_introduction);
+    }
+
+    /**
+     * [set] introduction: {TEXT(65535)} <br>
+     * @param introduction The value of the column 'introduction'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setIntroduction(String introduction) {
+        registerModifiedProperty("introduction");
+        _introduction = introduction;
     }
 
     /**

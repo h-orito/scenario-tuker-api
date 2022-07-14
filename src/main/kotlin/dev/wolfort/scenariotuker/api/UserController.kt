@@ -117,11 +117,13 @@ class UserController(
 
     data class MyselfPutRequest(
         var name: String = "",
-        var screenName: String = ""
+        var screenName: String = "",
+        val introduction: String? = null
     ) {
         fun toUpdateResource(uid: String) = UserService.UserUpdateResource(
             uid = uid,
-            name = name
+            name = name,
+            introduction = introduction
         )
     }
 

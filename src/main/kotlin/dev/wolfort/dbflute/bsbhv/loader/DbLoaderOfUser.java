@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, uid, authority, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, authority, introduction, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     

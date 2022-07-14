@@ -167,6 +167,26 @@ public class DbBsUserCQ extends DbAbstractBsUserCQ {
      */
     public DbBsUserCQ addOrderBy_Authority_Desc() { regOBD("authority"); return this; }
 
+    protected ConditionValue _introduction;
+    public ConditionValue xdfgetIntroduction()
+    { if (_introduction == null) { _introduction = nCV(); }
+      return _introduction; }
+    protected ConditionValue xgetCValueIntroduction() { return xdfgetIntroduction(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * introduction: {TEXT(65535)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Introduction_Asc() { regOBA("introduction"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * introduction: {TEXT(65535)}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_Introduction_Desc() { regOBD("introduction"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

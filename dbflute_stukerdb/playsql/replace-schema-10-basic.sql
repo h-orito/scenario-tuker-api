@@ -7,6 +7,7 @@ create table user (
     user_name         varchar(50) not null,
     uid               varchar(255) not null,
     authority         varchar(50) not null,
+    introduction      text,
     register_datetime datetime not null,
     register_trace    varchar(64) not null,
     update_datetime   datetime not null,
