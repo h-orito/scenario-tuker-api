@@ -18,22 +18,23 @@ import dev.wolfort.dbflute.allcommon.DbImplementedInvokerAssistant;
 import dev.wolfort.dbflute.allcommon.DbImplementedSqlClauseCreator;
 import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
+import dev.wolfort.dbflute.cbean.nss.*;
 
 /**
- * The base condition-bean of rule_book.
+ * The base condition-bean of user_rule_book.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsRuleBookCB extends AbstractConditionBean {
+public class DbBsUserRuleBookCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbRuleBookCQ _conditionQuery;
+    protected DbUserRuleBookCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsRuleBookCB() {
+    public DbBsUserRuleBookCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -76,7 +77,7 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "rule_book";
+        return "user_rule_book";
     }
 
     // ===================================================================================
@@ -84,23 +85,36 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param ruleBookId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param userRuleBookId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbRuleBookCB acceptPK(Integer ruleBookId) {
-        assertObjectNotNull("ruleBookId", ruleBookId);
-        DbBsRuleBookCB cb = this;
-        cb.query().setRuleBookId_Equal(ruleBookId);
-        return (DbRuleBookCB)this;
+    public DbUserRuleBookCB acceptPK(Integer userRuleBookId) {
+        assertObjectNotNull("userRuleBookId", userRuleBookId);
+        DbBsUserRuleBookCB cb = this;
+        cb.query().setUserRuleBookId_Equal(userRuleBookId);
+        return (DbUserRuleBookCB)this;
+    }
+
+    /**
+     * Accept the query condition of unique key as equal.
+     * @param userId : UQ+, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
+     * @param ruleBookId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to rule_book. (NotNull)
+     * @return this. (NotNull)
+     */
+    public DbUserRuleBookCB acceptUniqueOf(Integer userId, Integer ruleBookId) {
+        assertObjectNotNull("userId", userId);assertObjectNotNull("ruleBookId", ruleBookId);
+        DbBsUserRuleBookCB cb = this;
+        cb.query().setUserId_Equal(userId);cb.query().setRuleBookId_Equal(ruleBookId);
+        return (DbUserRuleBookCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_RuleBookId_Asc();
+        query().addOrderBy_UserRuleBookId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_RuleBookId_Desc();
+        query().addOrderBy_UserRuleBookId_Desc();
         return this;
     }
 
@@ -164,34 +178,34 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbRuleBookCQ query() {
+    public DbUserRuleBookCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbRuleBookCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbUserRuleBookCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbRuleBookCQ doGetConditionQuery() {
+    protected DbUserRuleBookCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbRuleBookCQ createLocalCQ() {
+    protected DbUserRuleBookCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbRuleBookCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbRuleBookCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbUserRuleBookCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbUserRuleBookCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbRuleBookCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbRuleBookCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbUserRuleBookCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbUserRuleBookCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -215,10 +229,10 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbRuleBookCB> unionCBLambda) {
-        final DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbUserRuleBookCB> unionCBLambda) {
+        final DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbRuleBookCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbUserRuleBookCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -232,33 +246,71 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbRuleBookCB> unionCBLambda) {
-        final DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbUserRuleBookCB> unionCBLambda) {
+        final DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbRuleBookCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbUserRuleBookCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    protected DbRuleBookNss _nssRuleBook;
+    public DbRuleBookNss xdfgetNssRuleBook() {
+        if (_nssRuleBook == null) { _nssRuleBook = new DbRuleBookNss(null); }
+        return _nssRuleBook;
+    }
     /**
      * Set up relation columns to select clause. <br>
-     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * RULE_BOOK by my rule_book_id, named 'ruleBook'.
      * <pre>
-     * <span style="color: #0000C0">ruleBookBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_GameSystem()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     * <span style="color: #0000C0">userRuleBookBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_RuleBook()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">ruleBook</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">ruleBook</span>.<span style="color: #CC4747">getGameSystem()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">userRuleBook</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">userRuleBook</span>.<span style="color: #CC4747">getRuleBook()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public void setupSelect_GameSystem() {
-        assertSetupSelectPurpose("gameSystem");
+    public DbRuleBookNss setupSelect_RuleBook() {
+        assertSetupSelectPurpose("ruleBook");
         if (hasSpecifiedLocalColumn()) {
-            specify().columnGameSystemId();
+            specify().columnRuleBookId();
         }
-        doSetupSelect(() -> query().queryGameSystem());
+        doSetupSelect(() -> query().queryRuleBook());
+        if (_nssRuleBook == null || !_nssRuleBook.hasConditionQuery())
+        { _nssRuleBook = new DbRuleBookNss(query().queryRuleBook()); }
+        return _nssRuleBook;
+    }
+
+    protected DbUserNss _nssUser;
+    public DbUserNss xdfgetNssUser() {
+        if (_nssUser == null) { _nssUser = new DbUserNss(null); }
+        return _nssUser;
+    }
+    /**
+     * Set up relation columns to select clause. <br>
+     * USER by my user_id, named 'user'.
+     * <pre>
+     * <span style="color: #0000C0">userRuleBookBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_User()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">userRuleBook</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">userRuleBook</span>.<span style="color: #CC4747">getUser()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
+     */
+    public DbUserNss setupSelect_User() {
+        assertSetupSelectPurpose("user");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnUserId();
+        }
+        doSetupSelect(() -> query().queryUser());
+        if (_nssUser == null || !_nssUser.hasConditionQuery())
+        { _nssUser = new DbUserNss(query().queryUser()); }
+        return _nssUser;
     }
 
     // [DBFlute-0.7.4]
@@ -301,32 +353,28 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbRuleBookCQ> {
-        protected DbGameSystemCB.HpSpecification _gameSystem;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbRuleBookCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<DbUserRuleBookCQ> {
+        protected DbRuleBookCB.HpSpecification _ruleBook;
+        protected DbUserCB.HpSpecification _user;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbUserRuleBookCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * rule_book_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * user_rule_book_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUserRuleBookId() { return doColumn("user_rule_book_id"); }
+        /**
+         * user_id: {UQ+, NotNull, INT UNSIGNED(10), FK to user}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnUserId() { return doColumn("user_id"); }
+        /**
+         * rule_book_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to rule_book}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnRuleBookId() { return doColumn("rule_book_id"); }
-        /**
-         * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
-        /**
-         * rule_book_name: {NotNull, VARCHAR(255)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnRuleBookName() { return doColumn("rule_book_name"); }
-        /**
-         * rule_book_type: {NotNull, VARCHAR(50)}
-         * @return The information object of specified column. (NotNull)
-         */
-        public SpecifiedColumn columnRuleBookType() { return doColumn("rule_book_type"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -351,92 +399,65 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnRuleBookId(); // PK
-            if (qyCall().qy().hasConditionQueryGameSystem()
-                    || qyCall().qy().xgetReferrerQuery() instanceof DbGameSystemCQ) {
-                columnGameSystemId(); // FK or one-to-one referrer
+            columnUserRuleBookId(); // PK
+            if (qyCall().qy().hasConditionQueryRuleBook()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbRuleBookCQ) {
+                columnRuleBookId(); // FK or one-to-one referrer
+            }
+            if (qyCall().qy().hasConditionQueryUser()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbUserCQ) {
+                columnUserId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "rule_book"; }
+        protected String getTableDbName() { return "user_rule_book"; }
         /**
          * Prepare to specify functions about relation table. <br>
-         * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+         * RULE_BOOK by my rule_book_id, named 'ruleBook'.
          * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public DbGameSystemCB.HpSpecification specifyGameSystem() {
-            assertRelation("gameSystem");
-            if (_gameSystem == null) {
-                _gameSystem = new DbGameSystemCB.HpSpecification(_baseCB
-                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGameSystem()
-                                    , () -> _qyCall.qy().queryGameSystem())
+        public DbRuleBookCB.HpSpecification specifyRuleBook() {
+            assertRelation("ruleBook");
+            if (_ruleBook == null) {
+                _ruleBook = new DbRuleBookCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryRuleBook()
+                                    , () -> _qyCall.qy().queryRuleBook())
                     , _purpose, _dbmetaProvider, xgetSDRFnFc());
                 if (xhasSyncQyCall()) { // inherits it
-                    _gameSystem.xsetSyncQyCall(xcreateSpQyCall(
-                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGameSystem()
-                      , () -> xsyncQyCall().qy().queryGameSystem()));
+                    _ruleBook.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryRuleBook()
+                      , () -> xsyncQyCall().qy().queryRuleBook()));
                 }
             }
-            return _gameSystem;
+            return _ruleBook;
         }
         /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from participate_rule_book where ...) as FOO_MAX} <br>
-         * PARTICIPATE_RULE_BOOK by rule_book_id, named 'participateRuleBookList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     bookCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     bookCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbParticipateRuleBook.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
+         * Prepare to specify functions about relation table. <br>
+         * USER by my user_id, named 'user'.
+         * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public HpSDRFunction<DbParticipateRuleBookCB, DbRuleBookCQ> derivedParticipateRuleBook() {
-            assertDerived("participateRuleBookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateRuleBookCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveParticipateRuleBookList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from rule_book_dictionary where ...) as FOO_MAX} <br>
-         * RULE_BOOK_DICTIONARY by rule_book_id, named 'ruleBookDictionaryList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     dictionaryCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     dictionaryCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbRuleBookDictionary.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbRuleBookDictionaryCB, DbRuleBookCQ> derivedRuleBookDictionary() {
-            assertDerived("ruleBookDictionaryList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbRuleBookDictionaryCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveRuleBookDictionaryList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from user_rule_book where ...) as FOO_MAX} <br>
-         * USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     bookCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     bookCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbUserRuleBook.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbUserRuleBookCB, DbRuleBookCQ> derivedUserRuleBook() {
-            assertDerived("userRuleBookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserRuleBookCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveUserRuleBookList(fn, sq, al, op), _dbmetaProvider);
+        public DbUserCB.HpSpecification specifyUser() {
+            assertRelation("user");
+            if (_user == null) {
+                _user = new DbUserCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryUser()
+                                    , () -> _qyCall.qy().queryUser())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _user.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryUser()
+                      , () -> xsyncQyCall().qy().queryUser()));
+                }
+            }
+            return _user;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbRuleBookCB, DbRuleBookCQ> myselfDerived() {
+        public HpSDRFunction<DbUserRuleBookCB, DbUserRuleBookCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbRuleBookCB> sq, DbRuleBookCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserRuleBookCB> sq, DbUserRuleBookCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -449,9 +470,9 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbRuleBookCB dreamCruiseCB() {
-        DbRuleBookCB cb = new DbRuleBookCB();
-        cb.xsetupForDreamCruise((DbRuleBookCB) this);
+    public DbUserRuleBookCB dreamCruiseCB() {
+        DbUserRuleBookCB cb = new DbUserRuleBookCB();
+        cb.xsetupForDreamCruise((DbUserRuleBookCB) this);
         return cb;
     }
 
@@ -476,15 +497,15 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbRuleBookCB> columnQuery(final SpecifyQuery<DbRuleBookCB> colCBLambda) {
+    public HpColQyOperand<DbUserRuleBookCB> columnQuery(final SpecifyQuery<DbUserRuleBookCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbRuleBookCB xcreateColumnQueryCB() {
-        DbRuleBookCB cb = new DbRuleBookCB();
-        cb.xsetupForColumnQuery((DbRuleBookCB)this);
+    protected DbUserRuleBookCB xcreateColumnQueryCB() {
+        DbUserRuleBookCB cb = new DbUserRuleBookCB();
+        cb.xsetupForColumnQuery((DbUserRuleBookCB)this);
         return cb;
     }
 
@@ -504,8 +525,8 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbRuleBookCB> orCBLambda) {
-        xorSQ((DbRuleBookCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbUserRuleBookCB> orCBLambda) {
+        xorSQ((DbUserRuleBookCB)this, orCBLambda);
     }
 
     /**
@@ -523,8 +544,8 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbRuleBookCB> andCBLambda) {
-        xorSQAP((DbRuleBookCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbUserRuleBookCB> andCBLambda) {
+        xorSQAP((DbUserRuleBookCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -554,11 +575,11 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbRuleBookCB cb;
+        final DbUserRuleBookCB cb;
         if (mainCB != null) {
-            cb = (DbRuleBookCB)mainCB;
+            cb = (DbUserRuleBookCB)mainCB;
         } else {
-            cb = new DbRuleBookCB();
+            cb = new DbUserRuleBookCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -567,8 +588,8 @@ public class DbBsRuleBookCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbRuleBookCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbRuleBookCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbUserRuleBookCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbUserRuleBookCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

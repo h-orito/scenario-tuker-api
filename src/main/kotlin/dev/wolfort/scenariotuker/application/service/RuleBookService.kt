@@ -19,6 +19,8 @@ class RuleBookService(
 
     fun findAllByGameSystemId(gameSystemId: Int): RuleBooks = ruleBookRepository.findAllByGameSystemId(gameSystemId)
 
+    fun findAllByUserId(userId: Int): RuleBooks = ruleBookRepository.findAllByUserId(userId)
+
     fun findById(id: Int): RuleBook? = ruleBookRepository.findById(id)
 
     fun search(query: RuleBookQuery): RuleBooks = ruleBookRepository.search(query)

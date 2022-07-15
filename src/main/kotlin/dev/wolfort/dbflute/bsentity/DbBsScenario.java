@@ -34,13 +34,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     GAME_SYSTEM
  *
  * [referrer table]
- *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY
+ *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY, USER_SCENARIO
  *
  * [foreign property]
  *     gameSystem
  *
  * [referrer property]
- *     participateList, scenarioAuthorList, scenarioDictionaryList
+ *     participateList, scenarioAuthorList, scenarioDictionaryList, userScenarioList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -213,6 +213,26 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         _scenarioDictionaryList = scenarioDictionaryList;
     }
 
+    /** USER_SCENARIO by scenario_id, named 'userScenarioList'. */
+    protected List<DbUserScenario> _userScenarioList;
+
+    /**
+     * [get] USER_SCENARIO by scenario_id, named 'userScenarioList'.
+     * @return The entity list of referrer property 'userScenarioList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserScenario> getUserScenarioList() {
+        if (_userScenarioList == null) { _userScenarioList = newReferrerList(); }
+        return _userScenarioList;
+    }
+
+    /**
+     * [set] USER_SCENARIO by scenario_id, named 'userScenarioList'.
+     * @param userScenarioList The entity list of referrer property 'userScenarioList'. (NullAllowed)
+     */
+    public void setUserScenarioList(List<DbUserScenario> userScenarioList) {
+        _userScenarioList = userScenarioList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -250,6 +270,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioAuthorList")); } } }
         if (_scenarioDictionaryList != null) { for (DbScenarioDictionary et : _scenarioDictionaryList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioDictionaryList")); } } }
+        if (_userScenarioList != null) { for (DbUserScenario et : _userScenarioList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userScenarioList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -286,6 +308,8 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         { sb.append(dm).append("scenarioAuthorList"); }
         if (_scenarioDictionaryList != null && !_scenarioDictionaryList.isEmpty())
         { sb.append(dm).append("scenarioDictionaryList"); }
+        if (_userScenarioList != null && !_userScenarioList.isEmpty())
+        { sb.append(dm).append("userScenarioList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

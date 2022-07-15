@@ -64,13 +64,33 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     public String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_ExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepUserId_ExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepUserId_NotExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepUserId_SpecifyDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserRuleBookListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepUserId_QueryDerivedReferrer_UserScenarioListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueUserName() { return _myCQ.xdfgetUserName(); }
     protected ConditionValue xgetCValueUid() { return _myCQ.xdfgetUid(); }

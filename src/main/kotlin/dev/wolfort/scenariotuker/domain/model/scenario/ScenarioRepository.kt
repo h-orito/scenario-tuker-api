@@ -10,6 +10,8 @@ interface ScenarioRepository {
 
     fun findAllByAuthorId(authorId: Int): Scenarios
 
+    fun findAllByUserId(userId: Int): Scenarios
+
     fun search(query: ScenarioQuery): Scenarios
 
     fun findById(id: Int): Scenario?

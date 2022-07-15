@@ -15,4 +15,12 @@ interface UserRepository {
     fun register(user: User): User
 
     fun update(user: User): User
+
+    fun registerUserRuleBook(id: Int, ruleBookId: Int)
+
+    fun deleteUserRuleBook(id: Int, ruleBookId: Int)
+
+    fun registerUserScenario(id: Int, scenarioId: Int)
+
+    fun deleteUserScenario(id: Int, scenarioId: Int)
 }

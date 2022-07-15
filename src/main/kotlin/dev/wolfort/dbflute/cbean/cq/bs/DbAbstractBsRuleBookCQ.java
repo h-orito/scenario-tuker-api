@@ -196,6 +196,25 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     public abstract String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select rule_book_id from user_rule_book where ...)} <br>
+     * user_rule_book by rule_book_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserRuleBookList for 'exists'. (NotNull)
+     */
+    public void existsUserRuleBook(SubQuery<DbUserRuleBookCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_ExistsReferrer_UserRuleBookList(cb.query());
+        registerExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "userRuleBookList");
+    }
+    public abstract String keepRuleBookId_ExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+
+    /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select rule_book_id from participate_rule_book where ...)} <br>
      * participate_rule_book by rule_book_id, named 'participateRuleBookAsOne'.
@@ -233,6 +252,25 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     }
     public abstract String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
 
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select rule_book_id from user_rule_book where ...)} <br>
+     * user_rule_book by rule_book_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of RuleBookId_NotExistsReferrer_UserRuleBookList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserRuleBook(SubQuery<DbUserRuleBookCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepRuleBookId_NotExistsReferrer_UserRuleBookList(cb.query());
+        registerNotExistsReferrer(cb.query(), "rule_book_id", "rule_book_id", pp, "userRuleBookList");
+    }
+    public abstract String keepRuleBookId_NotExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+
     public void xsderiveParticipateRuleBookList(String fn, SubQuery<DbParticipateRuleBookCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         DbParticipateRuleBookCB cb = new DbParticipateRuleBookCB(); cb.xsetupForDerivedReferrer(this);
@@ -248,6 +286,14 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", pp, "ruleBookDictionaryList", al, op);
     }
     public abstract String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
+
+    public void xsderiveUserRuleBookList(String fn, SubQuery<DbUserRuleBookCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepRuleBookId_SpecifyDerivedReferrer_UserRuleBookList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", pp, "userRuleBookList", al, op);
+    }
+    public abstract String keepRuleBookId_SpecifyDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -302,6 +348,33 @@ public abstract class DbAbstractBsRuleBookCQ extends AbstractConditionQuery {
     }
     public abstract String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq);
     public abstract String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_rule_book where ...)} <br>
+     * user_rule_book by rule_book_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserRuleBook()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     bookCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbUserRuleBookCB> derivedUserRuleBook() {
+        return xcreateQDRFunctionUserRuleBookList();
+    }
+    protected HpQDRFunction<DbUserRuleBookCB> xcreateQDRFunctionUserRuleBookList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserRuleBookList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserRuleBookList(String fn, SubQuery<DbUserRuleBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepRuleBookId_QueryDerivedReferrer_UserRuleBookList(cb.query()); String prpp = keepRuleBookId_QueryDerivedReferrer_UserRuleBookListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "rule_book_id", "rule_book_id", sqpp, "userRuleBookList", rd, vl, prpp, op);
+    }
+    public abstract String keepRuleBookId_QueryDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+    public abstract String keepRuleBookId_QueryDerivedReferrer_UserRuleBookListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>

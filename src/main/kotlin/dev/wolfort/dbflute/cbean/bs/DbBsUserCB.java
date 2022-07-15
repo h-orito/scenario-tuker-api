@@ -417,6 +417,40 @@ public class DbBsUserCB extends AbstractConditionBean {
                     -> cq.xsderiveParticipateList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from user_rule_book where ...) as FOO_MAX} <br>
+         * USER_RULE_BOOK by user_id, named 'userRuleBookList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     bookCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     bookCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, DbUserRuleBook.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<DbUserRuleBookCB, DbUserCQ> derivedUserRuleBook() {
+            assertDerived("userRuleBookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserRuleBookCB> sq, DbUserCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveUserRuleBookList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from user_scenario where ...) as FOO_MAX} <br>
+         * USER_SCENARIO by user_id, named 'userScenarioList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     scenarioCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     scenarioCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, DbUserScenario.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<DbUserScenarioCB, DbUserCQ> derivedUserScenario() {
+            assertDerived("userScenarioList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbUserScenarioCB> sq, DbUserCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveUserScenarioList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */

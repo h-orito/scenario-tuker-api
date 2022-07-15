@@ -2,6 +2,8 @@ package dev.wolfort.scenariotuker.api
 
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
+import dev.wolfort.scenariotuker.api.response.rulebook.RuleBooksResponse
+import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
 import dev.wolfort.scenariotuker.api.response.user.UserResponse
 import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
@@ -100,6 +102,27 @@ class UserController(
         }
 
         return ParticipatesResponse(participates, scenarios, gameSystems, ruleBooks, authors, users)
+    }
+
+    @GetMapping("/{userId}/rule-books")
+    private fun getUserRuleBooks(
+        @PathVariable userId: Int,
+    ): RuleBooksResponse {
+        userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
+        val ruleBooks = ruleBookService.findAllByUserId(userId)
+        val gameSystems = gameSystemService.findAllByIds(ruleBooks.list.map { it.gameSystemId }.distinct())
+        return RuleBooksResponse(ruleBooks, gameSystems)
+    }
+
+    @GetMapping("/{userId}/scenarios")
+    private fun getUserScenarios(
+        @PathVariable userId: Int,
+    ): ScenariosResponse {
+        userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
+        val scenarios = scenarioService.findAllByUserId(userId)
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
+        return ScenariosResponse(scenarios, gameSystems, authors)
     }
 
     @GetMapping("/myself")
@@ -201,5 +224,49 @@ class UserController(
             throw SystemException("自分のものしか削除できません。 participateId: $participateId")
         }
         participateService.delete(participateId)
+    }
+
+    @PostMapping("/myself/rule-books")
+    private fun postMyselfRuleBooks(
+        @RequestBody @Validated request: RuleBookPostRequest,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ) {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.registerUserRuleBook(user.id, request.ruleBookId)
+    }
+
+    data class RuleBookPostRequest(val ruleBookId: Int = 0)
+
+    @DeleteMapping("/myself/rule-books/{ruleBookId}")
+    private fun deleteMyselfRuleBooks(
+        @PathVariable ruleBookId: Int,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ) {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.deleteUserRuleBook(user.id, ruleBookId)
+    }
+
+    @PostMapping("/myself/scenarios")
+    private fun postMyselfScenarios(
+        @RequestBody @Validated request: ScenarioPostRequest,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ) {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.registerUserScenario(user.id, request.scenarioId)
+    }
+
+    data class ScenarioPostRequest(val scenarioId: Int = 0)
+
+    @DeleteMapping("/myself/scenarios/{scenarioId}")
+    private fun deleteMyselfScenarios(
+        @PathVariable scenarioId: Int,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ) {
+        val user = userService.findByUid(sTukerUser.uid)
+            ?: throw SystemException("user not found. user_id: ${sTukerUser.uid}")
+        userService.deleteUserScenario(user.id, scenarioId)
     }
 }

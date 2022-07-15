@@ -1,5 +1,7 @@
 package dev.wolfort.scenariotuker.application.service
 
+import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookRepository
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
 import dev.wolfort.scenariotuker.domain.model.user.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.Authority
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Service
 @Service
 class UserService(
     private val userRepository: UserRepository,
+    private val ruleBookRepository: RuleBookRepository,
+    private val scenarioRepository: ScenarioRepository,
     private val twitterRepository: TwitterRepository
 ) {
 
@@ -46,6 +50,24 @@ class UserService(
                 introduction = resource.introduction
             )
         )
+    }
+
+    fun registerUserRuleBook(userId: Int, ruleBookId: Int) {
+        ruleBookRepository.findById(ruleBookId) ?: throw SystemException("rule_book not found. id: $ruleBookId")
+        userRepository.registerUserRuleBook(userId, ruleBookId)
+    }
+
+    fun deleteUserRuleBook(userId: Int, ruleBookId: Int) {
+        userRepository.deleteUserRuleBook(userId, ruleBookId)
+    }
+
+    fun registerUserScenario(userId: Int, scenarioId: Int) {
+        scenarioRepository.findById(scenarioId) ?: throw SystemException("scenario not found. id: $scenarioId")
+        userRepository.registerUserScenario(userId, scenarioId)
+    }
+
+    fun deleteUserScenario(userId: Int, scenarioId: Int) {
+        userRepository.deleteUserScenario(userId, scenarioId)
     }
 
     data class UserCreateResource(

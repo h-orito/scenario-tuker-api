@@ -34,13 +34,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     GAME_SYSTEM
  *
  * [referrer table]
- *     PARTICIPATE_RULE_BOOK, RULE_BOOK_DICTIONARY
+ *     PARTICIPATE_RULE_BOOK, RULE_BOOK_DICTIONARY, USER_RULE_BOOK
  *
  * [foreign property]
  *     gameSystem
  *
  * [referrer property]
- *     participateRuleBookList, ruleBookDictionaryList
+ *     participateRuleBookList, ruleBookDictionaryList, userRuleBookList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -188,6 +188,26 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
         _ruleBookDictionaryList = ruleBookDictionaryList;
     }
 
+    /** USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'. */
+    protected List<DbUserRuleBook> _userRuleBookList;
+
+    /**
+     * [get] USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'.
+     * @return The entity list of referrer property 'userRuleBookList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserRuleBook> getUserRuleBookList() {
+        if (_userRuleBookList == null) { _userRuleBookList = newReferrerList(); }
+        return _userRuleBookList;
+    }
+
+    /**
+     * [set] USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'.
+     * @param userRuleBookList The entity list of referrer property 'userRuleBookList'. (NullAllowed)
+     */
+    public void setUserRuleBookList(List<DbUserRuleBook> userRuleBookList) {
+        _userRuleBookList = userRuleBookList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -223,6 +243,8 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateRuleBookList")); } } }
         if (_ruleBookDictionaryList != null) { for (DbRuleBookDictionary et : _ruleBookDictionaryList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "ruleBookDictionaryList")); } } }
+        if (_userRuleBookList != null) { for (DbUserRuleBook et : _userRuleBookList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userRuleBookList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -256,6 +278,8 @@ public abstract class DbBsRuleBook extends AbstractEntity implements DomainEntit
         { sb.append(dm).append("participateRuleBookList"); }
         if (_ruleBookDictionaryList != null && !_ruleBookDictionaryList.isEmpty())
         { sb.append(dm).append("ruleBookDictionaryList"); }
+        if (_userRuleBookList != null && !_userRuleBookList.isEmpty())
+        { sb.append(dm).append("userRuleBookList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

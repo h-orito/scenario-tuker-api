@@ -34,13 +34,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     TWITTER_USER(AsOne)
  *
  * [referrer table]
- *     PARTICIPATE, TWITTER_USER
+ *     PARTICIPATE, USER_RULE_BOOK, USER_SCENARIO, TWITTER_USER
  *
  * [foreign property]
  *     twitterUserAsOne
  *
  * [referrer property]
- *     participateList
+ *     participateList, userRuleBookList, userScenarioList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -184,6 +184,46 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         _participateList = participateList;
     }
 
+    /** USER_RULE_BOOK by user_id, named 'userRuleBookList'. */
+    protected List<DbUserRuleBook> _userRuleBookList;
+
+    /**
+     * [get] USER_RULE_BOOK by user_id, named 'userRuleBookList'.
+     * @return The entity list of referrer property 'userRuleBookList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserRuleBook> getUserRuleBookList() {
+        if (_userRuleBookList == null) { _userRuleBookList = newReferrerList(); }
+        return _userRuleBookList;
+    }
+
+    /**
+     * [set] USER_RULE_BOOK by user_id, named 'userRuleBookList'.
+     * @param userRuleBookList The entity list of referrer property 'userRuleBookList'. (NullAllowed)
+     */
+    public void setUserRuleBookList(List<DbUserRuleBook> userRuleBookList) {
+        _userRuleBookList = userRuleBookList;
+    }
+
+    /** USER_SCENARIO by user_id, named 'userScenarioList'. */
+    protected List<DbUserScenario> _userScenarioList;
+
+    /**
+     * [get] USER_SCENARIO by user_id, named 'userScenarioList'.
+     * @return The entity list of referrer property 'userScenarioList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbUserScenario> getUserScenarioList() {
+        if (_userScenarioList == null) { _userScenarioList = newReferrerList(); }
+        return _userScenarioList;
+    }
+
+    /**
+     * [set] USER_SCENARIO by user_id, named 'userScenarioList'.
+     * @param userScenarioList The entity list of referrer property 'userScenarioList'. (NullAllowed)
+     */
+    public void setUserScenarioList(List<DbUserScenario> userScenarioList) {
+        _userScenarioList = userScenarioList;
+    }
+
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -217,6 +257,10 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         { sb.append(li).append(xbRDS(_twitterUserAsOne, "twitterUserAsOne")); }
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
+        if (_userRuleBookList != null) { for (DbUserRuleBook et : _userRuleBookList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userRuleBookList")); } } }
+        if (_userScenarioList != null) { for (DbUserScenario et : _userScenarioList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "userScenarioList")); } } }
         return sb.toString();
     }
     protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
@@ -249,6 +293,10 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         { sb.append(dm).append("twitterUserAsOne"); }
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
+        if (_userRuleBookList != null && !_userRuleBookList.isEmpty())
+        { sb.append(dm).append("userRuleBookList"); }
+        if (_userScenarioList != null && !_userScenarioList.isEmpty())
+        { sb.append(dm).append("userScenarioList"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }

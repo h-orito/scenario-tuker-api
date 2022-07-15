@@ -85,17 +85,26 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_ExistsReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_ExistsReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_ExistsReferrer_RuleBookDictionaryList", sq); }
 
+    public Map<String, DbUserRuleBookCQ> xdfgetRuleBookId_ExistsReferrer_UserRuleBookList() { return xgetSQueMap("ruleBookId_ExistsReferrer_UserRuleBookList"); }
+    public String keepRuleBookId_ExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq) { return xkeepSQue("ruleBookId_ExistsReferrer_UserRuleBookList", sq); }
+
     public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_NotExistsReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_ParticipateRuleBookList"); }
     public String keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_ParticipateRuleBookList", sq); }
 
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_NotExistsReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_RuleBookDictionaryList", sq); }
 
+    public Map<String, DbUserRuleBookCQ> xdfgetRuleBookId_NotExistsReferrer_UserRuleBookList() { return xgetSQueMap("ruleBookId_NotExistsReferrer_UserRuleBookList"); }
+    public String keepRuleBookId_NotExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq) { return xkeepSQue("ruleBookId_NotExistsReferrer_UserRuleBookList", sq); }
+
     public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList"); }
     public String keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList", sq); }
 
     public Map<String, DbRuleBookDictionaryCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList", sq); }
+
+    public Map<String, DbUserRuleBookCQ> xdfgetRuleBookId_SpecifyDerivedReferrer_UserRuleBookList() { return xgetSQueMap("ruleBookId_SpecifyDerivedReferrer_UserRuleBookList"); }
+    public String keepRuleBookId_SpecifyDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq) { return xkeepSQue("ruleBookId_SpecifyDerivedReferrer_UserRuleBookList", sq); }
 
     public Map<String, DbParticipateRuleBookCQ> xdfgetRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList() { return xgetSQueMap("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList"); }
     public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_ParticipateRuleBookList", sq); }
@@ -106,6 +115,11 @@ public class DbBsRuleBookCQ extends DbAbstractBsRuleBookCQ {
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList", sq); }
     public Map<String, Object> xdfgetRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter() { return xgetSQuePmMap("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList"); }
     public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object pm) { return xkeepSQuePm("ruleBookId_QueryDerivedReferrer_RuleBookDictionaryList", pm); }
+
+    public Map<String, DbUserRuleBookCQ> xdfgetRuleBookId_QueryDerivedReferrer_UserRuleBookList() { return xgetSQueMap("ruleBookId_QueryDerivedReferrer_UserRuleBookList"); }
+    public String keepRuleBookId_QueryDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq) { return xkeepSQue("ruleBookId_QueryDerivedReferrer_UserRuleBookList", sq); }
+    public Map<String, Object> xdfgetRuleBookId_QueryDerivedReferrer_UserRuleBookListParameter() { return xgetSQuePmMap("ruleBookId_QueryDerivedReferrer_UserRuleBookList"); }
+    public String keepRuleBookId_QueryDerivedReferrer_UserRuleBookListParameter(Object pm) { return xkeepSQuePm("ruleBookId_QueryDerivedReferrer_UserRuleBookList", pm); }
 
     /**
      * Add order-by as ascend. <br>

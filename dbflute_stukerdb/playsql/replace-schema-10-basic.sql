@@ -85,6 +85,32 @@ alter table rule_book_dictionary
     on delete restrict
 ;
 
+create table user_rule_book (
+	user_rule_book_id int unsigned not null auto_increment,
+	user_id           int unsigned not null,
+	rule_book_id      int unsigned not null,
+    register_datetime datetime not null,
+    register_trace    varchar(64) not null,
+    update_datetime   datetime not null,
+    update_trace      varchar(64) not null,
+	primary key (user_rule_book_id),
+	unique (user_id, rule_book_id)
+);
+
+alter table user_rule_book
+    add constraint fk_user_rule_book_user foreign key (user_id)
+    references user (user_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table user_rule_book
+    add constraint fk_user_rule_book_rule_book foreign key (rule_book_id)
+    references rule_book (rule_book_id)
+    on update restrict
+    on delete restrict
+;
+
 create table scenario (
     scenario_id       int unsigned not null auto_increment,
     scenario_name     varchar(255) not null,
@@ -101,6 +127,50 @@ create table scenario (
 alter table scenario
     add constraint fk_scenario_game_system foreign key (game_system_id)
     references game_system (game_system_id)
+    on update restrict
+    on delete restrict
+;
+
+create table scenario_dictionary (
+    scenario_dictionary_id int unsigned not null auto_increment,
+    scenario_id            int unsigned not null,
+    scenario_name          varchar(255) not null,
+    register_datetime      datetime not null,
+    register_trace         varchar(64) not null,
+    update_datetime        datetime not null,
+    update_trace           varchar(64) not null,
+    primary key (scenario_dictionary_id)
+);
+
+alter table scenario_dictionary
+    add constraint fk_scenario_dictionary_scenario foreign key (scenario_id)
+    references scenario (scenario_id)
+    on update restrict
+    on delete restrict
+;
+
+create table user_scenario (
+	user_scenario_id  int unsigned not null auto_increment,
+	user_id           int unsigned not null,
+	scenario_id       int unsigned not null,
+	register_datetime datetime not null,
+	register_trace    varchar(64) not null,
+	update_datetime   datetime not null,
+	update_trace      varchar(64) not null,
+	primary key (user_scenario_id),
+	unique (user_id, scenario_id)
+);
+
+alter table user_scenario
+    add constraint fk_user_scenario_user foreign key (user_id)
+    references user (user_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table user_scenario
+    add constraint fk_user_scenario_scenario foreign key (scenario_id)
+    references scenario (scenario_id)
     on update restrict
     on delete restrict
 ;
@@ -137,24 +207,6 @@ alter table scenario_author
 alter table scenario_author
     add constraint fk_scenario_author_author foreign key (author_id)
     references author (author_id)
-    on update restrict
-    on delete restrict
-;
-
-create table scenario_dictionary (
-    scenario_dictionary_id int unsigned not null auto_increment,
-    scenario_id            int unsigned not null,
-    scenario_name          varchar(255) not null,
-    register_datetime      datetime not null,
-    register_trace         varchar(64) not null,
-    update_datetime        datetime not null,
-    update_trace           varchar(64) not null,
-    primary key (scenario_dictionary_id)
-);
-
-alter table scenario_dictionary
-    add constraint fk_scenario_dictionary_scenario foreign key (scenario_id)
-    references scenario (scenario_id)
     on update restrict
     on delete restrict
 ;

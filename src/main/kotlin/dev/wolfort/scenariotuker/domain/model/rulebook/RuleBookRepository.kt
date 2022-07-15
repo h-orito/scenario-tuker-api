@@ -8,6 +8,8 @@ interface RuleBookRepository {
 
     fun findAllByGameSystemId(gameSystemId: Int): RuleBooks
 
+    fun findAllByUserId(userId: Int): RuleBooks
+
     fun findById(id: Int): RuleBook?
 
     fun search(query: RuleBookQuery): RuleBooks

@@ -177,6 +177,44 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     public abstract String keepUserId_ExistsReferrer_ParticipateList(DbParticipateCQ sq);
 
     /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from user_rule_book where ...)} <br>
+     * user_rule_book by user_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserRuleBookList for 'exists'. (NotNull)
+     */
+    public void existsUserRuleBook(SubQuery<DbUserRuleBookCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_UserRuleBookList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "userRuleBookList");
+    }
+    public abstract String keepUserId_ExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+
+    /**
+     * Set up ExistsReferrer (correlated sub-query). <br>
+     * {exists (select user_id from user_scenario where ...)} <br>
+     * user_scenario by user_id, named 'userScenarioAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">existsUserScenario</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     scenarioCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserScenarioList for 'exists'. (NotNull)
+     */
+    public void existsUserScenario(SubQuery<DbUserScenarioCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserScenarioCB cb = new DbUserScenarioCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_ExistsReferrer_UserScenarioList(cb.query());
+        registerExistsReferrer(cb.query(), "user_id", "user_id", pp, "userScenarioList");
+    }
+    public abstract String keepUserId_ExistsReferrer_UserScenarioList(DbUserScenarioCQ sq);
+
+    /**
      * Set up NotExistsReferrer (correlated sub-query). <br>
      * {not exists (select user_id from participate where ...)} <br>
      * participate by user_id, named 'participateAsOne'.
@@ -195,6 +233,44 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     }
     public abstract String keepUserId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq);
 
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from user_rule_book where ...)} <br>
+     * user_rule_book by user_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_UserRuleBookList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserRuleBook(SubQuery<DbUserRuleBookCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_UserRuleBookList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "userRuleBookList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+
+    /**
+     * Set up NotExistsReferrer (correlated sub-query). <br>
+     * {not exists (select user_id from user_scenario where ...)} <br>
+     * user_scenario by user_id, named 'userScenarioAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">notExistsUserScenario</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     scenarioCB.query().set...
+     * });
+     * </pre>
+     * @param subCBLambda The callback for sub-query of UserId_NotExistsReferrer_UserScenarioList for 'not exists'. (NotNull)
+     */
+    public void notExistsUserScenario(SubQuery<DbUserScenarioCB> subCBLambda) {
+        assertObjectNotNull("subCBLambda", subCBLambda);
+        DbUserScenarioCB cb = new DbUserScenarioCB(); cb.xsetupForExistsReferrer(this);
+        lockCall(() -> subCBLambda.query(cb)); String pp = keepUserId_NotExistsReferrer_UserScenarioList(cb.query());
+        registerNotExistsReferrer(cb.query(), "user_id", "user_id", pp, "userScenarioList");
+    }
+    public abstract String keepUserId_NotExistsReferrer_UserScenarioList(DbUserScenarioCQ sq);
+
     public void xsderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
         DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
@@ -202,6 +278,22 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
         registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "participateList", al, op);
     }
     public abstract String keepUserId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq);
+
+    public void xsderiveUserRuleBookList(String fn, SubQuery<DbUserRuleBookCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_UserRuleBookList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "userRuleBookList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+
+    public void xsderiveUserScenarioList(String fn, SubQuery<DbUserScenarioCB> sq, String al, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserScenarioCB cb = new DbUserScenarioCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepUserId_SpecifyDerivedReferrer_UserScenarioList(cb.query());
+        registerSpecifyDerivedReferrer(fn, cb.query(), "user_id", "user_id", pp, "userScenarioList", al, op);
+    }
+    public abstract String keepUserId_SpecifyDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq);
 
     /**
      * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
@@ -229,6 +321,60 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
     }
     public abstract String keepUserId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq);
     public abstract String keepUserId_QueryDerivedReferrer_ParticipateListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_rule_book where ...)} <br>
+     * user_rule_book by user_id, named 'userRuleBookAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserRuleBook()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     bookCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     bookCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbUserRuleBookCB> derivedUserRuleBook() {
+        return xcreateQDRFunctionUserRuleBookList();
+    }
+    protected HpQDRFunction<DbUserRuleBookCB> xcreateQDRFunctionUserRuleBookList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserRuleBookList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserRuleBookList(String fn, SubQuery<DbUserRuleBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserRuleBookCB cb = new DbUserRuleBookCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_UserRuleBookList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_UserRuleBookListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "userRuleBookList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_UserRuleBookListParameter(Object vl);
+
+    /**
+     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
+     * {FOO &lt;= (select max(BAR) from user_scenario where ...)} <br>
+     * user_scenario by user_id, named 'userScenarioAsOne'.
+     * <pre>
+     * cb.query().<span style="color: #CC4747">derivedUserScenario()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     scenarioCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
+     *     scenarioCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
+     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
+     * </pre>
+     * @return The object to set up a function for referrer table. (NotNull)
+     */
+    public HpQDRFunction<DbUserScenarioCB> derivedUserScenario() {
+        return xcreateQDRFunctionUserScenarioList();
+    }
+    protected HpQDRFunction<DbUserScenarioCB> xcreateQDRFunctionUserScenarioList() {
+        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveUserScenarioList(fn, sq, rd, vl, op));
+    }
+    public void xqderiveUserScenarioList(String fn, SubQuery<DbUserScenarioCB> sq, String rd, Object vl, DerivedReferrerOption op) {
+        assertObjectNotNull("subQuery", sq);
+        DbUserScenarioCB cb = new DbUserScenarioCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String sqpp = keepUserId_QueryDerivedReferrer_UserScenarioList(cb.query()); String prpp = keepUserId_QueryDerivedReferrer_UserScenarioListParameter(vl);
+        registerQueryDerivedReferrer(fn, cb.query(), "user_id", "user_id", sqpp, "userScenarioList", rd, vl, prpp, op);
+    }
+    public abstract String keepUserId_QueryDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq);
+    public abstract String keepUserId_QueryDerivedReferrer_UserScenarioListParameter(Object vl);
 
     /**
      * IsNull {is null}. And OnlyOnceRegistered. <br>

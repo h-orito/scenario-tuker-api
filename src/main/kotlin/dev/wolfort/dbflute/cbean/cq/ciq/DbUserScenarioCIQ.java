@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of rule_book.
+ * The condition-query for in-line of user_scenario.
  * @author DBFlute(AutoGenerator)
  */
-public class DbRuleBookCIQ extends DbAbstractBsRuleBookCQ {
+public class DbUserScenarioCIQ extends DbAbstractBsUserScenarioCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsRuleBookCQ _myCQ;
+    protected DbBsUserScenarioCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbRuleBookCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsRuleBookCQ myCQ) {
+    public DbUserScenarioCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsUserScenarioCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,54 +61,23 @@ public class DbRuleBookCIQ extends DbAbstractBsRuleBookCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueRuleBookId() { return _myCQ.xdfgetRuleBookId(); }
-    public String keepRuleBookId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepRuleBookId_ExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepRuleBookId_ExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepRuleBookId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepRuleBookId_NotExistsReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepRuleBookId_NotExistsReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepRuleBookId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepRuleBookId_SpecifyDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepRuleBookId_SpecifyDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryList(DbRuleBookDictionaryCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_RuleBookDictionaryListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_UserRuleBookList(DbUserRuleBookCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepRuleBookId_QueryDerivedReferrer_UserRuleBookListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
-    protected ConditionValue xgetCValueRuleBookName() { return _myCQ.xdfgetRuleBookName(); }
-    protected ConditionValue xgetCValueRuleBookType() { return _myCQ.xdfgetRuleBookType(); }
+    protected ConditionValue xgetCValueUserScenarioId() { return _myCQ.xdfgetUserScenarioId(); }
+    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
+    protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbRuleBookCQ sq)
+    public String keepScalarCondition(DbUserScenarioCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbRuleBookCQ sq)
+    public String keepSpecifyMyselfDerived(DbUserScenarioCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbRuleBookCQ sq)
+    public String keepQueryMyselfDerived(DbUserScenarioCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbRuleBookCQ sq)
+    public String keepMyselfExists(DbUserScenarioCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -118,6 +87,6 @@ public class DbRuleBookCIQ extends DbAbstractBsRuleBookCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbRuleBookCB.class.getName(); }
-    protected String xinCQ() { return DbRuleBookCQ.class.getName(); }
+    protected String xinCB() { return DbUserScenarioCB.class.getName(); }
+    protected String xinCQ() { return DbUserScenarioCQ.class.getName(); }
 }

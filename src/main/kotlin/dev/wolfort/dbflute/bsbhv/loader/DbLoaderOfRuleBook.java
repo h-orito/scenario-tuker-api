@@ -30,13 +30,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     GAME_SYSTEM
  *
  * [referrer table]
- *     PARTICIPATE_RULE_BOOK, RULE_BOOK_DICTIONARY
+ *     PARTICIPATE_RULE_BOOK, RULE_BOOK_DICTIONARY, USER_RULE_BOOK
  *
  * [foreign property]
  *     gameSystem
  *
  * [referrer property]
- *     participateRuleBookList, ruleBookDictionaryList
+ *     participateRuleBookList, ruleBookDictionaryList, userRuleBookList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -127,6 +127,40 @@ public class DbLoaderOfRuleBook {
     public NestedReferrerLoaderGateway<DbLoaderOfRuleBookDictionary> loadRuleBookDictionary(ReferrerConditionSetupper<DbRuleBookDictionaryCB> refCBLambda) {
         myBhv().loadRuleBookDictionary(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerRuleBookDictionary = refLs);
         return hd -> hd.handle(new DbLoaderOfRuleBookDictionary().ready(_referrerRuleBookDictionary, _selector));
+    }
+
+    protected List<DbUserRuleBook> _referrerUserRuleBook;
+
+    /**
+     * Load referrer of userRuleBookList by the set-upper of referrer. <br>
+     * USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'.
+     * <pre>
+     * <span style="color: #0000C0">ruleBookBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">ruleBookList</span>, <span style="color: #553000">bookLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">bookLoader</span>.<span style="color: #CC4747">loadUserRuleBook</span>(<span style="color: #553000">bookCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">bookCB</span>.setupSelect...
+     *         <span style="color: #553000">bookCB</span>.query().set...
+     *         <span style="color: #553000">bookCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">bookLoader</span> -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    bookLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (DbRuleBook ruleBook : <span style="color: #553000">ruleBookList</span>) {
+     *     ... = ruleBook.<span style="color: #CC4747">getUserRuleBookList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setRuleBookId_InScope(pkList);
+     * cb.query().addOrderBy_RuleBookId_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<DbLoaderOfUserRuleBook> loadUserRuleBook(ReferrerConditionSetupper<DbUserRuleBookCB> refCBLambda) {
+        myBhv().loadUserRuleBook(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerUserRuleBook = refLs);
+        return hd -> hd.handle(new DbLoaderOfUserRuleBook().ready(_referrerUserRuleBook, _selector));
     }
 
     // ===================================================================================

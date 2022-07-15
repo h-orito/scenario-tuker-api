@@ -1,5 +1,6 @@
 package dev.wolfort.scenariotuker.infrastructure.rdb
 
+import dev.wolfort.dbflute.cbean.DbScenarioCB
 import dev.wolfort.dbflute.exbhv.DbScenarioAuthorBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioDictionaryBhv
@@ -8,6 +9,7 @@ import dev.wolfort.dbflute.exentity.DbScenarioAuthor
 import dev.wolfort.dbflute.exentity.DbScenarioDictionary
 import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
+import org.dbflute.bhv.readable.CBCall
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -18,14 +20,9 @@ class ScenarioRepositoryImpl(
 ) : ScenarioRepository {
 
     override fun findAll(): Scenarios {
-        val dbScenarioList = scenarioBhv.selectList {
+        return selectList {
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
-            it.loadScenarioAuthor { }
-        }
-        return mappingToScenarios(dbScenarioList)
     }
 
     override fun findAllByIds(ids: List<Int>): Scenarios {
@@ -42,7 +39,7 @@ class ScenarioRepositoryImpl(
     }
 
     override fun search(query: ScenarioQuery): Scenarios {
-        val dbScenarioList = scenarioBhv.selectList {
+        return selectList {
             if (!query.name.isNullOrEmpty()) {
                 it.query().setScenarioName_LikeSearch(query.name) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
@@ -66,37 +63,31 @@ class ScenarioRepositoryImpl(
             it.query().setScenarioType_Equal(query.type.name)
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
-            it.loadScenarioAuthor { }
-        }
-        return mappingToScenarios(dbScenarioList)
     }
 
     override fun findAllByGameSystemId(gameSystemId: Int): Scenarios {
-        val dbScenarioList = scenarioBhv.selectList {
+        return selectList {
             it.query().setGameSystemId_Equal(gameSystemId)
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
-            it.loadScenarioAuthor { }
-        }
-        return mappingToScenarios(dbScenarioList)
     }
 
     override fun findAllByAuthorId(authorId: Int): Scenarios {
-        val dbScenarioList = scenarioBhv.selectList {
+        return selectList {
             it.query().existsScenarioAuthor { saCB ->
                 saCB.query().setAuthorId_Equal(authorId)
             }
             it.query().addOrderBy_ScenarioId_Asc()
         }
-        scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
-            it.loadScenarioAuthor { }
+    }
+
+    override fun findAllByUserId(userId: Int): Scenarios {
+        return selectList {
+            it.query().existsUserScenario { usCB ->
+                usCB.query().setUserId_Equal(userId)
+            }
+            it.query().addOrderBy_ScenarioId_Asc()
         }
-        return mappingToScenarios(dbScenarioList)
     }
 
     override fun findById(id: Int): Scenario? {
@@ -144,6 +135,14 @@ class ScenarioRepositoryImpl(
         return findById(scenario.id)!!
     }
 
+    private fun selectList(cbCall: CBCall<DbScenarioCB>): Scenarios {
+        val dbScenarioList = scenarioBhv.selectList(cbCall)
+        scenarioBhv.load(dbScenarioList) {
+            it.loadScenarioDictionary {}
+            it.loadScenarioAuthor { }
+        }
+        return mappingToScenarios(dbScenarioList)
+    }
 
     private fun insertScenarioAuthor(scenarioId: Int, authorId: Int) {
         val sa = DbScenarioAuthor()

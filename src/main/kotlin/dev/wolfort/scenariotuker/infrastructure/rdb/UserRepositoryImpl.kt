@@ -2,8 +2,12 @@ package dev.wolfort.scenariotuker.infrastructure.rdb
 
 import dev.wolfort.dbflute.exbhv.DbTwitterUserBhv
 import dev.wolfort.dbflute.exbhv.DbUserBhv
+import dev.wolfort.dbflute.exbhv.DbUserRuleBookBhv
+import dev.wolfort.dbflute.exbhv.DbUserScenarioBhv
 import dev.wolfort.dbflute.exentity.DbTwitterUser
 import dev.wolfort.dbflute.exentity.DbUser
+import dev.wolfort.dbflute.exentity.DbUserRuleBook
+import dev.wolfort.dbflute.exentity.DbUserScenario
 import dev.wolfort.scenariotuker.domain.model.user.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.Authority
@@ -14,6 +18,8 @@ import org.springframework.stereotype.Repository
 class UserRepositoryImpl(
     private val userBhv: DbUserBhv,
     private val twitterUserBhv: DbTwitterUserBhv,
+    private val userRuleBookBhv: DbUserRuleBookBhv,
+    private val userScenarioBhv: DbUserScenarioBhv,
     private val encryptor: Encryptor
 ) : UserRepository {
 
@@ -98,6 +104,44 @@ class UserRepositoryImpl(
         userBhv.update(u)
         upsertTwitter(user.copy(id = exists.id))
         return findByUid(user.uid)!!
+    }
+
+    override fun registerUserRuleBook(id: Int, ruleBookId: Int) {
+        val existing = userRuleBookBhv.selectEntity {
+            it.query().setUserId_Equal(id)
+            it.query().setRuleBookId_Equal(ruleBookId)
+        }
+        if (existing.isPresent) return
+        val ur = DbUserRuleBook()
+        ur.userId = id
+        ur.ruleBookId = ruleBookId
+        userRuleBookBhv.insert(ur)
+    }
+
+    override fun deleteUserRuleBook(id: Int, ruleBookId: Int) {
+        userRuleBookBhv.queryDelete {
+            it.query().setUserId_Equal(id)
+            it.query().setRuleBookId_Equal(ruleBookId)
+        }
+    }
+
+    override fun registerUserScenario(id: Int, scenarioId: Int) {
+        val existing = userScenarioBhv.selectEntity {
+            it.query().setUserId_Equal(id)
+            it.query().setScenarioId_Equal(scenarioId)
+        }
+        if (existing.isPresent) return
+        val us = DbUserScenario()
+        us.userId = id
+        us.scenarioId = scenarioId
+        userScenarioBhv.insert(us)
+    }
+
+    override fun deleteUserScenario(id: Int, scenarioId: Int) {
+        userScenarioBhv.queryDelete {
+            it.query().setUserId_Equal(id)
+            it.query().setScenarioId_Equal(scenarioId)
+        }
     }
 
     private fun upsertTwitter(user: User) {

@@ -24,6 +24,8 @@ class ScenarioService(
 
     fun findAllByAuthorId(authorId: Int): Scenarios = scenarioRepository.findAllByAuthorId(authorId)
 
+    fun findAllByUserId(userId: Int): Scenarios = scenarioRepository.findAllByUserId(userId)
+
     fun search(query: ScenarioQuery): Scenarios = scenarioRepository.search(query)
 
     fun findById(id: Int): Scenario? = scenarioRepository.findById(id)

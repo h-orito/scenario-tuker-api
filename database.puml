@@ -18,7 +18,7 @@ entity TwitterUser {
 	* token_secret: varchar(255)
 }
 
-User ||-|| TwitterUser
+User ||-right-|| TwitterUser
 
 entity GameSystem {
 	* game_system_id: int unsigned <<generated>>
@@ -34,7 +34,7 @@ entity RuleBook {
     * rule_book_type: varchar(50)
 }
 
-GameSystem ||-o{ RuleBook
+GameSystem ||-left-o{ RuleBook
 
 entity RuleBookDictionary {
     * rule_book_dictionary_id: int unsigned <<generated>>
@@ -43,7 +43,17 @@ entity RuleBookDictionary {
     * rule_book_name: varchar(255)
 }
 
-RuleBook ||-|{ RuleBookDictionary
+RuleBookDictionary }|--down-|| RuleBook
+
+entity UserRuleBook {
+	* user_rule_book_id: int unsigned <<generated>>
+	--
+	* user_id: int unsigned <<foreign key>>
+	* rule_book_id: int unsigned <<foreign key>>
+}
+
+UserRuleBook }o-down-o| RuleBook
+UserRuleBook }o-right-o| User
 
 entity Scenario {
     * scenario_id: int unsigned <<generated>>
@@ -54,7 +64,17 @@ entity Scenario {
     game_system_id: int unsigned <<foreign key>>
 }
 
-GameSystem ||-o{ Scenario
+GameSystem ||-right-o{ Scenario
+
+entity UserScenario {
+	* user_scenario_id: int unsigned <<generated>>
+	--
+	* user_id: int unsigned <<foreign key>>
+	* scenario_id: int unsigned <<foreign key>>
+}
+
+User |o-down-o{ UserScenario
+Scenario |o-up-o{ UserScenario
 
 entity Author {
 	* author_id: int unsigned <<generated>>
@@ -69,8 +89,8 @@ entity ScenarioAuthor {
 	* author_id: int unsigned <<foreign key>>
 }
 
-ScenarioAuthor }o-|| Scenario
-ScenarioAuthor }o-|| Author
+Scenario ||-down-o{ ScenarioAuthor
+ScenarioAuthor }o-down-|| Author
 
 entity ScenarioDictionary {
     * scenario_dictionary_id: int unsigned <<generated>>
@@ -79,7 +99,7 @@ entity ScenarioDictionary {
     * scenario_name: varchar(255) <<unique>>
 }
 
-Scenario ||--|{ ScenarioDictionary
+Scenario ||-right-|{ ScenarioDictionary
 
 entity Participate {
     * participate_id: int unsigned <<generated>>
@@ -89,8 +109,9 @@ entity Participate {
     * disp_order: int unsigned
 }
 
-User ||--o{ Participate
-Scenario ||--o{ Participate
+User ||-down-o{ Participate
+Participate }o-|| Scenario
+Participate -[hidden]down- GameSystem
 
 entity ParticipateRole {
     * participate_role_id: int unsigned <<generated>>
@@ -99,7 +120,7 @@ entity ParticipateRole {
     * participate_role_type: varchar(50)
 }
 
-Participate ||--|{ ParticipateRole
+Participate ||--down--|{ ParticipateRole
 
 entity ParticipateImpression {
 	* participate_impression_id: int unsigned <<generated>>
@@ -110,7 +131,7 @@ entity ParticipateImpression {
 	* impression: text
 }
 
-Participate ||--o| ParticipateImpression
+Participate ||--down--o| ParticipateImpression
 
 entity ParticipateRuleBook {
 	* participate_rule_book_id: int unsigned <<generated>>
@@ -119,7 +140,7 @@ entity ParticipateRuleBook {
 	* rule_book_id: int unsigned <<foreign key>>
 }
 
-ParticipateRuleBook }o-|| Participate
-ParticipateRuleBook }o-|| RuleBook
+ParticipateRuleBook }o-down-|| Participate
+ParticipateRuleBook }o-left-|| RuleBook
 
 @enduml

@@ -83,7 +83,7 @@ public class DbRuleBookDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnRuleBookId = cci("rule_book_id", "rule_book_id", null, null, Integer.class, "ruleBookId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRuleBookList,ruleBookDictionaryList", null, false);
+    protected final ColumnInfo _columnRuleBookId = cci("rule_book_id", "rule_book_id", null, null, Integer.class, "ruleBookId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRuleBookList,ruleBookDictionaryList,userRuleBookList", null, false);
     protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "gameSystem", null, null, false);
     protected final ColumnInfo _columnRuleBookName = cci("rule_book_name", "rule_book_name", null, null, String.class, "ruleBookName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRuleBookType = cci("rule_book_type", "rule_book_type", null, null, String.class, "ruleBookType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
@@ -193,6 +193,14 @@ public class DbRuleBookDbm extends AbstractDBMeta {
     public ReferrerInfo referrerRuleBookDictionaryList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRuleBookId(), DbRuleBookDictionaryDbm.getInstance().columnRuleBookId());
         return cri("fk_rule_book_dictionary_rule_book", "ruleBookDictionaryList", this, DbRuleBookDictionaryDbm.getInstance(), mp, false, "ruleBook");
+    }
+    /**
+     * USER_RULE_BOOK by rule_book_id, named 'userRuleBookList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserRuleBookList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnRuleBookId(), DbUserRuleBookDbm.getInstance().columnRuleBookId());
+        return cri("fk_user_rule_book_rule_book", "userRuleBookList", this, DbUserRuleBookDbm.getInstance(), mp, false, "ruleBook");
     }
 
     // ===================================================================================

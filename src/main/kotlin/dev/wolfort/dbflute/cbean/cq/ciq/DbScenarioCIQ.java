@@ -68,17 +68,23 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepScenarioId_ExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepScenarioId_ExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepScenarioId_NotExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepScenarioId_SpecifyDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepScenarioId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
@@ -91,6 +97,10 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepScenarioId_QueryDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepScenarioId_QueryDerivedReferrer_UserScenarioListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueScenarioName() { return _myCQ.xdfgetScenarioName(); }
     protected ConditionValue xgetCValueScenarioType() { return _myCQ.xdfgetScenarioType(); }

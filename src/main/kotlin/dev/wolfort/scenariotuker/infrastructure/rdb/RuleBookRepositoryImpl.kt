@@ -1,11 +1,13 @@
 package dev.wolfort.scenariotuker.infrastructure.rdb
 
+import dev.wolfort.dbflute.cbean.DbRuleBookCB
 import dev.wolfort.dbflute.exbhv.DbRuleBookBhv
 import dev.wolfort.dbflute.exbhv.DbRuleBookDictionaryBhv
 import dev.wolfort.dbflute.exentity.DbRuleBook
 import dev.wolfort.dbflute.exentity.DbRuleBookDictionary
 import dev.wolfort.scenariotuker.domain.model.rulebook.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
+import org.dbflute.bhv.readable.CBCall
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -15,11 +17,9 @@ class RuleBookRepositoryImpl(
 ) : RuleBookRepository {
 
     override fun findAll(): RuleBooks {
-        val dbRuleBookList = ruleBookBhv.selectList {
+        return selectList {
             it.query().addOrderBy_RuleBookId_Asc()
         }
-        ruleBookBhv.loadRuleBookDictionary(dbRuleBookList) {}
-        return mappingToRuleBooks(dbRuleBookList)
     }
 
     override fun findAllByIds(ids: List<Int>): RuleBooks {
@@ -33,12 +33,19 @@ class RuleBookRepositoryImpl(
     }
 
     override fun findAllByGameSystemId(gameSystemId: Int): RuleBooks {
-        val dbRuleBookList = ruleBookBhv.selectList {
+        return selectList {
             it.query().setGameSystemId_Equal(gameSystemId)
             it.query().addOrderBy_RuleBookId_Asc()
         }
-        ruleBookBhv.loadRuleBookDictionary(dbRuleBookList) {}
-        return mappingToRuleBooks(dbRuleBookList)
+    }
+
+    override fun findAllByUserId(userId: Int): RuleBooks {
+        return selectList {
+            it.query().existsUserRuleBook { urCB ->
+                urCB.query().setUserId_Equal(userId)
+            }
+            it.query().addOrderBy_RuleBookId_Asc()
+        }
     }
 
     override fun findById(id: Int): RuleBook? {
@@ -53,7 +60,7 @@ class RuleBookRepositoryImpl(
 
     override fun search(query: RuleBookQuery): RuleBooks {
         if (query.isEmpty()) return RuleBooks(list = emptyList())
-        val list = ruleBookBhv.selectList {
+        return selectList {
             if (!query.name.isNullOrEmpty()) {
                 it.query().existsRuleBookDictionary { dicCB ->
                     dicCB.query().setRuleBookName_LikeSearch(query.name) { op ->
@@ -74,8 +81,12 @@ class RuleBookRepositoryImpl(
             }
             it.query().addOrderBy_RuleBookId_Asc()
         }
-        ruleBookBhv.loadRuleBookDictionary(list) {}
-        return mappingToRuleBooks(list)
+    }
+
+    private fun selectList(cbCall: CBCall<DbRuleBookCB>): RuleBooks {
+        val dbRuleBookList = ruleBookBhv.selectList(cbCall)
+        ruleBookBhv.loadRuleBookDictionary(dbRuleBookList) {}
+        return mappingToRuleBooks(dbRuleBookList)
     }
 
     override fun register(ruleBook: RuleBook): RuleBook {

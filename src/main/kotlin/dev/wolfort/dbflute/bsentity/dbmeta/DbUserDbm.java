@@ -84,7 +84,7 @@ public class DbUserDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList", null, false);
+    protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,userRuleBookList,userScenarioList", null, false);
     protected final ColumnInfo _columnUserName = cci("user_name", "user_name", null, null, String.class, "userName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnUid = cci("uid", "uid", null, null, String.class, "uid", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnAuthority = cci("authority", "authority", null, null, String.class, "authority", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
@@ -198,6 +198,22 @@ public class DbUserDbm extends AbstractDBMeta {
     public ReferrerInfo referrerParticipateList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbParticipateDbm.getInstance().columnUserId());
         return cri("fk_participate_user", "participateList", this, DbParticipateDbm.getInstance(), mp, false, "user");
+    }
+    /**
+     * USER_RULE_BOOK by user_id, named 'userRuleBookList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserRuleBookList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserRuleBookDbm.getInstance().columnUserId());
+        return cri("fk_user_rule_book_user", "userRuleBookList", this, DbUserRuleBookDbm.getInstance(), mp, false, "user");
+    }
+    /**
+     * USER_SCENARIO by user_id, named 'userScenarioList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerUserScenarioList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserScenarioDbm.getInstance().columnUserId());
+        return cri("fk_user_scenario_user", "userScenarioList", this, DbUserScenarioDbm.getInstance(), mp, false, "user");
     }
 
     // ===================================================================================
