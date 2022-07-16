@@ -38,13 +38,18 @@ class ScenarioService(
     }
 
     fun update(scenario: Scenario): Scenario {
-        scenario.gameSystemId?.let {
-            gameSystemRepository.findById(it) ?: throw SystemException("game_system not found. id: $it")
-        }
+        val existing =
+            scenarioRepository.findById(scenario.id) ?: throw SystemException("scenario not found. id: ${scenario.id}")
         val authors = authorRepository.findAllByIds(scenario.authorIds)
         if (scenario.authorIds.size != authors.list.size) {
             throw SystemException("author not found. ids: ${scenario.authorIds}")
         }
-        return scenarioRepository.update(scenario)
+        // 一部項目のみupdate可能
+        return scenarioRepository.update(
+            scenario.copy(
+                type = existing.type,
+                gameSystemId = existing.gameSystemId
+            )
+        )
     }
 }

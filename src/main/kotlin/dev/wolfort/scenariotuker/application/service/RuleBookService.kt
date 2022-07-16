@@ -32,8 +32,14 @@ class RuleBookService(
     }
 
     fun update(ruleBook: RuleBook): RuleBook {
+        val existing =
+            ruleBookRepository.findById(ruleBook.id) ?: throw SystemException("rule_book not found. id: ${ruleBook.id}")
         gameSystemRepository.findById(ruleBook.gameSystemId)
             ?: throw SystemException("game system not found. game_system_id: ${ruleBook.gameSystemId}")
-        return ruleBookRepository.update(ruleBook)
+        return ruleBookRepository.update(
+            ruleBook.copy(
+                gameSystemId = existing.gameSystemId
+            )
+        )
     }
 }
