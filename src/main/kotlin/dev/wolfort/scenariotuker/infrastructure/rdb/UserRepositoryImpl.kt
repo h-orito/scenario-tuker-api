@@ -20,7 +20,8 @@ class UserRepositoryImpl(
     private val twitterUserBhv: DbTwitterUserBhv,
     private val userRuleBookBhv: DbUserRuleBookBhv,
     private val userScenarioBhv: DbUserScenarioBhv,
-    private val encryptor: Encryptor
+    private val encryptor: Encryptor,
+    private val twitterRepository: TwitterRepository
 ) : UserRepository {
 
     override fun findAll(): Users {
@@ -40,7 +41,11 @@ class UserRepositoryImpl(
         return mappingToUsers(ids.mapNotNull { id -> dbUserList.find { it.userId == id } })
     }
 
-    override fun search(query: UserQuery): Users {
+    override fun search(query: UserQuery, user: User?): Users {
+        val followings = if (query.isTwitterFollowing == true && user != null) {
+            twitterRepository.getFollowings(user.twitter)
+        } else emptyList()
+
         val dbUserList = userBhv.selectList {
             it.setupSelect_TwitterUserAsOne()
             if (!query.name.isNullOrEmpty()) {
@@ -52,6 +57,10 @@ class UserRepositoryImpl(
                 it.query().queryTwitterUserAsOne().setScreenName_LikeSearch(query.screenName) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
                 }
+            }
+            if (followings.isNotEmpty()) {
+                it.query().queryTwitterUserAsOne()
+                    .setTwitterId_InScope(followings.map { twitterUser -> twitterUser.id })
             }
             it.query().addOrderBy_UserId_Asc()
         }

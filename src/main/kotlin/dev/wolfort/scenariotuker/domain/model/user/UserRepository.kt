@@ -6,7 +6,7 @@ interface UserRepository {
 
     fun findAllByIds(ids: List<Int>): Users
 
-    fun search(query: UserQuery): Users
+    fun search(query: UserQuery, user: User?): Users
 
     fun findById(id: Int): User?
 

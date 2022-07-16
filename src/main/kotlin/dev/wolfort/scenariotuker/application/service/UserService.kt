@@ -17,7 +17,7 @@ class UserService(
 
     fun findAll(): Users = userRepository.findAll()
 
-    fun search(query: UserQuery): Users = userRepository.search(query)
+    fun search(query: UserQuery, user: User?): Users = userRepository.search(query, user)
 
     fun findAllByIds(ids: List<Int>): Users = userRepository.findAllByIds(ids)
 

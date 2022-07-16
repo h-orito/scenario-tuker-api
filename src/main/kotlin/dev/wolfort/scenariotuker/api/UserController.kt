@@ -37,17 +37,22 @@ class UserController(
     private fun list(): Users = userService.findAll()
 
     @GetMapping("/search")
-    private fun search(request: SearchRequest): Users {
+    private fun search(
+        request: SearchRequest,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser?
+    ): Users {
         if (request.isEmpty()) throw SystemException("query is empty.")
-        return userService.search(request.toQuery())
+        val user = sTukerUser?.let { userService.findByUid(it.uid) }
+        return userService.search(request.toQuery(), user)
     }
 
     data class SearchRequest(
         var name: String? = null,
         var screen_name: String? = null,
+        val is_twitter_following: Boolean? = null
     ) {
-        fun isEmpty() = name.isNullOrEmpty() && screen_name.isNullOrEmpty()
-        fun toQuery() = UserQuery(name = name, screenName = screen_name)
+        fun isEmpty() = name.isNullOrEmpty() && screen_name.isNullOrEmpty() && is_twitter_following == null
+        fun toQuery() = UserQuery(name = name, screenName = screen_name, isTwitterFollowing = is_twitter_following)
     }
 
     @GetMapping("/{userId}")
