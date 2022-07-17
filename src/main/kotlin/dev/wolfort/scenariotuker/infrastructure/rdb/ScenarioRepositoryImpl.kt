@@ -67,7 +67,7 @@ class ScenarioRepositoryImpl(
             if (query.paging != null) {
                 it.paging(query.paging.pageSize, query.paging.pageCount)
             } else {
-                it.paging(100000,1)
+                it.paging(100000, 1)
             }
             it.query().addOrderBy_ScenarioId_Asc()
         }
@@ -75,6 +75,7 @@ class ScenarioRepositoryImpl(
 
     override fun findAllByGameSystemId(gameSystemId: Int): Scenarios {
         return selectList {
+            it.paging(100000, 1)
             it.query().setGameSystemId_Equal(gameSystemId)
             it.query().addOrderBy_ScenarioId_Asc()
         }
@@ -85,6 +86,7 @@ class ScenarioRepositoryImpl(
             it.query().existsScenarioAuthor { saCB ->
                 saCB.query().setAuthorId_Equal(authorId)
             }
+            it.paging(100000, 1)
             it.query().addOrderBy_ScenarioId_Asc()
         }
     }
@@ -94,6 +96,7 @@ class ScenarioRepositoryImpl(
             it.query().existsUserScenario { usCB ->
                 usCB.query().setUserId_Equal(userId)
             }
+            it.paging(100000, 1)
             it.query().addOrderBy_ScenarioId_Asc()
         }
     }
