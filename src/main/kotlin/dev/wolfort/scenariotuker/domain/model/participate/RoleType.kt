@@ -3,6 +3,7 @@ package dev.wolfort.scenariotuker.domain.model.participate
 enum class RoleType {
     GameMaster,
     Keeper,
+    Player,
     HandOut1,
     HandOut2,
     HandOut3,
@@ -38,6 +39,7 @@ enum class RoleType {
     companion object {
         val murderMysteries: List<RoleType> = listOf(
             GameMaster,
+            Player,
             PlayerCharacter1,
             PlayerCharacter2,
             PlayerCharacter3,
@@ -60,6 +62,7 @@ enum class RoleType {
         val trpgs: List<RoleType> = listOf(
             GameMaster,
             Keeper,
+            Player,
             HandOut1,
             HandOut2,
             HandOut3,
@@ -76,6 +79,7 @@ enum class RoleType {
             Participating,
             Participant,
             PlanningToParticipate,
+            AbleToGameMaster,
             AbleToKeeper
         )
     }
