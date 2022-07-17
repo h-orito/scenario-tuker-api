@@ -43,7 +43,7 @@ class ScenarioController(
         var name: String? = null,
         var game_system_id: Int? = null,
         var game_system_name: String? = null,
-        var type: ScenarioType = ScenarioType.MurderMystery,
+        var type: ScenarioType? = null,
         var author_name: String? = null
     ) {
         fun toQuery() =

@@ -53,6 +53,9 @@ class ScenarioRepositoryImpl(
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
+            query.type?.let { type ->
+                it.query().setScenarioType_Equal(type.name)
+            }
             if (!query.authorName.isNullOrEmpty()) {
                 it.query().existsScenarioAuthor { saCB ->
                     saCB.query().queryAuthor().setAuthorName_LikeSearch(query.authorName) { op ->
@@ -60,7 +63,6 @@ class ScenarioRepositoryImpl(
                     }
                 }
             }
-            it.query().setScenarioType_Equal(query.type.name)
             it.query().addOrderBy_ScenarioId_Asc()
         }
     }
