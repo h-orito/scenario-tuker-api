@@ -43,11 +43,13 @@ class GameSystemController(
 
     data class PostRequest(
         val id: Int? = null,
-        val name: String = ""
+        val name: String = "",
+        val dictionaryNames: List<String> = emptyList(),
     ) {
         fun toGameSystem() = GameSystem(
             id = id ?: 0,
-            name = name
+            name = name,
+            dictionaryNames = dictionaryNames
         )
     }
 

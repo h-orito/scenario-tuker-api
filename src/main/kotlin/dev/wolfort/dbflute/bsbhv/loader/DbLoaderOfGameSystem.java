@@ -30,13 +30,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [referrer table]
- *     RULE_BOOK, SCENARIO
+ *     GAME_SYSTEM_DICTIONARY, RULE_BOOK, SCENARIO
  *
  * [foreign property]
  *     
  *
  * [referrer property]
- *     ruleBookList, scenarioList
+ *     gameSystemDictionaryList, ruleBookList, scenarioList
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
@@ -61,6 +61,40 @@ public class DbLoaderOfGameSystem {
     // ===================================================================================
     //                                                                       Load Referrer
     //                                                                       =============
+    protected List<DbGameSystemDictionary> _referrerGameSystemDictionary;
+
+    /**
+     * Load referrer of gameSystemDictionaryList by the set-upper of referrer. <br>
+     * GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'.
+     * <pre>
+     * <span style="color: #0000C0">gameSystemBhv</span>.<span style="color: #994747">load</span>(<span style="color: #553000">gameSystemList</span>, <span style="color: #553000">systemLoader</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">systemLoader</span>.<span style="color: #CC4747">loadGameSystemDictionary</span>(<span style="color: #553000">dictionaryCB</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *         <span style="color: #553000">dictionaryCB</span>.setupSelect...
+     *         <span style="color: #553000">dictionaryCB</span>.query().set...
+     *         <span style="color: #553000">dictionaryCB</span>.query().addOrderBy...
+     *     }); <span style="color: #3F7E5E">// you can load nested referrer from here</span>
+     *     <span style="color: #3F7E5E">//}).withNestedReferrer(<span style="color: #553000">dictionaryLoader</span> -&gt; {</span>
+     *     <span style="color: #3F7E5E">//    dictionaryLoader.load...</span>
+     *     <span style="color: #3F7E5E">//});</span>
+     * });
+     * for (DbGameSystem gameSystem : <span style="color: #553000">gameSystemList</span>) {
+     *     ... = gameSystem.<span style="color: #CC4747">getGameSystemDictionaryList()</span>;
+     * }
+     * </pre>
+     * About internal policy, the value of primary key (and others too) is treated as case-insensitive. <br>
+     * The condition-bean, which the set-upper provides, has settings before callback as follows:
+     * <pre>
+     * cb.query().setGameSystemId_InScope(pkList);
+     * cb.query().addOrderBy_GameSystemId_Asc();
+     * </pre>
+     * @param refCBLambda The callback to set up referrer condition-bean for loading referrer. (NotNull)
+     * @return The callback interface which you can load nested referrer by calling withNestedReferrer(). (NotNull)
+     */
+    public NestedReferrerLoaderGateway<DbLoaderOfGameSystemDictionary> loadGameSystemDictionary(ReferrerConditionSetupper<DbGameSystemDictionaryCB> refCBLambda) {
+        myBhv().loadGameSystemDictionary(_selectedList, refCBLambda).withNestedReferrer(refLs -> _referrerGameSystemDictionary = refLs);
+        return hd -> hd.handle(new DbLoaderOfGameSystemDictionary().ready(_referrerGameSystemDictionary, _selector));
+    }
+
     protected List<DbRuleBook> _referrerRuleBook;
 
     /**

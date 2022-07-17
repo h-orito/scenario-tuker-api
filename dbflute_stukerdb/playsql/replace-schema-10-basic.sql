@@ -48,6 +48,24 @@ create table game_system (
     primary key (game_system_id)
 );
 
+create table game_system_dictionary (
+    game_system_dictionary_id int unsigned not null auto_increment,
+    game_system_id            int unsigned not null,
+    game_system_name          varchar(255) not null,
+    register_datetime         datetime not null,
+    register_trace            varchar(64) not null,
+    update_datetime           datetime not null,
+    update_trace              varchar(64) not null,
+    primary key (game_system_dictionary_id)
+);
+
+alter table game_system_dictionary
+    add constraint fk_game_system_dictionary_game_system foreign key (game_system_id)
+    references game_system (game_system_id)
+    on update restrict
+    on delete restrict
+;
+
 create table rule_book (
     rule_book_id      int unsigned not null auto_increment,
     game_system_id    int unsigned not null,

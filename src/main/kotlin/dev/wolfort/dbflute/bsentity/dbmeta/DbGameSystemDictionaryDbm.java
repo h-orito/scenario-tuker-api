@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
+import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -13,17 +14,17 @@ import dev.wolfort.dbflute.allcommon.*;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The DB meta of game_system. (Singleton)
+ * The DB meta of game_system_dictionary. (Singleton)
  * @author DBFlute(AutoGenerator)
  */
-public class DbGameSystemDbm extends AbstractDBMeta {
+public class DbGameSystemDictionaryDbm extends AbstractDBMeta {
 
     // ===================================================================================
     //                                                                           Singleton
     //                                                                           =========
-    private static final DbGameSystemDbm _instance = new DbGameSystemDbm();
-    private DbGameSystemDbm() {}
-    public static DbGameSystemDbm getInstance() { return _instance; }
+    private static final DbGameSystemDictionaryDbm _instance = new DbGameSystemDictionaryDbm();
+    private DbGameSystemDictionaryDbm() {}
+    public static DbGameSystemDictionaryDbm getInstance() { return _instance; }
 
     // ===================================================================================
     //                                                                       Current DBDef
@@ -42,23 +43,36 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     protected final Map<String, PropertyGateway> _epgMap = newHashMap();
     { xsetupEpg(); }
     protected void xsetupEpg() {
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getGameSystemId(), (et, vl) -> ((DbGameSystem)et).setGameSystemId(cti(vl)), "gameSystemId");
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getGameSystemName(), (et, vl) -> ((DbGameSystem)et).setGameSystemName((String)vl), "gameSystemName");
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getRegisterDatetime(), (et, vl) -> ((DbGameSystem)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getRegisterTrace(), (et, vl) -> ((DbGameSystem)et).setRegisterTrace((String)vl), "registerTrace");
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getUpdateDatetime(), (et, vl) -> ((DbGameSystem)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
-        setupEpg(_epgMap, et -> ((DbGameSystem)et).getUpdateTrace(), (et, vl) -> ((DbGameSystem)et).setUpdateTrace((String)vl), "updateTrace");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getGameSystemDictionaryId(), (et, vl) -> ((DbGameSystemDictionary)et).setGameSystemDictionaryId(cti(vl)), "gameSystemDictionaryId");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getGameSystemId(), (et, vl) -> ((DbGameSystemDictionary)et).setGameSystemId(cti(vl)), "gameSystemId");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getGameSystemName(), (et, vl) -> ((DbGameSystemDictionary)et).setGameSystemName((String)vl), "gameSystemName");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getRegisterDatetime(), (et, vl) -> ((DbGameSystemDictionary)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getRegisterTrace(), (et, vl) -> ((DbGameSystemDictionary)et).setRegisterTrace((String)vl), "registerTrace");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getUpdateDatetime(), (et, vl) -> ((DbGameSystemDictionary)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
+        setupEpg(_epgMap, et -> ((DbGameSystemDictionary)et).getUpdateTrace(), (et, vl) -> ((DbGameSystemDictionary)et).setUpdateTrace((String)vl), "updateTrace");
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
 
+    // -----------------------------------------------------
+    //                                      Foreign Property
+    //                                      ----------------
+    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
+    { xsetupEfpg(); }
+    @SuppressWarnings("unchecked")
+    protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((DbGameSystemDictionary)et).getGameSystem(), (et, vl) -> ((DbGameSystemDictionary)et).setGameSystem((OptionalEntity<DbGameSystem>)vl), "gameSystem");
+    }
+    public PropertyGateway findForeignPropertyGateway(String prop)
+    { return doFindEfpg(_efpgMap, prop); }
+
     // ===================================================================================
     //                                                                          Table Info
     //                                                                          ==========
-    protected final String _tableDbName = "game_system";
-    protected final String _tableDispName = "GAME_SYSTEM";
-    protected final String _tablePropertyName = "gameSystem";
-    protected final TableSqlName _tableSqlName = new TableSqlName("GAME_SYSTEM", _tableDbName);
+    protected final String _tableDbName = "game_system_dictionary";
+    protected final String _tableDispName = "GAME_SYSTEM_DICTIONARY";
+    protected final String _tablePropertyName = "gameSystemDictionary";
+    protected final TableSqlName _tableSqlName = new TableSqlName("GAME_SYSTEM_DICTIONARY", _tableDbName);
     { _tableSqlName.xacceptFilter(DbDBFluteConfig.getInstance().getTableSqlNameFilter()); }
     public String getTableDbName() { return _tableDbName; }
     public String getTableDispName() { return _tableDispName; }
@@ -68,7 +82,8 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "gameSystemDictionaryList,ruleBookList,scenarioList", null, false);
+    protected final ColumnInfo _columnGameSystemDictionaryId = cci("game_system_dictionary_id", "game_system_dictionary_id", null, null, Integer.class, "gameSystemDictionaryId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "gameSystem", null, null, false);
     protected final ColumnInfo _columnGameSystemName = cci("game_system_name", "game_system_name", null, null, String.class, "gameSystemName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
@@ -76,7 +91,12 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnUpdateTrace = cci("update_trace", "update_trace", null, null, String.class, "updateTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
 
     /**
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnGameSystemDictionaryId() { return _columnGameSystemDictionaryId; }
+    /**
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnGameSystemId() { return _columnGameSystemId; }
@@ -108,6 +128,7 @@ public class DbGameSystemDbm extends AbstractDBMeta {
 
     protected List<ColumnInfo> ccil() {
         List<ColumnInfo> ls = newArrayList();
+        ls.add(columnGameSystemDictionaryId());
         ls.add(columnGameSystemId());
         ls.add(columnGameSystemName());
         ls.add(columnRegisterDatetime());
@@ -125,7 +146,7 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                       Primary Element
     //                                       ---------------
-    protected UniqueInfo cpui() { return hpcpui(columnGameSystemId()); }
+    protected UniqueInfo cpui() { return hpcpui(columnGameSystemDictionaryId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
 
@@ -137,34 +158,18 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
+    /**
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignGameSystem() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbGameSystemDbm.getInstance().columnGameSystemId());
+        return cfi("fk_game_system_dictionary_game_system", "gameSystem", this, DbGameSystemDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "gameSystemDictionaryList", false);
+    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
     //                                     -----------------
-    /**
-     * GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerGameSystemDictionaryList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbGameSystemDictionaryDbm.getInstance().columnGameSystemId());
-        return cri("fk_game_system_dictionary_game_system", "gameSystemDictionaryList", this, DbGameSystemDictionaryDbm.getInstance(), mp, false, "gameSystem");
-    }
-    /**
-     * RULE_BOOK by game_system_id, named 'ruleBookList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerRuleBookList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbRuleBookDbm.getInstance().columnGameSystemId());
-        return cri("fk_rule_book_game_system", "ruleBookList", this, DbRuleBookDbm.getInstance(), mp, false, "gameSystem");
-    }
-    /**
-     * SCENARIO by game_system_id, named 'scenarioList'.
-     * @return The information object of referrer property. (NotNull)
-     */
-    public ReferrerInfo referrerScenarioList() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbScenarioDbm.getInstance().columnGameSystemId());
-        return cri("fk_scenario_game_system", "scenarioList", this, DbScenarioDbm.getInstance(), mp, false, "gameSystem");
-    }
 
     // ===================================================================================
     //                                                                        Various Info
@@ -181,27 +186,27 @@ public class DbGameSystemDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                           Type Name
     //                                                                           =========
-    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbGameSystem"; }
-    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbGameSystemCB"; }
-    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbGameSystemBhv"; }
+    public String getEntityTypeName() { return "dev.wolfort.dbflute.exentity.DbGameSystemDictionary"; }
+    public String getConditionBeanTypeName() { return "dev.wolfort.dbflute.cbean.DbGameSystemDictionaryCB"; }
+    public String getBehaviorTypeName() { return "dev.wolfort.dbflute.exbhv.DbGameSystemDictionaryBhv"; }
 
     // ===================================================================================
     //                                                                         Object Type
     //                                                                         ===========
-    public Class<DbGameSystem> getEntityType() { return DbGameSystem.class; }
+    public Class<DbGameSystemDictionary> getEntityType() { return DbGameSystemDictionary.class; }
 
     // ===================================================================================
     //                                                                     Object Instance
     //                                                                     ===============
-    public DbGameSystem newEntity() { return new DbGameSystem(); }
+    public DbGameSystemDictionary newEntity() { return new DbGameSystemDictionary(); }
 
     // ===================================================================================
     //                                                                   Map Communication
     //                                                                   =================
     public void acceptPrimaryKeyMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptPrimaryKeyMap((DbGameSystem)et, mp); }
+    { doAcceptPrimaryKeyMap((DbGameSystemDictionary)et, mp); }
     public void acceptAllColumnMap(Entity et, Map<String, ? extends Object> mp)
-    { doAcceptAllColumnMap((DbGameSystem)et, mp); }
+    { doAcceptAllColumnMap((DbGameSystemDictionary)et, mp); }
     public Map<String, Object> extractPrimaryKeyMap(Entity et) { return doExtractPrimaryKeyMap(et); }
     public Map<String, Object> extractAllColumnMap(Entity et) { return doExtractAllColumnMap(et); }
 }

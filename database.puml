@@ -26,6 +26,15 @@ entity GameSystem {
 	* game_system_name: varchar(255) <<unique>>
 }
 
+entity GameSystemDictionary {
+    * game_system_dictionary_id: int unsigned <<generated>>
+    --
+    * game_system_id: int unsigned <<foreign key>>
+    * game_system_name: varchar(255)
+}
+
+GameSystemDictionary }|-right-|| GameSystem
+
 entity RuleBook {
     * rule_book_id: int unsigned <<generated>>
     --

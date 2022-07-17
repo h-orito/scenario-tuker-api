@@ -20,20 +20,20 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of game_system.
+ * The base condition-bean of game_system_dictionary.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsGameSystemCB extends AbstractConditionBean {
+public class DbBsGameSystemDictionaryCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbGameSystemCQ _conditionQuery;
+    protected DbGameSystemDictionaryCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsGameSystemCB() {
+    public DbBsGameSystemDictionaryCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -76,7 +76,7 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "game_system";
+        return "game_system_dictionary";
     }
 
     // ===================================================================================
@@ -84,23 +84,23 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param gameSystemId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param gameSystemDictionaryId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbGameSystemCB acceptPK(Integer gameSystemId) {
-        assertObjectNotNull("gameSystemId", gameSystemId);
-        DbBsGameSystemCB cb = this;
-        cb.query().setGameSystemId_Equal(gameSystemId);
-        return (DbGameSystemCB)this;
+    public DbGameSystemDictionaryCB acceptPK(Integer gameSystemDictionaryId) {
+        assertObjectNotNull("gameSystemDictionaryId", gameSystemDictionaryId);
+        DbBsGameSystemDictionaryCB cb = this;
+        cb.query().setGameSystemDictionaryId_Equal(gameSystemDictionaryId);
+        return (DbGameSystemDictionaryCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_GameSystemId_Asc();
+        query().addOrderBy_GameSystemDictionaryId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_GameSystemId_Desc();
+        query().addOrderBy_GameSystemDictionaryId_Desc();
         return this;
     }
 
@@ -164,34 +164,34 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbGameSystemCQ query() {
+    public DbGameSystemDictionaryCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbGameSystemCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbGameSystemDictionaryCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbGameSystemCQ doGetConditionQuery() {
+    protected DbGameSystemDictionaryCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbGameSystemCQ createLocalCQ() {
+    protected DbGameSystemDictionaryCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbGameSystemCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbGameSystemCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbGameSystemDictionaryCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbGameSystemDictionaryCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbGameSystemCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbGameSystemCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbGameSystemDictionaryCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbGameSystemDictionaryCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -215,10 +215,10 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbGameSystemCB> unionCBLambda) {
-        final DbGameSystemCB cb = new DbGameSystemCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbGameSystemDictionaryCB> unionCBLambda) {
+        final DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbGameSystemCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbGameSystemDictionaryCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -232,15 +232,35 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbGameSystemCB> unionCBLambda) {
-        final DbGameSystemCB cb = new DbGameSystemCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbGameSystemDictionaryCB> unionCBLambda) {
+        final DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbGameSystemCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbGameSystemDictionaryCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
+    /**
+     * Set up relation columns to select clause. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * <pre>
+     * <span style="color: #0000C0">gameSystemDictionaryBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_GameSystem()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">gameSystemDictionary</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">gameSystemDictionary</span>.<span style="color: #CC4747">getGameSystem()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_GameSystem() {
+        assertSetupSelectPurpose("gameSystem");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnGameSystemId();
+        }
+        doSetupSelect(() -> query().queryGameSystem());
+    }
+
     // [DBFlute-0.7.4]
     // ===================================================================================
     //                                                                             Specify
@@ -281,13 +301,19 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbGameSystemCQ> {
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbGameSystemCQ> qyCall
+    public static class HpSpecification extends HpAbstractSpecification<DbGameSystemDictionaryCQ> {
+        protected DbGameSystemCB.HpSpecification _gameSystem;
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbGameSystemDictionaryCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnGameSystemDictionaryId() { return doColumn("game_system_dictionary_id"); }
+        /**
+         * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
@@ -320,68 +346,41 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnGameSystemId(); // PK
+            columnGameSystemDictionaryId(); // PK
+            if (qyCall().qy().hasConditionQueryGameSystem()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbGameSystemCQ) {
+                columnGameSystemId(); // FK or one-to-one referrer
+            }
         }
         @Override
-        protected String getTableDbName() { return "game_system"; }
+        protected String getTableDbName() { return "game_system_dictionary"; }
         /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from game_system_dictionary where ...) as FOO_MAX} <br>
-         * GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     dictionaryCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     dictionaryCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbGameSystemDictionary.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
+         * Prepare to specify functions about relation table. <br>
+         * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+         * @return The instance for specification for relation table to specify. (NotNull)
          */
-        public HpSDRFunction<DbGameSystemDictionaryCB, DbGameSystemCQ> derivedGameSystemDictionary() {
-            assertDerived("gameSystemDictionaryList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbGameSystemDictionaryCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveGameSystemDictionaryList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from rule_book where ...) as FOO_MAX} <br>
-         * RULE_BOOK by game_system_id, named 'ruleBookList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     bookCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     bookCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbRuleBook.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbRuleBookCB, DbGameSystemCQ> derivedRuleBook() {
-            assertDerived("ruleBookList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbRuleBookCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveRuleBookList(fn, sq, al, op), _dbmetaProvider);
-        }
-        /**
-         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from scenario where ...) as FOO_MAX} <br>
-         * SCENARIO by game_system_id, named 'scenarioList'.
-         * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     scenarioCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     scenarioCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbScenario.<span style="color: #CC4747">ALIAS_foo...</span>);
-         * </pre>
-         * @return The object to set up a function for referrer table. (NotNull)
-         */
-        public HpSDRFunction<DbScenarioCB, DbGameSystemCQ> derivedScenario() {
-            assertDerived("scenarioList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveScenarioList(fn, sq, al, op), _dbmetaProvider);
+        public DbGameSystemCB.HpSpecification specifyGameSystem() {
+            assertRelation("gameSystem");
+            if (_gameSystem == null) {
+                _gameSystem = new DbGameSystemCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGameSystem()
+                                    , () -> _qyCall.qy().queryGameSystem())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _gameSystem.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGameSystem()
+                      , () -> xsyncQyCall().qy().queryGameSystem()));
+                }
+            }
+            return _gameSystem;
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbGameSystemCB, DbGameSystemCQ> myselfDerived() {
+        public HpSDRFunction<DbGameSystemDictionaryCB, DbGameSystemDictionaryCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbGameSystemCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbGameSystemDictionaryCB> sq, DbGameSystemDictionaryCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -394,9 +393,9 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbGameSystemCB dreamCruiseCB() {
-        DbGameSystemCB cb = new DbGameSystemCB();
-        cb.xsetupForDreamCruise((DbGameSystemCB) this);
+    public DbGameSystemDictionaryCB dreamCruiseCB() {
+        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB();
+        cb.xsetupForDreamCruise((DbGameSystemDictionaryCB) this);
         return cb;
     }
 
@@ -421,15 +420,15 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbGameSystemCB> columnQuery(final SpecifyQuery<DbGameSystemCB> colCBLambda) {
+    public HpColQyOperand<DbGameSystemDictionaryCB> columnQuery(final SpecifyQuery<DbGameSystemDictionaryCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbGameSystemCB xcreateColumnQueryCB() {
-        DbGameSystemCB cb = new DbGameSystemCB();
-        cb.xsetupForColumnQuery((DbGameSystemCB)this);
+    protected DbGameSystemDictionaryCB xcreateColumnQueryCB() {
+        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB();
+        cb.xsetupForColumnQuery((DbGameSystemDictionaryCB)this);
         return cb;
     }
 
@@ -449,8 +448,8 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbGameSystemCB> orCBLambda) {
-        xorSQ((DbGameSystemCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbGameSystemDictionaryCB> orCBLambda) {
+        xorSQ((DbGameSystemDictionaryCB)this, orCBLambda);
     }
 
     /**
@@ -468,8 +467,8 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbGameSystemCB> andCBLambda) {
-        xorSQAP((DbGameSystemCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbGameSystemDictionaryCB> andCBLambda) {
+        xorSQAP((DbGameSystemDictionaryCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -499,11 +498,11 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbGameSystemCB cb;
+        final DbGameSystemDictionaryCB cb;
         if (mainCB != null) {
-            cb = (DbGameSystemCB)mainCB;
+            cb = (DbGameSystemDictionaryCB)mainCB;
         } else {
-            cb = new DbGameSystemCB();
+            cb = new DbGameSystemDictionaryCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -512,8 +511,8 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbGameSystemCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbGameSystemCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbGameSystemDictionaryCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbGameSystemDictionaryCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

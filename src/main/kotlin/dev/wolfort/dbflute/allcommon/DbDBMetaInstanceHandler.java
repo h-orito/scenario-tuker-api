@@ -33,6 +33,7 @@ public class DbDBMetaInstanceHandler implements DBMetaProvider {
         final Map<String, String> tmpMap = newHashMap();
         tmpMap.put("author", "dev.wolfort.dbflute.bsentity.dbmeta.DbAuthorDbm");
         tmpMap.put("game_system", "dev.wolfort.dbflute.bsentity.dbmeta.DbGameSystemDbm");
+        tmpMap.put("game_system_dictionary", "dev.wolfort.dbflute.bsentity.dbmeta.DbGameSystemDictionaryDbm");
         tmpMap.put("participate", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateDbm");
         tmpMap.put("participate_impression", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateImpressionDbm");
         tmpMap.put("participate_role", "dev.wolfort.dbflute.bsentity.dbmeta.DbParticipateRoleDbm");

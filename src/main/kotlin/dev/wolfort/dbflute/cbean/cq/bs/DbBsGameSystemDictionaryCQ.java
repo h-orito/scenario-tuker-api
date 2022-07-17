@@ -13,20 +13,20 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The base condition-query of game_system.
+ * The base condition-query of game_system_dictionary.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
+public class DbBsGameSystemDictionaryCQ extends DbAbstractBsGameSystemDictionaryCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbGameSystemCIQ _inlineQuery;
+    protected DbGameSystemDictionaryCIQ _inlineQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsGameSystemCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public DbBsGameSystemDictionaryCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
@@ -35,105 +35,83 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
     //                                                                 ===================
     /**
      * Prepare InlineView query. <br>
-     * {select ... from ... left outer join (select * from game_system) where FOO = [value] ...}
+     * {select ... from ... left outer join (select * from game_system_dictionary) where FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">inline()</span>.setFoo...;
      * </pre>
      * @return The condition-query for InlineView query. (NotNull)
      */
-    public DbGameSystemCIQ inline() {
+    public DbGameSystemDictionaryCIQ inline() {
         if (_inlineQuery == null) { _inlineQuery = xcreateCIQ(); }
         _inlineQuery.xsetOnClause(false); return _inlineQuery;
     }
 
-    protected DbGameSystemCIQ xcreateCIQ() {
-        DbGameSystemCIQ ciq = xnewCIQ();
+    protected DbGameSystemDictionaryCIQ xcreateCIQ() {
+        DbGameSystemDictionaryCIQ ciq = xnewCIQ();
         ciq.xsetBaseCB(_baseCB);
         return ciq;
     }
 
-    protected DbGameSystemCIQ xnewCIQ() {
-        return new DbGameSystemCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
+    protected DbGameSystemDictionaryCIQ xnewCIQ() {
+        return new DbGameSystemDictionaryCIQ(xgetReferrerQuery(), xgetSqlClause(), xgetAliasName(), xgetNestLevel(), this);
     }
 
     /**
      * Prepare OnClause query. <br>
-     * {select ... from ... left outer join game_system on ... and FOO = [value] ...}
+     * {select ... from ... left outer join game_system_dictionary on ... and FOO = [value] ...}
      * <pre>
      * cb.query().queryMemberStatus().<span style="color: #CC4747">on()</span>.setFoo...;
      * </pre>
      * @return The condition-query for OnClause query. (NotNull)
      * @throws IllegalConditionBeanOperationException When this condition-query is base query.
      */
-    public DbGameSystemCIQ on() {
+    public DbGameSystemDictionaryCIQ on() {
         if (isBaseQuery()) { throw new IllegalConditionBeanOperationException("OnClause for local table is unavailable!"); }
-        DbGameSystemCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
+        DbGameSystemDictionaryCIQ inlineQuery = inline(); inlineQuery.xsetOnClause(true); return inlineQuery;
     }
 
     // ===================================================================================
     //                                                                               Query
     //                                                                               =====
+    protected ConditionValue _gameSystemDictionaryId;
+    public ConditionValue xdfgetGameSystemDictionaryId()
+    { if (_gameSystemDictionaryId == null) { _gameSystemDictionaryId = nCV(); }
+      return _gameSystemDictionaryId; }
+    protected ConditionValue xgetCValueGameSystemDictionaryId() { return xdfgetGameSystemDictionaryId(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemDictionaryId_Asc() { regOBA("game_system_dictionary_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemDictionaryId_Desc() { regOBD("game_system_dictionary_id"); return this; }
+
     protected ConditionValue _gameSystemId;
     public ConditionValue xdfgetGameSystemId()
     { if (_gameSystemId == null) { _gameSystemId = nCV(); }
       return _gameSystemId; }
     protected ConditionValue xgetCValueGameSystemId() { return xdfgetGameSystemId(); }
 
-    public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_ExistsReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_ExistsReferrer_GameSystemDictionaryList"); }
-    public String keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_GameSystemDictionaryList", sq); }
-
-    public Map<String, DbRuleBookCQ> xdfgetGameSystemId_ExistsReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_ExistsReferrer_RuleBookList"); }
-    public String keepGameSystemId_ExistsReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_RuleBookList", sq); }
-
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_ExistsReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_ExistsReferrer_ScenarioList"); }
-    public String keepGameSystemId_ExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_ScenarioList", sq); }
-
-    public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_NotExistsReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_GameSystemDictionaryList"); }
-    public String keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_GameSystemDictionaryList", sq); }
-
-    public Map<String, DbRuleBookCQ> xdfgetGameSystemId_NotExistsReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_RuleBookList"); }
-    public String keepGameSystemId_NotExistsReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_RuleBookList", sq); }
-
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_NotExistsReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_ScenarioList"); }
-    public String keepGameSystemId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_ScenarioList", sq); }
-
-    public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList"); }
-    public String keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList", sq); }
-
-    public Map<String, DbRuleBookCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_RuleBookList"); }
-    public String keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_RuleBookList", sq); }
-
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_ScenarioList", sq); }
-
-    public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList", sq); }
-    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList", pm); }
-
-    public Map<String, DbRuleBookCQ> xdfgetGameSystemId_QueryDerivedReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_RuleBookList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_RuleBookList", sq); }
-    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_RuleBookListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_RuleBookList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_RuleBookList", pm); }
-
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_ScenarioList", sq); }
-    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_ScenarioList", pm); }
-
     /**
      * Add order-by as ascend. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
 
     protected ConditionValue _gameSystemName;
     public ConditionValue xdfgetGameSystemName()
@@ -146,14 +124,14 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * game_system_name: {NotNull, VARCHAR(255)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_GameSystemName_Asc() { regOBA("game_system_name"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemName_Asc() { regOBA("game_system_name"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * game_system_name: {NotNull, VARCHAR(255)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_GameSystemName_Desc() { regOBD("game_system_name"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_GameSystemName_Desc() { regOBD("game_system_name"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
@@ -166,14 +144,14 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * register_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_RegisterDatetime_Asc() { regOBA("register_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_RegisterDatetime_Desc() { regOBD("register_datetime"); return this; }
 
     protected ConditionValue _registerTrace;
     public ConditionValue xdfgetRegisterTrace()
@@ -186,14 +164,14 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * register_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_RegisterTrace_Asc() { regOBA("register_trace"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_RegisterTrace_Asc() { regOBA("register_trace"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * register_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_RegisterTrace_Desc() { regOBD("register_trace"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_RegisterTrace_Desc() { regOBD("register_trace"); return this; }
 
     protected ConditionValue _updateDatetime;
     public ConditionValue xdfgetUpdateDatetime()
@@ -206,14 +184,14 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * update_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_UpdateDatetime_Asc() { regOBA("update_datetime"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * update_datetime: {NotNull, DATETIME(19)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_UpdateDatetime_Desc() { regOBD("update_datetime"); return this; }
 
     protected ConditionValue _updateTrace;
     public ConditionValue xdfgetUpdateTrace()
@@ -226,14 +204,14 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * update_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_UpdateTrace_Asc() { regOBA("update_trace"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_UpdateTrace_Asc() { regOBA("update_trace"); return this; }
 
     /**
      * Add order-by as descend. <br>
      * update_trace: {NotNull, VARCHAR(64)}
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addOrderBy_UpdateTrace_Desc() { regOBD("update_trace"); return this; }
+    public DbBsGameSystemDictionaryCQ addOrderBy_UpdateTrace_Desc() { regOBD("update_trace"); return this; }
 
     // ===================================================================================
     //                                                             SpecifiedDerivedOrderBy
@@ -252,7 +230,7 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
+    public DbBsGameSystemDictionaryCQ addSpecifiedDerivedOrderBy_Asc(String aliasName) { registerSpecifiedDerivedOrderBy_Asc(aliasName); return this; }
 
     /**
      * Add order-by for specified derived column as descend.
@@ -268,17 +246,42 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
      * @param aliasName The alias name specified at (Specify)DerivedReferrer. (NotNull)
      * @return this. (NotNull)
      */
-    public DbBsGameSystemCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
+    public DbBsGameSystemDictionaryCQ addSpecifiedDerivedOrderBy_Desc(String aliasName) { registerSpecifiedDerivedOrderBy_Desc(aliasName); return this; }
 
     // ===================================================================================
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
+        DbGameSystemDictionaryCQ bq = (DbGameSystemDictionaryCQ)bqs;
+        DbGameSystemDictionaryCQ uq = (DbGameSystemDictionaryCQ)uqs;
+        if (bq.hasConditionQueryGameSystem()) {
+            uq.queryGameSystem().reflectRelationOnUnionQuery(bq.queryGameSystem(), uq.queryGameSystem());
+        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public DbGameSystemCQ queryGameSystem() {
+        return xdfgetConditionQueryGameSystem();
+    }
+    public DbGameSystemCQ xdfgetConditionQueryGameSystem() {
+        String prop = "gameSystem";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGameSystem()); xsetupOuterJoinGameSystem(); }
+        return xgetQueRlMap(prop);
+    }
+    protected DbGameSystemCQ xcreateQueryGameSystem() {
+        String nrp = xresolveNRP("game_system_dictionary", "gameSystem"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbGameSystemCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "gameSystem", nrp);
+    }
+    protected void xsetupOuterJoinGameSystem() { xregOutJo("gameSystem"); }
+    public boolean hasConditionQueryGameSystem() { return xhasQueRlMap("gameSystem"); }
+
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }
@@ -286,39 +289,39 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
     // ===================================================================================
     //                                                                     ScalarCondition
     //                                                                     ===============
-    public Map<String, DbGameSystemCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
-    public String keepScalarCondition(DbGameSystemCQ sq) { return xkeepSQue("scalarCondition", sq); }
+    public Map<String, DbGameSystemDictionaryCQ> xdfgetScalarCondition() { return xgetSQueMap("scalarCondition"); }
+    public String keepScalarCondition(DbGameSystemDictionaryCQ sq) { return xkeepSQue("scalarCondition", sq); }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public Map<String, DbGameSystemCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
-    public String keepSpecifyMyselfDerived(DbGameSystemCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
+    public Map<String, DbGameSystemDictionaryCQ> xdfgetSpecifyMyselfDerived() { return xgetSQueMap("specifyMyselfDerived"); }
+    public String keepSpecifyMyselfDerived(DbGameSystemDictionaryCQ sq) { return xkeepSQue("specifyMyselfDerived", sq); }
 
-    public Map<String, DbGameSystemCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
-    public String keepQueryMyselfDerived(DbGameSystemCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
+    public Map<String, DbGameSystemDictionaryCQ> xdfgetQueryMyselfDerived() { return xgetSQueMap("queryMyselfDerived"); }
+    public String keepQueryMyselfDerived(DbGameSystemDictionaryCQ sq) { return xkeepSQue("queryMyselfDerived", sq); }
     public Map<String, Object> xdfgetQueryMyselfDerivedParameter() { return xgetSQuePmMap("queryMyselfDerived"); }
     public String keepQueryMyselfDerivedParameter(Object pm) { return xkeepSQuePm("queryMyselfDerived", pm); }
 
     // ===================================================================================
     //                                                                        MyselfExists
     //                                                                        ============
-    protected Map<String, DbGameSystemCQ> _myselfExistsMap;
-    public Map<String, DbGameSystemCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
-    public String keepMyselfExists(DbGameSystemCQ sq) { return xkeepSQue("myselfExists", sq); }
+    protected Map<String, DbGameSystemDictionaryCQ> _myselfExistsMap;
+    public Map<String, DbGameSystemDictionaryCQ> xdfgetMyselfExists() { return xgetSQueMap("myselfExists"); }
+    public String keepMyselfExists(DbGameSystemDictionaryCQ sq) { return xkeepSQue("myselfExists", sq); }
 
     // ===================================================================================
     //                                                                       MyselfInScope
     //                                                                       =============
-    public Map<String, DbGameSystemCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
-    public String keepMyselfInScope(DbGameSystemCQ sq) { return xkeepSQue("myselfInScope", sq); }
+    public Map<String, DbGameSystemDictionaryCQ> xdfgetMyselfInScope() { return xgetSQueMap("myselfInScope"); }
+    public String keepMyselfInScope(DbGameSystemDictionaryCQ sq) { return xkeepSQue("myselfInScope", sq); }
 
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xCB() { return DbGameSystemCB.class.getName(); }
-    protected String xCQ() { return DbGameSystemCQ.class.getName(); }
+    protected String xCB() { return DbGameSystemDictionaryCB.class.getName(); }
+    protected String xCQ() { return DbGameSystemDictionaryCQ.class.getName(); }
     protected String xCHp() { return HpQDRFunction.class.getName(); }
     protected String xCOp() { return ConditionOption.class.getName(); }
     protected String xMap() { return Map.class.getName(); }

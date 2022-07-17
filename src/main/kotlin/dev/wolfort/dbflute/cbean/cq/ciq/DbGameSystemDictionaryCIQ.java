@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of game_system.
+ * The condition-query for in-line of game_system_dictionary.
  * @author DBFlute(AutoGenerator)
  */
-public class DbGameSystemCIQ extends DbAbstractBsGameSystemCQ {
+public class DbGameSystemDictionaryCIQ extends DbAbstractBsGameSystemDictionaryCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsGameSystemCQ _myCQ;
+    protected DbBsGameSystemDictionaryCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbGameSystemCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsGameSystemCQ myCQ) {
+    public DbGameSystemDictionaryCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsGameSystemDictionaryCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,52 +61,23 @@ public class DbGameSystemCIQ extends DbAbstractBsGameSystemCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
+    protected ConditionValue xgetCValueGameSystemDictionaryId() { return _myCQ.xdfgetGameSystemDictionaryId(); }
     protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
-    public String keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepGameSystemId_ExistsReferrer_RuleBookList(DbRuleBookCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepGameSystemId_ExistsReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepGameSystemId_NotExistsReferrer_RuleBookList(DbRuleBookCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepGameSystemId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(DbRuleBookCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_RuleBookList(DbRuleBookCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueGameSystemName() { return _myCQ.xdfgetGameSystemName(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbGameSystemCQ sq)
+    public String keepScalarCondition(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbGameSystemCQ sq)
+    public String keepSpecifyMyselfDerived(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbGameSystemCQ sq)
+    public String keepQueryMyselfDerived(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbGameSystemCQ sq)
+    public String keepMyselfExists(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -116,6 +87,6 @@ public class DbGameSystemCIQ extends DbAbstractBsGameSystemCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbGameSystemCB.class.getName(); }
-    protected String xinCQ() { return DbGameSystemCQ.class.getName(); }
+    protected String xinCB() { return DbGameSystemDictionaryCB.class.getName(); }
+    protected String xinCQ() { return DbGameSystemDictionaryCQ.class.getName(); }
 }

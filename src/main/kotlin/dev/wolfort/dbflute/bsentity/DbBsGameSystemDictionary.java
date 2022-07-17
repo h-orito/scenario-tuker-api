@@ -3,51 +3,55 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
+import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
+import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
 
 /**
- * The entity of GAME_SYSTEM as TABLE. <br>
+ * The entity of GAME_SYSTEM_DICTIONARY as TABLE. <br>
  * <pre>
  * [primary-key]
- *     game_system_id
+ *     game_system_dictionary_id
  *
  * [column]
- *     game_system_id, game_system_name, register_datetime, register_trace, update_datetime, update_trace
+ *     game_system_dictionary_id, game_system_id, game_system_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
  *
  * [identity]
- *     game_system_id
+ *     game_system_dictionary_id
  *
  * [version-no]
  *     
  *
  * [foreign table]
- *     
+ *     GAME_SYSTEM
  *
  * [referrer table]
- *     GAME_SYSTEM_DICTIONARY, RULE_BOOK, SCENARIO
- *
- * [foreign property]
  *     
  *
+ * [foreign property]
+ *     gameSystem
+ *
  * [referrer property]
- *     gameSystemDictionaryList, ruleBookList, scenarioList
+ *     
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+ * Integer gameSystemDictionaryId = entity.getGameSystemDictionaryId();
  * Integer gameSystemId = entity.getGameSystemId();
  * String gameSystemName = entity.getGameSystemName();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
+ * entity.setGameSystemDictionaryId(gameSystemDictionaryId);
  * entity.setGameSystemId(gameSystemId);
  * entity.setGameSystemName(gameSystemName);
  * entity.setRegisterDatetime(registerDatetime);
@@ -58,7 +62,7 @@ import dev.wolfort.dbflute.exentity.*;
  * </pre>
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbBsGameSystem extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
+public abstract class DbBsGameSystemDictionary extends AbstractEntity implements DomainEntity, DbEntityDefinedCommonColumn {
 
     // ===================================================================================
     //                                                                          Definition
@@ -69,7 +73,10 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    /** game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    /** game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
+    protected Integer _gameSystemDictionaryId;
+
+    /** game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} */
     protected Integer _gameSystemId;
 
     /** game_system_name: {NotNull, VARCHAR(255)} */
@@ -97,7 +104,7 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
 
     /** {@inheritDoc} */
     public String asTableDbName() {
-        return "game_system";
+        return "game_system_dictionary";
     }
 
     // ===================================================================================
@@ -105,76 +112,37 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     //                                                                        ============
     /** {@inheritDoc} */
     public boolean hasPrimaryKeyValue() {
-        if (_gameSystemId == null) { return false; }
+        if (_gameSystemDictionaryId == null) { return false; }
         return true;
     }
 
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** GAME_SYSTEM by my game_system_id, named 'gameSystem'. */
+    protected OptionalEntity<DbGameSystem> _gameSystem;
+
+    /**
+     * [get] GAME_SYSTEM by my game_system_id, named 'gameSystem'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'gameSystem'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<DbGameSystem> getGameSystem() {
+        if (_gameSystem == null) { _gameSystem = OptionalEntity.relationEmpty(this, "gameSystem"); }
+        return _gameSystem;
+    }
+
+    /**
+     * [set] GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @param gameSystem The entity of foreign property 'gameSystem'. (NullAllowed)
+     */
+    public void setGameSystem(OptionalEntity<DbGameSystem> gameSystem) {
+        _gameSystem = gameSystem;
+    }
+
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
-    /** GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'. */
-    protected List<DbGameSystemDictionary> _gameSystemDictionaryList;
-
-    /**
-     * [get] GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'.
-     * @return The entity list of referrer property 'gameSystemDictionaryList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbGameSystemDictionary> getGameSystemDictionaryList() {
-        if (_gameSystemDictionaryList == null) { _gameSystemDictionaryList = newReferrerList(); }
-        return _gameSystemDictionaryList;
-    }
-
-    /**
-     * [set] GAME_SYSTEM_DICTIONARY by game_system_id, named 'gameSystemDictionaryList'.
-     * @param gameSystemDictionaryList The entity list of referrer property 'gameSystemDictionaryList'. (NullAllowed)
-     */
-    public void setGameSystemDictionaryList(List<DbGameSystemDictionary> gameSystemDictionaryList) {
-        _gameSystemDictionaryList = gameSystemDictionaryList;
-    }
-
-    /** RULE_BOOK by game_system_id, named 'ruleBookList'. */
-    protected List<DbRuleBook> _ruleBookList;
-
-    /**
-     * [get] RULE_BOOK by game_system_id, named 'ruleBookList'.
-     * @return The entity list of referrer property 'ruleBookList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbRuleBook> getRuleBookList() {
-        if (_ruleBookList == null) { _ruleBookList = newReferrerList(); }
-        return _ruleBookList;
-    }
-
-    /**
-     * [set] RULE_BOOK by game_system_id, named 'ruleBookList'.
-     * @param ruleBookList The entity list of referrer property 'ruleBookList'. (NullAllowed)
-     */
-    public void setRuleBookList(List<DbRuleBook> ruleBookList) {
-        _ruleBookList = ruleBookList;
-    }
-
-    /** SCENARIO by game_system_id, named 'scenarioList'. */
-    protected List<DbScenario> _scenarioList;
-
-    /**
-     * [get] SCENARIO by game_system_id, named 'scenarioList'.
-     * @return The entity list of referrer property 'scenarioList'. (NotNull: even if no loading, returns empty list)
-     */
-    public List<DbScenario> getScenarioList() {
-        if (_scenarioList == null) { _scenarioList = newReferrerList(); }
-        return _scenarioList;
-    }
-
-    /**
-     * [set] SCENARIO by game_system_id, named 'scenarioList'.
-     * @param scenarioList The entity list of referrer property 'scenarioList'. (NullAllowed)
-     */
-    public void setScenarioList(List<DbScenario> scenarioList) {
-        _scenarioList = scenarioList;
-    }
-
     protected <ELEMENT> List<ELEMENT> newReferrerList() { // overriding to import
         return new ArrayList<ELEMENT>();
     }
@@ -184,9 +152,9 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     //                                                                      ==============
     @Override
     protected boolean doEquals(Object obj) {
-        if (obj instanceof DbBsGameSystem) {
-            DbBsGameSystem other = (DbBsGameSystem)obj;
-            if (!xSV(_gameSystemId, other._gameSystemId)) { return false; }
+        if (obj instanceof DbBsGameSystemDictionary) {
+            DbBsGameSystemDictionary other = (DbBsGameSystemDictionary)obj;
+            if (!xSV(_gameSystemDictionaryId, other._gameSystemDictionaryId)) { return false; }
             return true;
         } else {
             return false;
@@ -197,25 +165,25 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     protected int doHashCode(int initial) {
         int hs = initial;
         hs = xCH(hs, asTableDbName());
-        hs = xCH(hs, _gameSystemId);
+        hs = xCH(hs, _gameSystemDictionaryId);
         return hs;
     }
 
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_gameSystemDictionaryList != null) { for (DbGameSystemDictionary et : _gameSystemDictionaryList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "gameSystemDictionaryList")); } } }
-        if (_ruleBookList != null) { for (DbRuleBook et : _ruleBookList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "ruleBookList")); } } }
-        if (_scenarioList != null) { for (DbScenario et : _scenarioList)
-        { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioList")); } } }
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(li).append(xbRDS(_gameSystem, "gameSystem")); }
         return sb.toString();
+    }
+    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
+        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
     protected String doBuildColumnString(String dm) {
         StringBuilder sb = new StringBuilder();
+        sb.append(dm).append(xfND(_gameSystemDictionaryId));
         sb.append(dm).append(xfND(_gameSystemId));
         sb.append(dm).append(xfND(_gameSystemName));
         sb.append(dm).append(xfND(_registerDatetime));
@@ -232,12 +200,8 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_gameSystemDictionaryList != null && !_gameSystemDictionaryList.isEmpty())
-        { sb.append(dm).append("gameSystemDictionaryList"); }
-        if (_ruleBookList != null && !_ruleBookList.isEmpty())
-        { sb.append(dm).append("ruleBookList"); }
-        if (_scenarioList != null && !_scenarioList.isEmpty())
-        { sb.append(dm).append("scenarioList"); }
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(dm).append("gameSystem"); }
         if (sb.length() > dm.length()) {
             sb.delete(0, dm.length()).insert(0, "(").append(")");
         }
@@ -245,15 +209,33 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     }
 
     @Override
-    public DbGameSystem clone() {
-        return (DbGameSystem)super.clone();
+    public DbGameSystemDictionary clone() {
+        return (DbGameSystemDictionary)super.clone();
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
     /**
-     * [get] game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * [get] game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @return The value of the column 'game_system_dictionary_id'. (basically NotNull if selected: for the constraint)
+     */
+    public Integer getGameSystemDictionaryId() {
+        checkSpecifiedProperty("gameSystemDictionaryId");
+        return _gameSystemDictionaryId;
+    }
+
+    /**
+     * [set] game_system_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * @param gameSystemDictionaryId The value of the column 'game_system_dictionary_id'. (basically NotNull if update: for the constraint)
+     */
+    public void setGameSystemDictionaryId(Integer gameSystemDictionaryId) {
+        registerModifiedProperty("gameSystemDictionaryId");
+        _gameSystemDictionaryId = gameSystemDictionaryId;
+    }
+
+    /**
+     * [get] game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} <br>
      * @return The value of the column 'game_system_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getGameSystemId() {
@@ -262,7 +244,7 @@ public abstract class DbBsGameSystem extends AbstractEntity implements DomainEnt
     }
 
     /**
-     * [set] game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)} <br>
+     * [set] game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system} <br>
      * @param gameSystemId The value of the column 'game_system_id'. (basically NotNull if update: for the constraint)
      */
     public void setGameSystemId(Integer gameSystemId) {
