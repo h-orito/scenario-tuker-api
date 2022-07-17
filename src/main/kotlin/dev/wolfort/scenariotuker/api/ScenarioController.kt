@@ -5,6 +5,7 @@ import dev.wolfort.scenariotuker.api.response.scenario.ScenarioResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
 import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
+import dev.wolfort.scenariotuker.domain.model.paging.PagingQuery
 import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
@@ -44,16 +45,23 @@ class ScenarioController(
         var game_system_id: Int? = null,
         var game_system_name: String? = null,
         var type: ScenarioType? = null,
-        var author_name: String? = null
+        var author_name: String? = null,
+        val page_count: Int? = null,
+        val page_size: Int? = null,
     ) {
-        fun toQuery() =
-            ScenarioQuery(
+        fun toQuery(): ScenarioQuery {
+            val pagingQuery = if (page_count != null && page_size != null) {
+                PagingQuery(pageCount = page_count, pageSize = page_size)
+            } else null
+            return ScenarioQuery(
                 name = name,
                 gameSystemId = game_system_id,
                 gameSystemName = game_system_name,
                 type = type,
-                authorName = author_name
+                authorName = author_name,
+                paging = pagingQuery
             )
+        }
     }
 
     @GetMapping("/{scenarioId}")

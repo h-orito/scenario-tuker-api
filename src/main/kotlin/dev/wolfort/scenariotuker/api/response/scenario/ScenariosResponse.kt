@@ -4,7 +4,14 @@ import dev.wolfort.scenariotuker.domain.model.author.Authors
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
 
-data class ScenariosResponse(val list: List<ScenarioResponse>) {
+data class ScenariosResponse(
+    val list: List<ScenarioResponse>,
+    val allRecordCount: Int,
+    val allPageCount: Int,
+    val existPrePage: Boolean,
+    val existNextPage: Boolean,
+    val currentPageNum: Int
+) {
     constructor(
         scenarios: Scenarios,
         gameSystems: GameSystems,
@@ -18,6 +25,11 @@ data class ScenariosResponse(val list: List<ScenarioResponse>) {
                 gameSystem = gameSystem,
                 authors = authorList
             )
-        }
+        },
+        allRecordCount = scenarios.allRecordCount,
+        allPageCount = scenarios.allPageCount,
+        existPrePage = scenarios.existPrePage,
+        existNextPage = scenarios.existNextPage,
+        currentPageNum = scenarios.currentPageNum
     )
 }

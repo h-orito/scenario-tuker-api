@@ -10,6 +10,7 @@ import dev.wolfort.dbflute.exentity.DbScenarioDictionary
 import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.dbflute.bhv.readable.CBCall
+import org.dbflute.cbean.result.PagingResultBean
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -21,21 +22,21 @@ class ScenarioRepositoryImpl(
 
     override fun findAll(): Scenarios {
         return selectList {
+            it.paging(100000, 1)
             it.query().addOrderBy_ScenarioId_Asc()
         }
     }
 
     override fun findAllByIds(ids: List<Int>): Scenarios {
-        if (ids.isEmpty()) return Scenarios(list = emptyList())
-        val dbScenarioList = scenarioBhv.selectList {
+        if (ids.isEmpty()) return Scenarios.ofEmpty()
+        val scenarios = selectList {
+            it.paging(100000, 1)
             it.query().setScenarioId_InScope(ids)
         }
-        scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
-            it.loadScenarioAuthor { }
-        }
         // リクエスト順に並び替える
-        return mappingToScenarios(ids.map { id -> dbScenarioList.first { it.scenarioId == id } })
+        return scenarios.copy(
+            list = ids.map { id -> scenarios.list.first { it.id == id } }
+        )
     }
 
     override fun search(query: ScenarioQuery): Scenarios {
@@ -62,6 +63,11 @@ class ScenarioRepositoryImpl(
                         op.splitByBlank().likeContain().asOrSplit()
                     }
                 }
+            }
+            if (query.paging != null) {
+                it.paging(query.paging.pageSize, query.paging.pageCount)
+            } else {
+                it.paging(100000,1)
             }
             it.query().addOrderBy_ScenarioId_Asc()
         }
@@ -138,7 +144,7 @@ class ScenarioRepositoryImpl(
     }
 
     private fun selectList(cbCall: CBCall<DbScenarioCB>): Scenarios {
-        val dbScenarioList = scenarioBhv.selectList(cbCall)
+        val dbScenarioList = scenarioBhv.selectPage(cbCall)
         scenarioBhv.load(dbScenarioList) {
             it.loadScenarioDictionary {}
             it.loadScenarioAuthor { }
@@ -160,8 +166,15 @@ class ScenarioRepositoryImpl(
         scenarioDictionaryBhv.insert(d)
     }
 
-    private fun mappingToScenarios(list: List<DbScenario>): Scenarios {
-        return Scenarios(list = list.map { mappingToScenario(it) })
+    private fun mappingToScenarios(list: PagingResultBean<DbScenario>): Scenarios {
+        return Scenarios(
+            list = list.map { mappingToScenario(it) },
+            allRecordCount = list.allRecordCount,
+            allPageCount = list.allPageCount,
+            existNextPage = list.existsNextPage(),
+            existPrePage = list.existsPreviousPage(),
+            currentPageNum = list.currentPageNumber
+        )
     }
 
     private fun mappingToScenario(scenario: DbScenario): Scenario {
