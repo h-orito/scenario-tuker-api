@@ -134,6 +134,31 @@ class ParticipateRepositoryImpl(
         participateBhv.queryDelete { it.query().setParticipateId_Equal(id) }
     }
 
+    override fun updateRuleBookId(sourceRuleBookId: Int, destRuleBookId: Int) {
+        val participates = findAllByRuleBookId(sourceRuleBookId)
+        participates.list.forEach { participate ->
+            var ruleBookIds = participate.ruleBookIds
+            ruleBookIds = ruleBookIds.filterNot { id -> id == sourceRuleBookId }
+            ruleBookIds = ruleBookIds + destRuleBookId
+            update(participate.copy(ruleBookIds = ruleBookIds.distinct()))
+        }
+    }
+
+    override fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int) {
+        val participates = findAllByScenarioId(sourceScenarioId)
+        participates.list.forEach { participate ->
+            val existing = participateBhv.selectByUniqueOf(destScenarioId, participate.userId)
+            if (existing.isPresent) {
+                delete(participate.id)
+            } else {
+                val p = DbParticipate()
+                p.participateId = participate.id
+                p.scenarioId = destScenarioId
+                participateBhv.update(p)
+            }
+        }
+    }
+
     private fun insertParticipateRole(participateId: Int, roleType: RoleType) {
         val r = DbParticipateRole()
         r.participateId = participateId

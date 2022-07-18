@@ -6,6 +6,8 @@ interface UserRepository {
 
     fun findAllByIds(ids: List<Int>): Users
 
+    fun findAllByRuleBookIds(ruleBookId: Int): Users
+
     fun search(query: UserQuery, user: User?): Users
 
     fun findById(id: Int): User?
@@ -20,7 +22,11 @@ interface UserRepository {
 
     fun deleteUserRuleBook(id: Int, ruleBookId: Int)
 
+    fun updateUserRuleBook(sourceRuleBookId: Int, destRuleBookId: Int)
+
     fun registerUserScenario(id: Int, scenarioId: Int)
 
     fun deleteUserScenario(id: Int, scenarioId: Int)
+
+    fun updateUserScenario(sourceScenarioId: Int, destScenarioId: Int)
 }

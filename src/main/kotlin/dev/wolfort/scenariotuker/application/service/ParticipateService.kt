@@ -51,4 +51,10 @@ class ParticipateService(
     }
 
     fun delete(id: Int) = participateRepository.delete(id)
+
+    fun updateRuleBookId(sourceRuleBookId: Int, destRuleBookId: Int) =
+        participateRepository.updateRuleBookId(sourceRuleBookId, destRuleBookId)
+
+    fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int) =
+        participateRepository.updateScenarioId(sourceScenarioId, destScenarioId)
 }

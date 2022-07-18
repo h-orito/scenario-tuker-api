@@ -19,4 +19,8 @@ interface RuleBookRepository {
     fun update(ruleBook: RuleBook): RuleBook
 
     fun delete(id: Int)
+
+    fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int)
+
+    fun integrateDelete(sourceId: Int, destId: Int)
 }

@@ -1,8 +1,10 @@
 package dev.wolfort.scenariotuker.api
 
+import dev.wolfort.scenariotuker.api.response.CheckResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.rulebook.RuleBookResponse
 import dev.wolfort.scenariotuker.api.response.rulebook.RuleBooksResponse
+import dev.wolfort.scenariotuker.application.coordinator.RuleBookCoordinator
 import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBook
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookQuery
@@ -11,10 +13,12 @@ import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBooks
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/rule-books")
 class RuleBookController(
+    private val ruleBookCoordinator: RuleBookCoordinator,
     private val ruleBookService: RuleBookService,
     private val gameSystemService: GameSystemService,
     private val participateService: ParticipateService,
@@ -86,6 +90,30 @@ class RuleBookController(
             gameSystemId = gameSystemId
         )
     }
+
+    @DeleteMapping("/{ruleBookId}")
+    private fun delete(@PathVariable ruleBookId: Int) = ruleBookService.delete(ruleBookId)
+
+    @DeleteMapping("/{ruleBookId}/check")
+    private fun deleteCheck(@PathVariable ruleBookId: Int): CheckResponse {
+        return try {
+            ruleBookService.deleteCheck(ruleBookId)
+            CheckResponse(true, null)
+        } catch (e: Exception) {
+            CheckResponse(false, e.message)
+        }
+    }
+
+    @PutMapping("/{ruleBookId}/integrate")
+    private fun integrateDelete(
+        @PathVariable ruleBookId: Int,
+        @RequestBody @Validated request: IntegrateDeleteRequest
+    ) = ruleBookCoordinator.integrateDelete(ruleBookId, request.destId!!)
+
+    data class IntegrateDeleteRequest(
+        @field:NotNull
+        val destId: Int? = null
+    )
 
     @GetMapping("/{ruleBookId}/participates")
     private fun ruleBookParticipates(@PathVariable ruleBookId: Int): ParticipatesResponse {

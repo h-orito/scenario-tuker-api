@@ -17,4 +17,8 @@ interface ParticipateRepository {
     fun update(participate: Participate): Participate
 
     fun delete(id: Int)
+
+    fun updateRuleBookId(sourceRuleBookId: Int, destRuleBookId: Int)
+
+    fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int)
 }

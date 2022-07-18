@@ -2,10 +2,12 @@ package dev.wolfort.scenariotuker.application.service
 
 import dev.wolfort.scenariotuker.domain.model.author.AuthorRepository
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystemRepository
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateRepository
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
 import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
 import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
+import dev.wolfort.scenariotuker.domain.model.user.UserRepository
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.stereotype.Service
 
@@ -13,7 +15,9 @@ import org.springframework.stereotype.Service
 class ScenarioService(
     private val scenarioRepository: ScenarioRepository,
     private val gameSystemRepository: GameSystemRepository,
-    private val authorRepository: AuthorRepository
+    private val authorRepository: AuthorRepository,
+    private val participateRepository: ParticipateRepository,
+    private val userRepository: UserRepository
 ) {
 
     fun findAll(): Scenarios = scenarioRepository.findAll()
@@ -52,4 +56,24 @@ class ScenarioService(
             )
         )
     }
+
+    fun delete(id: Int) {
+        deleteCheck(id)
+        scenarioRepository.delete(id)
+    }
+
+    fun deleteCheck(id: Int) {
+        val scenario = findById(id) ?: return
+        val participates = participateRepository.findAllByScenarioId(id)
+        val users = userRepository.findAllByRuleBookIds(id)
+        if (scenario.authorIds.isNotEmpty() || participates.list.isNotEmpty() || users.list.isNotEmpty()) {
+            throw SystemException("製作者や参加記録やユーザーと紐付いたシナリオは削除できません")
+        }
+    }
+
+
+    fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) =
+        scenarioRepository.updateGameSystemId(sourceGameSystemId, destGameSystemId)
+
+    fun integrateDelete(sourceId: Int, destId: Int) = scenarioRepository.integrateDelete(sourceId, destId)
 }

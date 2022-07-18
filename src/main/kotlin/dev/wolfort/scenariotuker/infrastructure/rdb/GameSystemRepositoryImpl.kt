@@ -78,7 +78,23 @@ class GameSystemRepositoryImpl(
         return findById(gameSystem.id)!!
     }
 
-    private fun insertGameSystemDictionary(gameSystemId: Int?, name: String) {
+    override fun delete(id: Int) {
+        gameSystemDictionaryBhv.queryDelete { it.query().setGameSystemId_Equal(id) }
+        gameSystemBhv.queryDelete { it.query().setGameSystemId_Equal(id) }
+    }
+
+    override fun integrateDelete(sourceId: Int, destId: Int) {
+        // 検索用キーワードを統合先に登録
+        val sourceDicNames = findById(sourceId)!!.dictionaryNames
+        val destDicNames = findById(destId)!!.dictionaryNames
+        sourceDicNames.filterNot { destDicNames.contains(it) }.forEach {
+            insertGameSystemDictionary(destId, it)
+        }
+        // 統合元を削除
+        delete(sourceId)
+    }
+
+    private fun insertGameSystemDictionary(gameSystemId: Int, name: String) {
         val d = DbGameSystemDictionary()
         d.gameSystemId = gameSystemId
         d.gameSystemName = name

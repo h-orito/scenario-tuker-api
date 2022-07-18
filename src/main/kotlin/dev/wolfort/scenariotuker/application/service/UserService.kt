@@ -61,6 +61,9 @@ class UserService(
         userRepository.deleteUserRuleBook(userId, ruleBookId)
     }
 
+    fun updateUserRuleBookId(sourceRuleBookId: Int, destRuleBookId: Int) =
+        userRepository.updateUserRuleBook(sourceRuleBookId, destRuleBookId)
+
     fun registerUserScenario(userId: Int, scenarioId: Int) {
         scenarioRepository.findById(scenarioId) ?: throw SystemException("scenario not found. id: $scenarioId")
         userRepository.registerUserScenario(userId, scenarioId)
@@ -69,6 +72,9 @@ class UserService(
     fun deleteUserScenario(userId: Int, scenarioId: Int) {
         userRepository.deleteUserScenario(userId, scenarioId)
     }
+
+    fun updateUserScenarioId(sourceScenarioId: Int, destScenarioId: Int) =
+        userRepository.updateUserScenario(sourceScenarioId, destScenarioId)
 
     data class UserCreateResource(
         val uid: String,

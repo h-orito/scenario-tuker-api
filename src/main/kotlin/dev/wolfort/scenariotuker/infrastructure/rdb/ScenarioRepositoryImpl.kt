@@ -146,6 +146,39 @@ class ScenarioRepositoryImpl(
         return findById(scenario.id)!!
     }
 
+    override fun delete(id: Int) {
+        scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(id) }
+        scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(id) }
+        scenarioBhv.queryDelete { it.query().setScenarioId_Equal(id) }
+    }
+
+    override fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) {
+        val s = DbScenario()
+        s.gameSystemId = destGameSystemId
+        scenarioBhv.queryUpdate(s) {
+            it.query().setGameSystemId_Equal(sourceGameSystemId)
+        }
+    }
+
+    override fun integrateDelete(sourceId: Int, destId: Int) {
+        // 検索用キーワードを統合先に登録
+        val source = findById(sourceId)!!
+        val dest = findById(destId)!!
+        val sourceDicNames = source.dictionaryNames
+        val destDicNames = dest.dictionaryNames
+        sourceDicNames.filterNot { destDicNames.contains(it) }.forEach {
+            insertScenarioDictionary(destId, it)
+        }
+        val sourceAuthors = source.authorIds
+        val destAuthors = dest.authorIds
+        sourceAuthors.filterNot { destAuthors.contains(it) }.forEach {
+            insertScenarioAuthor(destId, it)
+        }
+
+        // 統合元を削除
+        delete(sourceId)
+    }
+
     private fun selectList(cbCall: CBCall<DbScenarioCB>): Scenarios {
         val dbScenarioList = scenarioBhv.selectPage(cbCall)
         scenarioBhv.load(dbScenarioList) {

@@ -13,4 +13,8 @@ interface GameSystemRepository {
     fun register(gameSystem: GameSystem): GameSystem
 
     fun update(gameSystem: GameSystem): GameSystem
+
+    fun delete(id: Int)
+
+    fun integrateDelete(sourceId: Int, destId: Int)
 }

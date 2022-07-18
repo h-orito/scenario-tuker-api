@@ -19,4 +19,10 @@ interface ScenarioRepository {
     fun register(scenario: Scenario): Scenario
 
     fun update(scenario: Scenario): Scenario
+
+    fun delete(id: Int)
+
+    fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int)
+
+    fun integrateDelete(sourceId: Int, destId: Int)
 }

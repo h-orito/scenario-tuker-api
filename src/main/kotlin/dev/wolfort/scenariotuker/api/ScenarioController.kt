@@ -1,8 +1,10 @@
 package dev.wolfort.scenariotuker.api
 
+import dev.wolfort.scenariotuker.api.response.CheckResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenarioResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
+import dev.wolfort.scenariotuker.application.coordinator.ScenarioCoordinator
 import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.domain.model.paging.PagingQuery
@@ -10,10 +12,12 @@ import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/scenarios")
 class ScenarioController(
+    private val scenarioCoordinator: ScenarioCoordinator,
     private val scenarioService: ScenarioService,
     private val gameSystemService: GameSystemService,
     private val ruleBookService: RuleBookService,
@@ -107,6 +111,30 @@ class ScenarioController(
             authorIds = authorIds
         )
     }
+
+    @DeleteMapping("/{scenarioId}")
+    private fun delete(@PathVariable scenarioId: Int) = scenarioService.delete(scenarioId)
+
+    @DeleteMapping("/{scenarioId}/check")
+    private fun deleteCheck(@PathVariable scenarioId: Int): CheckResponse {
+        return try {
+            scenarioService.deleteCheck(scenarioId)
+            CheckResponse(true, null)
+        } catch (e: Exception) {
+            CheckResponse(false, e.message)
+        }
+    }
+
+    @PutMapping("/{scenarioId}/integrate")
+    private fun integrateDelete(
+        @PathVariable scenarioId: Int,
+        @RequestBody @Validated request: IntegrateDeleteRequest
+    ) = scenarioCoordinator.integrateDelete(scenarioId, request.destId!!)
+
+    data class IntegrateDeleteRequest(
+        @field:NotNull
+        val destId: Int? = null
+    )
 
     @GetMapping("/{scenarioId}/participates")
     private fun scenarioParticipates(@PathVariable scenarioId: Int): ParticipatesResponse {

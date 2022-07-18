@@ -121,6 +121,25 @@ class RuleBookRepositoryImpl(
         ruleBookBhv.queryDelete { it.query().setRuleBookId_Equal(id) }
     }
 
+    override fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) {
+        val r = DbRuleBook()
+        r.gameSystemId = destGameSystemId
+        ruleBookBhv.queryUpdate(r) {
+            it.query().setGameSystemId_Equal(sourceGameSystemId)
+        }
+    }
+
+    override fun integrateDelete(sourceId: Int, destId: Int) {
+        // 検索用キーワードを統合先に登録
+        val sourceDicNames = findById(sourceId)!!.dictionaryNames
+        val destDicNames = findById(destId)!!.dictionaryNames
+        sourceDicNames.filterNot { destDicNames.contains(it) }.forEach {
+            insertRuleBookDictionary(destId, it)
+        }
+        // 統合元を削除
+        delete(sourceId)
+    }
+
     private fun insertRuleBookDictionary(ruleBookId: Int, name: String) {
         val d = DbRuleBookDictionary()
         d.ruleBookId = ruleBookId

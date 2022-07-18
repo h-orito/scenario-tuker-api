@@ -1,6 +1,8 @@
 package dev.wolfort.scenariotuker.api
 
+import dev.wolfort.scenariotuker.api.response.CheckResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
+import dev.wolfort.scenariotuker.application.coordinator.GameSystemCoordinator
 import dev.wolfort.scenariotuker.application.service.AuthorService
 import dev.wolfort.scenariotuker.application.service.GameSystemService
 import dev.wolfort.scenariotuker.application.service.ScenarioService
@@ -10,10 +12,12 @@ import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.NotNull
 
 @RestController
 @RequestMapping("/game-systems")
 class GameSystemController(
+    private val gameSystemCoordinator: GameSystemCoordinator,
     private val gameSystemService: GameSystemService,
     private val scenarioService: ScenarioService,
     private val authorService: AuthorService
@@ -52,6 +56,30 @@ class GameSystemController(
             dictionaryNames = dictionaryNames
         )
     }
+
+    @DeleteMapping("/{gameSystemId}")
+    private fun delete(@PathVariable gameSystemId: Int) = gameSystemService.delete(gameSystemId)
+
+    @DeleteMapping("/{gameSystemId}/check")
+    private fun deleteCheck(@PathVariable gameSystemId: Int): CheckResponse {
+        return try {
+            gameSystemService.deleteCheck(gameSystemId)
+            CheckResponse(true, null)
+        } catch (e: Exception) {
+            CheckResponse(false, e.message)
+        }
+    }
+
+    @PutMapping("/{gameSystemId}/integrate")
+    private fun integrateDelete(
+        @PathVariable gameSystemId: Int,
+        @RequestBody @Validated request: IntegrateDeleteRequest
+    ) = gameSystemCoordinator.integrateDelete(gameSystemId, request.destId!!)
+
+    data class IntegrateDeleteRequest(
+        @field:NotNull
+        val destId: Int? = null
+    )
 
     @GetMapping("/{gameSystemId}/scenarios")
     private fun gameSystemScenarios(@PathVariable gameSystemId: Int): ScenariosResponse {

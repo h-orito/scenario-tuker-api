@@ -41,6 +41,17 @@ class UserRepositoryImpl(
         return mappingToUsers(ids.mapNotNull { id -> dbUserList.find { it.userId == id } })
     }
 
+    override fun findAllByRuleBookIds(ruleBookId: Int): Users {
+        val dbUserList = userBhv.selectList {
+            it.setupSelect_TwitterUserAsOne()
+            it.query().existsUserRuleBook { urCB ->
+                urCB.query().setRuleBookId_Equal(ruleBookId)
+            }
+            it.query().addOrderBy_UserId_Asc()
+        }
+        return mappingToUsers(dbUserList)
+    }
+
     override fun search(query: UserQuery, user: User?): Users {
         val followings = if (query.isTwitterFollowing == true && user != null) {
             twitterRepository.getFollowings(user.twitter)
@@ -134,6 +145,16 @@ class UserRepositoryImpl(
         }
     }
 
+    override fun updateUserRuleBook(sourceRuleBookId: Int, destRuleBookId: Int) {
+        userRuleBookBhv.selectList {
+            it.query().setRuleBookId_Equal(sourceRuleBookId)
+        }.forEach { userRuleBook ->
+            val userId = userRuleBook.userId
+            deleteUserRuleBook(userId, sourceRuleBookId)
+            registerUserRuleBook(userId, destRuleBookId)
+        }
+    }
+
     override fun registerUserScenario(id: Int, scenarioId: Int) {
         val existing = userScenarioBhv.selectEntity {
             it.query().setUserId_Equal(id)
@@ -150,6 +171,16 @@ class UserRepositoryImpl(
         userScenarioBhv.queryDelete {
             it.query().setUserId_Equal(id)
             it.query().setScenarioId_Equal(scenarioId)
+        }
+    }
+
+    override fun updateUserScenario(sourceScenarioId: Int, destScenarioId: Int) {
+        userScenarioBhv.selectList {
+            it.query().setScenarioId_Equal(sourceScenarioId)
+        }.forEach { userScenario ->
+            val userId = userScenario.userId
+            deleteUserScenario(userId, sourceScenarioId)
+            registerUserScenario(userId, destScenarioId)
         }
     }
 
