@@ -13,7 +13,8 @@ data class ScenarioUrl(
         "www.pixiv.net",
         "character-sheets.appspot.com",
         "twitter.com",
-        "www.dlsite.com"
+        "www.dlsite.com",
+        "seesaawiki.jp"
     )
 
     fun assert() {
