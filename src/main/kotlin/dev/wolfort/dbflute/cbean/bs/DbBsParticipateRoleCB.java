@@ -328,10 +328,10 @@ public class DbBsParticipateRoleCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnParticipateId() { return doColumn("participate_id"); }
         /**
-         * participate_role_type: {NotNull, VARCHAR(50)}
+         * participate_role_name: {NotNull, VARCHAR(50)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnParticipateRoleType() { return doColumn("participate_role_type"); }
+        public SpecifiedColumn columnParticipateRoleName() { return doColumn("participate_role_name"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)

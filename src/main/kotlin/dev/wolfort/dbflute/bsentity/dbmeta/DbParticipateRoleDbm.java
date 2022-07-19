@@ -45,7 +45,7 @@ public class DbParticipateRoleDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((DbParticipateRole)et).getParticipateRoleId(), (et, vl) -> ((DbParticipateRole)et).setParticipateRoleId(cti(vl)), "participateRoleId");
         setupEpg(_epgMap, et -> ((DbParticipateRole)et).getParticipateId(), (et, vl) -> ((DbParticipateRole)et).setParticipateId(cti(vl)), "participateId");
-        setupEpg(_epgMap, et -> ((DbParticipateRole)et).getParticipateRoleType(), (et, vl) -> ((DbParticipateRole)et).setParticipateRoleType((String)vl), "participateRoleType");
+        setupEpg(_epgMap, et -> ((DbParticipateRole)et).getParticipateRoleName(), (et, vl) -> ((DbParticipateRole)et).setParticipateRoleName((String)vl), "participateRoleName");
         setupEpg(_epgMap, et -> ((DbParticipateRole)et).getRegisterDatetime(), (et, vl) -> ((DbParticipateRole)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbParticipateRole)et).getRegisterTrace(), (et, vl) -> ((DbParticipateRole)et).setRegisterTrace((String)vl), "registerTrace");
         setupEpg(_epgMap, et -> ((DbParticipateRole)et).getUpdateDatetime(), (et, vl) -> ((DbParticipateRole)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -84,7 +84,7 @@ public class DbParticipateRoleDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnParticipateRoleId = cci("participate_role_id", "participate_role_id", null, null, Integer.class, "participateRoleId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "participate", null, null, false);
-    protected final ColumnInfo _columnParticipateRoleType = cci("participate_role_type", "participate_role_type", null, null, String.class, "participateRoleType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnParticipateRoleName = cci("participate_role_name", "participate_role_name", null, null, String.class, "participateRoleName", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -101,10 +101,10 @@ public class DbParticipateRoleDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnParticipateId() { return _columnParticipateId; }
     /**
-     * participate_role_type: {NotNull, VARCHAR(50)}
+     * participate_role_name: {NotNull, VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
      */
-    public ColumnInfo columnParticipateRoleType() { return _columnParticipateRoleType; }
+    public ColumnInfo columnParticipateRoleName() { return _columnParticipateRoleName; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -130,7 +130,7 @@ public class DbParticipateRoleDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnParticipateRoleId());
         ls.add(columnParticipateId());
-        ls.add(columnParticipateRoleType());
+        ls.add(columnParticipateRoleName());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());

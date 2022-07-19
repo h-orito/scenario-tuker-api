@@ -63,7 +63,7 @@ public class DbParticipateRoleCIQ extends DbAbstractBsParticipateRoleCQ {
     //                                                                ====================
     protected ConditionValue xgetCValueParticipateRoleId() { return _myCQ.xdfgetParticipateRoleId(); }
     protected ConditionValue xgetCValueParticipateId() { return _myCQ.xdfgetParticipateId(); }
-    protected ConditionValue xgetCValueParticipateRoleType() { return _myCQ.xdfgetParticipateRoleType(); }
+    protected ConditionValue xgetCValueParticipateRoleName() { return _myCQ.xdfgetParticipateRoleName(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

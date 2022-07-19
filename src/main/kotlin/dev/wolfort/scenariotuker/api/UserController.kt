@@ -9,7 +9,6 @@ import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
-import dev.wolfort.scenariotuker.domain.model.participate.RoleType
 import dev.wolfort.scenariotuker.domain.model.user.User
 import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.domain.model.user.Users
@@ -174,7 +173,7 @@ class UserController(
         var id: Int? = null,
         var scenarioId: Int = 0,
         val ruleBookIds: List<Int> = emptyList(),
-        var roleTypes: List<RoleType> = emptyList(),
+        var roleNames: List<String> = emptyList(),
         var dispOrder: Int? = 0,
         @Valid
         var impression: ParticipateImpressionPostRequest? = null
@@ -192,7 +191,7 @@ class UserController(
             scenarioId = scenarioId,
             userId = userId,
             ruleBookIds = ruleBookIds,
-            roleTypes = roleTypes,
+            roleNames = roleNames,
             dispOrder = dispOrder ?: 0,
             impression = if (impression?.content.isNullOrBlank()) null else ParticipateImpression(
                 hasSpoiler = impression!!.hasSpoiler,

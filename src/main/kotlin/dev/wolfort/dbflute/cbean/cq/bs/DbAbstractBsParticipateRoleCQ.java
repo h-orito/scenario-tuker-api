@@ -291,138 +291,138 @@ public abstract class DbAbstractBsParticipateRoleCQ extends AbstractConditionQue
 
     /**
      * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_Equal(String participateRoleType) {
-        doSetParticipateRoleType_Equal(fRES(participateRoleType));
+    public void setParticipateRoleName_Equal(String participateRoleName) {
+        doSetParticipateRoleName_Equal(fRES(participateRoleName));
     }
 
-    protected void doSetParticipateRoleType_Equal(String participateRoleType) {
-        regParticipateRoleType(CK_EQ, participateRoleType);
+    protected void doSetParticipateRoleName_Equal(String participateRoleName) {
+        regParticipateRoleName(CK_EQ, participateRoleName);
     }
 
     /**
      * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_NotEqual(String participateRoleType) {
-        doSetParticipateRoleType_NotEqual(fRES(participateRoleType));
+    public void setParticipateRoleName_NotEqual(String participateRoleName) {
+        doSetParticipateRoleName_NotEqual(fRES(participateRoleName));
     }
 
-    protected void doSetParticipateRoleType_NotEqual(String participateRoleType) {
-        regParticipateRoleType(CK_NES, participateRoleType);
+    protected void doSetParticipateRoleName_NotEqual(String participateRoleName) {
+        regParticipateRoleName(CK_NES, participateRoleName);
     }
 
     /**
      * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_GreaterThan(String participateRoleType) {
-        regParticipateRoleType(CK_GT, fRES(participateRoleType));
+    public void setParticipateRoleName_GreaterThan(String participateRoleName) {
+        regParticipateRoleName(CK_GT, fRES(participateRoleName));
     }
 
     /**
      * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_LessThan(String participateRoleType) {
-        regParticipateRoleType(CK_LT, fRES(participateRoleType));
+    public void setParticipateRoleName_LessThan(String participateRoleName) {
+        regParticipateRoleName(CK_LT, fRES(participateRoleName));
     }
 
     /**
      * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_GreaterEqual(String participateRoleType) {
-        regParticipateRoleType(CK_GE, fRES(participateRoleType));
+    public void setParticipateRoleName_GreaterEqual(String participateRoleName) {
+        regParticipateRoleName(CK_GE, fRES(participateRoleName));
     }
 
     /**
      * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_LessEqual(String participateRoleType) {
-        regParticipateRoleType(CK_LE, fRES(participateRoleType));
+    public void setParticipateRoleName_LessEqual(String participateRoleName) {
+        regParticipateRoleName(CK_LE, fRES(participateRoleName));
     }
 
     /**
      * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleTypeList The collection of participateRoleType as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleNameList The collection of participateRoleName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_InScope(Collection<String> participateRoleTypeList) {
-        doSetParticipateRoleType_InScope(participateRoleTypeList);
+    public void setParticipateRoleName_InScope(Collection<String> participateRoleNameList) {
+        doSetParticipateRoleName_InScope(participateRoleNameList);
     }
 
-    protected void doSetParticipateRoleType_InScope(Collection<String> participateRoleTypeList) {
-        regINS(CK_INS, cTL(participateRoleTypeList), xgetCValueParticipateRoleType(), "participate_role_type");
+    protected void doSetParticipateRoleName_InScope(Collection<String> participateRoleNameList) {
+        regINS(CK_INS, cTL(participateRoleNameList), xgetCValueParticipateRoleName(), "participate_role_name");
     }
 
     /**
      * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleTypeList The collection of participateRoleType as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleNameList The collection of participateRoleName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
-    public void setParticipateRoleType_NotInScope(Collection<String> participateRoleTypeList) {
-        doSetParticipateRoleType_NotInScope(participateRoleTypeList);
+    public void setParticipateRoleName_NotInScope(Collection<String> participateRoleNameList) {
+        doSetParticipateRoleName_NotInScope(participateRoleNameList);
     }
 
-    protected void doSetParticipateRoleType_NotInScope(Collection<String> participateRoleTypeList) {
-        regINS(CK_NINS, cTL(participateRoleTypeList), xgetCValueParticipateRoleType(), "participate_role_type");
+    protected void doSetParticipateRoleName_NotInScope(Collection<String> participateRoleNameList) {
+        regINS(CK_NINS, cTL(participateRoleNameList), xgetCValueParticipateRoleName(), "participate_role_name");
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setParticipateRoleType_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param participateRoleType The value of participateRoleType as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setParticipateRoleName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param participateRoleName The value of participateRoleName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setParticipateRoleType_LikeSearch(String participateRoleType, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setParticipateRoleType_LikeSearch(participateRoleType, xcLSOP(opLambda));
+    public void setParticipateRoleName_LikeSearch(String participateRoleName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setParticipateRoleName_LikeSearch(participateRoleName, xcLSOP(opLambda));
     }
 
     /**
      * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)} <br>
-     * <pre>e.g. setParticipateRoleType_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param participateRoleType The value of participateRoleType as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)} <br>
+     * <pre>e.g. setParticipateRoleName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param participateRoleName The value of participateRoleName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of like-search. (NotNull)
      */
-    protected void setParticipateRoleType_LikeSearch(String participateRoleType, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(participateRoleType), xgetCValueParticipateRoleType(), "participate_role_type", likeSearchOption);
+    protected void setParticipateRoleName_LikeSearch(String participateRoleName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(participateRoleName), xgetCValueParticipateRoleName(), "participate_role_name", likeSearchOption);
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param opLambda The callback for option of like-search. (NotNull)
      */
-    public void setParticipateRoleType_NotLikeSearch(String participateRoleType, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setParticipateRoleType_NotLikeSearch(participateRoleType, xcLSOP(opLambda));
+    public void setParticipateRoleName_NotLikeSearch(String participateRoleName, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setParticipateRoleName_NotLikeSearch(participateRoleName, xcLSOP(opLambda));
     }
 
     /**
      * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
      * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
-     * @param participateRoleType The value of participateRoleType as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * participate_role_name: {NotNull, VARCHAR(50)}
+     * @param participateRoleName The value of participateRoleName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
      * @param likeSearchOption The option of not-like-search. (NotNull)
      */
-    protected void setParticipateRoleType_NotLikeSearch(String participateRoleType, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(participateRoleType), xgetCValueParticipateRoleType(), "participate_role_type", likeSearchOption);
+    protected void setParticipateRoleName_NotLikeSearch(String participateRoleName, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(participateRoleName), xgetCValueParticipateRoleName(), "participate_role_name", likeSearchOption);
     }
 
-    protected void regParticipateRoleType(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueParticipateRoleType(), "participate_role_type"); }
-    protected abstract ConditionValue xgetCValueParticipateRoleType();
+    protected void regParticipateRoleName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueParticipateRoleName(), "participate_role_name"); }
+    protected abstract ConditionValue xgetCValueParticipateRoleName();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>

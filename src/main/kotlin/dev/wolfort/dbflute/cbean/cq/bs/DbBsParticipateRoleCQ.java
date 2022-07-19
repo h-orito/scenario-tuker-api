@@ -113,25 +113,25 @@ public class DbBsParticipateRoleCQ extends DbAbstractBsParticipateRoleCQ {
      */
     public DbBsParticipateRoleCQ addOrderBy_ParticipateId_Desc() { regOBD("participate_id"); return this; }
 
-    protected ConditionValue _participateRoleType;
-    public ConditionValue xdfgetParticipateRoleType()
-    { if (_participateRoleType == null) { _participateRoleType = nCV(); }
-      return _participateRoleType; }
-    protected ConditionValue xgetCValueParticipateRoleType() { return xdfgetParticipateRoleType(); }
+    protected ConditionValue _participateRoleName;
+    public ConditionValue xdfgetParticipateRoleName()
+    { if (_participateRoleName == null) { _participateRoleName = nCV(); }
+      return _participateRoleName; }
+    protected ConditionValue xgetCValueParticipateRoleName() { return xdfgetParticipateRoleName(); }
 
     /**
      * Add order-by as ascend. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
+     * participate_role_name: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
-    public DbBsParticipateRoleCQ addOrderBy_ParticipateRoleType_Asc() { regOBA("participate_role_type"); return this; }
+    public DbBsParticipateRoleCQ addOrderBy_ParticipateRoleName_Asc() { regOBA("participate_role_name"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * participate_role_type: {NotNull, VARCHAR(50)}
+     * participate_role_name: {NotNull, VARCHAR(50)}
      * @return this. (NotNull)
      */
-    public DbBsParticipateRoleCQ addOrderBy_ParticipateRoleType_Desc() { regOBD("participate_role_type"); return this; }
+    public DbBsParticipateRoleCQ addOrderBy_ParticipateRoleName_Desc() { regOBD("participate_role_name"); return this; }
 
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()

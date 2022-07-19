@@ -99,8 +99,8 @@ class ParticipateRepositoryImpl(
         p.dispOrder = p.participateId
         participateBhv.update(p)
         participate.ruleBookIds.forEach { insertParticipateRuleBook(p.participateId, it) }
-        participate.roleTypes.forEach { roleType ->
-            insertParticipateRole(p.participateId, roleType)
+        participate.roleNames.distinct().forEach { roleName ->
+            insertParticipateRole(p.participateId, roleName)
         }
         participate.impression.let {
             if (it?.content.isNullOrBlank()) deleteParticipateImpression(p.participateId)
@@ -117,8 +117,8 @@ class ParticipateRepositoryImpl(
         participateRuleBookBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
         participate.ruleBookIds.forEach { insertParticipateRuleBook(participate.id, it) }
         participateRoleBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
-        participate.roleTypes.forEach { rollType ->
-            insertParticipateRole(participate.id, rollType)
+        participate.roleNames.distinct().forEach { roleName ->
+            insertParticipateRole(participate.id, roleName)
         }
         participate.impression.let {
             if (it?.content.isNullOrBlank()) deleteParticipateImpression(participate.id)
@@ -159,10 +159,10 @@ class ParticipateRepositoryImpl(
         }
     }
 
-    private fun insertParticipateRole(participateId: Int, roleType: RoleType) {
+    private fun insertParticipateRole(participateId: Int, roleName: String) {
         val r = DbParticipateRole()
         r.participateId = participateId
-        r.participateRoleType = roleType.name
+        r.participateRoleName = roleName
         participateRoleBhv.insert(r)
     }
 
@@ -204,7 +204,7 @@ class ParticipateRepositoryImpl(
             scenarioId = participate.scenarioId,
             userId = participate.userId,
             ruleBookIds = participate.participateRuleBookList.map { it.ruleBookId },
-            roleTypes = participate.participateRoleList.map { RoleType.valueOf(it.participateRoleType) },
+            roleNames = participate.participateRoleList.map { it.participateRoleName },
             dispOrder = participate.dispOrder,
             impression = participate.participateImpressionAsOne.map {
                 ParticipateImpression(

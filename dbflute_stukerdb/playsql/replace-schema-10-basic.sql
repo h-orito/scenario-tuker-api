@@ -259,7 +259,7 @@ alter table participate
 create table participate_role (
     participate_role_id   int unsigned not null auto_increment,
     participate_id        int unsigned not null,
-    participate_role_type varchar(50) not null,
+    participate_role_name varchar(50) not null,
     register_datetime     datetime not null,
     register_trace        varchar(64) not null,
     update_datetime       datetime not null,

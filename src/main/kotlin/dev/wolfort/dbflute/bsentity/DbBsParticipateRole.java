@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     participate_role_id
  *
  * [column]
- *     participate_role_id, participate_id, participate_role_type, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_role_id, participate_id, participate_role_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -46,14 +46,14 @@ import dev.wolfort.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer participateRoleId = entity.getParticipateRoleId();
  * Integer participateId = entity.getParticipateId();
- * String participateRoleType = entity.getParticipateRoleType();
+ * String participateRoleName = entity.getParticipateRoleName();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
  * String updateTrace = entity.getUpdateTrace();
  * entity.setParticipateRoleId(participateRoleId);
  * entity.setParticipateId(participateId);
- * entity.setParticipateRoleType(participateRoleType);
+ * entity.setParticipateRoleName(participateRoleName);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -79,8 +79,8 @@ public abstract class DbBsParticipateRole extends AbstractEntity implements Doma
     /** participate_id: {IX, NotNull, INT UNSIGNED(10), FK to participate} */
     protected Integer _participateId;
 
-    /** participate_role_type: {NotNull, VARCHAR(50)} */
-    protected String _participateRoleType;
+    /** participate_role_name: {NotNull, VARCHAR(50)} */
+    protected String _participateRoleName;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -185,7 +185,7 @@ public abstract class DbBsParticipateRole extends AbstractEntity implements Doma
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_participateRoleId));
         sb.append(dm).append(xfND(_participateId));
-        sb.append(dm).append(xfND(_participateRoleType));
+        sb.append(dm).append(xfND(_participateRoleName));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -253,21 +253,21 @@ public abstract class DbBsParticipateRole extends AbstractEntity implements Doma
     }
 
     /**
-     * [get] participate_role_type: {NotNull, VARCHAR(50)} <br>
-     * @return The value of the column 'participate_role_type'. (basically NotNull if selected: for the constraint)
+     * [get] participate_role_name: {NotNull, VARCHAR(50)} <br>
+     * @return The value of the column 'participate_role_name'. (basically NotNull if selected: for the constraint)
      */
-    public String getParticipateRoleType() {
-        checkSpecifiedProperty("participateRoleType");
-        return convertEmptyToNull(_participateRoleType);
+    public String getParticipateRoleName() {
+        checkSpecifiedProperty("participateRoleName");
+        return convertEmptyToNull(_participateRoleName);
     }
 
     /**
-     * [set] participate_role_type: {NotNull, VARCHAR(50)} <br>
-     * @param participateRoleType The value of the column 'participate_role_type'. (basically NotNull if update: for the constraint)
+     * [set] participate_role_name: {NotNull, VARCHAR(50)} <br>
+     * @param participateRoleName The value of the column 'participate_role_name'. (basically NotNull if update: for the constraint)
      */
-    public void setParticipateRoleType(String participateRoleType) {
-        registerModifiedProperty("participateRoleType");
-        _participateRoleType = participateRoleType;
+    public void setParticipateRoleName(String participateRoleName) {
+        registerModifiedProperty("participateRoleName");
+        _participateRoleName = participateRoleName;
     }
 
     /**

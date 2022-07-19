@@ -8,7 +8,7 @@ data class Participate(
     val scenarioId: Int,
     val userId: Int,
     val ruleBookIds: List<Int>,
-    val roleTypes: List<RoleType>,
+    val roleNames: List<String>,
     val dispOrder: Int,
     val impression: ParticipateImpression?
 ) {

@@ -126,7 +126,7 @@ entity ParticipateRole {
     * participate_role_id: int unsigned <<generated>>
     --
     * participate_id: int unsigned <<foreign key>>
-    * participate_role_type: varchar(50)
+    * participate_role_name: varchar(50)
 }
 
 Participate ||--down--|{ ParticipateRole

@@ -28,7 +28,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     participate_role_id
  *
  * [column]
- *     participate_role_id, participate_id, participate_role_type, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_role_id, participate_id, participate_role_name, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
