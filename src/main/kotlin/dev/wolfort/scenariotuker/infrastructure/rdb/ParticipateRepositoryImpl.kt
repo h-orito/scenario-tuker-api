@@ -91,29 +91,21 @@ class ParticipateRepositoryImpl(
     }
 
     override fun register(participate: Participate): Participate {
-        val p = DbParticipate()
-        p.scenarioId = participate.scenarioId
-        p.userId = participate.userId
-        p.dispOrder = 0
-        participateBhv.insert(p)
-        p.dispOrder = p.participateId
-        participateBhv.update(p)
-        participate.ruleBookIds.forEach { insertParticipateRuleBook(p.participateId, it) }
+        val participateId = insertParticipate(participate)
+        participate.ruleBookIds.forEach { insertParticipateRuleBook(participateId, it) }
         participate.roleNames.distinct().forEach { roleName ->
-            insertParticipateRole(p.participateId, roleName)
+            insertParticipateRole(participateId, roleName)
         }
         participate.impression.let {
-            if (it?.content.isNullOrBlank()) deleteParticipateImpression(p.participateId)
-            else upsertParticipateImpression(p.participateId, it!!)
+            if (it?.content.isNullOrBlank()) deleteParticipateImpression(participateId)
+            else upsertParticipateImpression(participateId, it!!)
         }
-        return findById(p.participateId)!!
+        return findById(participateId)!!
     }
 
+
     override fun update(participate: Participate): Participate {
-        val p = DbParticipate()
-        p.participateId = participate.id
-        p.dispOrder = participate.dispOrder
-        participateBhv.update(p)
+        updateParticipate(participate)
         participateRuleBookBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
         participate.ruleBookIds.forEach { insertParticipateRuleBook(participate.id, it) }
         participateRoleBhv.queryDelete { it.query().setParticipateId_Equal(participate.id) }
@@ -157,6 +149,42 @@ class ParticipateRepositoryImpl(
                 participateBhv.update(p)
             }
         }
+    }
+
+    private fun insertParticipate(participate: Participate): Int {
+        val p = DbParticipate()
+        p.scenarioId = participate.scenarioId
+        p.userId = participate.userId
+        p.dispOrder = 0
+        participate.term?.let {
+            p.participateTermFrom = it.from
+            p.participateTermTo = it.to
+        }
+        p.playerNum = participate.playerNum
+        p.gameMaster = participate.gameMaster
+        p.playerNames = participate.playerNames
+        p.requiredHours = participate.requiredHours
+        p.memo = participate.memo
+        participateBhv.insert(p)
+        p.dispOrder = p.participateId
+        participateBhv.update(p)
+        return p.participateId
+    }
+
+    private fun updateParticipate(participate: Participate) {
+        val p = DbParticipate()
+        p.participateId = participate.id
+        p.dispOrder = participate.dispOrder
+        participate.term?.let {
+            p.participateTermFrom = it.from
+            p.participateTermTo = it.to
+        }
+        p.playerNum = participate.playerNum
+        p.gameMaster = participate.gameMaster
+        p.playerNames = participate.playerNames
+        p.requiredHours = participate.requiredHours
+        p.memo = participate.memo
+        participateBhv.update(p)
     }
 
     private fun insertParticipateRole(participateId: Int, roleName: String) {
@@ -212,7 +240,18 @@ class ParticipateRepositoryImpl(
                     disclosureRange = DisclosureRange.valueOf(it.disclosureRange),
                     content = it.impression
                 )
-            }.orElse(null)
+            }.orElse(null),
+            term =
+            if (participate.participateTermFrom == null && participate.participateTermTo == null) null
+            else ParticipateTerm(
+                from = participate.participateTermFrom,
+                to = participate.participateTermTo
+            ),
+            playerNum = participate.playerNum,
+            gameMaster = participate.gameMaster,
+            playerNames = participate.playerNames,
+            requiredHours = participate.requiredHours,
+            memo = participate.memo
         )
     }
 }

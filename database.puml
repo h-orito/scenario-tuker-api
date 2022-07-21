@@ -70,7 +70,9 @@ entity Scenario {
     * scenario_name: varchar(255)
     * scenario_type: varchar(50)
     scenario_url: varchar(255)
-    game_system_id: int unsigned <<foreign key>>
+    game_master_requirement: int unsigned <<foreign key>>
+    player_num_min: varchar(50)
+    player_num_max: int unsigned
 }
 
 GameSystem ||-right-o{ Scenario
@@ -116,6 +118,13 @@ entity Participate {
     * scenario_id: int unsigned <<foreign key>>
     * user_id: int unsigned <<foreign key>>
     * disp_order: int unsigned
+    participate_term_from: date
+    participate_term_to: date
+    player_num: int unsigned
+    game_master: varchar(255)
+    player_members: varchar(255)
+    required_hours: int unsigned
+    memo: varchar(255)
 }
 
 User ||-down-o{ Participate

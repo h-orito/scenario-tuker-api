@@ -1017,6 +1017,546 @@ public abstract class DbAbstractBsScenarioCQ extends AbstractConditionQuery {
     protected abstract ConditionValue xgetCValueGameSystemId();
 
     /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_Equal(String gameMasterRequirement) {
+        doSetGameMasterRequirement_Equal(fRES(gameMasterRequirement));
+    }
+
+    protected void doSetGameMasterRequirement_Equal(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_EQ, gameMasterRequirement);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_NotEqual(String gameMasterRequirement) {
+        doSetGameMasterRequirement_NotEqual(fRES(gameMasterRequirement));
+    }
+
+    protected void doSetGameMasterRequirement_NotEqual(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_NES, gameMasterRequirement);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_GreaterThan(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_GT, fRES(gameMasterRequirement));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_LessThan(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_LT, fRES(gameMasterRequirement));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_GreaterEqual(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_GE, fRES(gameMasterRequirement));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_LessEqual(String gameMasterRequirement) {
+        regGameMasterRequirement(CK_LE, fRES(gameMasterRequirement));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirementList The collection of gameMasterRequirement as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_InScope(Collection<String> gameMasterRequirementList) {
+        doSetGameMasterRequirement_InScope(gameMasterRequirementList);
+    }
+
+    protected void doSetGameMasterRequirement_InScope(Collection<String> gameMasterRequirementList) {
+        regINS(CK_INS, cTL(gameMasterRequirementList), xgetCValueGameMasterRequirement(), "game_master_requirement");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirementList The collection of gameMasterRequirement as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMasterRequirement_NotInScope(Collection<String> gameMasterRequirementList) {
+        doSetGameMasterRequirement_NotInScope(gameMasterRequirementList);
+    }
+
+    protected void doSetGameMasterRequirement_NotInScope(Collection<String> gameMasterRequirementList) {
+        regINS(CK_NINS, cTL(gameMasterRequirementList), xgetCValueGameMasterRequirement(), "game_master_requirement");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)} <br>
+     * <pre>e.g. setGameMasterRequirement_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param gameMasterRequirement The value of gameMasterRequirement as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setGameMasterRequirement_LikeSearch(String gameMasterRequirement, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setGameMasterRequirement_LikeSearch(gameMasterRequirement, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)} <br>
+     * <pre>e.g. setGameMasterRequirement_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param gameMasterRequirement The value of gameMasterRequirement as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setGameMasterRequirement_LikeSearch(String gameMasterRequirement, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(gameMasterRequirement), xgetCValueGameMasterRequirement(), "game_master_requirement", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setGameMasterRequirement_NotLikeSearch(String gameMasterRequirement, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setGameMasterRequirement_NotLikeSearch(gameMasterRequirement, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @param gameMasterRequirement The value of gameMasterRequirement as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setGameMasterRequirement_NotLikeSearch(String gameMasterRequirement, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(gameMasterRequirement), xgetCValueGameMasterRequirement(), "game_master_requirement", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     */
+    public void setGameMasterRequirement_IsNull() { regGameMasterRequirement(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     */
+    public void setGameMasterRequirement_IsNullOrEmpty() { regGameMasterRequirement(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     */
+    public void setGameMasterRequirement_IsNotNull() { regGameMasterRequirement(CK_ISNN, DOBJ); }
+
+    protected void regGameMasterRequirement(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameMasterRequirement(), "game_master_requirement"); }
+    protected abstract ConditionValue xgetCValueGameMasterRequirement();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_Equal(Integer playerNumMin) {
+        doSetPlayerNumMin_Equal(playerNumMin);
+    }
+
+    protected void doSetPlayerNumMin_Equal(Integer playerNumMin) {
+        regPlayerNumMin(CK_EQ, playerNumMin);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_NotEqual(Integer playerNumMin) {
+        doSetPlayerNumMin_NotEqual(playerNumMin);
+    }
+
+    protected void doSetPlayerNumMin_NotEqual(Integer playerNumMin) {
+        regPlayerNumMin(CK_NES, playerNumMin);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_GreaterThan(Integer playerNumMin) {
+        regPlayerNumMin(CK_GT, playerNumMin);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_LessThan(Integer playerNumMin) {
+        regPlayerNumMin(CK_LT, playerNumMin);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_GreaterEqual(Integer playerNumMin) {
+        regPlayerNumMin(CK_GE, playerNumMin);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMin The value of playerNumMin as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_LessEqual(Integer playerNumMin) {
+        regPlayerNumMin(CK_LE, playerNumMin);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNumMin. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNumMin. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setPlayerNumMin_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setPlayerNumMin_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNumMin. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNumMin. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setPlayerNumMin_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValuePlayerNumMin(), "player_num_min", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMinList The collection of playerNumMin as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_InScope(Collection<Integer> playerNumMinList) {
+        doSetPlayerNumMin_InScope(playerNumMinList);
+    }
+
+    protected void doSetPlayerNumMin_InScope(Collection<Integer> playerNumMinList) {
+        regINS(CK_INS, cTL(playerNumMinList), xgetCValuePlayerNumMin(), "player_num_min");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @param playerNumMinList The collection of playerNumMin as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNumMin_NotInScope(Collection<Integer> playerNumMinList) {
+        doSetPlayerNumMin_NotInScope(playerNumMinList);
+    }
+
+    protected void doSetPlayerNumMin_NotInScope(Collection<Integer> playerNumMinList) {
+        regINS(CK_NINS, cTL(playerNumMinList), xgetCValuePlayerNumMin(), "player_num_min");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNumMin_IsNull() { regPlayerNumMin(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNumMin_IsNotNull() { regPlayerNumMin(CK_ISNN, DOBJ); }
+
+    protected void regPlayerNumMin(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePlayerNumMin(), "player_num_min"); }
+    protected abstract ConditionValue xgetCValuePlayerNumMin();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_Equal(Integer playerNumMax) {
+        doSetPlayerNumMax_Equal(playerNumMax);
+    }
+
+    protected void doSetPlayerNumMax_Equal(Integer playerNumMax) {
+        regPlayerNumMax(CK_EQ, playerNumMax);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_NotEqual(Integer playerNumMax) {
+        doSetPlayerNumMax_NotEqual(playerNumMax);
+    }
+
+    protected void doSetPlayerNumMax_NotEqual(Integer playerNumMax) {
+        regPlayerNumMax(CK_NES, playerNumMax);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_GreaterThan(Integer playerNumMax) {
+        regPlayerNumMax(CK_GT, playerNumMax);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_LessThan(Integer playerNumMax) {
+        regPlayerNumMax(CK_LT, playerNumMax);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_GreaterEqual(Integer playerNumMax) {
+        regPlayerNumMax(CK_GE, playerNumMax);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMax The value of playerNumMax as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_LessEqual(Integer playerNumMax) {
+        regPlayerNumMax(CK_LE, playerNumMax);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNumMax. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNumMax. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setPlayerNumMax_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setPlayerNumMax_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNumMax. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNumMax. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setPlayerNumMax_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValuePlayerNumMax(), "player_num_max", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMaxList The collection of playerNumMax as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_InScope(Collection<Integer> playerNumMaxList) {
+        doSetPlayerNumMax_InScope(playerNumMaxList);
+    }
+
+    protected void doSetPlayerNumMax_InScope(Collection<Integer> playerNumMaxList) {
+        regINS(CK_INS, cTL(playerNumMaxList), xgetCValuePlayerNumMax(), "player_num_max");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @param playerNumMaxList The collection of playerNumMax as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNumMax_NotInScope(Collection<Integer> playerNumMaxList) {
+        doSetPlayerNumMax_NotInScope(playerNumMaxList);
+    }
+
+    protected void doSetPlayerNumMax_NotInScope(Collection<Integer> playerNumMaxList) {
+        regINS(CK_NINS, cTL(playerNumMaxList), xgetCValuePlayerNumMax(), "player_num_max");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNumMax_IsNull() { regPlayerNumMax(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNumMax_IsNotNull() { regPlayerNumMax(CK_ISNN, DOBJ); }
+
+    protected void regPlayerNumMax(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePlayerNumMax(), "player_num_max"); }
+    protected abstract ConditionValue xgetCValuePlayerNumMax();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_Equal(Integer requiredHours) {
+        doSetRequiredHours_Equal(requiredHours);
+    }
+
+    protected void doSetRequiredHours_Equal(Integer requiredHours) {
+        regRequiredHours(CK_EQ, requiredHours);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_NotEqual(Integer requiredHours) {
+        doSetRequiredHours_NotEqual(requiredHours);
+    }
+
+    protected void doSetRequiredHours_NotEqual(Integer requiredHours) {
+        regRequiredHours(CK_NES, requiredHours);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_GreaterThan(Integer requiredHours) {
+        regRequiredHours(CK_GT, requiredHours);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_LessThan(Integer requiredHours) {
+        regRequiredHours(CK_LT, requiredHours);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_GreaterEqual(Integer requiredHours) {
+        regRequiredHours(CK_GE, requiredHours);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_LessEqual(Integer requiredHours) {
+        regRequiredHours(CK_LE, requiredHours);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param minNumber The min number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setRequiredHours_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setRequiredHours_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param minNumber The min number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setRequiredHours_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueRequiredHours(), "required_hours", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHoursList The collection of requiredHours as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRequiredHours_InScope(Collection<Integer> requiredHoursList) {
+        doSetRequiredHours_InScope(requiredHoursList);
+    }
+
+    protected void doSetRequiredHours_InScope(Collection<Integer> requiredHoursList) {
+        regINS(CK_INS, cTL(requiredHoursList), xgetCValueRequiredHours(), "required_hours");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHoursList The collection of requiredHours as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRequiredHours_NotInScope(Collection<Integer> requiredHoursList) {
+        doSetRequiredHours_NotInScope(requiredHoursList);
+    }
+
+    protected void doSetRequiredHours_NotInScope(Collection<Integer> requiredHoursList) {
+        regINS(CK_NINS, cTL(requiredHoursList), xgetCValueRequiredHours(), "required_hours");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     */
+    public void setRequiredHours_IsNull() { regRequiredHours(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     */
+    public void setRequiredHours_IsNotNull() { regRequiredHours(CK_ISNN, DOBJ); }
+
+    protected void regRequiredHours(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRequiredHours(), "required_hours"); }
+    protected abstract ConditionValue xgetCValueRequiredHours();
+
+    /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)

@@ -48,6 +48,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioType(), (et, vl) -> ((DbScenario)et).setScenarioType((String)vl), "scenarioType");
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioUrl(), (et, vl) -> ((DbScenario)et).setScenarioUrl((String)vl), "scenarioUrl");
         setupEpg(_epgMap, et -> ((DbScenario)et).getGameSystemId(), (et, vl) -> ((DbScenario)et).setGameSystemId(cti(vl)), "gameSystemId");
+        setupEpg(_epgMap, et -> ((DbScenario)et).getGameMasterRequirement(), (et, vl) -> ((DbScenario)et).setGameMasterRequirement((String)vl), "gameMasterRequirement");
+        setupEpg(_epgMap, et -> ((DbScenario)et).getPlayerNumMin(), (et, vl) -> ((DbScenario)et).setPlayerNumMin(cti(vl)), "playerNumMin");
+        setupEpg(_epgMap, et -> ((DbScenario)et).getPlayerNumMax(), (et, vl) -> ((DbScenario)et).setPlayerNumMax(cti(vl)), "playerNumMax");
+        setupEpg(_epgMap, et -> ((DbScenario)et).getRequiredHours(), (et, vl) -> ((DbScenario)et).setRequiredHours(cti(vl)), "requiredHours");
         setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterDatetime(), (et, vl) -> ((DbScenario)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbScenario)et).getRegisterTrace(), (et, vl) -> ((DbScenario)et).setRegisterTrace((String)vl), "registerTrace");
         setupEpg(_epgMap, et -> ((DbScenario)et).getUpdateDatetime(), (et, vl) -> ((DbScenario)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -89,6 +93,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnScenarioType = cci("scenario_type", "scenario_type", null, null, String.class, "scenarioType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnScenarioUrl = cci("scenario_url", "scenario_url", null, null, String.class, "scenarioUrl", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, "gameSystem", null, null, false);
+    protected final ColumnInfo _columnGameMasterRequirement = cci("game_master_requirement", "game_master_requirement", null, null, String.class, "gameMasterRequirement", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPlayerNumMin = cci("player_num_min", "player_num_min", null, null, Integer.class, "playerNumMin", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPlayerNumMax = cci("player_num_max", "player_num_max", null, null, Integer.class, "playerNumMax", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRequiredHours = cci("required_hours", "required_hours", null, null, Integer.class, "requiredHours", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -120,6 +128,26 @@ public class DbScenarioDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnGameSystemId() { return _columnGameSystemId; }
     /**
+     * game_master_requirement: {VARCHAR(50)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnGameMasterRequirement() { return _columnGameMasterRequirement; }
+    /**
+     * player_num_min: {INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnPlayerNumMin() { return _columnPlayerNumMin; }
+    /**
+     * player_num_max: {INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnPlayerNumMax() { return _columnPlayerNumMax; }
+    /**
+     * required_hours: {INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRequiredHours() { return _columnRequiredHours; }
+    /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
      */
@@ -147,6 +175,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
         ls.add(columnScenarioType());
         ls.add(columnScenarioUrl());
         ls.add(columnGameSystemId());
+        ls.add(columnGameMasterRequirement());
+        ls.add(columnPlayerNumMin());
+        ls.add(columnPlayerNumMax());
+        ls.add(columnRequiredHours());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());

@@ -115,34 +115,20 @@ class ScenarioRepositoryImpl(
     }
 
     override fun register(scenario: Scenario): Scenario {
-        val s = DbScenario()
-        s.scenarioName = scenario.name
-        s.scenarioType = scenario.type.name
-        s.scenarioUrl = scenario.url?.value
-        s.gameSystemId = scenario.gameSystemId
-        scenarioBhv.insert(s)
-        scenario.authorIds.forEach { insertScenarioAuthor(s.scenarioId, it) }
-        scenario.dictionaryNames.forEach { insertScenarioDictionary(s.scenarioId, it) }
-        return findById(s.scenarioId)!!
+        val scenarioId = insertScenario(scenario)
+        scenario.authorIds.forEach { insertScenarioAuthor(scenarioId, it) }
+        scenario.dictionaryNames.forEach { insertScenarioDictionary(scenarioId, it) }
+        return findById(scenarioId)!!
     }
 
     override fun update(scenario: Scenario): Scenario {
         findById(scenario.id) ?: throw SystemException("scenario not found. id: ${scenario.id}")
 
-        val s = DbScenario()
-        s.scenarioId = scenario.id
-        s.scenarioName = scenario.name
-        s.scenarioType = scenario.type.name
-        s.scenarioUrl = scenario.url?.value
-        s.gameSystemId = scenario.gameSystemId
-        scenarioBhv.update(s)
-
+        updateScenario(scenario)
         scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
         scenario.authorIds.forEach { insertScenarioAuthor(scenario.id, it) }
-
         scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
         scenario.dictionaryNames.forEach { insertScenarioDictionary(scenario.id, it) }
-
         return findById(scenario.id)!!
     }
 
@@ -188,6 +174,34 @@ class ScenarioRepositoryImpl(
         return mappingToScenarios(dbScenarioList)
     }
 
+    private fun insertScenario(scenario: Scenario): Int {
+        val s = DbScenario()
+        s.scenarioName = scenario.name
+        s.scenarioType = scenario.type.name
+        s.scenarioUrl = scenario.url?.value
+        s.gameSystemId = scenario.gameSystemId
+        s.gameMasterRequirement = scenario.gameMasterRequirement
+        s.playerNumMin = scenario.playerNumMin
+        s.playerNumMax = scenario.playerNumMax
+        s.requiredHours = scenario.requiredHours
+        scenarioBhv.insert(s)
+        return s.scenarioId
+    }
+
+    private fun updateScenario(scenario: Scenario) {
+        val s = DbScenario()
+        s.scenarioId = scenario.id
+        s.scenarioName = scenario.name
+        s.scenarioType = scenario.type.name
+        s.scenarioUrl = scenario.url?.value
+        s.gameSystemId = scenario.gameSystemId
+        s.gameMasterRequirement = scenario.gameMasterRequirement
+        s.playerNumMin = scenario.playerNumMin
+        s.playerNumMax = scenario.playerNumMax
+        s.requiredHours = scenario.requiredHours
+        scenarioBhv.update(s)
+    }
+
     private fun insertScenarioAuthor(scenarioId: Int, authorId: Int) {
         val sa = DbScenarioAuthor()
         sa.scenarioId = scenarioId
@@ -221,7 +235,11 @@ class ScenarioRepositoryImpl(
             type = ScenarioType.valueOf(scenario.scenarioType),
             url = scenario.scenarioUrl?.let { ScenarioUrl(it) },
             gameSystemId = scenario.gameSystemId,
-            authorIds = scenario.scenarioAuthorList.map { it.authorId }
+            authorIds = scenario.scenarioAuthorList.map { it.authorId },
+            gameMasterRequirement = scenario.gameMasterRequirement,
+            playerNumMin = scenario.playerNumMin,
+            playerNumMax = scenario.playerNumMax,
+            requiredHours = scenario.requiredHours
         )
     }
 }

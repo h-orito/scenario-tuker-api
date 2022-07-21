@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     participate_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, disp_order, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_id, scenario_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     

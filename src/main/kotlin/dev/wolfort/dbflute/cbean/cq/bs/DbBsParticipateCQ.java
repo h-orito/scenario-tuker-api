@@ -181,6 +181,146 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
      */
     public DbBsParticipateCQ addOrderBy_DispOrder_Desc() { regOBD("disp_order"); return this; }
 
+    protected ConditionValue _participateTermFrom;
+    public ConditionValue xdfgetParticipateTermFrom()
+    { if (_participateTermFrom == null) { _participateTermFrom = nCV(); }
+      return _participateTermFrom; }
+    protected ConditionValue xgetCValueParticipateTermFrom() { return xdfgetParticipateTermFrom(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * participate_term_from: {DATE(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_ParticipateTermFrom_Asc() { regOBA("participate_term_from"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * participate_term_from: {DATE(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_ParticipateTermFrom_Desc() { regOBD("participate_term_from"); return this; }
+
+    protected ConditionValue _participateTermTo;
+    public ConditionValue xdfgetParticipateTermTo()
+    { if (_participateTermTo == null) { _participateTermTo = nCV(); }
+      return _participateTermTo; }
+    protected ConditionValue xgetCValueParticipateTermTo() { return xdfgetParticipateTermTo(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * participate_term_to: {DATE(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_ParticipateTermTo_Asc() { regOBA("participate_term_to"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * participate_term_to: {DATE(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_ParticipateTermTo_Desc() { regOBD("participate_term_to"); return this; }
+
+    protected ConditionValue _playerNum;
+    public ConditionValue xdfgetPlayerNum()
+    { if (_playerNum == null) { _playerNum = nCV(); }
+      return _playerNum; }
+    protected ConditionValue xgetCValuePlayerNum() { return xdfgetPlayerNum(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_PlayerNum_Asc() { regOBA("player_num"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_PlayerNum_Desc() { regOBD("player_num"); return this; }
+
+    protected ConditionValue _gameMaster;
+    public ConditionValue xdfgetGameMaster()
+    { if (_gameMaster == null) { _gameMaster = nCV(); }
+      return _gameMaster; }
+    protected ConditionValue xgetCValueGameMaster() { return xdfgetGameMaster(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * game_master: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_GameMaster_Asc() { regOBA("game_master"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * game_master: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_GameMaster_Desc() { regOBD("game_master"); return this; }
+
+    protected ConditionValue _playerNames;
+    public ConditionValue xdfgetPlayerNames()
+    { if (_playerNames == null) { _playerNames = nCV(); }
+      return _playerNames; }
+    protected ConditionValue xgetCValuePlayerNames() { return xdfgetPlayerNames(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * player_names: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_PlayerNames_Asc() { regOBA("player_names"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * player_names: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_PlayerNames_Desc() { regOBD("player_names"); return this; }
+
+    protected ConditionValue _requiredHours;
+    public ConditionValue xdfgetRequiredHours()
+    { if (_requiredHours == null) { _requiredHours = nCV(); }
+      return _requiredHours; }
+    protected ConditionValue xgetCValueRequiredHours() { return xdfgetRequiredHours(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_RequiredHours_Asc() { regOBA("required_hours"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_RequiredHours_Desc() { regOBD("required_hours"); return this; }
+
+    protected ConditionValue _memo;
+    public ConditionValue xdfgetMemo()
+    { if (_memo == null) { _memo = nCV(); }
+      return _memo; }
+    protected ConditionValue xgetCValueMemo() { return xdfgetMemo(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * memo: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_Memo_Asc() { regOBA("memo"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * memo: {VARCHAR(255)}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_Memo_Desc() { regOBD("memo"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

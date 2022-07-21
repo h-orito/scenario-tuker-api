@@ -10,7 +10,13 @@ data class Participate(
     val ruleBookIds: List<Int>,
     val roleNames: List<String>,
     val dispOrder: Int,
-    val impression: ParticipateImpression?
+    val impression: ParticipateImpression?,
+    val term: ParticipateTerm? = null,
+    val playerNum: Int? = null,
+    val gameMaster: String? = null,
+    val playerNames: String? = null,
+    val requiredHours: Int? = null,
+    val memo: String? = null
 ) {
     fun canViewImpression(
         owner: User,

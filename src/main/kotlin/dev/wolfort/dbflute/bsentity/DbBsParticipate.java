@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     participate_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, disp_order, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_id, scenario_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -48,6 +48,13 @@ import dev.wolfort.dbflute.exentity.*;
  * Integer scenarioId = entity.getScenarioId();
  * Integer userId = entity.getUserId();
  * Integer dispOrder = entity.getDispOrder();
+ * java.time.LocalDate participateTermFrom = entity.getParticipateTermFrom();
+ * java.time.LocalDate participateTermTo = entity.getParticipateTermTo();
+ * Integer playerNum = entity.getPlayerNum();
+ * String gameMaster = entity.getGameMaster();
+ * String playerNames = entity.getPlayerNames();
+ * Integer requiredHours = entity.getRequiredHours();
+ * String memo = entity.getMemo();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -56,6 +63,13 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setScenarioId(scenarioId);
  * entity.setUserId(userId);
  * entity.setDispOrder(dispOrder);
+ * entity.setParticipateTermFrom(participateTermFrom);
+ * entity.setParticipateTermTo(participateTermTo);
+ * entity.setPlayerNum(playerNum);
+ * entity.setGameMaster(gameMaster);
+ * entity.setPlayerNames(playerNames);
+ * entity.setRequiredHours(requiredHours);
+ * entity.setMemo(memo);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -86,6 +100,27 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
 
     /** disp_order: {NotNull, INT UNSIGNED(10)} */
     protected Integer _dispOrder;
+
+    /** participate_term_from: {DATE(10)} */
+    protected java.time.LocalDate _participateTermFrom;
+
+    /** participate_term_to: {DATE(10)} */
+    protected java.time.LocalDate _participateTermTo;
+
+    /** player_num: {INT UNSIGNED(10)} */
+    protected Integer _playerNum;
+
+    /** game_master: {VARCHAR(255)} */
+    protected String _gameMaster;
+
+    /** player_names: {VARCHAR(255)} */
+    protected String _playerNames;
+
+    /** required_hours: {INT UNSIGNED(10)} */
+    protected Integer _requiredHours;
+
+    /** memo: {VARCHAR(255)} */
+    protected String _memo;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -295,6 +330,13 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         sb.append(dm).append(xfND(_scenarioId));
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_dispOrder));
+        sb.append(dm).append(xfND(_participateTermFrom));
+        sb.append(dm).append(xfND(_participateTermTo));
+        sb.append(dm).append(xfND(_playerNum));
+        sb.append(dm).append(xfND(_gameMaster));
+        sb.append(dm).append(xfND(_playerNames));
+        sb.append(dm).append(xfND(_requiredHours));
+        sb.append(dm).append(xfND(_memo));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -403,6 +445,132 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     public void setDispOrder(Integer dispOrder) {
         registerModifiedProperty("dispOrder");
         _dispOrder = dispOrder;
+    }
+
+    /**
+     * [get] participate_term_from: {DATE(10)} <br>
+     * @return The value of the column 'participate_term_from'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDate getParticipateTermFrom() {
+        checkSpecifiedProperty("participateTermFrom");
+        return _participateTermFrom;
+    }
+
+    /**
+     * [set] participate_term_from: {DATE(10)} <br>
+     * @param participateTermFrom The value of the column 'participate_term_from'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setParticipateTermFrom(java.time.LocalDate participateTermFrom) {
+        registerModifiedProperty("participateTermFrom");
+        _participateTermFrom = participateTermFrom;
+    }
+
+    /**
+     * [get] participate_term_to: {DATE(10)} <br>
+     * @return The value of the column 'participate_term_to'. (NullAllowed even if selected: for no constraint)
+     */
+    public java.time.LocalDate getParticipateTermTo() {
+        checkSpecifiedProperty("participateTermTo");
+        return _participateTermTo;
+    }
+
+    /**
+     * [set] participate_term_to: {DATE(10)} <br>
+     * @param participateTermTo The value of the column 'participate_term_to'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setParticipateTermTo(java.time.LocalDate participateTermTo) {
+        registerModifiedProperty("participateTermTo");
+        _participateTermTo = participateTermTo;
+    }
+
+    /**
+     * [get] player_num: {INT UNSIGNED(10)} <br>
+     * @return The value of the column 'player_num'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getPlayerNum() {
+        checkSpecifiedProperty("playerNum");
+        return _playerNum;
+    }
+
+    /**
+     * [set] player_num: {INT UNSIGNED(10)} <br>
+     * @param playerNum The value of the column 'player_num'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setPlayerNum(Integer playerNum) {
+        registerModifiedProperty("playerNum");
+        _playerNum = playerNum;
+    }
+
+    /**
+     * [get] game_master: {VARCHAR(255)} <br>
+     * @return The value of the column 'game_master'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getGameMaster() {
+        checkSpecifiedProperty("gameMaster");
+        return convertEmptyToNull(_gameMaster);
+    }
+
+    /**
+     * [set] game_master: {VARCHAR(255)} <br>
+     * @param gameMaster The value of the column 'game_master'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setGameMaster(String gameMaster) {
+        registerModifiedProperty("gameMaster");
+        _gameMaster = gameMaster;
+    }
+
+    /**
+     * [get] player_names: {VARCHAR(255)} <br>
+     * @return The value of the column 'player_names'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getPlayerNames() {
+        checkSpecifiedProperty("playerNames");
+        return convertEmptyToNull(_playerNames);
+    }
+
+    /**
+     * [set] player_names: {VARCHAR(255)} <br>
+     * @param playerNames The value of the column 'player_names'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setPlayerNames(String playerNames) {
+        registerModifiedProperty("playerNames");
+        _playerNames = playerNames;
+    }
+
+    /**
+     * [get] required_hours: {INT UNSIGNED(10)} <br>
+     * @return The value of the column 'required_hours'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getRequiredHours() {
+        checkSpecifiedProperty("requiredHours");
+        return _requiredHours;
+    }
+
+    /**
+     * [set] required_hours: {INT UNSIGNED(10)} <br>
+     * @param requiredHours The value of the column 'required_hours'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRequiredHours(Integer requiredHours) {
+        registerModifiedProperty("requiredHours");
+        _requiredHours = requiredHours;
+    }
+
+    /**
+     * [get] memo: {VARCHAR(255)} <br>
+     * @return The value of the column 'memo'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getMemo() {
+        checkSpecifiedProperty("memo");
+        return convertEmptyToNull(_memo);
+    }
+
+    /**
+     * [set] memo: {VARCHAR(255)} <br>
+     * @param memo The value of the column 'memo'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setMemo(String memo) {
+        registerModifiedProperty("memo");
+        _memo = memo;
     }
 
     /**

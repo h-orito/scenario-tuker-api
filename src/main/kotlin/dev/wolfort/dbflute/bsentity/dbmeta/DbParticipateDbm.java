@@ -47,6 +47,13 @@ public class DbParticipateDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DbParticipate)et).getScenarioId(), (et, vl) -> ((DbParticipate)et).setScenarioId(cti(vl)), "scenarioId");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getUserId(), (et, vl) -> ((DbParticipate)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getDispOrder(), (et, vl) -> ((DbParticipate)et).setDispOrder(cti(vl)), "dispOrder");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getParticipateTermFrom(), (et, vl) -> ((DbParticipate)et).setParticipateTermFrom(ctld(vl)), "participateTermFrom");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getParticipateTermTo(), (et, vl) -> ((DbParticipate)et).setParticipateTermTo(ctld(vl)), "participateTermTo");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getPlayerNum(), (et, vl) -> ((DbParticipate)et).setPlayerNum(cti(vl)), "playerNum");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getGameMaster(), (et, vl) -> ((DbParticipate)et).setGameMaster((String)vl), "gameMaster");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getPlayerNames(), (et, vl) -> ((DbParticipate)et).setPlayerNames((String)vl), "playerNames");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getRequiredHours(), (et, vl) -> ((DbParticipate)et).setRequiredHours(cti(vl)), "requiredHours");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getMemo(), (et, vl) -> ((DbParticipate)et).setMemo((String)vl), "memo");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getRegisterDatetime(), (et, vl) -> ((DbParticipate)et).setRegisterDatetime(ctldt(vl)), "registerDatetime");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getRegisterTrace(), (et, vl) -> ((DbParticipate)et).setRegisterTrace((String)vl), "registerTrace");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getUpdateDatetime(), (et, vl) -> ((DbParticipate)et).setUpdateDatetime(ctldt(vl)), "updateDatetime");
@@ -89,6 +96,13 @@ public class DbParticipateDbm extends AbstractDBMeta {
     protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "user", null, null, false);
     protected final ColumnInfo _columnDispOrder = cci("disp_order", "disp_order", null, null, Integer.class, "dispOrder", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnParticipateTermFrom = cci("participate_term_from", "participate_term_from", null, null, java.time.LocalDate.class, "participateTermFrom", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnParticipateTermTo = cci("participate_term_to", "participate_term_to", null, null, java.time.LocalDate.class, "participateTermTo", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPlayerNum = cci("player_num", "player_num", null, null, Integer.class, "playerNum", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnGameMaster = cci("game_master", "game_master", null, null, String.class, "gameMaster", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnPlayerNames = cci("player_names", "player_names", null, null, String.class, "playerNames", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnRequiredHours = cci("required_hours", "required_hours", null, null, Integer.class, "requiredHours", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
+    protected final ColumnInfo _columnMemo = cci("memo", "memo", null, null, String.class, "memo", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterDatetime = cci("register_datetime", "register_datetime", null, null, java.time.LocalDateTime.class, "registerDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnRegisterTrace = cci("register_trace", "register_trace", null, null, String.class, "registerTrace", null, false, false, true, "VARCHAR", 64, 0, null, null, true, null, null, null, null, null, false);
     protected final ColumnInfo _columnUpdateDatetime = cci("update_datetime", "update_datetime", null, null, java.time.LocalDateTime.class, "updateDatetime", null, false, false, true, "DATETIME", 19, 0, null, null, true, null, null, null, null, null, false);
@@ -114,6 +128,41 @@ public class DbParticipateDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnDispOrder() { return _columnDispOrder; }
+    /**
+     * participate_term_from: {DATE(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnParticipateTermFrom() { return _columnParticipateTermFrom; }
+    /**
+     * participate_term_to: {DATE(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnParticipateTermTo() { return _columnParticipateTermTo; }
+    /**
+     * player_num: {INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnPlayerNum() { return _columnPlayerNum; }
+    /**
+     * game_master: {VARCHAR(255)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnGameMaster() { return _columnGameMaster; }
+    /**
+     * player_names: {VARCHAR(255)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnPlayerNames() { return _columnPlayerNames; }
+    /**
+     * required_hours: {INT UNSIGNED(10)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnRequiredHours() { return _columnRequiredHours; }
+    /**
+     * memo: {VARCHAR(255)}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnMemo() { return _columnMemo; }
     /**
      * register_datetime: {NotNull, DATETIME(19)}
      * @return The information object of specified column. (NotNull)
@@ -141,6 +190,13 @@ public class DbParticipateDbm extends AbstractDBMeta {
         ls.add(columnScenarioId());
         ls.add(columnUserId());
         ls.add(columnDispOrder());
+        ls.add(columnParticipateTermFrom());
+        ls.add(columnParticipateTermTo());
+        ls.add(columnPlayerNum());
+        ls.add(columnGameMaster());
+        ls.add(columnPlayerNames());
+        ls.add(columnRequiredHours());
+        ls.add(columnMemo());
         ls.add(columnRegisterDatetime());
         ls.add(columnRegisterTrace());
         ls.add(columnUpdateDatetime());

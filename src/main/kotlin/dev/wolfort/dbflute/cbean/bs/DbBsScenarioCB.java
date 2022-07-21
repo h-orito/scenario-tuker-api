@@ -333,6 +333,26 @@ public class DbBsScenarioCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
         /**
+         * game_master_requirement: {VARCHAR(50)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnGameMasterRequirement() { return doColumn("game_master_requirement"); }
+        /**
+         * player_num_min: {INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnPlayerNumMin() { return doColumn("player_num_min"); }
+        /**
+         * player_num_max: {INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnPlayerNumMax() { return doColumn("player_num_max"); }
+        /**
+         * required_hours: {INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRequiredHours() { return doColumn("required_hours"); }
+        /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */

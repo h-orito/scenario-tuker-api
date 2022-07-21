@@ -85,6 +85,13 @@ public class DbParticipateCIQ extends DbAbstractBsParticipateCQ {
     protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
     protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
     protected ConditionValue xgetCValueDispOrder() { return _myCQ.xdfgetDispOrder(); }
+    protected ConditionValue xgetCValueParticipateTermFrom() { return _myCQ.xdfgetParticipateTermFrom(); }
+    protected ConditionValue xgetCValueParticipateTermTo() { return _myCQ.xdfgetParticipateTermTo(); }
+    protected ConditionValue xgetCValuePlayerNum() { return _myCQ.xdfgetPlayerNum(); }
+    protected ConditionValue xgetCValueGameMaster() { return _myCQ.xdfgetGameMaster(); }
+    protected ConditionValue xgetCValuePlayerNames() { return _myCQ.xdfgetPlayerNames(); }
+    protected ConditionValue xgetCValueRequiredHours() { return _myCQ.xdfgetRequiredHours(); }
+    protected ConditionValue xgetCValueMemo() { return _myCQ.xdfgetMemo(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

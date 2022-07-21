@@ -9,6 +9,7 @@ import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateTerm
 import dev.wolfort.scenariotuker.domain.model.user.User
 import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.domain.model.user.Users
@@ -18,7 +19,9 @@ import org.hibernate.validator.constraints.Length
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import java.time.LocalDate
 import javax.validation.Valid
+import javax.validation.constraints.Max
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -176,7 +179,19 @@ class UserController(
         var roleNames: List<String> = emptyList(),
         var dispOrder: Int? = 0,
         @Valid
-        var impression: ParticipateImpressionPostRequest? = null
+        var impression: ParticipateImpressionPostRequest? = null,
+        val termFrom: LocalDate? = null,
+        val termTo: LocalDate? = null,
+        @field:Max(100)
+        val playerNum: Int? = null,
+        @field:Length(max = 255)
+        val gameMaster: String? = null,
+        @field:Length(max = 255)
+        val playerNames: String? = null,
+        @field:Max(1000)
+        val requiredHours: Int? = null,
+        @field:Length(max = 255)
+        val memo: String? = null
     ) {
 
         data class ParticipateImpressionPostRequest(
@@ -197,7 +212,13 @@ class UserController(
                 hasSpoiler = impression!!.hasSpoiler,
                 disclosureRange = impression!!.disclosureRange,
                 content = impression!!.content!!.trim()
-            )
+            ),
+            term = if (termFrom == null && termTo == null) null else ParticipateTerm(from = termFrom, to = termTo),
+            playerNum = playerNum,
+            gameMaster = gameMaster,
+            playerNames = playerNames,
+            requiredHours = requiredHours,
+            memo = memo
         )
     }
 

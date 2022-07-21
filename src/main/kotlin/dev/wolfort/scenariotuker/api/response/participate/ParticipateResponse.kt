@@ -5,6 +5,7 @@ import dev.wolfort.scenariotuker.domain.model.author.Author
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystem
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateTerm
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBook
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
 import dev.wolfort.scenariotuker.domain.model.user.User
@@ -16,7 +17,13 @@ data class ParticipateResponse(
     val ruleBooks: List<RuleBook>,
     val roleNames: List<String>,
     val dispOrder: Int,
-    val impression: ParticipateImpression?
+    val impression: ParticipateImpression?,
+    val term: ParticipateTerm?,
+    val playerNum: Int?,
+    val gameMaster: String?,
+    val playerNames: String?,
+    val requiredHours: Int?,
+    val memo: String?
 ) {
     constructor(
         participate: Participate,
@@ -32,6 +39,12 @@ data class ParticipateResponse(
         ruleBooks = ruleBooks,
         roleNames = participate.roleNames,
         dispOrder = participate.dispOrder,
-        impression = participate.impression
+        impression = participate.impression,
+        term = participate.term,
+        playerNum = participate.playerNum,
+        gameMaster = participate.gameMaster,
+        playerNames = participate.playerNames,
+        requiredHours = participate.requiredHours,
+        memo = participate.memo
     )
 }

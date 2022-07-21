@@ -12,7 +12,11 @@ data class ScenarioResponse(
     val type: ScenarioType,
     val url: String?,
     val gameSystem: GameSystem?,
-    val authors: List<Author>
+    val authors: List<Author>,
+    val gameMasterRequirement: String?,
+    val playerNumMin: Int?,
+    val playerNumMax: Int?,
+    val requiredHours: Int?,
 ) {
     constructor(
         scenario: Scenario,
@@ -25,6 +29,10 @@ data class ScenarioResponse(
         url = scenario.url?.value,
         type = scenario.type,
         gameSystem = gameSystem,
-        authors = authors
+        authors = authors,
+        gameMasterRequirement = scenario.gameMasterRequirement,
+        playerNumMin = scenario.playerNumMin,
+        playerNumMax = scenario.playerNumMax,
+        requiredHours = scenario.requiredHours
     )
 }

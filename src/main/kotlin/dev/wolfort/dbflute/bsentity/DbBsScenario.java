@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, game_master_requirement, player_num_min, player_num_max, required_hours, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -49,6 +49,10 @@ import dev.wolfort.dbflute.exentity.*;
  * String scenarioType = entity.getScenarioType();
  * String scenarioUrl = entity.getScenarioUrl();
  * Integer gameSystemId = entity.getGameSystemId();
+ * String gameMasterRequirement = entity.getGameMasterRequirement();
+ * Integer playerNumMin = entity.getPlayerNumMin();
+ * Integer playerNumMax = entity.getPlayerNumMax();
+ * Integer requiredHours = entity.getRequiredHours();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -58,6 +62,10 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setScenarioType(scenarioType);
  * entity.setScenarioUrl(scenarioUrl);
  * entity.setGameSystemId(gameSystemId);
+ * entity.setGameMasterRequirement(gameMasterRequirement);
+ * entity.setPlayerNumMin(playerNumMin);
+ * entity.setPlayerNumMax(playerNumMax);
+ * entity.setRequiredHours(requiredHours);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -91,6 +99,18 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
 
     /** game_system_id: {IX, INT UNSIGNED(10), FK to game_system} */
     protected Integer _gameSystemId;
+
+    /** game_master_requirement: {VARCHAR(50)} */
+    protected String _gameMasterRequirement;
+
+    /** player_num_min: {INT UNSIGNED(10)} */
+    protected Integer _playerNumMin;
+
+    /** player_num_max: {INT UNSIGNED(10)} */
+    protected Integer _playerNumMax;
+
+    /** required_hours: {INT UNSIGNED(10)} */
+    protected Integer _requiredHours;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -286,6 +306,10 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_scenarioType));
         sb.append(dm).append(xfND(_scenarioUrl));
         sb.append(dm).append(xfND(_gameSystemId));
+        sb.append(dm).append(xfND(_gameMasterRequirement));
+        sb.append(dm).append(xfND(_playerNumMin));
+        sb.append(dm).append(xfND(_playerNumMax));
+        sb.append(dm).append(xfND(_requiredHours));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -412,6 +436,78 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     public void setGameSystemId(Integer gameSystemId) {
         registerModifiedProperty("gameSystemId");
         _gameSystemId = gameSystemId;
+    }
+
+    /**
+     * [get] game_master_requirement: {VARCHAR(50)} <br>
+     * @return The value of the column 'game_master_requirement'. (NullAllowed even if selected: for no constraint)
+     */
+    public String getGameMasterRequirement() {
+        checkSpecifiedProperty("gameMasterRequirement");
+        return convertEmptyToNull(_gameMasterRequirement);
+    }
+
+    /**
+     * [set] game_master_requirement: {VARCHAR(50)} <br>
+     * @param gameMasterRequirement The value of the column 'game_master_requirement'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setGameMasterRequirement(String gameMasterRequirement) {
+        registerModifiedProperty("gameMasterRequirement");
+        _gameMasterRequirement = gameMasterRequirement;
+    }
+
+    /**
+     * [get] player_num_min: {INT UNSIGNED(10)} <br>
+     * @return The value of the column 'player_num_min'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getPlayerNumMin() {
+        checkSpecifiedProperty("playerNumMin");
+        return _playerNumMin;
+    }
+
+    /**
+     * [set] player_num_min: {INT UNSIGNED(10)} <br>
+     * @param playerNumMin The value of the column 'player_num_min'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setPlayerNumMin(Integer playerNumMin) {
+        registerModifiedProperty("playerNumMin");
+        _playerNumMin = playerNumMin;
+    }
+
+    /**
+     * [get] player_num_max: {INT UNSIGNED(10)} <br>
+     * @return The value of the column 'player_num_max'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getPlayerNumMax() {
+        checkSpecifiedProperty("playerNumMax");
+        return _playerNumMax;
+    }
+
+    /**
+     * [set] player_num_max: {INT UNSIGNED(10)} <br>
+     * @param playerNumMax The value of the column 'player_num_max'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setPlayerNumMax(Integer playerNumMax) {
+        registerModifiedProperty("playerNumMax");
+        _playerNumMax = playerNumMax;
+    }
+
+    /**
+     * [get] required_hours: {INT UNSIGNED(10)} <br>
+     * @return The value of the column 'required_hours'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getRequiredHours() {
+        checkSpecifiedProperty("requiredHours");
+        return _requiredHours;
+    }
+
+    /**
+     * [set] required_hours: {INT UNSIGNED(10)} <br>
+     * @param requiredHours The value of the column 'required_hours'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setRequiredHours(Integer requiredHours) {
+        registerModifiedProperty("requiredHours");
+        _requiredHours = requiredHours;
     }
 
     /**

@@ -7,7 +7,11 @@ data class Scenario(
     val type: ScenarioType,
     val url: ScenarioUrl?,
     val gameSystemId: Int?,
-    val authorIds: List<Int>
+    val authorIds: List<Int>,
+    val gameMasterRequirement: String? = null,
+    val playerNumMin: Int? = null,
+    val playerNumMax: Int? = null,
+    val requiredHours: Int? = null,
 ) {
     fun assert() = url?.assert()
 }

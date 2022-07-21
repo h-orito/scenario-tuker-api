@@ -10,8 +10,10 @@ import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.domain.model.paging.PagingQuery
 import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.fw.exception.SystemException
+import org.hibernate.validator.constraints.Length
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import javax.validation.constraints.Max
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -97,9 +99,18 @@ class ScenarioController(
         var name: String = "",
         var dictionaryNames: List<String> = emptyList(),
         var type: ScenarioType = ScenarioType.MurderMystery,
+        @field:Length(max = 255)
         var url: String? = null,
         var gameSystemId: Int? = null,
-        var authorIds: List<Int> = emptyList()
+        var authorIds: List<Int> = emptyList(),
+        @field:Length(max = 50)
+        val gameMasterRequirement: String? = null,
+        @field:Max(100)
+        val playerNumMin: Int? = null,
+        @field:Max(100)
+        val playerNumMax: Int? = null,
+        @field:Max(1000)
+        val requiredHours: Int? = null
     ) {
         fun toScenario() = Scenario(
             id = id ?: 0,
@@ -108,7 +119,11 @@ class ScenarioController(
             type = type,
             url = url?.let { ScenarioUrl(it) },
             gameSystemId = gameSystemId,
-            authorIds = authorIds
+            authorIds = authorIds,
+            gameMasterRequirement = gameMasterRequirement,
+            playerNumMin = playerNumMin,
+            playerNumMax = playerNumMax,
+            requiredHours = requiredHours
         )
     }
 

@@ -671,6 +671,897 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * @param participateTermFrom The value of participateTermFrom as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermFrom_Equal(java.time.LocalDate participateTermFrom) {
+        regParticipateTermFrom(CK_EQ,  participateTermFrom);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * @param participateTermFrom The value of participateTermFrom as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermFrom_GreaterThan(java.time.LocalDate participateTermFrom) {
+        regParticipateTermFrom(CK_GT,  participateTermFrom);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * @param participateTermFrom The value of participateTermFrom as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermFrom_LessThan(java.time.LocalDate participateTermFrom) {
+        regParticipateTermFrom(CK_LT,  participateTermFrom);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * @param participateTermFrom The value of participateTermFrom as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermFrom_GreaterEqual(java.time.LocalDate participateTermFrom) {
+        regParticipateTermFrom(CK_GE,  participateTermFrom);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * @param participateTermFrom The value of participateTermFrom as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermFrom_LessEqual(java.time.LocalDate participateTermFrom) {
+        regParticipateTermFrom(CK_LE, participateTermFrom);
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * <pre>e.g. setParticipateTermFrom_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermFrom. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermFrom. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of from-to. (NotNull)
+     */
+    public void setParticipateTermFrom_FromTo(java.time.LocalDate fromDatetime, java.time.LocalDate toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+        setParticipateTermFrom_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     * <pre>e.g. setParticipateTermFrom_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermFrom. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermFrom. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param fromToOption The option of from-to. (NotNull)
+     */
+    protected void setParticipateTermFrom_FromTo(java.time.LocalDate fromDatetime, java.time.LocalDate toDatetime, FromToOption fromToOption) {
+        String nm = "participate_term_from"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueParticipateTermFrom(), nm, op);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     */
+    public void setParticipateTermFrom_IsNull() { regParticipateTermFrom(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * participate_term_from: {DATE(10)}
+     */
+    public void setParticipateTermFrom_IsNotNull() { regParticipateTermFrom(CK_ISNN, DOBJ); }
+
+    protected void regParticipateTermFrom(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueParticipateTermFrom(), "participate_term_from"); }
+    protected abstract ConditionValue xgetCValueParticipateTermFrom();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * @param participateTermTo The value of participateTermTo as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermTo_Equal(java.time.LocalDate participateTermTo) {
+        regParticipateTermTo(CK_EQ,  participateTermTo);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * @param participateTermTo The value of participateTermTo as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermTo_GreaterThan(java.time.LocalDate participateTermTo) {
+        regParticipateTermTo(CK_GT,  participateTermTo);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * @param participateTermTo The value of participateTermTo as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermTo_LessThan(java.time.LocalDate participateTermTo) {
+        regParticipateTermTo(CK_LT,  participateTermTo);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * @param participateTermTo The value of participateTermTo as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermTo_GreaterEqual(java.time.LocalDate participateTermTo) {
+        regParticipateTermTo(CK_GE,  participateTermTo);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * @param participateTermTo The value of participateTermTo as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setParticipateTermTo_LessEqual(java.time.LocalDate participateTermTo) {
+        regParticipateTermTo(CK_LE, participateTermTo);
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * <pre>e.g. setParticipateTermTo_FromTo(fromDate, toDate, op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">compareAsDate()</span>);</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermTo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermTo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of from-to. (NotNull)
+     */
+    public void setParticipateTermTo_FromTo(java.time.LocalDate fromDatetime, java.time.LocalDate toDatetime, ConditionOptionCall<FromToOption> opLambda) {
+        setParticipateTermTo_FromTo(fromDatetime, toDatetime, xcFTOP(opLambda));
+    }
+
+    /**
+     * FromTo with various options. (versatile) {(default) fromDatetime &lt;= column &lt;= toDatetime} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     * <pre>e.g. setParticipateTermTo_FromTo(fromDate, toDate, new <span style="color: #CC4747">FromToOption</span>().compareAsDate());</pre>
+     * @param fromDatetime The from-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermTo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param toDatetime The to-datetime(yyyy/MM/dd HH:mm:ss.SSS) of participateTermTo. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param fromToOption The option of from-to. (NotNull)
+     */
+    protected void setParticipateTermTo_FromTo(java.time.LocalDate fromDatetime, java.time.LocalDate toDatetime, FromToOption fromToOption) {
+        String nm = "participate_term_to"; FromToOption op = fromToOption;
+        regFTQ(xfFTHD(fromDatetime, nm, op), xfFTHD(toDatetime, nm, op), xgetCValueParticipateTermTo(), nm, op);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     */
+    public void setParticipateTermTo_IsNull() { regParticipateTermTo(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * participate_term_to: {DATE(10)}
+     */
+    public void setParticipateTermTo_IsNotNull() { regParticipateTermTo(CK_ISNN, DOBJ); }
+
+    protected void regParticipateTermTo(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueParticipateTermTo(), "participate_term_to"); }
+    protected abstract ConditionValue xgetCValueParticipateTermTo();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_Equal(Integer playerNum) {
+        doSetPlayerNum_Equal(playerNum);
+    }
+
+    protected void doSetPlayerNum_Equal(Integer playerNum) {
+        regPlayerNum(CK_EQ, playerNum);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_NotEqual(Integer playerNum) {
+        doSetPlayerNum_NotEqual(playerNum);
+    }
+
+    protected void doSetPlayerNum_NotEqual(Integer playerNum) {
+        regPlayerNum(CK_NES, playerNum);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_GreaterThan(Integer playerNum) {
+        regPlayerNum(CK_GT, playerNum);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_LessThan(Integer playerNum) {
+        regPlayerNum(CK_LT, playerNum);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_GreaterEqual(Integer playerNum) {
+        regPlayerNum(CK_GE, playerNum);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNum The value of playerNum as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setPlayerNum_LessEqual(Integer playerNum) {
+        regPlayerNum(CK_LE, playerNum);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNum. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNum. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setPlayerNum_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setPlayerNum_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param minNumber The min number of playerNum. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of playerNum. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setPlayerNum_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValuePlayerNum(), "player_num", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNumList The collection of playerNum as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNum_InScope(Collection<Integer> playerNumList) {
+        doSetPlayerNum_InScope(playerNumList);
+    }
+
+    protected void doSetPlayerNum_InScope(Collection<Integer> playerNumList) {
+        regINS(CK_INS, cTL(playerNumList), xgetCValuePlayerNum(), "player_num");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     * @param playerNumList The collection of playerNum as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNum_NotInScope(Collection<Integer> playerNumList) {
+        doSetPlayerNum_NotInScope(playerNumList);
+    }
+
+    protected void doSetPlayerNum_NotInScope(Collection<Integer> playerNumList) {
+        regINS(CK_NINS, cTL(playerNumList), xgetCValuePlayerNum(), "player_num");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNum_IsNull() { regPlayerNum(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * player_num: {INT UNSIGNED(10)}
+     */
+    public void setPlayerNum_IsNotNull() { regPlayerNum(CK_ISNN, DOBJ); }
+
+    protected void regPlayerNum(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePlayerNum(), "player_num"); }
+    protected abstract ConditionValue xgetCValuePlayerNum();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_Equal(String gameMaster) {
+        doSetGameMaster_Equal(fRES(gameMaster));
+    }
+
+    protected void doSetGameMaster_Equal(String gameMaster) {
+        regGameMaster(CK_EQ, gameMaster);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_NotEqual(String gameMaster) {
+        doSetGameMaster_NotEqual(fRES(gameMaster));
+    }
+
+    protected void doSetGameMaster_NotEqual(String gameMaster) {
+        regGameMaster(CK_NES, gameMaster);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_GreaterThan(String gameMaster) {
+        regGameMaster(CK_GT, fRES(gameMaster));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_LessThan(String gameMaster) {
+        regGameMaster(CK_LT, fRES(gameMaster));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_GreaterEqual(String gameMaster) {
+        regGameMaster(CK_GE, fRES(gameMaster));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_LessEqual(String gameMaster) {
+        regGameMaster(CK_LE, fRES(gameMaster));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMasterList The collection of gameMaster as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_InScope(Collection<String> gameMasterList) {
+        doSetGameMaster_InScope(gameMasterList);
+    }
+
+    protected void doSetGameMaster_InScope(Collection<String> gameMasterList) {
+        regINS(CK_INS, cTL(gameMasterList), xgetCValueGameMaster(), "game_master");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMasterList The collection of gameMaster as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setGameMaster_NotInScope(Collection<String> gameMasterList) {
+        doSetGameMaster_NotInScope(gameMasterList);
+    }
+
+    protected void doSetGameMaster_NotInScope(Collection<String> gameMasterList) {
+        regINS(CK_NINS, cTL(gameMasterList), xgetCValueGameMaster(), "game_master");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)} <br>
+     * <pre>e.g. setGameMaster_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param gameMaster The value of gameMaster as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setGameMaster_LikeSearch(String gameMaster, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setGameMaster_LikeSearch(gameMaster, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)} <br>
+     * <pre>e.g. setGameMaster_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param gameMaster The value of gameMaster as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setGameMaster_LikeSearch(String gameMaster, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(gameMaster), xgetCValueGameMaster(), "game_master", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setGameMaster_NotLikeSearch(String gameMaster, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setGameMaster_NotLikeSearch(gameMaster, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     * @param gameMaster The value of gameMaster as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setGameMaster_NotLikeSearch(String gameMaster, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(gameMaster), xgetCValueGameMaster(), "game_master", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     */
+    public void setGameMaster_IsNull() { regGameMaster(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     */
+    public void setGameMaster_IsNullOrEmpty() { regGameMaster(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * game_master: {VARCHAR(255)}
+     */
+    public void setGameMaster_IsNotNull() { regGameMaster(CK_ISNN, DOBJ); }
+
+    protected void regGameMaster(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameMaster(), "game_master"); }
+    protected abstract ConditionValue xgetCValueGameMaster();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_Equal(String playerNames) {
+        doSetPlayerNames_Equal(fRES(playerNames));
+    }
+
+    protected void doSetPlayerNames_Equal(String playerNames) {
+        regPlayerNames(CK_EQ, playerNames);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_NotEqual(String playerNames) {
+        doSetPlayerNames_NotEqual(fRES(playerNames));
+    }
+
+    protected void doSetPlayerNames_NotEqual(String playerNames) {
+        regPlayerNames(CK_NES, playerNames);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_GreaterThan(String playerNames) {
+        regPlayerNames(CK_GT, fRES(playerNames));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_LessThan(String playerNames) {
+        regPlayerNames(CK_LT, fRES(playerNames));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_GreaterEqual(String playerNames) {
+        regPlayerNames(CK_GE, fRES(playerNames));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_LessEqual(String playerNames) {
+        regPlayerNames(CK_LE, fRES(playerNames));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNamesList The collection of playerNames as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_InScope(Collection<String> playerNamesList) {
+        doSetPlayerNames_InScope(playerNamesList);
+    }
+
+    protected void doSetPlayerNames_InScope(Collection<String> playerNamesList) {
+        regINS(CK_INS, cTL(playerNamesList), xgetCValuePlayerNames(), "player_names");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNamesList The collection of playerNames as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setPlayerNames_NotInScope(Collection<String> playerNamesList) {
+        doSetPlayerNames_NotInScope(playerNamesList);
+    }
+
+    protected void doSetPlayerNames_NotInScope(Collection<String> playerNamesList) {
+        regINS(CK_NINS, cTL(playerNamesList), xgetCValuePlayerNames(), "player_names");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)} <br>
+     * <pre>e.g. setPlayerNames_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param playerNames The value of playerNames as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setPlayerNames_LikeSearch(String playerNames, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setPlayerNames_LikeSearch(playerNames, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)} <br>
+     * <pre>e.g. setPlayerNames_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param playerNames The value of playerNames as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setPlayerNames_LikeSearch(String playerNames, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(playerNames), xgetCValuePlayerNames(), "player_names", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setPlayerNames_NotLikeSearch(String playerNames, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setPlayerNames_NotLikeSearch(playerNames, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     * @param playerNames The value of playerNames as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setPlayerNames_NotLikeSearch(String playerNames, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(playerNames), xgetCValuePlayerNames(), "player_names", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     */
+    public void setPlayerNames_IsNull() { regPlayerNames(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     */
+    public void setPlayerNames_IsNullOrEmpty() { regPlayerNames(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * player_names: {VARCHAR(255)}
+     */
+    public void setPlayerNames_IsNotNull() { regPlayerNames(CK_ISNN, DOBJ); }
+
+    protected void regPlayerNames(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValuePlayerNames(), "player_names"); }
+    protected abstract ConditionValue xgetCValuePlayerNames();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_Equal(Integer requiredHours) {
+        doSetRequiredHours_Equal(requiredHours);
+    }
+
+    protected void doSetRequiredHours_Equal(Integer requiredHours) {
+        regRequiredHours(CK_EQ, requiredHours);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_NotEqual(Integer requiredHours) {
+        doSetRequiredHours_NotEqual(requiredHours);
+    }
+
+    protected void doSetRequiredHours_NotEqual(Integer requiredHours) {
+        regRequiredHours(CK_NES, requiredHours);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_GreaterThan(Integer requiredHours) {
+        regRequiredHours(CK_GT, requiredHours);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_LessThan(Integer requiredHours) {
+        regRequiredHours(CK_LT, requiredHours);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_GreaterEqual(Integer requiredHours) {
+        regRequiredHours(CK_GE, requiredHours);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHours The value of requiredHours as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setRequiredHours_LessEqual(Integer requiredHours) {
+        regRequiredHours(CK_LE, requiredHours);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param minNumber The min number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setRequiredHours_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setRequiredHours_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param minNumber The min number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of requiredHours. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setRequiredHours_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueRequiredHours(), "required_hours", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHoursList The collection of requiredHours as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRequiredHours_InScope(Collection<Integer> requiredHoursList) {
+        doSetRequiredHours_InScope(requiredHoursList);
+    }
+
+    protected void doSetRequiredHours_InScope(Collection<Integer> requiredHoursList) {
+        regINS(CK_INS, cTL(requiredHoursList), xgetCValueRequiredHours(), "required_hours");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @param requiredHoursList The collection of requiredHours as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setRequiredHours_NotInScope(Collection<Integer> requiredHoursList) {
+        doSetRequiredHours_NotInScope(requiredHoursList);
+    }
+
+    protected void doSetRequiredHours_NotInScope(Collection<Integer> requiredHoursList) {
+        regINS(CK_NINS, cTL(requiredHoursList), xgetCValueRequiredHours(), "required_hours");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     */
+    public void setRequiredHours_IsNull() { regRequiredHours(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     */
+    public void setRequiredHours_IsNotNull() { regRequiredHours(CK_ISNN, DOBJ); }
+
+    protected void regRequiredHours(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueRequiredHours(), "required_hours"); }
+    protected abstract ConditionValue xgetCValueRequiredHours();
+
+    /**
+     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_Equal(String memo) {
+        doSetMemo_Equal(fRES(memo));
+    }
+
+    protected void doSetMemo_Equal(String memo) {
+        regMemo(CK_EQ, memo);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_NotEqual(String memo) {
+        doSetMemo_NotEqual(fRES(memo));
+    }
+
+    protected void doSetMemo_NotEqual(String memo) {
+        regMemo(CK_NES, memo);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_GreaterThan(String memo) {
+        regMemo(CK_GT, fRES(memo));
+    }
+
+    /**
+     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_LessThan(String memo) {
+        regMemo(CK_LT, fRES(memo));
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_GreaterEqual(String memo) {
+        regMemo(CK_GE, fRES(memo));
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_LessEqual(String memo) {
+        regMemo(CK_LE, fRES(memo));
+    }
+
+    /**
+     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memoList The collection of memo as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_InScope(Collection<String> memoList) {
+        doSetMemo_InScope(memoList);
+    }
+
+    protected void doSetMemo_InScope(Collection<String> memoList) {
+        regINS(CK_INS, cTL(memoList), xgetCValueMemo(), "memo");
+    }
+
+    /**
+     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memoList The collection of memo as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setMemo_NotInScope(Collection<String> memoList) {
+        doSetMemo_NotInScope(memoList);
+    }
+
+    protected void doSetMemo_NotInScope(Collection<String> memoList) {
+        regINS(CK_NINS, cTL(memoList), xgetCValueMemo(), "memo");
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)} <br>
+     * <pre>e.g. setMemo_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
+     * @param memo The value of memo as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setMemo_LikeSearch(String memo, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setMemo_LikeSearch(memo, xcLSOP(opLambda));
+    }
+
+    /**
+     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)} <br>
+     * <pre>e.g. setMemo_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
+     * @param memo The value of memo as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of like-search. (NotNull)
+     */
+    protected void setMemo_LikeSearch(String memo, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_LS, fRES(memo), xgetCValueMemo(), "memo", likeSearchOption);
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param opLambda The callback for option of like-search. (NotNull)
+     */
+    public void setMemo_NotLikeSearch(String memo, ConditionOptionCall<LikeSearchOption> opLambda) {
+        setMemo_NotLikeSearch(memo, xcLSOP(opLambda));
+    }
+
+    /**
+     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
+     * And NullOrEmptyIgnored, SeveralRegistered. <br>
+     * memo: {VARCHAR(255)}
+     * @param memo The value of memo as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     * @param likeSearchOption The option of not-like-search. (NotNull)
+     */
+    protected void setMemo_NotLikeSearch(String memo, LikeSearchOption likeSearchOption) {
+        regLSQ(CK_NLS, fRES(memo), xgetCValueMemo(), "memo", likeSearchOption);
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     */
+    public void setMemo_IsNull() { regMemo(CK_ISN, DOBJ); }
+
+    /**
+     * IsNullOrEmpty {is null or empty}. And OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     */
+    public void setMemo_IsNullOrEmpty() { regMemo(CK_ISNOE, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * memo: {VARCHAR(255)}
+     */
+    public void setMemo_IsNotNull() { regMemo(CK_ISNN, DOBJ); }
+
+    protected void regMemo(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueMemo(), "memo"); }
+    protected abstract ConditionValue xgetCValueMemo();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */

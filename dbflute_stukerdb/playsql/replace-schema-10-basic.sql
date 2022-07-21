@@ -130,15 +130,19 @@ alter table user_rule_book
 ;
 
 create table scenario (
-    scenario_id       int unsigned not null auto_increment,
-    scenario_name     varchar(255) not null,
-    scenario_type     varchar(50) not null,
-    scenario_url      varchar(255),
-    game_system_id    int unsigned,
-    register_datetime datetime not null,
-    register_trace    varchar(64) not null,
-    update_datetime   datetime not null,
-    update_trace      varchar(64) not null,
+    scenario_id             int unsigned not null auto_increment,
+    scenario_name           varchar(255) not null,
+    scenario_type           varchar(50) not null,
+    scenario_url            varchar(255),
+    game_system_id          int unsigned,
+    game_master_requirement varchar(50),
+    player_num_min          int unsigned,
+    player_num_max          int unsigned,
+    required_hours          int unsigned,
+    register_datetime       datetime not null,
+    register_trace          varchar(64) not null,
+    update_datetime         datetime not null,
+    update_trace            varchar(64) not null,
     primary key (scenario_id)
 );
 
@@ -230,14 +234,21 @@ alter table scenario_author
 ;
 
 create table participate (
-    participate_id    int unsigned not null auto_increment,
-    scenario_id       int unsigned not null,
-    user_id           int unsigned not null,
-    disp_order        int unsigned not null,
-    register_datetime datetime not null,
-    register_trace    varchar(64) not null,
-    update_datetime   datetime not null,
-    update_trace      varchar(64) not null,
+    participate_id         int unsigned not null auto_increment,
+    scenario_id            int unsigned not null,
+    user_id                int unsigned not null,
+    disp_order             int unsigned not null,
+    participate_term_from  date,
+    participate_term_to    date,
+    player_num             int unsigned,
+    game_master            varchar(255),
+    player_names           varchar(255),
+    required_hours         int unsigned,
+    memo                   varchar(255),
+    register_datetime      datetime not null,
+    register_trace         varchar(64) not null,
+    update_datetime        datetime not null,
+    update_trace           varchar(64) not null,
     primary key (participate_id),
     unique (scenario_id, user_id)
 );

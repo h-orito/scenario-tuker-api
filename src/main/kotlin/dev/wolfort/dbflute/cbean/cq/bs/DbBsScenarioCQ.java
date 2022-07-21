@@ -229,6 +229,86 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
      */
     public DbBsScenarioCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
 
+    protected ConditionValue _gameMasterRequirement;
+    public ConditionValue xdfgetGameMasterRequirement()
+    { if (_gameMasterRequirement == null) { _gameMasterRequirement = nCV(); }
+      return _gameMasterRequirement; }
+    protected ConditionValue xgetCValueGameMasterRequirement() { return xdfgetGameMasterRequirement(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_GameMasterRequirement_Asc() { regOBA("game_master_requirement"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * game_master_requirement: {VARCHAR(50)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_GameMasterRequirement_Desc() { regOBD("game_master_requirement"); return this; }
+
+    protected ConditionValue _playerNumMin;
+    public ConditionValue xdfgetPlayerNumMin()
+    { if (_playerNumMin == null) { _playerNumMin = nCV(); }
+      return _playerNumMin; }
+    protected ConditionValue xgetCValuePlayerNumMin() { return xdfgetPlayerNumMin(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_PlayerNumMin_Asc() { regOBA("player_num_min"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * player_num_min: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_PlayerNumMin_Desc() { regOBD("player_num_min"); return this; }
+
+    protected ConditionValue _playerNumMax;
+    public ConditionValue xdfgetPlayerNumMax()
+    { if (_playerNumMax == null) { _playerNumMax = nCV(); }
+      return _playerNumMax; }
+    protected ConditionValue xgetCValuePlayerNumMax() { return xdfgetPlayerNumMax(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_PlayerNumMax_Asc() { regOBA("player_num_max"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * player_num_max: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_PlayerNumMax_Desc() { regOBD("player_num_max"); return this; }
+
+    protected ConditionValue _requiredHours;
+    public ConditionValue xdfgetRequiredHours()
+    { if (_requiredHours == null) { _requiredHours = nCV(); }
+      return _requiredHours; }
+    protected ConditionValue xgetCValueRequiredHours() { return xdfgetRequiredHours(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_RequiredHours_Asc() { regOBA("required_hours"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * required_hours: {INT UNSIGNED(10)}
+     * @return this. (NotNull)
+     */
+    public DbBsScenarioCQ addOrderBy_RequiredHours_Desc() { regOBD("required_hours"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

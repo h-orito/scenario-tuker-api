@@ -408,6 +408,41 @@ public class DbBsParticipateCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnDispOrder() { return doColumn("disp_order"); }
         /**
+         * participate_term_from: {DATE(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnParticipateTermFrom() { return doColumn("participate_term_from"); }
+        /**
+         * participate_term_to: {DATE(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnParticipateTermTo() { return doColumn("participate_term_to"); }
+        /**
+         * player_num: {INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnPlayerNum() { return doColumn("player_num"); }
+        /**
+         * game_master: {VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnGameMaster() { return doColumn("game_master"); }
+        /**
+         * player_names: {VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnPlayerNames() { return doColumn("player_names"); }
+        /**
+         * required_hours: {INT UNSIGNED(10)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnRequiredHours() { return doColumn("required_hours"); }
+        /**
+         * memo: {VARCHAR(255)}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnMemo() { return doColumn("memo"); }
+        /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */

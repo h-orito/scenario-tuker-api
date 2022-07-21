@@ -106,6 +106,10 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     protected ConditionValue xgetCValueScenarioType() { return _myCQ.xdfgetScenarioType(); }
     protected ConditionValue xgetCValueScenarioUrl() { return _myCQ.xdfgetScenarioUrl(); }
     protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
+    protected ConditionValue xgetCValueGameMasterRequirement() { return _myCQ.xdfgetGameMasterRequirement(); }
+    protected ConditionValue xgetCValuePlayerNumMin() { return _myCQ.xdfgetPlayerNumMin(); }
+    protected ConditionValue xgetCValuePlayerNumMax() { return _myCQ.xdfgetPlayerNumMax(); }
+    protected ConditionValue xgetCValueRequiredHours() { return _myCQ.xdfgetRequiredHours(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

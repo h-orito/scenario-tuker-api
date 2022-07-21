@@ -30,9 +30,12 @@ class ParticipateService(
         // 既に通過済みの場合はロールを追加する
         existing.list.find { it.scenarioId == participate.scenarioId }?.let { existingParticipate ->
             return participateRepository.update(
-                existingParticipate.copy(
-                    roleNames = (existingParticipate.roleNames + participate.roleNames).distinct(),
-                    impression = participate.impression
+                participate.copy(
+                    id = existingParticipate.id,
+                    scenarioId = existingParticipate.scenarioId,
+                    userId = existingParticipate.userId,
+                    ruleBookIds = existingParticipate.ruleBookIds,
+                    dispOrder = existingParticipate.dispOrder
                 )
             )
         }
