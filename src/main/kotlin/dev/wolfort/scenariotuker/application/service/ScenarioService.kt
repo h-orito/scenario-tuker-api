@@ -3,10 +3,7 @@ package dev.wolfort.scenariotuker.application.service
 import dev.wolfort.scenariotuker.domain.model.author.AuthorRepository
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystemRepository
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateRepository
-import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
-import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
-import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
-import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
+import dev.wolfort.scenariotuker.domain.model.scenario.*
 import dev.wolfort.scenariotuker.domain.model.user.UserRepository
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.stereotype.Service
@@ -29,6 +26,15 @@ class ScenarioService(
     fun findAllByAuthorId(authorId: Int): Scenarios = scenarioRepository.findAllByAuthorId(authorId)
 
     fun findAllByUserId(userId: Int): Scenarios = scenarioRepository.findAllByUserId(userId)
+
+    fun findPopularScenarios(type: ScenarioType): Scenarios {
+        return scenarioRepository.findPopularScenarios(type, 50)
+    }
+
+    fun findAlsoParticipatedScenarios(id: Int): Scenarios {
+        val scenario = findById(id) ?: return Scenarios.ofEmpty()
+        return scenarioRepository.findAlsoParticipatedScenarios(scenario)
+    }
 
     fun search(query: ScenarioQuery): Scenarios = scenarioRepository.search(query)
 

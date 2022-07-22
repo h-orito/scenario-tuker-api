@@ -12,6 +12,10 @@ interface ScenarioRepository {
 
     fun findAllByUserId(userId: Int): Scenarios
 
+    fun findPopularScenarios(type: ScenarioType, count: Int): Scenarios
+
+    fun findAlsoParticipatedScenarios(scenario: Scenario): Scenarios
+
     fun search(query: ScenarioQuery): Scenarios
 
     fun findById(id: Int): Scenario?

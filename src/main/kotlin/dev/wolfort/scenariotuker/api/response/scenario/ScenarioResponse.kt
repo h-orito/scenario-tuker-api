@@ -17,6 +17,7 @@ data class ScenarioResponse(
     val playerNumMin: Int?,
     val playerNumMax: Int?,
     val requiredHours: Int?,
+    val participateCount: Long?
 ) {
     constructor(
         scenario: Scenario,
@@ -33,6 +34,7 @@ data class ScenarioResponse(
         gameMasterRequirement = scenario.gameMasterRequirement,
         playerNumMin = scenario.playerNumMin,
         playerNumMax = scenario.playerNumMax,
-        requiredHours = scenario.requiredHours
+        requiredHours = scenario.requiredHours,
+        participateCount = scenario.participateCount
     )
 }

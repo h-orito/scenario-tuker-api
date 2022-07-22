@@ -78,6 +78,22 @@ class ScenarioController(
         return ScenarioResponse(scenario, gameSystem, authors.list)
     }
 
+    @GetMapping("/popular/{type}")
+    private fun popular(@PathVariable type: ScenarioType): ScenariosResponse {
+        val scenarios = scenarioService.findPopularScenarios(type)
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
+        return ScenariosResponse(scenarios, gameSystems, authors)
+    }
+
+    @GetMapping("/{scenarioId}/also")
+    private fun also(@PathVariable scenarioId: Int): ScenariosResponse {
+        val scenarios = scenarioService.findAlsoParticipatedScenarios(scenarioId)
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
+        return ScenariosResponse(scenarios, gameSystems, authors)
+    }
+
     @PostMapping
     private fun post(@RequestBody @Validated request: PostRequest): ScenarioResponse {
         val scenario = scenarioService.register(request.toScenario())

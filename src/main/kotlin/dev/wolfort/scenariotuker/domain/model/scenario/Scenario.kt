@@ -12,6 +12,7 @@ data class Scenario(
     val playerNumMin: Int? = null,
     val playerNumMax: Int? = null,
     val requiredHours: Int? = null,
+    val participateCount: Long? = null
 ) {
     fun assert() = url?.assert()
 }

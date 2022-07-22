@@ -101,6 +101,36 @@ class ScenarioRepositoryImpl(
         }
     }
 
+    override fun findPopularScenarios(type: ScenarioType, count: Int): Scenarios {
+        return selectList {
+            it.specify().derivedParticipate().count({ pCB ->
+                pCB.specify().columnParticipateId()
+            }, DbScenario.ALIAS_participateCount)
+            it.query().setScenarioType_Equal(type.name)
+            // 参加数が多い順
+            it.query().addSpecifiedDerivedOrderBy_Desc(DbScenario.ALIAS_participateCount)
+            it.fetchFirst(count)
+        }
+    }
+
+    override fun findAlsoParticipatedScenarios(scenario: Scenario): Scenarios {
+        return selectList {
+            it.specify().derivedParticipate().count({ pCB ->
+                pCB.specify().columnParticipateId()
+            }, DbScenario.ALIAS_participateCount)
+            it.query().existsParticipate { pCB ->
+                pCB.query().queryUser().existsParticipate { subPCB ->
+                    subPCB.query().setScenarioId_Equal(scenario.id)
+                }
+            }
+            it.query().setScenarioId_NotEqual(scenario.id)
+            it.query().setScenarioType_Equal(scenario.type.name)
+            // 参加数が多い順
+            it.query().addSpecifiedDerivedOrderBy_Desc(DbScenario.ALIAS_participateCount)
+            it.fetchFirst(10)
+        }
+    }
+
     override fun findById(id: Int): Scenario? {
         val optDbScenario = scenarioBhv.selectEntity {
             it.query().setScenarioId_Equal(id)
@@ -239,7 +269,8 @@ class ScenarioRepositoryImpl(
             gameMasterRequirement = scenario.gameMasterRequirement,
             playerNumMin = scenario.playerNumMin,
             playerNumMax = scenario.playerNumMax,
-            requiredHours = scenario.requiredHours
+            requiredHours = scenario.requiredHours,
+            participateCount = scenario.participateCount
         )
     }
 }
