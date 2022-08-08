@@ -951,6 +951,18 @@ public abstract class DbAbstractBsUserCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * is_deleted: {NotNull, BIT}
+     * @param isDeleted The value of isDeleted as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setIsDeleted_Equal(Boolean isDeleted) {
+        regIsDeleted(CK_EQ, isDeleted);
+    }
+
+    protected void regIsDeleted(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueIsDeleted(), "is_deleted"); }
+    protected abstract ConditionValue xgetCValueIsDeleted();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
      * register_datetime: {NotNull, DATETIME(19)}
      * @param registerDatetime The value of registerDatetime as equal. (basically NotNull: error as default, or no condition as option)
      */

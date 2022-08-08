@@ -22,6 +22,7 @@ class ParticipateRepositoryImpl(
     override fun findAll(): Participates {
         val dbParticipateList = participateBhv.selectList {
             it.setupSelect_ParticipateImpressionAsOne()
+            it.query().queryUser().setIsDeleted_Equal(false)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
@@ -50,6 +51,7 @@ class ParticipateRepositoryImpl(
         val dbParticipateList = participateBhv.selectList {
             it.setupSelect_ParticipateImpressionAsOne()
             it.query().setScenarioId_Equal(scenarioId)
+            it.query().queryUser().setIsDeleted_Equal(false)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }
@@ -66,6 +68,7 @@ class ParticipateRepositoryImpl(
             it.query().existsParticipateRuleBook { prCB ->
                 prCB.query().setRuleBookId_Equal(ruleBookId)
             }
+            it.query().queryUser().setIsDeleted_Equal(false)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
         }

@@ -12,11 +12,13 @@ interface UserRepository {
 
     fun findById(id: Int): User?
 
-    fun findByUid(uid: String): User?
+    fun findByUid(uid: String, includeDeleted: Boolean = false): User?
 
     fun register(user: User): User
 
     fun update(user: User): User
+
+    fun delete(userId: Int)
 
     fun registerUserRuleBook(id: Int, ruleBookId: Int)
 

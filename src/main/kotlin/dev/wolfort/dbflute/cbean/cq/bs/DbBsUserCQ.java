@@ -215,6 +215,26 @@ public class DbBsUserCQ extends DbAbstractBsUserCQ {
      */
     public DbBsUserCQ addOrderBy_Introduction_Desc() { regOBD("introduction"); return this; }
 
+    protected ConditionValue _isDeleted;
+    public ConditionValue xdfgetIsDeleted()
+    { if (_isDeleted == null) { _isDeleted = nCV(); }
+      return _isDeleted; }
+    protected ConditionValue xgetCValueIsDeleted() { return xdfgetIsDeleted(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * is_deleted: {NotNull, BIT}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_IsDeleted_Asc() { regOBA("is_deleted"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * is_deleted: {NotNull, BIT}
+     * @return this. (NotNull)
+     */
+    public DbBsUserCQ addOrderBy_IsDeleted_Desc() { regOBD("is_deleted"); return this; }
+
     protected ConditionValue _registerDatetime;
     public ConditionValue xdfgetRegisterDatetime()
     { if (_registerDatetime == null) { _registerDatetime = nCV(); }

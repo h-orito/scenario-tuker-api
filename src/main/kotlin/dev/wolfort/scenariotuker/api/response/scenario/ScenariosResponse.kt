@@ -32,4 +32,15 @@ data class ScenariosResponse(
         existNextPage = scenarios.existNextPage,
         currentPageNum = scenarios.currentPageNum
     )
+
+    companion object {
+        fun ofEmpty() = ScenariosResponse(
+            list = emptyList(),
+            allRecordCount = 0,
+            allPageCount = 0,
+            existPrePage = false,
+            existNextPage = false,
+            currentPageNum = 0
+        )
+    }
 }

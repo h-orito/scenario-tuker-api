@@ -96,6 +96,7 @@ public class DbUserCIQ extends DbAbstractBsUserCQ {
     protected ConditionValue xgetCValueUid() { return _myCQ.xdfgetUid(); }
     protected ConditionValue xgetCValueAuthority() { return _myCQ.xdfgetAuthority(); }
     protected ConditionValue xgetCValueIntroduction() { return _myCQ.xdfgetIntroduction(); }
+    protected ConditionValue xgetCValueIsDeleted() { return _myCQ.xdfgetIsDeleted(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }

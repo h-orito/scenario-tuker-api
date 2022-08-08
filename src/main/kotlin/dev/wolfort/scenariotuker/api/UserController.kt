@@ -93,7 +93,7 @@ class UserController(
         @PathVariable userId: Int,
         @AuthenticationPrincipal sTukerUser: ScenarioTukerUser?
     ): ParticipatesResponse {
-        userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
+        userService.findById(userId) ?: return ParticipatesResponse.ofEmpty()
         var participates = participateService.findAllByUserId(userId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
@@ -115,7 +115,7 @@ class UserController(
     private fun getUserRuleBooks(
         @PathVariable userId: Int,
     ): RuleBooksResponse {
-        userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
+        userService.findById(userId) ?: return RuleBooksResponse.ofEmpty()
         val ruleBooks = ruleBookService.findAllByUserId(userId)
         val gameSystems = gameSystemService.findAllByIds(ruleBooks.list.map { it.gameSystemId }.distinct())
         return RuleBooksResponse(ruleBooks, gameSystems)
@@ -125,7 +125,7 @@ class UserController(
     private fun getUserScenarios(
         @PathVariable userId: Int,
     ): ScenariosResponse {
-        userService.findById(userId) ?: throw SystemException("user not found. user_id: $userId")
+        userService.findById(userId) ?: ScenariosResponse.ofEmpty()
         val scenarios = scenarioService.findAllByUserId(userId)
         val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
@@ -155,6 +155,14 @@ class UserController(
             name = name,
             introduction = introduction
         )
+    }
+
+    @DeleteMapping("/myself")
+    private fun delete(
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
+    ) {
+        val user = userService.findByUid(sTukerUser.uid) ?: return
+        userService.delete(user.id)
     }
 
     @PostMapping("/myself/participates")
@@ -238,7 +246,7 @@ class UserController(
     }
 
     @DeleteMapping("/myself/participates/{participateId}")
-    private fun delete(
+    private fun deleteParticipates(
         @PathVariable participateId: Int,
         @AuthenticationPrincipal sTukerUser: ScenarioTukerUser
     ) {

@@ -27,6 +27,7 @@ class UserRepositoryImpl(
     override fun findAll(): Users {
         val dbUserList = userBhv.selectList {
             it.setupSelect_TwitterUserAsOne()
+            it.query().setIsDeleted_Equal(false)
             it.query().addOrderBy_UserId_Asc()
         }
         return mappingToUsers(dbUserList)
@@ -36,6 +37,7 @@ class UserRepositoryImpl(
         if (ids.isEmpty()) return Users(list = emptyList())
         val dbUserList = userBhv.selectList {
             it.setupSelect_TwitterUserAsOne()
+            it.query().setIsDeleted_Equal(false)
             it.query().setUserId_InScope(ids)
         }
         return mappingToUsers(ids.mapNotNull { id -> dbUserList.find { it.userId == id } })
@@ -44,6 +46,7 @@ class UserRepositoryImpl(
     override fun findAllByRuleBookIds(ruleBookId: Int): Users {
         val dbUserList = userBhv.selectList {
             it.setupSelect_TwitterUserAsOne()
+            it.query().setIsDeleted_Equal(false)
             it.query().existsUserRuleBook { urCB ->
                 urCB.query().setRuleBookId_Equal(ruleBookId)
             }
@@ -73,6 +76,7 @@ class UserRepositoryImpl(
                 it.query().queryTwitterUserAsOne()
                     .setTwitterId_InScope(followings.map { twitterUser -> twitterUser.id })
             }
+            it.query().setIsDeleted_Equal(false)
             it.query().addOrderBy_UserId_Asc()
         }
         return mappingToUsers(dbUserList)
@@ -81,6 +85,7 @@ class UserRepositoryImpl(
     override fun findById(id: Int): User? {
         val optDbUser = userBhv.selectEntity {
             it.setupSelect_TwitterUserAsOne()
+            it.query().setIsDeleted_Equal(false)
             it.query().setUserId_Equal(id)
         }
         if (!optDbUser.isPresent) return null
@@ -88,9 +93,12 @@ class UserRepositoryImpl(
         return mappingToUser(dbUser)
     }
 
-    override fun findByUid(uid: String): User? {
+    override fun findByUid(uid: String, includeDeleted: Boolean): User? {
         val optDbUser = userBhv.selectEntity {
             it.setupSelect_TwitterUserAsOne()
+            if (!includeDeleted) {
+                it.query().setIsDeleted_Equal(false)
+            }
             it.query().setUid_Equal(uid)
         }
         if (!optDbUser.isPresent) return null
@@ -103,6 +111,7 @@ class UserRepositoryImpl(
         u.uid = user.uid
         u.authority = user.authority.name
         u.userName = user.name
+        u.isDeleted = false
         userBhv.insert(u)
         val userId = u.userId
         val t = DbTwitterUser()
@@ -116,14 +125,22 @@ class UserRepositoryImpl(
     }
 
     override fun update(user: User): User {
-        val exists = findByUid(user.uid) ?: throw SystemException("user not found. uid: ${user.uid}")
+        val exists = findByUid(user.uid, true) ?: throw SystemException("user not found. uid: ${user.uid}")
         val u = DbUser()
         u.userId = exists.id
         u.userName = user.name
         u.introduction = user.introduction
         userBhv.update(u)
         upsertTwitter(user.copy(id = exists.id))
-        return findByUid(user.uid)!!
+        return findByUid(user.uid, true)!!
+    }
+
+    override fun delete(userId: Int) {
+        val exists = findById(userId) ?: throw SystemException("user not found. userId: ${userId}")
+        val u = DbUser()
+        u.userId = exists.id
+        u.isDeleted = true
+        userBhv.update(u)
     }
 
     override fun registerUserRuleBook(id: Int, ruleBookId: Int) {

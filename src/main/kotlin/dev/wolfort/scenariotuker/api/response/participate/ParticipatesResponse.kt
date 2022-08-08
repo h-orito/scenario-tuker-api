@@ -26,4 +26,8 @@ data class ParticipatesResponse(val list: List<ParticipateResponse>) {
             ParticipateResponse(participate, scenario, gameSystem, ruleBookList, authorList, user)
         }
     )
+
+    companion object {
+        fun ofEmpty() = ParticipatesResponse(emptyList())
+    }
 }

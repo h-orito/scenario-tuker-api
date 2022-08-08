@@ -352,6 +352,11 @@ public class DbBsUserCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnIntroduction() { return doColumn("introduction"); }
         /**
+         * is_deleted: {NotNull, BIT}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnIsDeleted() { return doColumn("is_deleted"); }
+        /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
          */

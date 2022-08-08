@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     user_id
  *
  * [column]
- *     user_id, user_name, uid, authority, introduction, register_datetime, register_trace, update_datetime, update_trace
+ *     user_id, user_name, uid, authority, introduction, is_deleted, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -49,6 +49,7 @@ import dev.wolfort.dbflute.exentity.*;
  * String uid = entity.getUid();
  * String authority = entity.getAuthority();
  * String introduction = entity.getIntroduction();
+ * Boolean isDeleted = entity.getIsDeleted();
  * java.time.LocalDateTime registerDatetime = entity.getRegisterDatetime();
  * String registerTrace = entity.getRegisterTrace();
  * java.time.LocalDateTime updateDatetime = entity.getUpdateDatetime();
@@ -58,6 +59,7 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setUid(uid);
  * entity.setAuthority(authority);
  * entity.setIntroduction(introduction);
+ * entity.setIsDeleted(isDeleted);
  * entity.setRegisterDatetime(registerDatetime);
  * entity.setRegisterTrace(registerTrace);
  * entity.setUpdateDatetime(updateDatetime);
@@ -91,6 +93,9 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
 
     /** introduction: {TEXT(65535)} */
     protected String _introduction;
+
+    /** is_deleted: {NotNull, BIT} */
+    protected Boolean _isDeleted;
 
     /** register_datetime: {NotNull, DATETIME(19)} */
     protected java.time.LocalDateTime _registerDatetime;
@@ -275,6 +280,7 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
         sb.append(dm).append(xfND(_uid));
         sb.append(dm).append(xfND(_authority));
         sb.append(dm).append(xfND(_introduction));
+        sb.append(dm).append(xfND(_isDeleted));
         sb.append(dm).append(xfND(_registerDatetime));
         sb.append(dm).append(xfND(_registerTrace));
         sb.append(dm).append(xfND(_updateDatetime));
@@ -399,6 +405,24 @@ public abstract class DbBsUser extends AbstractEntity implements DomainEntity, D
     public void setIntroduction(String introduction) {
         registerModifiedProperty("introduction");
         _introduction = introduction;
+    }
+
+    /**
+     * [get] is_deleted: {NotNull, BIT} <br>
+     * @return The value of the column 'is_deleted'. (basically NotNull if selected: for the constraint)
+     */
+    public Boolean getIsDeleted() {
+        checkSpecifiedProperty("isDeleted");
+        return _isDeleted;
+    }
+
+    /**
+     * [set] is_deleted: {NotNull, BIT} <br>
+     * @param isDeleted The value of the column 'is_deleted'. (basically NotNull if update: for the constraint)
+     */
+    public void setIsDeleted(Boolean isDeleted) {
+        registerModifiedProperty("isDeleted");
+        _isDeleted = isDeleted;
     }
 
     /**

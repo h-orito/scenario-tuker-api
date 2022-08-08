@@ -33,7 +33,7 @@ class UserService(
         ) ?: throw SystemException("failed to get twitter user id. screenName: ${resource.screenName}")
 
         val user = resource.toUser(twitterUserId)
-        userRepository.findByUid(resource.uid)?.let {
+        userRepository.findByUid(resource.uid, true)?.let {
             // twitterのみupdate
             return userRepository.update(user)
         }
@@ -75,6 +75,8 @@ class UserService(
 
     fun updateUserScenarioId(sourceScenarioId: Int, destScenarioId: Int) =
         userRepository.updateUserScenario(sourceScenarioId, destScenarioId)
+
+    fun delete(userId: Int) = userRepository.delete(userId)
 
     data class UserCreateResource(
         val uid: String,

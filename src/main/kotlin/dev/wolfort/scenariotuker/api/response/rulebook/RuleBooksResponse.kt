@@ -11,4 +11,8 @@ data class RuleBooksResponse(val list: List<RuleBookResponse>) {
             RuleBookResponse(ruleBook, gameSystem)
         }
     )
+
+    companion object {
+        fun ofEmpty() = RuleBooksResponse(emptyList())
+    }
 }

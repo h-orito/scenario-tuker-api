@@ -105,6 +105,7 @@ class ScenarioRepositoryImpl(
         return selectList {
             it.specify().derivedParticipate().count({ pCB ->
                 pCB.specify().columnParticipateId()
+                pCB.query().queryUser().setIsDeleted_Equal(false)
             }, DbScenario.ALIAS_participateCount)
             it.query().setScenarioType_Equal(type.name)
             // 参加数が多い順
@@ -117,6 +118,7 @@ class ScenarioRepositoryImpl(
         return selectList {
             it.specify().derivedParticipate().count({ pCB ->
                 pCB.specify().columnParticipateId()
+                pCB.query().queryUser().setIsDeleted_Equal(false)
             }, DbScenario.ALIAS_participateCount)
             it.query().existsParticipate { pCB ->
                 pCB.query().queryUser().existsParticipate { subPCB ->
