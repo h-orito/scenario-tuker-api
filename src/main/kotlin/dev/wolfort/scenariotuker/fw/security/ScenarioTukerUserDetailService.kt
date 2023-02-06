@@ -39,12 +39,8 @@ class ScenarioTukerUserDetailService(
                 uid = uid,
                 authority = Authority.User,
                 name = "未設定",
-                twitter = TwitterUser(
-                    id = "dummy",
-                    screenName = "未設定",
-                    accessToken = "dummy",
-                    tokenSecret = "dummy"
-                ),
+                // API有料化のため機能停止
+                twitter = null,
                 introduction = null
             )
         )

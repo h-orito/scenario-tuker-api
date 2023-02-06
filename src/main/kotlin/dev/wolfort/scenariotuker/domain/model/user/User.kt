@@ -10,6 +10,7 @@ data class User(
     @JsonIgnore
     val authority: Authority,
     val name: String,
-    val twitter: TwitterUser,
+    // API有料化により機能停止
+    val twitter: TwitterUser?,
     val introduction: String?
 )

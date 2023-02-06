@@ -72,6 +72,7 @@ class UserController(
         val uid: String = "",
         @field:NotNull
         val name: String = "",
+        // API有料化に伴い機能停止
         @field:NotNull
         val screenName: String = "",
         @field:NotNull

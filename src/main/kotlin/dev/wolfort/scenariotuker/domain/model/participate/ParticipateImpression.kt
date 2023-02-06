@@ -19,14 +19,18 @@ data class ParticipateImpression(
         if (disclosureRange == DisclosureRange.Everyone) return true
         myself ?: return false
 
-        return when (disclosureRange) {
-            DisclosureRange.Follower -> followings.any { following -> following.id == owner.twitter.id }
-            DisclosureRange.EachFollow -> {
-                val isUserFollowedByMyself = followings.any { following -> following.id == owner.twitter.id }
-                val isUserFollowingToMyself = followers.any { follower -> follower.id == owner.twitter.id }
-                isUserFollowedByMyself && isUserFollowingToMyself
-            }
-            else -> false
-        }
+        // API有料化に伴い機能停止
+        return false
+//        return when (disclosureRange) {
+//            DisclosureRange.Follower -> {
+//                followings.any { following -> following.id == owner.twitter.id }
+//            }
+//            DisclosureRange.EachFollow -> {
+//                val isUserFollowedByMyself = followings.any { following -> following.id == owner.twitter.id }
+//                val isUserFollowingToMyself = followers.any { follower -> follower.id == owner.twitter.id }
+//                isUserFollowedByMyself && isUserFollowingToMyself
+//            }
+//            else -> false
+//        }
     }
 }

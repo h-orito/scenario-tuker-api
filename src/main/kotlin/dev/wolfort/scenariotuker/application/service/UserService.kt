@@ -26,13 +26,15 @@ class UserService(
     fun findByUid(uid: String): User? = userRepository.findByUid(uid)
 
     fun register(resource: UserCreateResource): User {
-        val twitterUserId = twitterRepository.getUserIdByUsername(
-            accessToken = resource.accessToken,
-            tokenSecret = resource.tokenSecret,
-            screenName = resource.screenName
-        ) ?: throw SystemException("failed to get twitter user id. screenName: ${resource.screenName}")
+        // API有料化のため機能停止
+//        val twitterUserId = twitterRepository.getUserIdByUsername(
+//            accessToken = resource.accessToken,
+//            tokenSecret = resource.tokenSecret,
+//            screenName = resource.screenName
+//        ) ?: throw SystemException("failed to get twitter user id. screenName: ${resource.screenName}")
+//        val user = resource.toUser(twitterUserId)
 
-        val user = resource.toUser(twitterUserId)
+        val user = resource.toUser()
         userRepository.findByUid(resource.uid, true)?.let {
             // twitterのみupdate
             return userRepository.update(user)
@@ -85,13 +87,15 @@ class UserService(
         val accessToken: String,
         val tokenSecret: String
     ) {
-        fun toUser(twitterUserId: String): User = User(
+
+        // fun toUser(twitterUserId: String): User = User(
+        fun toUser(): User = User(
             id = 0,
             uid = uid,
             authority = Authority.User,
             name = name,
             twitter = TwitterUser(
-                id = twitterUserId,
+                id = "dummy", // API有料化のためダミー値
                 screenName = screenName,
                 accessToken = accessToken,
                 tokenSecret = tokenSecret

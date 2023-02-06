@@ -56,9 +56,10 @@ class UserRepositoryImpl(
     }
 
     override fun search(query: UserQuery, user: User?): Users {
-        val followings = if (query.isTwitterFollowing == true && user != null) {
-            twitterRepository.getFollowings(user.twitter)
-        } else emptyList()
+        // TwitterAPI有料化に伴い機能停止
+//        val followings = if (query.isTwitterFollowing == true && user != null) {
+//            twitterRepository.getFollowings(user.twitter)
+//        } else emptyList()
 
         val dbUserList = userBhv.selectList {
             it.setupSelect_TwitterUserAsOne()
@@ -72,10 +73,10 @@ class UserRepositoryImpl(
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
-            if (followings.isNotEmpty()) {
-                it.query().queryTwitterUserAsOne()
-                    .setTwitterId_InScope(followings.map { twitterUser -> twitterUser.id })
-            }
+//            if (followings.isNotEmpty()) {
+//                it.query().queryTwitterUserAsOne()
+//                    .setTwitterId_InScope(followings.map { twitterUser -> twitterUser.id })
+//            }
             it.query().setIsDeleted_Equal(false)
             it.query().addOrderBy_UserId_Asc()
         }
@@ -114,13 +115,16 @@ class UserRepositoryImpl(
         u.isDeleted = false
         userBhv.insert(u)
         val userId = u.userId
-        val t = DbTwitterUser()
-        t.userId = userId
-        t.twitterId = user.twitter.id
-        t.screenName = user.twitter.screenName
-        t.accessToken = encryptor.encrypt(user.twitter.accessToken)
-        t.tokenSecret = encryptor.encrypt(user.twitter.tokenSecret)
-        twitterUserBhv.insert(t)
+        // API有料化のため登録しない
+        user.twitter?.let { twitter ->
+            val t = DbTwitterUser()
+            t.userId = userId
+            t.twitterId = twitter.id
+            t.screenName = twitter.screenName
+            t.accessToken = encryptor.encrypt(twitter.accessToken)
+            t.tokenSecret = encryptor.encrypt(twitter.tokenSecret)
+            twitterUserBhv.insert(t)
+        }
         return findById(userId)!!
     }
 
@@ -131,7 +135,8 @@ class UserRepositoryImpl(
         u.userName = user.name
         u.introduction = user.introduction
         userBhv.update(u)
-        upsertTwitter(user.copy(id = exists.id))
+        // API有料化により機能停止
+//        upsertTwitter(user.copy(id = exists.id))
         return findByUid(user.uid, true)!!
     }
 
@@ -201,20 +206,21 @@ class UserRepositoryImpl(
         }
     }
 
-    private fun upsertTwitter(user: User) {
-        val exists = twitterUserBhv.selectEntity {
-            it.query().setUserId_Equal(user.id)
-        }
-        val t = if (exists.isPresent) exists.get() else DbTwitterUser()
-        t.userId = user.id
-        user.twitter.let {
-            t.twitterId = it.id
-            t.screenName = it.screenName
-            t.accessToken = encryptor.encrypt(it.accessToken)
-            t.tokenSecret = encryptor.encrypt(it.tokenSecret)
-        }
-        twitterUserBhv.insertOrUpdate(t)
-    }
+//    private fun upsertTwitter(user: User) {
+//        user.twitter ?: return
+//        val exists = twitterUserBhv.selectEntity {
+//            it.query().setUserId_Equal(user.id)
+//        }
+//        val t = if (exists.isPresent) exists.get() else DbTwitterUser()
+//        t.userId = user.id
+//        user.twitter.let {
+//            t.twitterId = it.id
+//            t.screenName = it.screenName
+//            t.accessToken = encryptor.encrypt(it.accessToken)
+//            t.tokenSecret = encryptor.encrypt(it.tokenSecret)
+//        }
+//        twitterUserBhv.insertOrUpdate(t)
+//    }
 
     private fun mappingToUsers(list: List<DbUser>): Users {
         return Users(list = list.map { mappingToUser(it) })
@@ -226,14 +232,15 @@ class UserRepositoryImpl(
             uid = user.uid,
             authority = Authority.valueOf(user.authority),
             name = user.userName,
-            twitter = user.twitterUserAsOne.get().let {
+            // API有料化により機能停止
+            twitter = user.twitterUserAsOne.map {
                 TwitterUser(
                     id = it.twitterId,
                     screenName = it.screenName,
                     accessToken = encryptor.decrypt(it.accessToken),
                     tokenSecret = encryptor.decrypt(it.tokenSecret)
                 )
-            },
+            }.orElse(null),
             introduction = user.introduction
         )
     }
