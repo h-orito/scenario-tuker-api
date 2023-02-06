@@ -8,9 +8,13 @@ import dev.wolfort.scenariotuker.application.coordinator.ScenarioCoordinator
 import dev.wolfort.scenariotuker.application.service.*
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.domain.model.paging.PagingQuery
+import dev.wolfort.scenariotuker.domain.model.participate.Participates
 import dev.wolfort.scenariotuker.domain.model.scenario.*
+import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.fw.exception.SystemException
+import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.hibernate.validator.constraints.Length
+import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 import javax.validation.constraints.Max
@@ -168,7 +172,11 @@ class ScenarioController(
     )
 
     @GetMapping("/{scenarioId}/participates")
-    private fun scenarioParticipates(@PathVariable scenarioId: Int): ParticipatesResponse {
+    private fun scenarioParticipates(
+        @PathVariable scenarioId: Int,
+        request: ParticipateSearchRequest,
+        @AuthenticationPrincipal sTukerUser: ScenarioTukerUser?
+    ): ParticipatesResponse {
         val scenario =
             scenarioService.findById(scenarioId) ?: throw SystemException("scenario not found. id: $scenarioId")
         var participates = participateService.findAllByScenarioId(scenarioId)
@@ -180,6 +188,14 @@ class ScenarioController(
         participates = participates.copy(
             list = participates.list.map { it.copy(impression = it.impression?.copy(content = "")) }
         )
+        if (request.is_twitter_following == true) {
+            val user = sTukerUser?.let { userService.findByUid(it.uid) }
+            val followingUsers =
+                userService.search(UserQuery(name = null, screenName = null, isTwitterFollowing = true), user)
+            participates = Participates(list = participates.list.filter { p ->
+                followingUsers.list.any { it.id == p.userId }
+            })
+        }
 
         return ParticipatesResponse(
             participates,
@@ -190,4 +206,8 @@ class ScenarioController(
             users
         )
     }
+
+    data class ParticipateSearchRequest(
+        val is_twitter_following: Boolean? = null
+    )
 }
