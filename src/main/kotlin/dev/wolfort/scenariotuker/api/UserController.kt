@@ -72,20 +72,30 @@ class UserController(
         val uid: String = "",
         @field:NotNull
         val name: String = "",
-        // API有料化に伴い機能停止
-        @field:NotNull
-        val screenName: String = "",
-        @field:NotNull
-        val accessToken: String = "",
-        @field:NotNull
-        val tokenSecret: String = ""
+        val twitter: Twitter? = null,
     ) {
+
+        data class Twitter(
+            val twitterId: String = "",
+            @field:NotNull
+            val screenName: String = "",
+            @field:NotNull
+            val accessToken: String = "",
+            @field:NotNull
+            val tokenSecret: String = ""
+        )
+
         fun toUserCreateResource() = UserService.UserCreateResource(
             uid = uid,
             name = name,
-            screenName = screenName,
-            accessToken = accessToken,
-            tokenSecret = tokenSecret
+            twitter = twitter?.let {
+                UserService.UserCreateResource.Twitter(
+                    twitterId = it.twitterId,
+                    screenName = it.screenName,
+                    accessToken = it.accessToken,
+                    tokenSecret = it.tokenSecret
+                )
+            }
         )
     }
 

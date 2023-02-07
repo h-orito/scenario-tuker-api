@@ -19,16 +19,6 @@ class TwitterRepositoryImpl : TwitterRepository {
     @Value("\${twitter.oauth.consumer-secret:}")
     private val consumerSecret: String? = null
 
-    override fun getUserIdByUsername(
-        accessToken: String,
-        tokenSecret: String,
-        screenName: String
-    ): String? {
-        if (consumerKey.isNullOrEmpty()) return null
-        val client = createClient(accessToken, tokenSecret)
-        return client.getUserFromUserName(screenName)?.id
-    }
-
     override fun getFollowings(user: TwitterUser): List<TwitterUser> {
         if (consumerKey.isNullOrEmpty()) return emptyList()
         val client = createClient(user.accessToken, user.tokenSecret)

@@ -135,8 +135,7 @@ class UserRepositoryImpl(
         u.userName = user.name
         u.introduction = user.introduction
         userBhv.update(u)
-        // API有料化により機能停止
-//        upsertTwitter(user.copy(id = exists.id))
+        upsertTwitter(user.copy(id = exists.id))
         return findByUid(user.uid, true)!!
     }
 
@@ -206,21 +205,21 @@ class UserRepositoryImpl(
         }
     }
 
-//    private fun upsertTwitter(user: User) {
-//        user.twitter ?: return
-//        val exists = twitterUserBhv.selectEntity {
-//            it.query().setUserId_Equal(user.id)
-//        }
-//        val t = if (exists.isPresent) exists.get() else DbTwitterUser()
-//        t.userId = user.id
-//        user.twitter.let {
-//            t.twitterId = it.id
-//            t.screenName = it.screenName
-//            t.accessToken = encryptor.encrypt(it.accessToken)
-//            t.tokenSecret = encryptor.encrypt(it.tokenSecret)
-//        }
-//        twitterUserBhv.insertOrUpdate(t)
-//    }
+    private fun upsertTwitter(user: User) {
+        user.twitter ?: return
+        val exists = twitterUserBhv.selectEntity {
+            it.query().setUserId_Equal(user.id)
+        }
+        val t = if (exists.isPresent) exists.get() else DbTwitterUser()
+        t.userId = user.id
+        user.twitter.let {
+            t.twitterId = it.id
+            t.screenName = it.screenName
+            t.accessToken = encryptor.encrypt(it.accessToken)
+            t.tokenSecret = encryptor.encrypt(it.tokenSecret)
+        }
+        twitterUserBhv.insertOrUpdate(t)
+    }
 
     private fun mappingToUsers(list: List<DbUser>): Users {
         return Users(list = list.map { mappingToUser(it) })
