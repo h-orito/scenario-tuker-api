@@ -56,6 +56,8 @@ class ScenarioController(
         var game_system_name: String? = null,
         var type: ScenarioType? = null,
         var author_name: String? = null,
+        var player_num: Int? = null,
+        var player_num_empty: Boolean? = null,
         val page_count: Int? = null,
         val page_size: Int? = null,
     ) {
@@ -69,6 +71,8 @@ class ScenarioController(
                 gameSystemName = game_system_name,
                 type = type,
                 authorName = author_name,
+                playerNum = player_num,
+                playerNumEmpty = player_num_empty,
                 paging = pagingQuery
             )
         }

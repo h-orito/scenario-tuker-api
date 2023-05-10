@@ -8,6 +8,8 @@ data class ScenarioQuery(
     val gameSystemName: String?,
     val type: ScenarioType?,
     val authorName: String?,
+    val playerNum: Int?,
+    val playerNumEmpty: Boolean?,
     val paging: PagingQuery?
 ) {
     fun isEmpty() = name.isNullOrBlank()
@@ -15,5 +17,7 @@ data class ScenarioQuery(
             && gameSystemName.isNullOrBlank()
             && type == null
             && authorName.isNullOrBlank()
+            && playerNum == null
+            && playerNumEmpty == null
             && paging == null
 }

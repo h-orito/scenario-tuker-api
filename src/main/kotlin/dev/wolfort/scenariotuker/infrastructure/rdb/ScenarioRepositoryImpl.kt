@@ -64,6 +64,21 @@ class ScenarioRepositoryImpl(
                     }
                 }
             }
+            query.playerNum?.let { playerNum ->
+                if (query.playerNumEmpty == true) {
+                    it.orScopeQuery { orCB ->
+                        orCB.query().setPlayerNumMin_LessEqual(playerNum)
+                        orCB.query().setPlayerNumMin_IsNull()
+                    }
+                    it.orScopeQuery { orCB ->
+                        orCB.query().setPlayerNumMax_GreaterEqual(playerNum)
+                        orCB.query().setPlayerNumMax_IsNull()
+                    }
+                } else {
+                    it.query().setPlayerNumMin_LessEqual(playerNum)
+                    it.query().setPlayerNumMax_GreaterEqual(playerNum)
+                }
+            }
             if (query.paging != null) {
                 it.paging(query.paging.pageSize, query.paging.pageCount)
             } else {
