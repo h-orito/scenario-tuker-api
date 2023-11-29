@@ -142,7 +142,10 @@ class ParticipateRepositoryImpl(
     override fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int) {
         val participates = findAllByScenarioId(sourceScenarioId)
         participates.list.forEach { participate ->
-            val existing = participateBhv.selectByUniqueOf(destScenarioId, participate.userId)
+            val existing = participateBhv.selectEntity {
+                it.query().setScenarioId_Equal(destScenarioId)
+                it.query().setUserId_Equal(participate.userId)
+            }
             if (existing.isPresent) {
                 delete(participate.id)
             } else {
