@@ -114,12 +114,12 @@ public class DbParticipateDbm extends AbstractDBMeta {
      */
     public ColumnInfo columnParticipateId() { return _columnParticipateId; }
     /**
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnScenarioId() { return _columnScenarioId; }
     /**
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnUserId() { return _columnUserId; }
@@ -215,16 +215,6 @@ public class DbParticipateDbm extends AbstractDBMeta {
     protected UniqueInfo cpui() { return hpcpui(columnParticipateId()); }
     public boolean hasPrimaryKey() { return true; }
     public boolean hasCompoundPrimaryKey() { return false; }
-
-    // -----------------------------------------------------
-    //                                        Unique Element
-    //                                        --------------
-    public UniqueInfo uniqueOf() {
-        List<ColumnInfo> ls = newArrayListSized(4);
-        ls.add(columnScenarioId());
-        ls.add(columnUserId());
-        return hpcui(ls);
-    }
 
     // ===================================================================================
     //                                                                       Relation Info

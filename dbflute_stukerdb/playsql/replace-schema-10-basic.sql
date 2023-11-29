@@ -250,8 +250,7 @@ create table participate (
     register_trace         varchar(64) not null,
     update_datetime        datetime not null,
     update_trace           varchar(64) not null,
-    primary key (participate_id),
-    unique (scenario_id, user_id)
+    primary key (participate_id)
 );
 
 alter table participate

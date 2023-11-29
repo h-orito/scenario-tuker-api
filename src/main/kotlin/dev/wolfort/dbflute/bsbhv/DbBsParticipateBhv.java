@@ -186,32 +186,6 @@ public abstract class DbBsParticipateBhv extends AbstractBehaviorWritable<DbPart
         return newConditionBean().acceptPK(participateId);
     }
 
-    /**
-     * Select the entity by the unique-key value.
-     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
-     * @param userId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     * @return The optional entity selected by the unique key. (NotNull: if no data, empty entity)
-     * @throws EntityAlreadyDeletedException When get(), required() of return value is called and the value is null, which means entity has already been deleted (not found).
-     * @throws EntityDuplicatedException When the entity has been duplicated.
-     * @throws SelectEntityConditionNotFoundException When the condition for selecting an entity is not found.
-     */
-    public OptionalEntity<DbParticipate> selectByUniqueOf(Integer scenarioId, Integer userId) {
-        return facadeSelectByUniqueOf(scenarioId, userId);
-    }
-
-    protected OptionalEntity<DbParticipate> facadeSelectByUniqueOf(Integer scenarioId, Integer userId) {
-        return doSelectByUniqueOf(scenarioId, userId, typeOfSelectedEntity());
-    }
-
-    protected <ENTITY extends DbParticipate> OptionalEntity<ENTITY> doSelectByUniqueOf(Integer scenarioId, Integer userId, Class<? extends ENTITY> tp) {
-        return createOptionalEntity(doSelectEntity(xprepareCBAsUniqueOf(scenarioId, userId), tp), scenarioId, userId);
-    }
-
-    protected DbParticipateCB xprepareCBAsUniqueOf(Integer scenarioId, Integer userId) {
-        assertObjectNotNull("scenarioId", scenarioId);assertObjectNotNull("userId", userId);
-        return newConditionBean().acceptUniqueOf(scenarioId, userId);
-    }
-
     // ===================================================================================
     //                                                                         List Select
     //                                                                         ===========

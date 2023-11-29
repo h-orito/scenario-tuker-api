@@ -25,23 +25,7 @@ class ParticipateService(
 
     fun findById(id: Int): Participate? = participateRepository.findById(id)
 
-    fun register(participate: Participate): Participate {
-        val existing = findAllByUserId(participate.userId)
-        // 既に通過済みの場合はロールを追加する
-        existing.list.find { it.scenarioId == participate.scenarioId }?.let { existingParticipate ->
-            return participateRepository.update(
-                participate.copy(
-                    id = existingParticipate.id,
-                    scenarioId = existingParticipate.scenarioId,
-                    userId = existingParticipate.userId,
-                    ruleBookIds = existingParticipate.ruleBookIds,
-                    dispOrder = existingParticipate.dispOrder
-                )
-            )
-        }
-        // 存在しない場合は新規登録
-        return participateRepository.register(participate)
-    }
+    fun register(participate: Participate): Participate = participateRepository.register(participate)
 
     fun update(participate: Participate): Participate {
         findById(participate.id) ?: throw SystemException("participate not found. id: ${participate.id}")

@@ -129,14 +129,14 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @return this. (NotNull)
      */
     public DbBsParticipateCQ addOrderBy_ScenarioId_Asc() { regOBA("scenario_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @return this. (NotNull)
      */
     public DbBsParticipateCQ addOrderBy_ScenarioId_Desc() { regOBD("scenario_id"); return this; }
@@ -149,14 +149,14 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
 
     /**
      * Add order-by as ascend. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @return this. (NotNull)
      */
     public DbBsParticipateCQ addOrderBy_UserId_Asc() { regOBA("user_id"); return this; }
 
     /**
      * Add order-by as descend. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @return this. (NotNull)
      */
     public DbBsParticipateCQ addOrderBy_UserId_Desc() { regOBD("user_id"); return this; }

@@ -95,19 +95,6 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         return (DbParticipateCB)this;
     }
 
-    /**
-     * Accept the query condition of unique key as equal.
-     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
-     * @param userId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     * @return this. (NotNull)
-     */
-    public DbParticipateCB acceptUniqueOf(Integer scenarioId, Integer userId) {
-        assertObjectNotNull("scenarioId", scenarioId);assertObjectNotNull("userId", userId);
-        DbBsParticipateCB cb = this;
-        cb.query().setScenarioId_Equal(scenarioId);cb.query().setUserId_Equal(userId);
-        return (DbParticipateCB)this;
-    }
-
     public ConditionBean addOrderBy_PK_Asc() {
         query().addOrderBy_ParticipateId_Asc();
         return this;
@@ -393,12 +380,12 @@ public class DbBsParticipateCB extends AbstractConditionBean {
          */
         public SpecifiedColumn columnParticipateId() { return doColumn("participate_id"); }
         /**
-         * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+         * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnScenarioId() { return doColumn("scenario_id"); }
         /**
-         * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+         * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnUserId() { return doColumn("user_id"); }

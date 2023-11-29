@@ -92,10 +92,10 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     /** participate_id: {PK, ID, NotNull, INT UNSIGNED(10)} */
     protected Integer _participateId;
 
-    /** scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} */
+    /** scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario} */
     protected Integer _scenarioId;
 
-    /** user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} */
+    /** user_id: {IX, NotNull, INT UNSIGNED(10), FK to user} */
     protected Integer _userId;
 
     /** disp_order: {NotNull, INT UNSIGNED(10)} */
@@ -154,19 +154,6 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     public boolean hasPrimaryKeyValue() {
         if (_participateId == null) { return false; }
         return true;
-    }
-
-    /**
-     * To be unique by the unique column. <br>
-     * You can update the entity by the key when entity update (NOT batch update).
-     * @param scenarioId : UQ+, NotNull, INT UNSIGNED(10), FK to scenario. (NotNull)
-     * @param userId : +UQ, IX, NotNull, INT UNSIGNED(10), FK to user. (NotNull)
-     */
-    public void uniqueBy(Integer scenarioId, Integer userId) {
-        __uniqueDrivenProperties.clear();
-        __uniqueDrivenProperties.addPropertyName("scenarioId");
-        __uniqueDrivenProperties.addPropertyName("userId");
-        setScenarioId(scenarioId);setUserId(userId);
     }
 
     // ===================================================================================
@@ -394,7 +381,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} <br>
+     * [get] scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario} <br>
      * @return The value of the column 'scenario_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getScenarioId() {
@@ -403,7 +390,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario} <br>
+     * [set] scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario} <br>
      * @param scenarioId The value of the column 'scenario_id'. (basically NotNull if update: for the constraint)
      */
     public void setScenarioId(Integer scenarioId) {
@@ -412,7 +399,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [get] user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
+     * [get] user_id: {IX, NotNull, INT UNSIGNED(10), FK to user} <br>
      * @return The value of the column 'user_id'. (basically NotNull if selected: for the constraint)
      */
     public Integer getUserId() {
@@ -421,7 +408,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     }
 
     /**
-     * [set] user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user} <br>
+     * [set] user_id: {IX, NotNull, INT UNSIGNED(10), FK to user} <br>
      * @param userId The value of the column 'user_id'. (basically NotNull if update: for the constraint)
      */
     public void setUserId(Integer userId) {

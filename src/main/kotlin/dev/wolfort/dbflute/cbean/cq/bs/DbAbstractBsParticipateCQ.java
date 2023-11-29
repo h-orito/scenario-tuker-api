@@ -320,7 +320,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_Equal(Integer scenarioId) {
@@ -333,7 +333,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_NotEqual(Integer scenarioId) {
@@ -346,7 +346,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_GreaterThan(Integer scenarioId) {
@@ -355,7 +355,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_LessThan(Integer scenarioId) {
@@ -364,7 +364,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_GreaterEqual(Integer scenarioId) {
@@ -373,7 +373,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioId The value of scenarioId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setScenarioId_LessEqual(Integer scenarioId) {
@@ -384,7 +384,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param minNumber The min number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -397,7 +397,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param minNumber The min number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -408,7 +408,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioIdList The collection of scenarioId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setScenarioId_InScope(Collection<Integer> scenarioIdList) {
@@ -421,7 +421,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * scenario_id: {UQ+, NotNull, INT UNSIGNED(10), FK to scenario}
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
      * @param scenarioIdList The collection of scenarioId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setScenarioId_NotInScope(Collection<Integer> scenarioIdList) {
@@ -437,7 +437,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_Equal(Integer userId) {
@@ -450,7 +450,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_NotEqual(Integer userId) {
@@ -463,7 +463,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterThan(Integer userId) {
@@ -472,7 +472,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessThan(Integer userId) {
@@ -481,7 +481,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_GreaterEqual(Integer userId) {
@@ -490,7 +490,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userId The value of userId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setUserId_LessEqual(Integer userId) {
@@ -501,7 +501,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -514,7 +514,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param minNumber The min number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of userId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -525,7 +525,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userIdList The collection of userId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_InScope(Collection<Integer> userIdList) {
@@ -538,7 +538,7 @@ public abstract class DbAbstractBsParticipateCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * user_id: {+UQ, IX, NotNull, INT UNSIGNED(10), FK to user}
+     * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @param userIdList The collection of userId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setUserId_NotInScope(Collection<Integer> userIdList) {
