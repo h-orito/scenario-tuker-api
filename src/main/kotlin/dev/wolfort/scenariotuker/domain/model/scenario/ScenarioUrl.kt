@@ -13,6 +13,7 @@ data class ScenarioUrl(
         "www.pixiv.net",
         "character-sheets.appspot.com",
         "twitter.com",
+        "x.com",
         "www.dlsite.com",
         "seesaawiki.jp"
     )
