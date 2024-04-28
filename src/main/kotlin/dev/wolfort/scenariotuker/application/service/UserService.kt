@@ -27,9 +27,13 @@ class UserService(
 
     fun register(resource: UserCreateResource): User {
         val user = resource.toUser()
-        userRepository.findByUid(resource.uid, true)?.let {
+        userRepository.findByUid(resource.uid, true)?.let { existing ->
             // twitterのみupdate
-            return userRepository.update(user)
+            return userRepository.update(
+                existing.copy(
+                    twitter = user.twitter ?: existing.twitter
+                ),
+            )
         }
         return userRepository.register(user)
     }
