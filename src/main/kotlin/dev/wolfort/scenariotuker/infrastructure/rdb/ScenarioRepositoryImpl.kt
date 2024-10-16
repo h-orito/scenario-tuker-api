@@ -7,7 +7,12 @@ import dev.wolfort.dbflute.exbhv.DbScenarioDictionaryBhv
 import dev.wolfort.dbflute.exentity.DbScenario
 import dev.wolfort.dbflute.exentity.DbScenarioAuthor
 import dev.wolfort.dbflute.exentity.DbScenarioDictionary
-import dev.wolfort.scenariotuker.domain.model.scenario.*
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioType
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioUrl
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.dbflute.bhv.readable.CBCall
 import org.dbflute.cbean.result.PagingResultBean
@@ -41,6 +46,10 @@ class ScenarioRepositoryImpl(
 
     override fun search(query: ScenarioQuery): Scenarios {
         return selectList {
+            it.specify().derivedParticipate().count({ pCB ->
+                pCB.specify().columnParticipateId()
+                pCB.query().queryUser().setIsDeleted_Equal(false)
+            }, DbScenario.ALIAS_participateCount)
             if (!query.name.isNullOrEmpty()) {
                 it.query().setScenarioName_LikeSearch(query.name) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
