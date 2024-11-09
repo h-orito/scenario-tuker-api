@@ -14,6 +14,7 @@ spring:
 security:
   corsClientUrls:
     - https://scenario-tuker.netlify.app
+    - https://scenario-tuker-playground.netlify.app
 server:
   port: 8091
   servlet:
