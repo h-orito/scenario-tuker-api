@@ -99,6 +99,10 @@ class ScenarioRepositoryImpl(
 
     override fun findAllByGameSystemId(gameSystemId: Int): Scenarios {
         return selectList {
+            it.specify().derivedParticipate().count({ pCB ->
+                pCB.specify().columnParticipateId()
+                pCB.query().queryUser().setIsDeleted_Equal(false)
+            }, DbScenario.ALIAS_participateCount)
             it.paging(100000, 1)
             it.query().setGameSystemId_Equal(gameSystemId)
             it.query().addOrderBy_ScenarioId_Asc()
@@ -107,6 +111,10 @@ class ScenarioRepositoryImpl(
 
     override fun findAllByAuthorId(authorId: Int): Scenarios {
         return selectList {
+            it.specify().derivedParticipate().count({ pCB ->
+                pCB.specify().columnParticipateId()
+                pCB.query().queryUser().setIsDeleted_Equal(false)
+            }, DbScenario.ALIAS_participateCount)
             it.query().existsScenarioAuthor { saCB ->
                 saCB.query().setAuthorId_Equal(authorId)
             }
