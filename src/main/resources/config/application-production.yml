@@ -19,7 +19,7 @@ security:
 server:
   port: 8091
   servlet:
-    context-path: /scenario-tuker-api
+    context-path: /stuler-api
     session:
       timeout: 86400
   compression:
