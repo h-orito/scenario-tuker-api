@@ -19,7 +19,7 @@ security:
 server:
   port: 8091
   servlet:
-    context-path: /stuler-api
+    context-path: /stuker-api
     session:
       timeout: 86400
   compression:
