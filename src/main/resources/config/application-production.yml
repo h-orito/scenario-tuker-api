@@ -15,10 +15,11 @@ security:
   corsClientUrls:
     - https://scenario-tuker.netlify.app
     - https://scenario-tuker-playground.netlify.app
+    - https://wolfort.dev
 server:
   port: 8091
   servlet:
-    context-path: /scenario-tuker
+    context-path: /scenario-tuker-api
     session:
       timeout: 86400
   compression:
