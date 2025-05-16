@@ -343,6 +343,23 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
+         * {select max(FOO) from participate where ...) as FOO_MAX} <br>
+         * PARTICIPATE by game_system_id, named 'participateList'.
+         * <pre>
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     participateCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     participateCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, DbParticipate.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * </pre>
+         * @return The object to set up a function for referrer table. (NotNull)
+         */
+        public HpSDRFunction<DbParticipateCB, DbGameSystemCQ> derivedParticipate() {
+            assertDerived("participateList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbParticipateCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveParticipateList(fn, sq, al, op), _dbmetaProvider);
+        }
+        /**
+         * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
          * {select max(FOO) from rule_book where ...) as FOO_MAX} <br>
          * RULE_BOOK by game_system_id, named 'ruleBookList'.
          * <pre>
@@ -360,20 +377,20 @@ public class DbBsGameSystemCB extends AbstractConditionBean {
         }
         /**
          * Prepare for (Specify)DerivedReferrer (correlated sub-query). <br>
-         * {select max(FOO) from scenario where ...) as FOO_MAX} <br>
-         * SCENARIO by game_system_id, named 'scenarioList'.
+         * {select max(FOO) from scenario_game_system where ...) as FOO_MAX} <br>
+         * SCENARIO_GAME_SYSTEM by game_system_id, named 'scenarioGameSystemList'.
          * <pre>
-         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(scenarioCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-         *     scenarioCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
-         *     scenarioCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
-         * }, DbScenario.<span style="color: #CC4747">ALIAS_foo...</span>);
+         * cb.specify().<span style="color: #CC4747">derived${relationMethodIdentityName}()</span>.<span style="color: #CC4747">max</span>(systemCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+         *     systemCB.specify().<span style="color: #CC4747">column...</span> <span style="color: #3F7E5E">// derived column by function</span>
+         *     systemCB.query().set... <span style="color: #3F7E5E">// referrer condition</span>
+         * }, DbScenarioGameSystem.<span style="color: #CC4747">ALIAS_foo...</span>);
          * </pre>
          * @return The object to set up a function for referrer table. (NotNull)
          */
-        public HpSDRFunction<DbScenarioCB, DbGameSystemCQ> derivedScenario() {
-            assertDerived("scenarioList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
-                    -> cq.xsderiveScenarioList(fn, sq, al, op), _dbmetaProvider);
+        public HpSDRFunction<DbScenarioGameSystemCB, DbGameSystemCQ> derivedScenarioGameSystem() {
+            assertDerived("scenarioGameSystemList"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioGameSystemCB> sq, DbGameSystemCQ cq, String al, DerivedReferrerOption op)
+                    -> cq.xsderiveScenarioGameSystemList(fn, sq, al, op), _dbmetaProvider);
         }
         /**
          * Prepare for (Specify)MyselfDerived (SubQuery).

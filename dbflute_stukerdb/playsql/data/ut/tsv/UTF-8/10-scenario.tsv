@@ -1,7 +1,7 @@
-scenario_id	scenario_name	scenario_type	game_system_id
-1	勇者が死ぬまでは。	MurderMystery	""
-2	亡霊島殺人事件	MurderMystery	""
-3	大神村の怪異	Trpg	1
-4	明日へと続く扉	Trpg	1
-5	毒入りスープ	Trpg	2
-6	後始末	Trpg	3
+scenario_id	scenario_name	scenario_type
+1	勇者が死ぬまでは。	MurderMystery
+2	亡霊島殺人事件	MurderMystery
+3	大神村の怪異	Trpg
+4	明日へと続く扉	Trpg
+5	毒入りスープ	Trpg
+6	後始末	Trpg

@@ -19,7 +19,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     participate_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_id, scenario_id, game_system_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -31,13 +31,13 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
+ *     GAME_SYSTEM, SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
  *
  * [referrer table]
  *     PARTICIPATE_ROLE, PARTICIPATE_RULE_BOOK, PARTICIPATE_IMPRESSION
  *
  * [foreign property]
- *     scenario, user, participateImpressionAsOne
+ *     gameSystem, scenario, user, participateImpressionAsOne
  *
  * [referrer property]
  *     participateRoleList, participateRuleBookList
@@ -46,6 +46,7 @@ import dev.wolfort.dbflute.exentity.*;
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
  * Integer participateId = entity.getParticipateId();
  * Integer scenarioId = entity.getScenarioId();
+ * Integer gameSystemId = entity.getGameSystemId();
  * Integer userId = entity.getUserId();
  * Integer dispOrder = entity.getDispOrder();
  * java.time.LocalDate participateTermFrom = entity.getParticipateTermFrom();
@@ -61,6 +62,7 @@ import dev.wolfort.dbflute.exentity.*;
  * String updateTrace = entity.getUpdateTrace();
  * entity.setParticipateId(participateId);
  * entity.setScenarioId(scenarioId);
+ * entity.setGameSystemId(gameSystemId);
  * entity.setUserId(userId);
  * entity.setDispOrder(dispOrder);
  * entity.setParticipateTermFrom(participateTermFrom);
@@ -94,6 +96,9 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
 
     /** scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario} */
     protected Integer _scenarioId;
+
+    /** game_system_id: {IX, INT UNSIGNED(10), FK to game_system} */
+    protected Integer _gameSystemId;
 
     /** user_id: {IX, NotNull, INT UNSIGNED(10), FK to user} */
     protected Integer _userId;
@@ -159,6 +164,27 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
+    /** GAME_SYSTEM by my game_system_id, named 'gameSystem'. */
+    protected OptionalEntity<DbGameSystem> _gameSystem;
+
+    /**
+     * [get] GAME_SYSTEM by my game_system_id, named 'gameSystem'. <br>
+     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
+     * @return The entity of foreign property 'gameSystem'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
+     */
+    public OptionalEntity<DbGameSystem> getGameSystem() {
+        if (_gameSystem == null) { _gameSystem = OptionalEntity.relationEmpty(this, "gameSystem"); }
+        return _gameSystem;
+    }
+
+    /**
+     * [set] GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @param gameSystem The entity of foreign property 'gameSystem'. (NullAllowed)
+     */
+    public void setGameSystem(OptionalEntity<DbGameSystem> gameSystem) {
+        _gameSystem = gameSystem;
+    }
+
     /** SCENARIO by my scenario_id, named 'scenario'. */
     protected OptionalEntity<DbScenario> _scenario;
 
@@ -294,6 +320,8 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(li).append(xbRDS(_gameSystem, "gameSystem")); }
         if (_scenario != null && _scenario.isPresent())
         { sb.append(li).append(xbRDS(_scenario, "scenario")); }
         if (_user != null && _user.isPresent())
@@ -315,6 +343,7 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
         StringBuilder sb = new StringBuilder();
         sb.append(dm).append(xfND(_participateId));
         sb.append(dm).append(xfND(_scenarioId));
+        sb.append(dm).append(xfND(_gameSystemId));
         sb.append(dm).append(xfND(_userId));
         sb.append(dm).append(xfND(_dispOrder));
         sb.append(dm).append(xfND(_participateTermFrom));
@@ -338,6 +367,8 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
+        if (_gameSystem != null && _gameSystem.isPresent())
+        { sb.append(dm).append("gameSystem"); }
         if (_scenario != null && _scenario.isPresent())
         { sb.append(dm).append("scenario"); }
         if (_user != null && _user.isPresent())
@@ -396,6 +427,24 @@ public abstract class DbBsParticipate extends AbstractEntity implements DomainEn
     public void setScenarioId(Integer scenarioId) {
         registerModifiedProperty("scenarioId");
         _scenarioId = scenarioId;
+    }
+
+    /**
+     * [get] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
+     * @return The value of the column 'game_system_id'. (NullAllowed even if selected: for no constraint)
+     */
+    public Integer getGameSystemId() {
+        checkSpecifiedProperty("gameSystemId");
+        return _gameSystemId;
+    }
+
+    /**
+     * [set] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
+     * @param gameSystemId The value of the column 'game_system_id'. (NullAllowed: null update allowed for no constraint)
+     */
+    public void setGameSystemId(Integer gameSystemId) {
+        registerModifiedProperty("gameSystemId");
+        _gameSystemId = gameSystemId;
     }
 
     /**

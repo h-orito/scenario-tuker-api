@@ -11,7 +11,14 @@ import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystemQuery
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -86,7 +93,8 @@ class GameSystemController(
         val gameSystem = gameSystemService.findById(gameSystemId)
             ?: throw SystemException("game_system not found. id: $gameSystemId")
         val scenarios = scenarioService.findAllByGameSystemId(gameSystemId)
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds })
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
-        return ScenariosResponse(scenarios, GameSystems(list = listOf(gameSystem)), authors)
+        return ScenariosResponse(scenarios, GameSystems(list = gameSystems.list), authors)
     }
 }

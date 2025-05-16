@@ -6,7 +6,7 @@ data class Scenario(
     val dictionaryNames: List<String>,
     val type: ScenarioType,
     val url: ScenarioUrl?,
-    val gameSystemId: Int?,
+    val gameSystemIds: List<Int>,
     val authorIds: List<Int>,
     val gameMasterRequirement: String? = null,
     val playerNumMin: Int? = null,

@@ -20,20 +20,20 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The base condition-bean of scenario_dictionary.
+ * The base condition-bean of scenario_game_system.
  * @author DBFlute(AutoGenerator)
  */
-public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
+public class DbBsScenarioGameSystemCB extends AbstractConditionBean {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbScenarioDictionaryCQ _conditionQuery;
+    protected DbScenarioGameSystemCQ _conditionQuery;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbBsScenarioDictionaryCB() {
+    public DbBsScenarioGameSystemCB() {
         if (DbDBFluteConfig.getInstance().isPagingCountLater()) {
             enablePagingCountLater();
         }
@@ -76,7 +76,7 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     }
 
     public String asTableDbName() {
-        return "scenario_dictionary";
+        return "scenario_game_system";
     }
 
     // ===================================================================================
@@ -84,23 +84,23 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     //                                                                 ===================
     /**
      * Accept the query condition of primary key as equal.
-     * @param scenarioDictionaryId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
+     * @param scenarioGameSystemId : PK, ID, NotNull, INT UNSIGNED(10). (NotNull)
      * @return this. (NotNull)
      */
-    public DbScenarioDictionaryCB acceptPK(Integer scenarioDictionaryId) {
-        assertObjectNotNull("scenarioDictionaryId", scenarioDictionaryId);
-        DbBsScenarioDictionaryCB cb = this;
-        cb.query().setScenarioDictionaryId_Equal(scenarioDictionaryId);
-        return (DbScenarioDictionaryCB)this;
+    public DbScenarioGameSystemCB acceptPK(Integer scenarioGameSystemId) {
+        assertObjectNotNull("scenarioGameSystemId", scenarioGameSystemId);
+        DbBsScenarioGameSystemCB cb = this;
+        cb.query().setScenarioGameSystemId_Equal(scenarioGameSystemId);
+        return (DbScenarioGameSystemCB)this;
     }
 
     public ConditionBean addOrderBy_PK_Asc() {
-        query().addOrderBy_ScenarioDictionaryId_Asc();
+        query().addOrderBy_ScenarioGameSystemId_Asc();
         return this;
     }
 
     public ConditionBean addOrderBy_PK_Desc() {
-        query().addOrderBy_ScenarioDictionaryId_Desc();
+        query().addOrderBy_ScenarioGameSystemId_Desc();
         return this;
     }
 
@@ -164,34 +164,34 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * </pre>
      * @return The instance of condition-query for base-point table to set up query. (NotNull)
      */
-    public DbScenarioDictionaryCQ query() {
+    public DbScenarioGameSystemCQ query() {
         assertQueryPurpose(); // assert only when user-public query
         return doGetConditionQuery();
     }
 
-    public DbScenarioDictionaryCQ xdfgetConditionQuery() { // public for parameter comment and internal
+    public DbScenarioGameSystemCQ xdfgetConditionQuery() { // public for parameter comment and internal
         return doGetConditionQuery();
     }
 
-    protected DbScenarioDictionaryCQ doGetConditionQuery() {
+    protected DbScenarioGameSystemCQ doGetConditionQuery() {
         if (_conditionQuery == null) {
             _conditionQuery = createLocalCQ();
         }
         return _conditionQuery;
     }
 
-    protected DbScenarioDictionaryCQ createLocalCQ() {
+    protected DbScenarioGameSystemCQ createLocalCQ() {
         return xcreateCQ(null, getSqlClause(), getSqlClause().getBasePointAliasName(), 0);
     }
 
-    protected DbScenarioDictionaryCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        DbScenarioDictionaryCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbScenarioGameSystemCQ xcreateCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        DbScenarioGameSystemCQ cq = xnewCQ(childQuery, sqlClause, aliasName, nestLevel);
         cq.xsetBaseCB(this);
         return cq;
     }
 
-    protected DbScenarioDictionaryCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
-        return new DbScenarioDictionaryCQ(childQuery, sqlClause, aliasName, nestLevel);
+    protected DbScenarioGameSystemCQ xnewCQ(ConditionQuery childQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+        return new DbScenarioGameSystemCQ(childQuery, sqlClause, aliasName, nestLevel);
     }
 
     /**
@@ -215,10 +215,10 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union'. (NotNull)
      */
-    public void union(UnionQuery<DbScenarioDictionaryCB> unionCBLambda) {
-        final DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void union(UnionQuery<DbScenarioGameSystemCB> unionCBLambda) {
+        final DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbScenarioDictionaryCQ cq = cb.query(); query().xsetUnionQuery(cq);
+        final DbScenarioGameSystemCQ cq = cb.query(); query().xsetUnionQuery(cq);
     }
 
     /**
@@ -232,10 +232,10 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * </pre>
      * @param unionCBLambda The callback for query of 'union all'. (NotNull)
      */
-    public void unionAll(UnionQuery<DbScenarioDictionaryCB> unionCBLambda) {
-        final DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
+    public void unionAll(UnionQuery<DbScenarioGameSystemCB> unionCBLambda) {
+        final DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForUnion(this); xsyncUQ(cb);
         try { lock(); unionCBLambda.query(cb); } finally { unlock(); } xsaveUCB(cb);
-        final DbScenarioDictionaryCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
+        final DbScenarioGameSystemCQ cq = cb.query(); query().xsetUnionAllQuery(cq);
     }
 
     // ===================================================================================
@@ -243,13 +243,33 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     //                                                                         ===========
     /**
      * Set up relation columns to select clause. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * <pre>
+     * <span style="color: #0000C0">scenarioGameSystemBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_GameSystem()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">scenarioGameSystem</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">scenarioGameSystem</span>.<span style="color: #CC4747">getGameSystem()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_GameSystem() {
+        assertSetupSelectPurpose("gameSystem");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnGameSystemId();
+        }
+        doSetupSelect(() -> query().queryGameSystem());
+    }
+
+    /**
+     * Set up relation columns to select clause. <br>
      * SCENARIO by my scenario_id, named 'scenario'.
      * <pre>
-     * <span style="color: #0000C0">scenarioDictionaryBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     * <span style="color: #0000C0">scenarioGameSystemBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
      *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_Scenario()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
      *     <span style="color: #553000">cb</span>.query().set...
-     * }).alwaysPresent(<span style="color: #553000">scenarioDictionary</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     ... = <span style="color: #553000">scenarioDictionary</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * }).alwaysPresent(<span style="color: #553000">scenarioGameSystem</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">scenarioGameSystem</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
      */
@@ -301,27 +321,28 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
         return _specification != null && _specification.hasSpecifiedColumn();
     }
 
-    public static class HpSpecification extends HpAbstractSpecification<DbScenarioDictionaryCQ> {
+    public static class HpSpecification extends HpAbstractSpecification<DbScenarioGameSystemCQ> {
+        protected DbGameSystemCB.HpSpecification _gameSystem;
         protected DbScenarioCB.HpSpecification _scenario;
-        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbScenarioDictionaryCQ> qyCall
+        public HpSpecification(ConditionBean baseCB, HpSpQyCall<DbScenarioGameSystemCQ> qyCall
                              , HpCBPurpose purpose, DBMetaProvider dbmetaProvider
                              , HpSDRFunctionFactory sdrFuncFactory)
         { super(baseCB, qyCall, purpose, dbmetaProvider, sdrFuncFactory); }
         /**
-         * scenario_dictionary_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+         * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioDictionaryId() { return doColumn("scenario_dictionary_id"); }
+        public SpecifiedColumn columnScenarioGameSystemId() { return doColumn("scenario_game_system_id"); }
         /**
          * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnScenarioId() { return doColumn("scenario_id"); }
         /**
-         * scenario_name: {NotNull, VARCHAR(255)}
+         * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
          * @return The information object of specified column. (NotNull)
          */
-        public SpecifiedColumn columnScenarioName() { return doColumn("scenario_name"); }
+        public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
         /**
          * register_datetime: {NotNull, DATETIME(19)}
          * @return The information object of specified column. (NotNull)
@@ -346,14 +367,38 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
         public void exceptRecordMetaColumn() { doExceptRecordMetaColumn(); }
         @Override
         protected void doSpecifyRequiredColumn() {
-            columnScenarioDictionaryId(); // PK
+            columnScenarioGameSystemId(); // PK
+            if (qyCall().qy().hasConditionQueryGameSystem()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbGameSystemCQ) {
+                columnGameSystemId(); // FK or one-to-one referrer
+            }
             if (qyCall().qy().hasConditionQueryScenario()
                     || qyCall().qy().xgetReferrerQuery() instanceof DbScenarioCQ) {
                 columnScenarioId(); // FK or one-to-one referrer
             }
         }
         @Override
-        protected String getTableDbName() { return "scenario_dictionary"; }
+        protected String getTableDbName() { return "scenario_game_system"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public DbGameSystemCB.HpSpecification specifyGameSystem() {
+            assertRelation("gameSystem");
+            if (_gameSystem == null) {
+                _gameSystem = new DbGameSystemCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGameSystem()
+                                    , () -> _qyCall.qy().queryGameSystem())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _gameSystem.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGameSystem()
+                      , () -> xsyncQyCall().qy().queryGameSystem()));
+                }
+            }
+            return _gameSystem;
+        }
         /**
          * Prepare to specify functions about relation table. <br>
          * SCENARIO by my scenario_id, named 'scenario'.
@@ -378,9 +423,9 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
          * Prepare for (Specify)MyselfDerived (SubQuery).
          * @return The object to set up a function for myself table. (NotNull)
          */
-        public HpSDRFunction<DbScenarioDictionaryCB, DbScenarioDictionaryCQ> myselfDerived() {
+        public HpSDRFunction<DbScenarioGameSystemCB, DbScenarioGameSystemCQ> myselfDerived() {
             assertDerived("myselfDerived"); if (xhasSyncQyCall()) { xsyncQyCall().qy(); } // for sync (for example, this in ColumnQuery)
-            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioDictionaryCB> sq, DbScenarioDictionaryCQ cq, String al, DerivedReferrerOption op)
+            return cHSDRF(_baseCB, _qyCall.qy(), (String fn, SubQuery<DbScenarioGameSystemCB> sq, DbScenarioGameSystemCQ cq, String al, DerivedReferrerOption op)
                     -> cq.xsmyselfDerive(fn, sq, al, op), _dbmetaProvider);
         }
     }
@@ -393,9 +438,9 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * This is very specialty so you can get the frontier spirit. Bon voyage!
      * @return The condition-bean for dream cruise, which is linked to main condition-bean.
      */
-    public DbScenarioDictionaryCB dreamCruiseCB() {
-        DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB();
-        cb.xsetupForDreamCruise((DbScenarioDictionaryCB) this);
+    public DbScenarioGameSystemCB dreamCruiseCB() {
+        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB();
+        cb.xsetupForDreamCruise((DbScenarioGameSystemCB) this);
         return cb;
     }
 
@@ -420,15 +465,15 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * @param colCBLambda The callback for specify-query of left column. (NotNull)
      * @return The object for setting up operand and right column. (NotNull)
      */
-    public HpColQyOperand<DbScenarioDictionaryCB> columnQuery(final SpecifyQuery<DbScenarioDictionaryCB> colCBLambda) {
+    public HpColQyOperand<DbScenarioGameSystemCB> columnQuery(final SpecifyQuery<DbScenarioGameSystemCB> colCBLambda) {
         return xcreateColQyOperand((rightSp, operand) -> {
             return xcolqy(xcreateColumnQueryCB(), xcreateColumnQueryCB(), colCBLambda, rightSp, operand);
         });
     }
 
-    protected DbScenarioDictionaryCB xcreateColumnQueryCB() {
-        DbScenarioDictionaryCB cb = new DbScenarioDictionaryCB();
-        cb.xsetupForColumnQuery((DbScenarioDictionaryCB)this);
+    protected DbScenarioGameSystemCB xcreateColumnQueryCB() {
+        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB();
+        cb.xsetupForColumnQuery((DbScenarioGameSystemCB)this);
         return cb;
     }
 
@@ -448,8 +493,8 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * </pre>
      * @param orCBLambda The callback for query of or-condition. (NotNull)
      */
-    public void orScopeQuery(OrQuery<DbScenarioDictionaryCB> orCBLambda) {
-        xorSQ((DbScenarioDictionaryCB)this, orCBLambda);
+    public void orScopeQuery(OrQuery<DbScenarioGameSystemCB> orCBLambda) {
+        xorSQ((DbScenarioGameSystemCB)this, orCBLambda);
     }
 
     /**
@@ -467,8 +512,8 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
      * </pre>
      * @param andCBLambda The callback for query of and-condition. (NotNull)
      */
-    public void orScopeQueryAndPart(AndQuery<DbScenarioDictionaryCB> andCBLambda) {
-        xorSQAP((DbScenarioDictionaryCB)this, andCBLambda);
+    public void orScopeQueryAndPart(AndQuery<DbScenarioGameSystemCB> andCBLambda) {
+        xorSQAP((DbScenarioGameSystemCB)this, andCBLambda);
     }
 
     // ===================================================================================
@@ -498,11 +543,11 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     //                                                                        ============
     @Override
     protected void xprepareSyncQyCall(ConditionBean mainCB) {
-        final DbScenarioDictionaryCB cb;
+        final DbScenarioGameSystemCB cb;
         if (mainCB != null) {
-            cb = (DbScenarioDictionaryCB)mainCB;
+            cb = (DbScenarioGameSystemCB)mainCB;
         } else {
-            cb = new DbScenarioDictionaryCB();
+            cb = new DbScenarioGameSystemCB();
         }
         specify().xsetSyncQyCall(xcreateSpQyCall(() -> true, () -> cb.query()));
     }
@@ -511,8 +556,8 @@ public class DbBsScenarioDictionaryCB extends AbstractConditionBean {
     //                                                                            Internal
     //                                                                            ========
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xgetConditionBeanClassNameInternally() { return DbScenarioDictionaryCB.class.getName(); }
-    protected String xgetConditionQueryClassNameInternally() { return DbScenarioDictionaryCQ.class.getName(); }
+    protected String xgetConditionBeanClassNameInternally() { return DbScenarioGameSystemCB.class.getName(); }
+    protected String xgetConditionQueryClassNameInternally() { return DbScenarioGameSystemCQ.class.getName(); }
     protected String xgetSubQueryClassNameInternally() { return SubQuery.class.getName(); }
     protected String xgetConditionOptionClassNameInternally() { return ConditionOption.class.getName(); }
 }

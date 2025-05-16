@@ -43,6 +43,7 @@ public class DbDBMetaInstanceHandler implements DBMetaProvider {
         tmpMap.put("scenario", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioDbm");
         tmpMap.put("scenario_author", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioAuthorDbm");
         tmpMap.put("scenario_dictionary", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioDictionaryDbm");
+        tmpMap.put("scenario_game_system", "dev.wolfort.dbflute.bsentity.dbmeta.DbScenarioGameSystemDbm");
         tmpMap.put("twitter_user", "dev.wolfort.dbflute.bsentity.dbmeta.DbTwitterUserDbm");
         tmpMap.put("user", "dev.wolfort.dbflute.bsentity.dbmeta.DbUserDbm");
         tmpMap.put("user_rule_book", "dev.wolfort.dbflute.bsentity.dbmeta.DbUserRuleBookDbm");

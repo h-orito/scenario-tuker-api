@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.dbflute.Entity;
-import org.dbflute.optional.OptionalEntity;
 import org.dbflute.dbmeta.AbstractDBMeta;
 import org.dbflute.dbmeta.info.*;
 import org.dbflute.dbmeta.name.*;
@@ -47,7 +46,6 @@ public class DbScenarioDbm extends AbstractDBMeta {
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioName(), (et, vl) -> ((DbScenario)et).setScenarioName((String)vl), "scenarioName");
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioType(), (et, vl) -> ((DbScenario)et).setScenarioType((String)vl), "scenarioType");
         setupEpg(_epgMap, et -> ((DbScenario)et).getScenarioUrl(), (et, vl) -> ((DbScenario)et).setScenarioUrl((String)vl), "scenarioUrl");
-        setupEpg(_epgMap, et -> ((DbScenario)et).getGameSystemId(), (et, vl) -> ((DbScenario)et).setGameSystemId(cti(vl)), "gameSystemId");
         setupEpg(_epgMap, et -> ((DbScenario)et).getGameMasterRequirement(), (et, vl) -> ((DbScenario)et).setGameMasterRequirement((String)vl), "gameMasterRequirement");
         setupEpg(_epgMap, et -> ((DbScenario)et).getPlayerNumMin(), (et, vl) -> ((DbScenario)et).setPlayerNumMin(cti(vl)), "playerNumMin");
         setupEpg(_epgMap, et -> ((DbScenario)et).getPlayerNumMax(), (et, vl) -> ((DbScenario)et).setPlayerNumMax(cti(vl)), "playerNumMax");
@@ -59,18 +57,6 @@ public class DbScenarioDbm extends AbstractDBMeta {
     }
     public PropertyGateway findPropertyGateway(String prop)
     { return doFindEpg(_epgMap, prop); }
-
-    // -----------------------------------------------------
-    //                                      Foreign Property
-    //                                      ----------------
-    protected final Map<String, PropertyGateway> _efpgMap = newHashMap();
-    { xsetupEfpg(); }
-    @SuppressWarnings("unchecked")
-    protected void xsetupEfpg() {
-        setupEfpg(_efpgMap, et -> ((DbScenario)et).getGameSystem(), (et, vl) -> ((DbScenario)et).setGameSystem((OptionalEntity<DbGameSystem>)vl), "gameSystem");
-    }
-    public PropertyGateway findForeignPropertyGateway(String prop)
-    { return doFindEfpg(_efpgMap, prop); }
 
     // ===================================================================================
     //                                                                          Table Info
@@ -88,11 +74,10 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // ===================================================================================
     //                                                                         Column Info
     //                                                                         ===========
-    protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,scenarioAuthorList,scenarioDictionaryList,userScenarioList", null, false);
+    protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateList,scenarioAuthorList,scenarioDictionaryList,scenarioGameSystemList,userScenarioList", null, false);
     protected final ColumnInfo _columnScenarioName = cci("scenario_name", "scenario_name", null, null, String.class, "scenarioName", null, false, false, true, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnScenarioType = cci("scenario_type", "scenario_type", null, null, String.class, "scenarioType", null, false, false, true, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnScenarioUrl = cci("scenario_url", "scenario_url", null, null, String.class, "scenarioUrl", null, false, false, false, "VARCHAR", 255, 0, null, null, false, null, null, null, null, null, false);
-    protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, "gameSystem", null, null, false);
     protected final ColumnInfo _columnGameMasterRequirement = cci("game_master_requirement", "game_master_requirement", null, null, String.class, "gameMasterRequirement", null, false, false, false, "VARCHAR", 50, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPlayerNumMin = cci("player_num_min", "player_num_min", null, null, Integer.class, "playerNumMin", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnPlayerNumMax = cci("player_num_max", "player_num_max", null, null, Integer.class, "playerNumMax", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -122,11 +107,6 @@ public class DbScenarioDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnScenarioUrl() { return _columnScenarioUrl; }
-    /**
-     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
-     * @return The information object of specified column. (NotNull)
-     */
-    public ColumnInfo columnGameSystemId() { return _columnGameSystemId; }
     /**
      * game_master_requirement: {VARCHAR(50)}
      * @return The information object of specified column. (NotNull)
@@ -174,7 +154,6 @@ public class DbScenarioDbm extends AbstractDBMeta {
         ls.add(columnScenarioName());
         ls.add(columnScenarioType());
         ls.add(columnScenarioUrl());
-        ls.add(columnGameSystemId());
         ls.add(columnGameMasterRequirement());
         ls.add(columnPlayerNumMin());
         ls.add(columnPlayerNumMax());
@@ -206,14 +185,6 @@ public class DbScenarioDbm extends AbstractDBMeta {
     // -----------------------------------------------------
     //                                      Foreign Property
     //                                      ----------------
-    /**
-     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
-     * @return The information object of foreign property. (NotNull)
-     */
-    public ForeignInfo foreignGameSystem() {
-        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbGameSystemDbm.getInstance().columnGameSystemId());
-        return cfi("fk_scenario_game_system", "gameSystem", this, DbGameSystemDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "scenarioList", false);
-    }
 
     // -----------------------------------------------------
     //                                     Referrer Property
@@ -241,6 +212,14 @@ public class DbScenarioDbm extends AbstractDBMeta {
     public ReferrerInfo referrerScenarioDictionaryList() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioDictionaryDbm.getInstance().columnScenarioId());
         return cri("fk_scenario_dictionary_scenario", "scenarioDictionaryList", this, DbScenarioDictionaryDbm.getInstance(), mp, false, "scenario");
+    }
+    /**
+     * SCENARIO_GAME_SYSTEM by scenario_id, named 'scenarioGameSystemList'.
+     * @return The information object of referrer property. (NotNull)
+     */
+    public ReferrerInfo referrerScenarioGameSystemList() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioGameSystemDbm.getInstance().columnScenarioId());
+        return cri("fk_scenario_game_system_scenario", "scenarioGameSystemList", this, DbScenarioGameSystemDbm.getInstance(), mp, false, "scenario");
     }
     /**
      * USER_SCENARIO by scenario_id, named 'userScenarioList'.

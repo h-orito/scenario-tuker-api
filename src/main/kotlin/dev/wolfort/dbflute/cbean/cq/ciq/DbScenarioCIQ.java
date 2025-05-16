@@ -68,6 +68,8 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepScenarioId_ExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepScenarioId_ExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepScenarioId_ExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
@@ -76,6 +78,8 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepScenarioId_NotExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_NotExistsReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
@@ -83,6 +87,8 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioAuthorList(DbScenarioAuthorCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepScenarioId_SpecifyDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepScenarioId_SpecifyDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
@@ -98,6 +104,10 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioGameSystemListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepScenarioId_QueryDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepScenarioId_QueryDerivedReferrer_UserScenarioListParameter(Object vl)
@@ -105,7 +115,6 @@ public class DbScenarioCIQ extends DbAbstractBsScenarioCQ {
     protected ConditionValue xgetCValueScenarioName() { return _myCQ.xdfgetScenarioName(); }
     protected ConditionValue xgetCValueScenarioType() { return _myCQ.xdfgetScenarioType(); }
     protected ConditionValue xgetCValueScenarioUrl() { return _myCQ.xdfgetScenarioUrl(); }
-    protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
     protected ConditionValue xgetCValueGameMasterRequirement() { return _myCQ.xdfgetGameMasterRequirement(); }
     protected ConditionValue xgetCValuePlayerNumMin() { return _myCQ.xdfgetPlayerNumMin(); }
     protected ConditionValue xgetCValuePlayerNumMax() { return _myCQ.xdfgetPlayerNumMax(); }

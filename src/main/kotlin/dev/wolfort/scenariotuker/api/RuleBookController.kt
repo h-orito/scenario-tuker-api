@@ -5,14 +5,26 @@ import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.rulebook.RuleBookResponse
 import dev.wolfort.scenariotuker.api.response.rulebook.RuleBooksResponse
 import dev.wolfort.scenariotuker.application.coordinator.RuleBookCoordinator
-import dev.wolfort.scenariotuker.application.service.*
+import dev.wolfort.scenariotuker.application.service.AuthorService
+import dev.wolfort.scenariotuker.application.service.GameSystemService
+import dev.wolfort.scenariotuker.application.service.ParticipateService
+import dev.wolfort.scenariotuker.application.service.RuleBookService
+import dev.wolfort.scenariotuker.application.service.ScenarioService
+import dev.wolfort.scenariotuker.application.service.UserService
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBook
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookQuery
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBookType
 import dev.wolfort.scenariotuker.domain.model.rulebook.RuleBooks
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -122,7 +134,7 @@ class RuleBookController(
         var participates = participateService.findAllByRuleBookId(ruleBookId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
         // 感想の内容は隠す（別途取得させる）
         participates = participates.copy(

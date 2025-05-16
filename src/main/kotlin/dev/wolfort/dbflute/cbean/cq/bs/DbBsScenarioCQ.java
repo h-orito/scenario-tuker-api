@@ -88,6 +88,9 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_ExistsReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_ExistsReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_ExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_ScenarioDictionaryList", sq); }
 
+    public Map<String, DbScenarioGameSystemCQ> xdfgetScenarioId_ExistsReferrer_ScenarioGameSystemList() { return xgetSQueMap("scenarioId_ExistsReferrer_ScenarioGameSystemList"); }
+    public String keepScenarioId_ExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_ScenarioGameSystemList", sq); }
+
     public Map<String, DbUserScenarioCQ> xdfgetScenarioId_ExistsReferrer_UserScenarioList() { return xgetSQueMap("scenarioId_ExistsReferrer_UserScenarioList"); }
     public String keepScenarioId_ExistsReferrer_UserScenarioList(DbUserScenarioCQ sq) { return xkeepSQue("scenarioId_ExistsReferrer_UserScenarioList", sq); }
 
@@ -100,6 +103,9 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_NotExistsReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_NotExistsReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_NotExistsReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_ScenarioDictionaryList", sq); }
 
+    public Map<String, DbScenarioGameSystemCQ> xdfgetScenarioId_NotExistsReferrer_ScenarioGameSystemList() { return xgetSQueMap("scenarioId_NotExistsReferrer_ScenarioGameSystemList"); }
+    public String keepScenarioId_NotExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_ScenarioGameSystemList", sq); }
+
     public Map<String, DbUserScenarioCQ> xdfgetScenarioId_NotExistsReferrer_UserScenarioList() { return xgetSQueMap("scenarioId_NotExistsReferrer_UserScenarioList"); }
     public String keepScenarioId_NotExistsReferrer_UserScenarioList(DbUserScenarioCQ sq) { return xkeepSQue("scenarioId_NotExistsReferrer_UserScenarioList", sq); }
 
@@ -111,6 +117,9 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
 
     public Map<String, DbScenarioDictionaryCQ> xdfgetScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_ScenarioDictionaryList", sq); }
+
+    public Map<String, DbScenarioGameSystemCQ> xdfgetScenarioId_SpecifyDerivedReferrer_ScenarioGameSystemList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepScenarioId_SpecifyDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_ScenarioGameSystemList", sq); }
 
     public Map<String, DbUserScenarioCQ> xdfgetScenarioId_SpecifyDerivedReferrer_UserScenarioList() { return xgetSQueMap("scenarioId_SpecifyDerivedReferrer_UserScenarioList"); }
     public String keepScenarioId_SpecifyDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq) { return xkeepSQue("scenarioId_SpecifyDerivedReferrer_UserScenarioList", sq); }
@@ -129,6 +138,11 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryList(DbScenarioDictionaryCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_ScenarioDictionaryList", sq); }
     public Map<String, Object> xdfgetScenarioId_QueryDerivedReferrer_ScenarioDictionaryListParameter() { return xgetSQuePmMap("scenarioId_QueryDerivedReferrer_ScenarioDictionaryList"); }
     public String keepScenarioId_QueryDerivedReferrer_ScenarioDictionaryListParameter(Object pm) { return xkeepSQuePm("scenarioId_QueryDerivedReferrer_ScenarioDictionaryList", pm); }
+
+    public Map<String, DbScenarioGameSystemCQ> xdfgetScenarioId_QueryDerivedReferrer_ScenarioGameSystemList() { return xgetSQueMap("scenarioId_QueryDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_ScenarioGameSystemList", sq); }
+    public Map<String, Object> xdfgetScenarioId_QueryDerivedReferrer_ScenarioGameSystemListParameter() { return xgetSQuePmMap("scenarioId_QueryDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepScenarioId_QueryDerivedReferrer_ScenarioGameSystemListParameter(Object pm) { return xkeepSQuePm("scenarioId_QueryDerivedReferrer_ScenarioGameSystemList", pm); }
 
     public Map<String, DbUserScenarioCQ> xdfgetScenarioId_QueryDerivedReferrer_UserScenarioList() { return xgetSQueMap("scenarioId_QueryDerivedReferrer_UserScenarioList"); }
     public String keepScenarioId_QueryDerivedReferrer_UserScenarioList(DbUserScenarioCQ sq) { return xkeepSQue("scenarioId_QueryDerivedReferrer_UserScenarioList", sq); }
@@ -208,26 +222,6 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
      * @return this. (NotNull)
      */
     public DbBsScenarioCQ addOrderBy_ScenarioUrl_Desc() { regOBD("scenario_url"); return this; }
-
-    protected ConditionValue _gameSystemId;
-    public ConditionValue xdfgetGameSystemId()
-    { if (_gameSystemId == null) { _gameSystemId = nCV(); }
-      return _gameSystemId; }
-    protected ConditionValue xgetCValueGameSystemId() { return xdfgetGameSystemId(); }
-
-    /**
-     * Add order-by as ascend. <br>
-     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
-     * @return this. (NotNull)
-     */
-    public DbBsScenarioCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
-
-    /**
-     * Add order-by as descend. <br>
-     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
-     * @return this. (NotNull)
-     */
-    public DbBsScenarioCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
 
     protected ConditionValue _gameMasterRequirement;
     public ConditionValue xdfgetGameMasterRequirement()
@@ -428,36 +422,11 @@ public class DbBsScenarioCQ extends DbAbstractBsScenarioCQ {
     //                                                                         Union Query
     //                                                                         ===========
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
-        DbScenarioCQ bq = (DbScenarioCQ)bqs;
-        DbScenarioCQ uq = (DbScenarioCQ)uqs;
-        if (bq.hasConditionQueryGameSystem()) {
-            uq.queryGameSystem().reflectRelationOnUnionQuery(bq.queryGameSystem(), uq.queryGameSystem());
-        }
     }
 
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
-    /**
-     * Get the condition-query for relation table. <br>
-     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
-     * @return The instance of condition-query. (NotNull)
-     */
-    public DbGameSystemCQ queryGameSystem() {
-        return xdfgetConditionQueryGameSystem();
-    }
-    public DbGameSystemCQ xdfgetConditionQueryGameSystem() {
-        String prop = "gameSystem";
-        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGameSystem()); xsetupOuterJoinGameSystem(); }
-        return xgetQueRlMap(prop);
-    }
-    protected DbGameSystemCQ xcreateQueryGameSystem() {
-        String nrp = xresolveNRP("scenario", "gameSystem"); String jan = xresolveJAN(nrp, xgetNNLvl());
-        return xinitRelCQ(new DbGameSystemCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "gameSystem", nrp);
-    }
-    protected void xsetupOuterJoinGameSystem() { xregOutJo("gameSystem"); }
-    public boolean hasConditionQueryGameSystem() { return xhasQueRlMap("gameSystem"); }
-
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String property) {
         return null;
     }

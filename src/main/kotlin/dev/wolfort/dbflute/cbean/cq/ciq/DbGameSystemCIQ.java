@@ -64,33 +64,43 @@ public class DbGameSystemCIQ extends DbAbstractBsGameSystemCQ {
     protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
     public String keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
+    public String keepGameSystemId_ExistsReferrer_ParticipateList(DbParticipateCQ sq)
+    { throwIICBOE("ExistsReferrer"); return null; }
     public String keepGameSystemId_ExistsReferrer_RuleBookList(DbRuleBookCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepGameSystemId_ExistsReferrer_ScenarioList(DbScenarioCQ sq)
+    public String keepGameSystemId_ExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
     { throwIICBOE("ExistsReferrer"); return null; }
     public String keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
+    public String keepGameSystemId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq)
+    { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepGameSystemId_NotExistsReferrer_RuleBookList(DbRuleBookCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepGameSystemId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq)
+    public String keepGameSystemId_NotExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
     { throwIICBOE("NotExistsReferrer"); return null; }
     public String keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
+    public String keepGameSystemId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq)
+    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(DbRuleBookCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq)
+    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
     { throwIICBOE("(Specify)DerivedReferrer"); return null; }
     public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepGameSystemId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    public String keepGameSystemId_QueryDerivedReferrer_ParticipateListParameter(Object vl)
+    { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepGameSystemId_QueryDerivedReferrer_RuleBookList(DbRuleBookCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     public String keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq)
+    public String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioListParameter(Object vl)
+    public String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemListParameter(Object vl)
     { throwIICBOE("(Query)DerivedReferrer"); return null; }
     protected ConditionValue xgetCValueGameSystemName() { return _myCQ.xdfgetGameSystemName(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }

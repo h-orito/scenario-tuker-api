@@ -13,6 +13,7 @@ import dev.wolfort.scenariotuker.domain.model.user.User
 data class ParticipateResponse(
     val id: Int,
     val scenario: ScenarioResponse,
+    val gameSystem: GameSystem?,
     val user: User,
     val ruleBooks: List<RuleBook>,
     val roleNames: List<String>,
@@ -28,13 +29,14 @@ data class ParticipateResponse(
     constructor(
         participate: Participate,
         scenario: Scenario,
-        gameSystem: GameSystem?,
+        gameSystems: List<GameSystem>,
         ruleBooks: List<RuleBook>,
         authors: List<Author>,
         user: User
     ) : this(
         id = participate.id,
-        scenario = ScenarioResponse(scenario, gameSystem, authors),
+        scenario = ScenarioResponse(scenario, gameSystems, authors),
+        gameSystem = participate.gameSystemId?.let { gameSystems.find { gameSystem -> gameSystem.id == it } },
         user = user,
         ruleBooks = ruleBooks,
         roleNames = participate.roleNames,

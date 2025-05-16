@@ -8,7 +8,12 @@ import dev.wolfort.dbflute.exentity.DbParticipate
 import dev.wolfort.dbflute.exentity.DbParticipateImpression
 import dev.wolfort.dbflute.exentity.DbParticipateRole
 import dev.wolfort.dbflute.exentity.DbParticipateRuleBook
-import dev.wolfort.scenariotuker.domain.model.participate.*
+import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
+import dev.wolfort.scenariotuker.domain.model.participate.Participate
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateRepository
+import dev.wolfort.scenariotuker.domain.model.participate.ParticipateTerm
+import dev.wolfort.scenariotuker.domain.model.participate.Participates
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -51,6 +56,21 @@ class ParticipateRepositoryImpl(
         val dbParticipateList = participateBhv.selectList {
             it.setupSelect_ParticipateImpressionAsOne()
             it.query().setScenarioId_Equal(scenarioId)
+            it.query().queryUser().setIsDeleted_Equal(false)
+            it.query().addOrderBy_DispOrder_Asc()
+            it.query().addOrderBy_ParticipateId_Asc()
+        }
+        participateBhv.load(dbParticipateList) {
+            it.loadParticipateRole { }
+            it.loadParticipateRuleBook { }
+        }
+        return mappingToParticipates(dbParticipateList)
+    }
+
+    override fun findAllByGameSystemId(gameSystemId: Int): Participates {
+        val dbParticipateList = participateBhv.selectList {
+            it.setupSelect_ParticipateImpressionAsOne()
+            it.query().setGameSystemId_Equal(gameSystemId)
             it.query().queryUser().setIsDeleted_Equal(false)
             it.query().addOrderBy_DispOrder_Asc()
             it.query().addOrderBy_ParticipateId_Asc()
@@ -142,8 +162,19 @@ class ParticipateRepositoryImpl(
     override fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int) {
         val participates = findAllByScenarioId(sourceScenarioId)
         participates.list.forEach { participate ->
+            val p = DbParticipate()
+            p.scenarioId = destScenarioId
+            participateBhv.queryUpdate(p) {
+                it.query().setParticipateId_Equal(participate.id)
+            }
+        }
+    }
+
+    override fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) {
+        val participates = findAllByGameSystemId(sourceGameSystemId)
+        participates.list.forEach { participate ->
             val existing = participateBhv.selectEntity {
-                it.query().setScenarioId_Equal(destScenarioId)
+                it.query().setScenarioId_Equal(participate.scenarioId)
                 it.query().setUserId_Equal(participate.userId)
             }
             if (existing.isPresent) {
@@ -151,7 +182,7 @@ class ParticipateRepositoryImpl(
             } else {
                 val p = DbParticipate()
                 p.participateId = participate.id
-                p.scenarioId = destScenarioId
+                p.gameSystemId = destGameSystemId
                 participateBhv.update(p)
             }
         }
@@ -160,6 +191,7 @@ class ParticipateRepositoryImpl(
     private fun insertParticipate(participate: Participate): Int {
         val p = DbParticipate()
         p.scenarioId = participate.scenarioId
+        p.gameSystemId = participate.gameSystemId
         p.userId = participate.userId
         p.dispOrder = 0
         participate.term?.let {
@@ -236,6 +268,7 @@ class ParticipateRepositoryImpl(
         return Participate(
             id = participate.participateId,
             scenarioId = participate.scenarioId,
+            gameSystemId = participate.gameSystemId,
             userId = participate.userId,
             ruleBookIds = participate.participateRuleBookList.map { it.ruleBookId },
             roleNames = participate.participateRoleList.map { it.participateRoleName },
@@ -248,11 +281,11 @@ class ParticipateRepositoryImpl(
                 )
             }.orElse(null),
             term =
-            if (participate.participateTermFrom == null && participate.participateTermTo == null) null
-            else ParticipateTerm(
-                from = participate.participateTermFrom,
-                to = participate.participateTermTo
-            ),
+                if (participate.participateTermFrom == null && participate.participateTermTo == null) null
+                else ParticipateTerm(
+                    from = participate.participateTermFrom,
+                    to = participate.participateTermTo
+                ),
             playerNum = participate.playerNum,
             gameMaster = participate.gameMaster,
             playerNames = participate.playerNames,

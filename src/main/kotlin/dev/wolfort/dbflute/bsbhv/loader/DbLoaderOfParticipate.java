@@ -15,7 +15,7 @@ import dev.wolfort.dbflute.cbean.*;
  *     participate_id
  *
  * [column]
- *     participate_id, scenario_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
+ *     participate_id, scenario_id, game_system_id, user_id, disp_order, participate_term_from, participate_term_to, player_num, game_master, player_names, required_hours, memo, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -27,13 +27,13 @@ import dev.wolfort.dbflute.cbean.*;
  *     
  *
  * [foreign table]
- *     SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
+ *     GAME_SYSTEM, SCENARIO, USER, PARTICIPATE_IMPRESSION(AsOne)
  *
  * [referrer table]
  *     PARTICIPATE_ROLE, PARTICIPATE_RULE_BOOK, PARTICIPATE_IMPRESSION
  *
  * [foreign property]
- *     scenario, user, participateImpressionAsOne
+ *     gameSystem, scenario, user, participateImpressionAsOne
  *
  * [referrer property]
  *     participateRoleList, participateRuleBookList
@@ -132,6 +132,13 @@ public class DbLoaderOfParticipate {
     // ===================================================================================
     //                                                                    Pull out Foreign
     //                                                                    ================
+    protected DbLoaderOfGameSystem _foreignGameSystemLoader;
+    public DbLoaderOfGameSystem pulloutGameSystem() {
+        if (_foreignGameSystemLoader == null)
+        { _foreignGameSystemLoader = new DbLoaderOfGameSystem().ready(myBhv().pulloutGameSystem(_selectedList), _selector); }
+        return _foreignGameSystemLoader;
+    }
+
     protected DbLoaderOfScenario _foreignScenarioLoader;
     public DbLoaderOfScenario pulloutScenario() {
         if (_foreignScenarioLoader == null)

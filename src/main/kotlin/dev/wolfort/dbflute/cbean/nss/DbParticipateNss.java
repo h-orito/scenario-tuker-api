@@ -20,12 +20,17 @@ public class DbParticipateNss {
     //                                                                     ===============
     /**
      * With nested relation columns to select clause. <br>
-     * SCENARIO by my scenario_id, named 'scenario'.
-     * @return The set-upper of more nested relation. {...with[nested-relation].with[more-nested-relation]} (NotNull)
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
      */
-    public DbScenarioNss withScenario() {
+    public void withGameSystem() {
+        _query.xdoNss(() -> _query.queryGameSystem());
+    }
+    /**
+     * With nested relation columns to select clause. <br>
+     * SCENARIO by my scenario_id, named 'scenario'.
+     */
+    public void withScenario() {
         _query.xdoNss(() -> _query.queryScenario());
-        return new DbScenarioNss(_query.queryScenario());
     }
     /**
      * With nested relation columns to select clause. <br>

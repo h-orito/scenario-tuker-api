@@ -6,7 +6,9 @@
 * * * * * * * * * *
 data-directory: playsql/data/ut/tsv/UTF-8
 
-00-game_system.tsv (4)
-01-rule_book.tsv (6)
-02-rule_book_dictionary.tsv (6)
+00-game_system.tsv (9)
+00-game_system_dictionary.tsv (9)
+01-rule_book.tsv (11)
+02-rule_book_dictionary.tsv (11)
 10-scenario.tsv (6)
+11-scenario_game_system.tsv (4)

@@ -3,11 +3,9 @@ package dev.wolfort.dbflute.bsentity;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.dbflute.Entity;
 import org.dbflute.dbmeta.DBMeta;
 import org.dbflute.dbmeta.AbstractEntity;
 import org.dbflute.dbmeta.accessory.DomainEntity;
-import org.dbflute.optional.OptionalEntity;
 import dev.wolfort.dbflute.allcommon.DbEntityDefinedCommonColumn;
 import dev.wolfort.dbflute.allcommon.DbDBMetaInstanceHandler;
 import dev.wolfort.dbflute.exentity.*;
@@ -19,7 +17,7 @@ import dev.wolfort.dbflute.exentity.*;
  *     scenario_id
  *
  * [column]
- *     scenario_id, scenario_name, scenario_type, scenario_url, game_system_id, game_master_requirement, player_num_min, player_num_max, required_hours, register_datetime, register_trace, update_datetime, update_trace
+ *     scenario_id, scenario_name, scenario_type, scenario_url, game_master_requirement, player_num_min, player_num_max, required_hours, register_datetime, register_trace, update_datetime, update_trace
  *
  * [sequence]
  *     
@@ -31,16 +29,16 @@ import dev.wolfort.dbflute.exentity.*;
  *     
  *
  * [foreign table]
- *     GAME_SYSTEM
+ *     
  *
  * [referrer table]
- *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY, USER_SCENARIO
+ *     PARTICIPATE, SCENARIO_AUTHOR, SCENARIO_DICTIONARY, SCENARIO_GAME_SYSTEM, USER_SCENARIO
  *
  * [foreign property]
- *     gameSystem
+ *     
  *
  * [referrer property]
- *     participateList, scenarioAuthorList, scenarioDictionaryList, userScenarioList
+ *     participateList, scenarioAuthorList, scenarioDictionaryList, scenarioGameSystemList, userScenarioList
  *
  * [get/set template]
  * /= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -48,7 +46,6 @@ import dev.wolfort.dbflute.exentity.*;
  * String scenarioName = entity.getScenarioName();
  * String scenarioType = entity.getScenarioType();
  * String scenarioUrl = entity.getScenarioUrl();
- * Integer gameSystemId = entity.getGameSystemId();
  * String gameMasterRequirement = entity.getGameMasterRequirement();
  * Integer playerNumMin = entity.getPlayerNumMin();
  * Integer playerNumMax = entity.getPlayerNumMax();
@@ -61,7 +58,6 @@ import dev.wolfort.dbflute.exentity.*;
  * entity.setScenarioName(scenarioName);
  * entity.setScenarioType(scenarioType);
  * entity.setScenarioUrl(scenarioUrl);
- * entity.setGameSystemId(gameSystemId);
  * entity.setGameMasterRequirement(gameMasterRequirement);
  * entity.setPlayerNumMin(playerNumMin);
  * entity.setPlayerNumMax(playerNumMax);
@@ -96,9 +92,6 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
 
     /** scenario_url: {VARCHAR(255)} */
     protected String _scenarioUrl;
-
-    /** game_system_id: {IX, INT UNSIGNED(10), FK to game_system} */
-    protected Integer _gameSystemId;
 
     /** game_master_requirement: {VARCHAR(50)} */
     protected String _gameMasterRequirement;
@@ -149,27 +142,6 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     // ===================================================================================
     //                                                                    Foreign Property
     //                                                                    ================
-    /** GAME_SYSTEM by my game_system_id, named 'gameSystem'. */
-    protected OptionalEntity<DbGameSystem> _gameSystem;
-
-    /**
-     * [get] GAME_SYSTEM by my game_system_id, named 'gameSystem'. <br>
-     * Optional: alwaysPresent(), ifPresent().orElse(), get(), ...
-     * @return The entity of foreign property 'gameSystem'. (NotNull, EmptyAllowed: when e.g. null FK column, no setupSelect)
-     */
-    public OptionalEntity<DbGameSystem> getGameSystem() {
-        if (_gameSystem == null) { _gameSystem = OptionalEntity.relationEmpty(this, "gameSystem"); }
-        return _gameSystem;
-    }
-
-    /**
-     * [set] GAME_SYSTEM by my game_system_id, named 'gameSystem'.
-     * @param gameSystem The entity of foreign property 'gameSystem'. (NullAllowed)
-     */
-    public void setGameSystem(OptionalEntity<DbGameSystem> gameSystem) {
-        _gameSystem = gameSystem;
-    }
-
     // ===================================================================================
     //                                                                   Referrer Property
     //                                                                   =================
@@ -233,6 +205,26 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         _scenarioDictionaryList = scenarioDictionaryList;
     }
 
+    /** SCENARIO_GAME_SYSTEM by scenario_id, named 'scenarioGameSystemList'. */
+    protected List<DbScenarioGameSystem> _scenarioGameSystemList;
+
+    /**
+     * [get] SCENARIO_GAME_SYSTEM by scenario_id, named 'scenarioGameSystemList'.
+     * @return The entity list of referrer property 'scenarioGameSystemList'. (NotNull: even if no loading, returns empty list)
+     */
+    public List<DbScenarioGameSystem> getScenarioGameSystemList() {
+        if (_scenarioGameSystemList == null) { _scenarioGameSystemList = newReferrerList(); }
+        return _scenarioGameSystemList;
+    }
+
+    /**
+     * [set] SCENARIO_GAME_SYSTEM by scenario_id, named 'scenarioGameSystemList'.
+     * @param scenarioGameSystemList The entity list of referrer property 'scenarioGameSystemList'. (NullAllowed)
+     */
+    public void setScenarioGameSystemList(List<DbScenarioGameSystem> scenarioGameSystemList) {
+        _scenarioGameSystemList = scenarioGameSystemList;
+    }
+
     /** USER_SCENARIO by scenario_id, named 'userScenarioList'. */
     protected List<DbUserScenario> _userScenarioList;
 
@@ -282,20 +274,17 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildStringWithRelation(String li) {
         StringBuilder sb = new StringBuilder();
-        if (_gameSystem != null && _gameSystem.isPresent())
-        { sb.append(li).append(xbRDS(_gameSystem, "gameSystem")); }
         if (_participateList != null) { for (DbParticipate et : _participateList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "participateList")); } } }
         if (_scenarioAuthorList != null) { for (DbScenarioAuthor et : _scenarioAuthorList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioAuthorList")); } } }
         if (_scenarioDictionaryList != null) { for (DbScenarioDictionary et : _scenarioDictionaryList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioDictionaryList")); } } }
+        if (_scenarioGameSystemList != null) { for (DbScenarioGameSystem et : _scenarioGameSystemList)
+        { if (et != null) { sb.append(li).append(xbRDS(et, "scenarioGameSystemList")); } } }
         if (_userScenarioList != null) { for (DbUserScenario et : _userScenarioList)
         { if (et != null) { sb.append(li).append(xbRDS(et, "userScenarioList")); } } }
         return sb.toString();
-    }
-    protected <ET extends Entity> String xbRDS(org.dbflute.optional.OptionalEntity<ET> et, String name) { // buildRelationDisplayString()
-        return et.get().buildDisplayString(name, true, true);
     }
 
     @Override
@@ -305,7 +294,6 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
         sb.append(dm).append(xfND(_scenarioName));
         sb.append(dm).append(xfND(_scenarioType));
         sb.append(dm).append(xfND(_scenarioUrl));
-        sb.append(dm).append(xfND(_gameSystemId));
         sb.append(dm).append(xfND(_gameMasterRequirement));
         sb.append(dm).append(xfND(_playerNumMin));
         sb.append(dm).append(xfND(_playerNumMax));
@@ -324,14 +312,14 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     @Override
     protected String doBuildRelationString(String dm) {
         StringBuilder sb = new StringBuilder();
-        if (_gameSystem != null && _gameSystem.isPresent())
-        { sb.append(dm).append("gameSystem"); }
         if (_participateList != null && !_participateList.isEmpty())
         { sb.append(dm).append("participateList"); }
         if (_scenarioAuthorList != null && !_scenarioAuthorList.isEmpty())
         { sb.append(dm).append("scenarioAuthorList"); }
         if (_scenarioDictionaryList != null && !_scenarioDictionaryList.isEmpty())
         { sb.append(dm).append("scenarioDictionaryList"); }
+        if (_scenarioGameSystemList != null && !_scenarioGameSystemList.isEmpty())
+        { sb.append(dm).append("scenarioGameSystemList"); }
         if (_userScenarioList != null && !_userScenarioList.isEmpty())
         { sb.append(dm).append("userScenarioList"); }
         if (sb.length() > dm.length()) {
@@ -418,24 +406,6 @@ public abstract class DbBsScenario extends AbstractEntity implements DomainEntit
     public void setScenarioUrl(String scenarioUrl) {
         registerModifiedProperty("scenarioUrl");
         _scenarioUrl = scenarioUrl;
-    }
-
-    /**
-     * [get] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
-     * @return The value of the column 'game_system_id'. (NullAllowed even if selected: for no constraint)
-     */
-    public Integer getGameSystemId() {
-        checkSpecifiedProperty("gameSystemId");
-        return _gameSystemId;
-    }
-
-    /**
-     * [set] game_system_id: {IX, INT UNSIGNED(10), FK to game_system} <br>
-     * @param gameSystemId The value of the column 'game_system_id'. (NullAllowed: null update allowed for no constraint)
-     */
-    public void setGameSystemId(Integer gameSystemId) {
-        registerModifiedProperty("gameSystemId");
-        _gameSystemId = gameSystemId;
     }
 
     /**

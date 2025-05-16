@@ -135,7 +135,6 @@ create table scenario (
     scenario_name           varchar(255) not null,
     scenario_type           varchar(50) not null,
     scenario_url            varchar(255),
-    game_system_id          int unsigned,
     game_master_requirement varchar(50),
     player_num_min          int unsigned,
     player_num_max          int unsigned,
@@ -147,8 +146,26 @@ create table scenario (
     primary key (scenario_id)
 );
 
-alter table scenario
-    add constraint fk_scenario_game_system foreign key (game_system_id)
+create table scenario_game_system (
+    scenario_game_system_id int unsigned not null auto_increment,
+    scenario_id             int unsigned not null,
+    game_system_id          int unsigned not null,
+    register_datetime       datetime not null,
+    register_trace          varchar(64) not null,
+    update_datetime         datetime not null,
+    update_trace            varchar(64) not null,
+    primary key (scenario_game_system_id)
+);
+
+alter table scenario_game_system
+    add constraint fk_scenario_game_system_scenario foreign key (scenario_id)
+    references scenario (scenario_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table scenario_game_system
+    add constraint fk_scenario_game_system_game_system foreign key (game_system_id)
     references game_system (game_system_id)
     on update restrict
     on delete restrict
@@ -237,6 +254,7 @@ alter table scenario_author
 create table participate (
     participate_id         int unsigned not null auto_increment,
     scenario_id            int unsigned not null,
+    game_system_id         int unsigned,
     user_id                int unsigned not null,
     disp_order             int unsigned not null,
     participate_term_from  date,
@@ -256,6 +274,13 @@ create table participate (
 alter table participate
     add constraint fk_participate_scenario foreign key (scenario_id)
     references scenario (scenario_id)
+    on update restrict
+    on delete restrict
+;
+
+alter table participate
+    add constraint fk_participate_game_system foreign key (game_system_id)
+    references game_system (game_system_id)
     on update restrict
     on delete restrict
 ;

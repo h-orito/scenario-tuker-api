@@ -16,15 +16,15 @@ import dev.wolfort.dbflute.cbean.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The abstract condition-query of game_system.
+ * The abstract condition-query of scenario_game_system.
  * @author DBFlute(AutoGenerator)
  */
-public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
+public abstract class DbAbstractBsScenarioGameSystemCQ extends AbstractConditionQuery {
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbAbstractBsGameSystemCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
+    public DbAbstractBsScenarioGameSystemCQ(ConditionQuery referrerQuery, SqlClause sqlClause, String aliasName, int nestLevel) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
     }
 
@@ -37,7 +37,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
     }
 
     public String asTableDbName() {
-        return "game_system";
+        return "scenario_game_system";
     }
 
     // ===================================================================================
@@ -45,7 +45,253 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
     //                                                                               =====
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_Equal(Integer scenarioGameSystemId) {
+        doSetScenarioGameSystemId_Equal(scenarioGameSystemId);
+    }
+
+    protected void doSetScenarioGameSystemId_Equal(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_EQ, scenarioGameSystemId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_NotEqual(Integer scenarioGameSystemId) {
+        doSetScenarioGameSystemId_NotEqual(scenarioGameSystemId);
+    }
+
+    protected void doSetScenarioGameSystemId_NotEqual(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_NES, scenarioGameSystemId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_GreaterThan(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_GT, scenarioGameSystemId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_LessThan(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_LT, scenarioGameSystemId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_GreaterEqual(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_GE, scenarioGameSystemId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemId The value of scenarioGameSystemId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_LessEqual(Integer scenarioGameSystemId) {
+        regScenarioGameSystemId(CK_LE, scenarioGameSystemId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of scenarioGameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioGameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setScenarioGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setScenarioGameSystemId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param minNumber The min number of scenarioGameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioGameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setScenarioGameSystemId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueScenarioGameSystemId(), "scenario_game_system_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemIdList The collection of scenarioGameSystemId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_InScope(Collection<Integer> scenarioGameSystemIdList) {
+        doSetScenarioGameSystemId_InScope(scenarioGameSystemIdList);
+    }
+
+    protected void doSetScenarioGameSystemId_InScope(Collection<Integer> scenarioGameSystemIdList) {
+        regINS(CK_INS, cTL(scenarioGameSystemIdList), xgetCValueScenarioGameSystemId(), "scenario_game_system_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * @param scenarioGameSystemIdList The collection of scenarioGameSystemId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioGameSystemId_NotInScope(Collection<Integer> scenarioGameSystemIdList) {
+        doSetScenarioGameSystemId_NotInScope(scenarioGameSystemIdList);
+    }
+
+    protected void doSetScenarioGameSystemId_NotInScope(Collection<Integer> scenarioGameSystemIdList) {
+        regINS(CK_NINS, cTL(scenarioGameSystemIdList), xgetCValueScenarioGameSystemId(), "scenario_game_system_id");
+    }
+
+    /**
+     * IsNull {is null}. And OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     */
+    public void setScenarioGameSystemId_IsNull() { regScenarioGameSystemId(CK_ISN, DOBJ); }
+
+    /**
+     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
+     * scenario_game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     */
+    public void setScenarioGameSystemId_IsNotNull() { regScenarioGameSystemId(CK_ISNN, DOBJ); }
+
+    protected void regScenarioGameSystemId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioGameSystemId(), "scenario_game_system_id"); }
+    protected abstract ConditionValue xgetCValueScenarioGameSystemId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as equal. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_Equal(Integer scenarioId) {
+        doSetScenarioId_Equal(scenarioId);
+    }
+
+    protected void doSetScenarioId_Equal(Integer scenarioId) {
+        regScenarioId(CK_EQ, scenarioId);
+    }
+
+    /**
+     * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as notEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_NotEqual(Integer scenarioId) {
+        doSetScenarioId_NotEqual(scenarioId);
+    }
+
+    protected void doSetScenarioId_NotEqual(Integer scenarioId) {
+        regScenarioId(CK_NES, scenarioId);
+    }
+
+    /**
+     * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as greaterThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_GreaterThan(Integer scenarioId) {
+        regScenarioId(CK_GT, scenarioId);
+    }
+
+    /**
+     * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as lessThan. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_LessThan(Integer scenarioId) {
+        regScenarioId(CK_LT, scenarioId);
+    }
+
+    /**
+     * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as greaterEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_GreaterEqual(Integer scenarioId) {
+        regScenarioId(CK_GE, scenarioId);
+    }
+
+    /**
+     * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioId The value of scenarioId as lessEqual. (basically NotNull: error as default, or no condition as option)
+     */
+    public void setScenarioId_LessEqual(Integer scenarioId) {
+        regScenarioId(CK_LE, scenarioId);
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param minNumber The min number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param opLambda The callback for option of range-of. (NotNull)
+     */
+    public void setScenarioId_RangeOf(Integer minNumber, Integer maxNumber, ConditionOptionCall<RangeOfOption> opLambda) {
+        setScenarioId_RangeOf(minNumber, maxNumber, xcROOP(opLambda));
+    }
+
+    /**
+     * RangeOf with various options. (versatile) <br>
+     * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
+     * And NullIgnored, OnlyOnceRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param minNumber The min number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param maxNumber The max number of scenarioId. (basically NotNull: if op.allowOneSide(), null allowed)
+     * @param rangeOfOption The option of range-of. (NotNull)
+     */
+    protected void setScenarioId_RangeOf(Integer minNumber, Integer maxNumber, RangeOfOption rangeOfOption) {
+        regROO(minNumber, maxNumber, xgetCValueScenarioId(), "scenario_id", rangeOfOption);
+    }
+
+    /**
+     * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioIdList The collection of scenarioId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioId_InScope(Collection<Integer> scenarioIdList) {
+        doSetScenarioId_InScope(scenarioIdList);
+    }
+
+    protected void doSetScenarioId_InScope(Collection<Integer> scenarioIdList) {
+        regINS(CK_INS, cTL(scenarioIdList), xgetCValueScenarioId(), "scenario_id");
+    }
+
+    /**
+     * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
+     * scenario_id: {IX, NotNull, INT UNSIGNED(10), FK to scenario}
+     * @param scenarioIdList The collection of scenarioId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
+     */
+    public void setScenarioId_NotInScope(Collection<Integer> scenarioIdList) {
+        doSetScenarioId_NotInScope(scenarioIdList);
+    }
+
+    protected void doSetScenarioId_NotInScope(Collection<Integer> scenarioIdList) {
+        regINS(CK_NINS, cTL(scenarioIdList), xgetCValueScenarioId(), "scenario_id");
+    }
+
+    protected void regScenarioId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueScenarioId(), "scenario_id"); }
+    protected abstract ConditionValue xgetCValueScenarioId();
+
+    /**
+     * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as equal. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_Equal(Integer gameSystemId) {
@@ -58,7 +304,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * NotEqual(&lt;&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as notEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_NotEqual(Integer gameSystemId) {
@@ -71,7 +317,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * GreaterThan(&gt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as greaterThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_GreaterThan(Integer gameSystemId) {
@@ -80,7 +326,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * LessThan(&lt;). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as lessThan. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_LessThan(Integer gameSystemId) {
@@ -89,7 +335,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * GreaterEqual(&gt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as greaterEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_GreaterEqual(Integer gameSystemId) {
@@ -98,7 +344,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * LessEqual(&lt;=). And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemId The value of gameSystemId as lessEqual. (basically NotNull: error as default, or no condition as option)
      */
     public void setGameSystemId_LessEqual(Integer gameSystemId) {
@@ -109,7 +355,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param opLambda The callback for option of range-of. (NotNull)
@@ -122,7 +368,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * RangeOf with various options. (versatile) <br>
      * {(default) minNumber &lt;= column &lt;= maxNumber} <br>
      * And NullIgnored, OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param minNumber The min number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param maxNumber The max number of gameSystemId. (basically NotNull: if op.allowOneSide(), null allowed)
      * @param rangeOfOption The option of range-of. (NotNull)
@@ -133,7 +379,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * InScope {in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemIdList The collection of gameSystemId as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setGameSystemId_InScope(Collection<Integer> gameSystemIdList) {
@@ -146,7 +392,7 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
 
     /**
      * NotInScope {not in (1, 2)}. And NullIgnored, NullElementIgnored, SeveralRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
+     * game_system_id: {IX, NotNull, INT UNSIGNED(10), FK to game_system}
      * @param gameSystemIdList The collection of gameSystemId as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
      */
     public void setGameSystemId_NotInScope(Collection<Integer> gameSystemIdList) {
@@ -157,447 +403,8 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
         regINS(CK_NINS, cTL(gameSystemIdList), xgetCValueGameSystemId(), "game_system_id");
     }
 
-    /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select game_system_id from game_system_dictionary where ...)} <br>
-     * game_system_dictionary by game_system_id, named 'gameSystemDictionaryAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsGameSystemDictionary</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     dictionaryCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of GameSystemDictionaryList for 'exists'. (NotNull)
-     */
-    public void existsGameSystemDictionary(SubQuery<DbGameSystemDictionaryCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(cb.query());
-        registerExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "gameSystemDictionaryList");
-    }
-    public abstract String keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq);
-
-    /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select game_system_id from participate where ...)} <br>
-     * participate by game_system_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsParticipate</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of ParticipateList for 'exists'. (NotNull)
-     */
-    public void existsParticipate(SubQuery<DbParticipateCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_ExistsReferrer_ParticipateList(cb.query());
-        registerExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "participateList");
-    }
-    public abstract String keepGameSystemId_ExistsReferrer_ParticipateList(DbParticipateCQ sq);
-
-    /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select game_system_id from rule_book where ...)} <br>
-     * rule_book by game_system_id, named 'ruleBookAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     bookCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of RuleBookList for 'exists'. (NotNull)
-     */
-    public void existsRuleBook(SubQuery<DbRuleBookCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_ExistsReferrer_RuleBookList(cb.query());
-        registerExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "ruleBookList");
-    }
-    public abstract String keepGameSystemId_ExistsReferrer_RuleBookList(DbRuleBookCQ sq);
-
-    /**
-     * Set up ExistsReferrer (correlated sub-query). <br>
-     * {exists (select game_system_id from scenario_game_system where ...)} <br>
-     * scenario_game_system by game_system_id, named 'scenarioGameSystemAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">existsScenarioGameSystem</span>(systemCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     systemCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of ScenarioGameSystemList for 'exists'. (NotNull)
-     */
-    public void existsScenarioGameSystem(SubQuery<DbScenarioGameSystemCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_ExistsReferrer_ScenarioGameSystemList(cb.query());
-        registerExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "scenarioGameSystemList");
-    }
-    public abstract String keepGameSystemId_ExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select game_system_id from game_system_dictionary where ...)} <br>
-     * game_system_dictionary by game_system_id, named 'gameSystemDictionaryAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsGameSystemDictionary</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     dictionaryCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of GameSystemId_NotExistsReferrer_GameSystemDictionaryList for 'not exists'. (NotNull)
-     */
-    public void notExistsGameSystemDictionary(SubQuery<DbGameSystemDictionaryCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(cb.query());
-        registerNotExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "gameSystemDictionaryList");
-    }
-    public abstract String keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select game_system_id from participate where ...)} <br>
-     * participate by game_system_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsParticipate</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of GameSystemId_NotExistsReferrer_ParticipateList for 'not exists'. (NotNull)
-     */
-    public void notExistsParticipate(SubQuery<DbParticipateCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_NotExistsReferrer_ParticipateList(cb.query());
-        registerNotExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "participateList");
-    }
-    public abstract String keepGameSystemId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select game_system_id from rule_book where ...)} <br>
-     * rule_book by game_system_id, named 'ruleBookAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsRuleBook</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     bookCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of GameSystemId_NotExistsReferrer_RuleBookList for 'not exists'. (NotNull)
-     */
-    public void notExistsRuleBook(SubQuery<DbRuleBookCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_NotExistsReferrer_RuleBookList(cb.query());
-        registerNotExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "ruleBookList");
-    }
-    public abstract String keepGameSystemId_NotExistsReferrer_RuleBookList(DbRuleBookCQ sq);
-
-    /**
-     * Set up NotExistsReferrer (correlated sub-query). <br>
-     * {not exists (select game_system_id from scenario_game_system where ...)} <br>
-     * scenario_game_system by game_system_id, named 'scenarioGameSystemAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">notExistsScenarioGameSystem</span>(systemCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     systemCB.query().set...
-     * });
-     * </pre>
-     * @param subCBLambda The callback for sub-query of GameSystemId_NotExistsReferrer_ScenarioGameSystemList for 'not exists'. (NotNull)
-     */
-    public void notExistsScenarioGameSystem(SubQuery<DbScenarioGameSystemCB> subCBLambda) {
-        assertObjectNotNull("subCBLambda", subCBLambda);
-        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForExistsReferrer(this);
-        lockCall(() -> subCBLambda.query(cb)); String pp = keepGameSystemId_NotExistsReferrer_ScenarioGameSystemList(cb.query());
-        registerNotExistsReferrer(cb.query(), "game_system_id", "game_system_id", pp, "scenarioGameSystemList");
-    }
-    public abstract String keepGameSystemId_NotExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq);
-
-    public void xsderiveGameSystemDictionaryList(String fn, SubQuery<DbGameSystemDictionaryCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", pp, "gameSystemDictionaryList", al, op);
-    }
-    public abstract String keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq);
-
-    public void xsderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepGameSystemId_SpecifyDerivedReferrer_ParticipateList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", pp, "participateList", al, op);
-    }
-    public abstract String keepGameSystemId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq);
-
-    public void xsderiveRuleBookList(String fn, SubQuery<DbRuleBookCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", pp, "ruleBookList", al, op);
-    }
-    public abstract String keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(DbRuleBookCQ sq);
-
-    public void xsderiveScenarioGameSystemList(String fn, SubQuery<DbScenarioGameSystemCB> sq, String al, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepGameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList(cb.query());
-        registerSpecifyDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", pp, "scenarioGameSystemList", al, op);
-    }
-    public abstract String keepGameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from game_system_dictionary where ...)} <br>
-     * game_system_dictionary by game_system_id, named 'gameSystemDictionaryAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedGameSystemDictionary()</span>.<span style="color: #CC4747">max</span>(dictionaryCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     dictionaryCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     dictionaryCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbGameSystemDictionaryCB> derivedGameSystemDictionary() {
-        return xcreateQDRFunctionGameSystemDictionaryList();
-    }
-    protected HpQDRFunction<DbGameSystemDictionaryCB> xcreateQDRFunctionGameSystemDictionaryList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveGameSystemDictionaryList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveGameSystemDictionaryList(String fn, SubQuery<DbGameSystemDictionaryCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbGameSystemDictionaryCB cb = new DbGameSystemDictionaryCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(cb.query()); String prpp = keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", sqpp, "gameSystemDictionaryList", rd, vl, prpp, op);
-    }
-    public abstract String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq);
-    public abstract String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(Object vl);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from participate where ...)} <br>
-     * participate by game_system_id, named 'participateAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedParticipate()</span>.<span style="color: #CC4747">max</span>(participateCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     participateCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     participateCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbParticipateCB> derivedParticipate() {
-        return xcreateQDRFunctionParticipateList();
-    }
-    protected HpQDRFunction<DbParticipateCB> xcreateQDRFunctionParticipateList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveParticipateList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveParticipateList(String fn, SubQuery<DbParticipateCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbParticipateCB cb = new DbParticipateCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepGameSystemId_QueryDerivedReferrer_ParticipateList(cb.query()); String prpp = keepGameSystemId_QueryDerivedReferrer_ParticipateListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", sqpp, "participateList", rd, vl, prpp, op);
-    }
-    public abstract String keepGameSystemId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq);
-    public abstract String keepGameSystemId_QueryDerivedReferrer_ParticipateListParameter(Object vl);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from rule_book where ...)} <br>
-     * rule_book by game_system_id, named 'ruleBookAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedRuleBook()</span>.<span style="color: #CC4747">max</span>(bookCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     bookCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     bookCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbRuleBookCB> derivedRuleBook() {
-        return xcreateQDRFunctionRuleBookList();
-    }
-    protected HpQDRFunction<DbRuleBookCB> xcreateQDRFunctionRuleBookList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveRuleBookList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveRuleBookList(String fn, SubQuery<DbRuleBookCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbRuleBookCB cb = new DbRuleBookCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepGameSystemId_QueryDerivedReferrer_RuleBookList(cb.query()); String prpp = keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", sqpp, "ruleBookList", rd, vl, prpp, op);
-    }
-    public abstract String keepGameSystemId_QueryDerivedReferrer_RuleBookList(DbRuleBookCQ sq);
-    public abstract String keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(Object vl);
-
-    /**
-     * Prepare for (Query)DerivedReferrer (correlated sub-query). <br>
-     * {FOO &lt;= (select max(BAR) from scenario_game_system where ...)} <br>
-     * scenario_game_system by game_system_id, named 'scenarioGameSystemAsOne'.
-     * <pre>
-     * cb.query().<span style="color: #CC4747">derivedScenarioGameSystem()</span>.<span style="color: #CC4747">max</span>(systemCB <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
-     *     systemCB.specify().<span style="color: #CC4747">columnFoo...</span> <span style="color: #3F7E5E">// derived column by function</span>
-     *     systemCB.query().setBar... <span style="color: #3F7E5E">// referrer condition</span>
-     * }).<span style="color: #CC4747">greaterEqual</span>(123); <span style="color: #3F7E5E">// condition to derived column</span>
-     * </pre>
-     * @return The object to set up a function for referrer table. (NotNull)
-     */
-    public HpQDRFunction<DbScenarioGameSystemCB> derivedScenarioGameSystem() {
-        return xcreateQDRFunctionScenarioGameSystemList();
-    }
-    protected HpQDRFunction<DbScenarioGameSystemCB> xcreateQDRFunctionScenarioGameSystemList() {
-        return xcQDRFunc((fn, sq, rd, vl, op) -> xqderiveScenarioGameSystemList(fn, sq, rd, vl, op));
-    }
-    public void xqderiveScenarioGameSystemList(String fn, SubQuery<DbScenarioGameSystemCB> sq, String rd, Object vl, DerivedReferrerOption op) {
-        assertObjectNotNull("subQuery", sq);
-        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String sqpp = keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemList(cb.query()); String prpp = keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemListParameter(vl);
-        registerQueryDerivedReferrer(fn, cb.query(), "game_system_id", "game_system_id", sqpp, "scenarioGameSystemList", rd, vl, prpp, op);
-    }
-    public abstract String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq);
-    public abstract String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemListParameter(Object vl);
-
-    /**
-     * IsNull {is null}. And OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     */
-    public void setGameSystemId_IsNull() { regGameSystemId(CK_ISN, DOBJ); }
-
-    /**
-     * IsNotNull {is not null}. And OnlyOnceRegistered. <br>
-     * game_system_id: {PK, ID, NotNull, INT UNSIGNED(10)}
-     */
-    public void setGameSystemId_IsNotNull() { regGameSystemId(CK_ISNN, DOBJ); }
-
     protected void regGameSystemId(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameSystemId(), "game_system_id"); }
     protected abstract ConditionValue xgetCValueGameSystemId();
-
-    /**
-     * Equal(=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as equal. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_Equal(String gameSystemName) {
-        doSetGameSystemName_Equal(fRES(gameSystemName));
-    }
-
-    protected void doSetGameSystemName_Equal(String gameSystemName) {
-        regGameSystemName(CK_EQ, gameSystemName);
-    }
-
-    /**
-     * NotEqual(&lt;&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as notEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_NotEqual(String gameSystemName) {
-        doSetGameSystemName_NotEqual(fRES(gameSystemName));
-    }
-
-    protected void doSetGameSystemName_NotEqual(String gameSystemName) {
-        regGameSystemName(CK_NES, gameSystemName);
-    }
-
-    /**
-     * GreaterThan(&gt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as greaterThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_GreaterThan(String gameSystemName) {
-        regGameSystemName(CK_GT, fRES(gameSystemName));
-    }
-
-    /**
-     * LessThan(&lt;). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as lessThan. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_LessThan(String gameSystemName) {
-        regGameSystemName(CK_LT, fRES(gameSystemName));
-    }
-
-    /**
-     * GreaterEqual(&gt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as greaterEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_GreaterEqual(String gameSystemName) {
-        regGameSystemName(CK_GE, fRES(gameSystemName));
-    }
-
-    /**
-     * LessEqual(&lt;=). And NullOrEmptyIgnored, OnlyOnceRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as lessEqual. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_LessEqual(String gameSystemName) {
-        regGameSystemName(CK_LE, fRES(gameSystemName));
-    }
-
-    /**
-     * InScope {in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemNameList The collection of gameSystemName as inScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_InScope(Collection<String> gameSystemNameList) {
-        doSetGameSystemName_InScope(gameSystemNameList);
-    }
-
-    protected void doSetGameSystemName_InScope(Collection<String> gameSystemNameList) {
-        regINS(CK_INS, cTL(gameSystemNameList), xgetCValueGameSystemName(), "game_system_name");
-    }
-
-    /**
-     * NotInScope {not in ('a', 'b')}. And NullOrEmptyIgnored, NullOrEmptyElementIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemNameList The collection of gameSystemName as notInScope. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     */
-    public void setGameSystemName_NotInScope(Collection<String> gameSystemNameList) {
-        doSetGameSystemName_NotInScope(gameSystemNameList);
-    }
-
-    protected void doSetGameSystemName_NotInScope(Collection<String> gameSystemNameList) {
-        regINS(CK_NINS, cTL(gameSystemNameList), xgetCValueGameSystemName(), "game_system_name");
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setGameSystemName_LikeSearch("xxx", op <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> op.<span style="color: #CC4747">likeContain()</span>);</pre>
-     * @param gameSystemName The value of gameSystemName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setGameSystemName_LikeSearch(String gameSystemName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setGameSystemName_LikeSearch(gameSystemName, xcLSOP(opLambda));
-    }
-
-    /**
-     * LikeSearch with various options. (versatile) {like '%xxx%' escape ...}. And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)} <br>
-     * <pre>e.g. setGameSystemName_LikeSearch("xxx", new <span style="color: #CC4747">LikeSearchOption</span>().likeContain());</pre>
-     * @param gameSystemName The value of gameSystemName as likeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of like-search. (NotNull)
-     */
-    protected void setGameSystemName_LikeSearch(String gameSystemName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_LS, fRES(gameSystemName), xgetCValueGameSystemName(), "game_system_name", likeSearchOption);
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param opLambda The callback for option of like-search. (NotNull)
-     */
-    public void setGameSystemName_NotLikeSearch(String gameSystemName, ConditionOptionCall<LikeSearchOption> opLambda) {
-        setGameSystemName_NotLikeSearch(gameSystemName, xcLSOP(opLambda));
-    }
-
-    /**
-     * NotLikeSearch with various options. (versatile) {not like 'xxx%' escape ...} <br>
-     * And NullOrEmptyIgnored, SeveralRegistered. <br>
-     * game_system_name: {NotNull, VARCHAR(255)}
-     * @param gameSystemName The value of gameSystemName as notLikeSearch. (basically NotNull, NotEmpty: error as default, or no condition as option)
-     * @param likeSearchOption The option of not-like-search. (NotNull)
-     */
-    protected void setGameSystemName_NotLikeSearch(String gameSystemName, LikeSearchOption likeSearchOption) {
-        regLSQ(CK_NLS, fRES(gameSystemName), xgetCValueGameSystemName(), "game_system_name", likeSearchOption);
-    }
-
-    protected void regGameSystemName(ConditionKey ky, Object vl) { regQ(ky, vl, xgetCValueGameSystemName(), "game_system_name"); }
-    protected abstract ConditionValue xgetCValueGameSystemName();
 
     /**
      * Equal(=). And NullIgnored, OnlyOnceRegistered. <br>
@@ -1033,8 +840,8 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_Equal() {
-        return xcreateSLCFunction(CK_EQ, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_Equal() {
+        return xcreateSLCFunction(CK_EQ, DbScenarioGameSystemCB.class);
     }
 
     /**
@@ -1048,8 +855,8 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_NotEqual() {
-        return xcreateSLCFunction(CK_NES, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_NotEqual() {
+        return xcreateSLCFunction(CK_NES, DbScenarioGameSystemCB.class);
     }
 
     /**
@@ -1063,8 +870,8 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_GreaterThan() {
-        return xcreateSLCFunction(CK_GT, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_GreaterThan() {
+        return xcreateSLCFunction(CK_GT, DbScenarioGameSystemCB.class);
     }
 
     /**
@@ -1078,8 +885,8 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_LessThan() {
-        return xcreateSLCFunction(CK_LT, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_LessThan() {
+        return xcreateSLCFunction(CK_LT, DbScenarioGameSystemCB.class);
     }
 
     /**
@@ -1093,16 +900,16 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_GreaterEqual() {
-        return xcreateSLCFunction(CK_GE, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_GreaterEqual() {
+        return xcreateSLCFunction(CK_GE, DbScenarioGameSystemCB.class);
     }
 
     /**
      * Prepare ScalarCondition as lessEqual. <br>
      * {where FOO &lt;= (select max(BAR) from ...)}
      * <pre>
-     * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;DbGameSystemCB&gt;() {
-     *     public void query(DbGameSystemCB subCB) {
+     * cb.query().<span style="color: #CC4747">scalar_LessEqual()</span>.max(new SubQuery&lt;DbScenarioGameSystemCB&gt;() {
+     *     public void query(DbScenarioGameSystemCB subCB) {
      *         subCB.specify().setFoo... <span style="color: #3F7E5E">// derived column for function</span>
      *         subCB.query().setBar...
      *     }
@@ -1110,56 +917,56 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * </pre>
      * @return The object to set up a function. (NotNull)
      */
-    public HpSLCFunction<DbGameSystemCB> scalar_LessEqual() {
-        return xcreateSLCFunction(CK_LE, DbGameSystemCB.class);
+    public HpSLCFunction<DbScenarioGameSystemCB> scalar_LessEqual() {
+        return xcreateSLCFunction(CK_LE, DbScenarioGameSystemCB.class);
     }
 
     @SuppressWarnings("unchecked")
     protected <CB extends ConditionBean> void xscalarCondition(String fn, SubQuery<CB> sq, String rd, HpSLCCustomized<CB> cs, ScalarConditionOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbGameSystemCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
+        DbScenarioGameSystemCB cb = xcreateScalarConditionCB(); sq.query((CB)cb);
         String pp = keepScalarCondition(cb.query()); // for saving query-value
         cs.setPartitionByCBean((CB)xcreateScalarConditionPartitionByCB()); // for using partition-by
         registerScalarCondition(fn, cb.query(), pp, rd, cs, op);
     }
-    public abstract String keepScalarCondition(DbGameSystemCQ sq);
+    public abstract String keepScalarCondition(DbScenarioGameSystemCQ sq);
 
-    protected DbGameSystemCB xcreateScalarConditionCB() {
-        DbGameSystemCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
+    protected DbScenarioGameSystemCB xcreateScalarConditionCB() {
+        DbScenarioGameSystemCB cb = newMyCB(); cb.xsetupForScalarCondition(this); return cb;
     }
 
-    protected DbGameSystemCB xcreateScalarConditionPartitionByCB() {
-        DbGameSystemCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
+    protected DbScenarioGameSystemCB xcreateScalarConditionPartitionByCB() {
+        DbScenarioGameSystemCB cb = newMyCB(); cb.xsetupForScalarConditionPartitionBy(this); return cb;
     }
 
     // ===================================================================================
     //                                                                       MyselfDerived
     //                                                                       =============
-    public void xsmyselfDerive(String fn, SubQuery<DbGameSystemCB> sq, String al, DerivedReferrerOption op) {
+    public void xsmyselfDerive(String fn, SubQuery<DbScenarioGameSystemCB> sq, String al, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbGameSystemCB cb = new DbGameSystemCB(); cb.xsetupForDerivedReferrer(this);
-        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "game_system_id";
+        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForDerivedReferrer(this);
+        lockCall(() -> sq.query(cb)); String pp = keepSpecifyMyselfDerived(cb.query()); String pk = "scenario_game_system_id";
         registerSpecifyMyselfDerived(fn, cb.query(), pk, pk, pp, "myselfDerived", al, op);
     }
-    public abstract String keepSpecifyMyselfDerived(DbGameSystemCQ sq);
+    public abstract String keepSpecifyMyselfDerived(DbScenarioGameSystemCQ sq);
 
     /**
      * Prepare for (Query)MyselfDerived (correlated sub-query).
      * @return The object to set up a function for myself table. (NotNull)
      */
-    public HpQDRFunction<DbGameSystemCB> myselfDerived() {
-        return xcreateQDRFunctionMyselfDerived(DbGameSystemCB.class);
+    public HpQDRFunction<DbScenarioGameSystemCB> myselfDerived() {
+        return xcreateQDRFunctionMyselfDerived(DbScenarioGameSystemCB.class);
     }
     @SuppressWarnings("unchecked")
     protected <CB extends ConditionBean> void xqderiveMyselfDerived(String fn, SubQuery<CB> sq, String rd, Object vl, DerivedReferrerOption op) {
         assertObjectNotNull("subQuery", sq);
-        DbGameSystemCB cb = new DbGameSystemCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
-        String pk = "game_system_id";
+        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForDerivedReferrer(this); sq.query((CB)cb);
+        String pk = "scenario_game_system_id";
         String sqpp = keepQueryMyselfDerived(cb.query()); // for saving query-value.
         String prpp = keepQueryMyselfDerivedParameter(vl);
         registerQueryMyselfDerived(fn, cb.query(), pk, pk, sqpp, "myselfDerived", rd, vl, prpp, op);
     }
-    public abstract String keepQueryMyselfDerived(DbGameSystemCQ sq);
+    public abstract String keepQueryMyselfDerived(DbScenarioGameSystemCQ sq);
     public abstract String keepQueryMyselfDerivedParameter(Object vl);
 
     // ===================================================================================
@@ -1169,13 +976,13 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
      * Prepare for MyselfExists (correlated sub-query).
      * @param subCBLambda The implementation of sub-query. (NotNull)
      */
-    public void myselfExists(SubQuery<DbGameSystemCB> subCBLambda) {
+    public void myselfExists(SubQuery<DbScenarioGameSystemCB> subCBLambda) {
         assertObjectNotNull("subCBLambda", subCBLambda);
-        DbGameSystemCB cb = new DbGameSystemCB(); cb.xsetupForMyselfExists(this);
+        DbScenarioGameSystemCB cb = new DbScenarioGameSystemCB(); cb.xsetupForMyselfExists(this);
         lockCall(() -> subCBLambda.query(cb)); String pp = keepMyselfExists(cb.query());
         registerMyselfExists(cb.query(), pp);
     }
-    public abstract String keepMyselfExists(DbGameSystemCQ sq);
+    public abstract String keepMyselfExists(DbScenarioGameSystemCQ sq);
 
     // ===================================================================================
     //                                                                        Manual Order
@@ -1219,12 +1026,12 @@ public abstract class DbAbstractBsGameSystemCQ extends AbstractConditionQuery {
     // ===================================================================================
     //                                                                       Very Internal
     //                                                                       =============
-    protected DbGameSystemCB newMyCB() {
-        return new DbGameSystemCB();
+    protected DbScenarioGameSystemCB newMyCB() {
+        return new DbScenarioGameSystemCB();
     }
     // very internal (for suppressing warn about 'Not Use Import')
     protected String xabUDT() { return Date.class.getName(); }
-    protected String xabCQ() { return DbGameSystemCQ.class.getName(); }
+    protected String xabCQ() { return DbScenarioGameSystemCQ.class.getName(); }
     protected String xabLSO() { return LikeSearchOption.class.getName(); }
     protected String xabSLCS() { return HpSLCSetupper.class.getName(); }
     protected String xabSCP() { return SubQuery.class.getName(); }

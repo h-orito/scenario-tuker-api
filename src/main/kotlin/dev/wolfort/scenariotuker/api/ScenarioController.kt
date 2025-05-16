@@ -5,18 +5,34 @@ import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenarioResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
 import dev.wolfort.scenariotuker.application.coordinator.ScenarioCoordinator
-import dev.wolfort.scenariotuker.application.service.*
+import dev.wolfort.scenariotuker.application.service.AuthorService
+import dev.wolfort.scenariotuker.application.service.GameSystemService
+import dev.wolfort.scenariotuker.application.service.ParticipateService
+import dev.wolfort.scenariotuker.application.service.RuleBookService
+import dev.wolfort.scenariotuker.application.service.ScenarioService
+import dev.wolfort.scenariotuker.application.service.UserService
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystems
 import dev.wolfort.scenariotuker.domain.model.paging.PagingQuery
 import dev.wolfort.scenariotuker.domain.model.participate.Participates
-import dev.wolfort.scenariotuker.domain.model.scenario.*
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioType
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioUrl
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
 import dev.wolfort.scenariotuker.domain.model.user.UserQuery
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.hibernate.validator.constraints.Length
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.constraints.Max
 import javax.validation.constraints.NotNull
 
@@ -35,7 +51,7 @@ class ScenarioController(
     @GetMapping
     private fun list(): ScenariosResponse {
         val scenarios = scenarioService.findAll()
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
@@ -45,7 +61,7 @@ class ScenarioController(
         val query = request.toQuery()
         if (query.isEmpty()) throw SystemException("scenario query is empty.")
         val scenarios = scenarioService.search(request.toQuery())
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
@@ -81,15 +97,15 @@ class ScenarioController(
     @GetMapping("/{scenarioId}")
     private fun get(@PathVariable scenarioId: Int): ScenarioResponse? {
         val scenario = scenarioService.findById(scenarioId) ?: return null
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(scenario.gameSystemIds)
         val authors = authorService.findAllByIds(scenario.authorIds)
-        return ScenarioResponse(scenario, gameSystem, authors.list)
+        return ScenarioResponse(scenario, gameSystems.list, authors.list)
     }
 
     @GetMapping("/popular/{type}")
     private fun popular(@PathVariable type: ScenarioType): ScenariosResponse {
         val scenarios = scenarioService.findPopularScenarios(type)
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
@@ -97,7 +113,7 @@ class ScenarioController(
     @GetMapping("/{scenarioId}/also")
     private fun also(@PathVariable scenarioId: Int): ScenariosResponse {
         val scenarios = scenarioService.findAlsoParticipatedScenarios(scenarioId)
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
@@ -105,17 +121,17 @@ class ScenarioController(
     @PostMapping
     private fun post(@RequestBody @Validated request: PostRequest): ScenarioResponse {
         val scenario = scenarioService.register(request.toScenario())
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(scenario.gameSystemIds)
         val authors = authorService.findAllByIds(scenario.authorIds)
-        return ScenarioResponse(scenario, gameSystem, authors.list)
+        return ScenarioResponse(scenario, gameSystems.list, authors.list)
     }
 
     @PutMapping
     private fun put(@RequestBody @Validated request: PostRequest): ScenarioResponse {
         val updated = scenarioService.update(request.toScenario())
-        val gameSystem = updated.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(updated.gameSystemIds)
         val authors = authorService.findAllByIds(updated.authorIds)
-        return ScenarioResponse(updated, gameSystem, authors.list)
+        return ScenarioResponse(updated, gameSystems.list, authors.list)
     }
 
     data class PostRequest(
@@ -125,7 +141,7 @@ class ScenarioController(
         var type: ScenarioType = ScenarioType.MurderMystery,
         @field:Length(max = 255)
         var url: String? = null,
-        var gameSystemId: Int? = null,
+        var gameSystemIds: List<Int> = emptyList(),
         var authorIds: List<Int> = emptyList(),
         @field:Length(max = 50)
         val gameMasterRequirement: String? = null,
@@ -142,7 +158,7 @@ class ScenarioController(
             dictionaryNames = dictionaryNames,
             type = type,
             url = url?.let { ScenarioUrl(it) },
-            gameSystemId = gameSystemId,
+            gameSystemIds = gameSystemIds,
             authorIds = authorIds,
             gameMasterRequirement = gameMasterRequirement,
             playerNumMin = playerNumMin,
@@ -185,7 +201,7 @@ class ScenarioController(
             scenarioService.findById(scenarioId) ?: throw SystemException("scenario not found. id: $scenarioId")
         var participates = participateService.findAllByScenarioId(scenarioId)
         val authors = authorService.findAllByIds(scenario.authorIds)
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(scenario.gameSystemIds)
         val ruleBooks = ruleBookService.findAllByIds(participates.list.flatMap { it.ruleBookIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
         // 感想の内容は隠す（別途取得させる）
@@ -204,7 +220,7 @@ class ScenarioController(
         return ParticipatesResponse(
             participates,
             Scenarios(list = listOf(scenario)),
-            GameSystems(list = listOfNotNull(gameSystem)),
+            GameSystems(list = gameSystems.list),
             ruleBooks,
             authors,
             users

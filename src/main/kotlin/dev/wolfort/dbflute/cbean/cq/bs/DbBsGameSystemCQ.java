@@ -82,44 +82,58 @@ public class DbBsGameSystemCQ extends DbAbstractBsGameSystemCQ {
     public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_ExistsReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_ExistsReferrer_GameSystemDictionaryList"); }
     public String keepGameSystemId_ExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_GameSystemDictionaryList", sq); }
 
+    public Map<String, DbParticipateCQ> xdfgetGameSystemId_ExistsReferrer_ParticipateList() { return xgetSQueMap("gameSystemId_ExistsReferrer_ParticipateList"); }
+    public String keepGameSystemId_ExistsReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_ParticipateList", sq); }
+
     public Map<String, DbRuleBookCQ> xdfgetGameSystemId_ExistsReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_ExistsReferrer_RuleBookList"); }
     public String keepGameSystemId_ExistsReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_RuleBookList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_ExistsReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_ExistsReferrer_ScenarioList"); }
-    public String keepGameSystemId_ExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_ScenarioList", sq); }
+    public Map<String, DbScenarioGameSystemCQ> xdfgetGameSystemId_ExistsReferrer_ScenarioGameSystemList() { return xgetSQueMap("gameSystemId_ExistsReferrer_ScenarioGameSystemList"); }
+    public String keepGameSystemId_ExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("gameSystemId_ExistsReferrer_ScenarioGameSystemList", sq); }
 
     public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_NotExistsReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_GameSystemDictionaryList"); }
     public String keepGameSystemId_NotExistsReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_GameSystemDictionaryList", sq); }
 
+    public Map<String, DbParticipateCQ> xdfgetGameSystemId_NotExistsReferrer_ParticipateList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_ParticipateList"); }
+    public String keepGameSystemId_NotExistsReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_ParticipateList", sq); }
+
     public Map<String, DbRuleBookCQ> xdfgetGameSystemId_NotExistsReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_RuleBookList"); }
     public String keepGameSystemId_NotExistsReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_RuleBookList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_NotExistsReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_ScenarioList"); }
-    public String keepGameSystemId_NotExistsReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_ScenarioList", sq); }
+    public Map<String, DbScenarioGameSystemCQ> xdfgetGameSystemId_NotExistsReferrer_ScenarioGameSystemList() { return xgetSQueMap("gameSystemId_NotExistsReferrer_ScenarioGameSystemList"); }
+    public String keepGameSystemId_NotExistsReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("gameSystemId_NotExistsReferrer_ScenarioGameSystemList", sq); }
 
     public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList"); }
     public String keepGameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_GameSystemDictionaryList", sq); }
 
+    public Map<String, DbParticipateCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_ParticipateList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_ParticipateList"); }
+    public String keepGameSystemId_SpecifyDerivedReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_ParticipateList", sq); }
+
     public Map<String, DbRuleBookCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_RuleBookList"); }
     public String keepGameSystemId_SpecifyDerivedReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_RuleBookList", sq); }
 
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_ScenarioList", sq); }
+    public Map<String, DbScenarioGameSystemCQ> xdfgetGameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList() { return xgetSQueMap("gameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepGameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("gameSystemId_SpecifyDerivedReferrer_ScenarioGameSystemList", sq); }
 
     public Map<String, DbGameSystemDictionaryCQ> xdfgetGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList"); }
     public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryList(DbGameSystemDictionaryCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList", sq); }
     public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList"); }
     public String keepGameSystemId_QueryDerivedReferrer_GameSystemDictionaryListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_GameSystemDictionaryList", pm); }
 
+    public Map<String, DbParticipateCQ> xdfgetGameSystemId_QueryDerivedReferrer_ParticipateList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_ParticipateList"); }
+    public String keepGameSystemId_QueryDerivedReferrer_ParticipateList(DbParticipateCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_ParticipateList", sq); }
+    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_ParticipateListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_ParticipateList"); }
+    public String keepGameSystemId_QueryDerivedReferrer_ParticipateListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_ParticipateList", pm); }
+
     public Map<String, DbRuleBookCQ> xdfgetGameSystemId_QueryDerivedReferrer_RuleBookList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_RuleBookList"); }
     public String keepGameSystemId_QueryDerivedReferrer_RuleBookList(DbRuleBookCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_RuleBookList", sq); }
     public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_RuleBookListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_RuleBookList"); }
     public String keepGameSystemId_QueryDerivedReferrer_RuleBookListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_RuleBookList", pm); }
 
-    public Map<String, DbScenarioCQ> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioList(DbScenarioCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_ScenarioList", sq); }
-    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_ScenarioList"); }
-    public String keepGameSystemId_QueryDerivedReferrer_ScenarioListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_ScenarioList", pm); }
+    public Map<String, DbScenarioGameSystemCQ> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioGameSystemList() { return xgetSQueMap("gameSystemId_QueryDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemList(DbScenarioGameSystemCQ sq) { return xkeepSQue("gameSystemId_QueryDerivedReferrer_ScenarioGameSystemList", sq); }
+    public Map<String, Object> xdfgetGameSystemId_QueryDerivedReferrer_ScenarioGameSystemListParameter() { return xgetSQuePmMap("gameSystemId_QueryDerivedReferrer_ScenarioGameSystemList"); }
+    public String keepGameSystemId_QueryDerivedReferrer_ScenarioGameSystemListParameter(Object pm) { return xkeepSQuePm("gameSystemId_QueryDerivedReferrer_ScenarioGameSystemList", pm); }
 
     /**
      * Add order-by as ascend. <br>

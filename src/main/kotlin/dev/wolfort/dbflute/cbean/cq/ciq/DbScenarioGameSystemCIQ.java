@@ -12,21 +12,21 @@ import dev.wolfort.dbflute.cbean.cq.bs.*;
 import dev.wolfort.dbflute.cbean.cq.*;
 
 /**
- * The condition-query for in-line of participate.
+ * The condition-query for in-line of scenario_game_system.
  * @author DBFlute(AutoGenerator)
  */
-public class DbParticipateCIQ extends DbAbstractBsParticipateCQ {
+public class DbScenarioGameSystemCIQ extends DbAbstractBsScenarioGameSystemCQ {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    protected DbBsParticipateCQ _myCQ;
+    protected DbBsScenarioGameSystemCQ _myCQ;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public DbParticipateCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
-                        , String aliasName, int nestLevel, DbBsParticipateCQ myCQ) {
+    public DbScenarioGameSystemCIQ(ConditionQuery referrerQuery, SqlClause sqlClause
+                        , String aliasName, int nestLevel, DbBsScenarioGameSystemCQ myCQ) {
         super(referrerQuery, sqlClause, aliasName, nestLevel);
         _myCQ = myCQ;
         _foreignPropertyName = _myCQ.xgetForeignPropertyName(); // accept foreign property name
@@ -61,52 +61,23 @@ public class DbParticipateCIQ extends DbAbstractBsParticipateCQ {
     // ===================================================================================
     //                                                                Override about Query
     //                                                                ====================
-    protected ConditionValue xgetCValueParticipateId() { return _myCQ.xdfgetParticipateId(); }
-    public String keepParticipateId_ExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepParticipateId_ExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("ExistsReferrer"); return null; }
-    public String keepParticipateId_NotExistsReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepParticipateId_NotExistsReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("NotExistsReferrer"); return null; }
-    public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepParticipateId_SpecifyDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("(Specify)DerivedReferrer"); return null; }
-    public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleList(DbParticipateRoleCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepParticipateId_QueryDerivedReferrer_ParticipateRoleListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookList(DbParticipateRuleBookCQ sq)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
-    public String keepParticipateId_QueryDerivedReferrer_ParticipateRuleBookListParameter(Object vl)
-    { throwIICBOE("(Query)DerivedReferrer"); return null; }
+    protected ConditionValue xgetCValueScenarioGameSystemId() { return _myCQ.xdfgetScenarioGameSystemId(); }
     protected ConditionValue xgetCValueScenarioId() { return _myCQ.xdfgetScenarioId(); }
     protected ConditionValue xgetCValueGameSystemId() { return _myCQ.xdfgetGameSystemId(); }
-    protected ConditionValue xgetCValueUserId() { return _myCQ.xdfgetUserId(); }
-    protected ConditionValue xgetCValueDispOrder() { return _myCQ.xdfgetDispOrder(); }
-    protected ConditionValue xgetCValueParticipateTermFrom() { return _myCQ.xdfgetParticipateTermFrom(); }
-    protected ConditionValue xgetCValueParticipateTermTo() { return _myCQ.xdfgetParticipateTermTo(); }
-    protected ConditionValue xgetCValuePlayerNum() { return _myCQ.xdfgetPlayerNum(); }
-    protected ConditionValue xgetCValueGameMaster() { return _myCQ.xdfgetGameMaster(); }
-    protected ConditionValue xgetCValuePlayerNames() { return _myCQ.xdfgetPlayerNames(); }
-    protected ConditionValue xgetCValueRequiredHours() { return _myCQ.xdfgetRequiredHours(); }
-    protected ConditionValue xgetCValueMemo() { return _myCQ.xdfgetMemo(); }
     protected ConditionValue xgetCValueRegisterDatetime() { return _myCQ.xdfgetRegisterDatetime(); }
     protected ConditionValue xgetCValueRegisterTrace() { return _myCQ.xdfgetRegisterTrace(); }
     protected ConditionValue xgetCValueUpdateDatetime() { return _myCQ.xdfgetUpdateDatetime(); }
     protected ConditionValue xgetCValueUpdateTrace() { return _myCQ.xdfgetUpdateTrace(); }
     protected Map<String, Object> xfindFixedConditionDynamicParameterMap(String pp) { return null; }
-    public String keepScalarCondition(DbParticipateCQ sq)
+    public String keepScalarCondition(DbScenarioGameSystemCQ sq)
     { throwIICBOE("ScalarCondition"); return null; }
-    public String keepSpecifyMyselfDerived(DbParticipateCQ sq)
+    public String keepSpecifyMyselfDerived(DbScenarioGameSystemCQ sq)
     { throwIICBOE("(Specify)MyselfDerived"); return null;}
-    public String keepQueryMyselfDerived(DbParticipateCQ sq)
+    public String keepQueryMyselfDerived(DbScenarioGameSystemCQ sq)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
     public String keepQueryMyselfDerivedParameter(Object vl)
     { throwIICBOE("(Query)MyselfDerived"); return null;}
-    public String keepMyselfExists(DbParticipateCQ sq)
+    public String keepMyselfExists(DbScenarioGameSystemCQ sq)
     { throwIICBOE("MyselfExists"); return null;}
 
     protected void throwIICBOE(String name)
@@ -116,6 +87,6 @@ public class DbParticipateCIQ extends DbAbstractBsParticipateCQ {
     //                                                                       Very Internal
     //                                                                       =============
     // very internal (for suppressing warn about 'Not Use Import')
-    protected String xinCB() { return DbParticipateCB.class.getName(); }
-    protected String xinCQ() { return DbParticipateCQ.class.getName(); }
+    protected String xinCB() { return DbScenarioGameSystemCB.class.getName(); }
+    protected String xinCQ() { return DbScenarioGameSystemCQ.class.getName(); }
 }

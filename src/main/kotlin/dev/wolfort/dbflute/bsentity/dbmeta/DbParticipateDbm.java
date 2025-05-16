@@ -45,6 +45,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
     protected void xsetupEpg() {
         setupEpg(_epgMap, et -> ((DbParticipate)et).getParticipateId(), (et, vl) -> ((DbParticipate)et).setParticipateId(cti(vl)), "participateId");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getScenarioId(), (et, vl) -> ((DbParticipate)et).setScenarioId(cti(vl)), "scenarioId");
+        setupEpg(_epgMap, et -> ((DbParticipate)et).getGameSystemId(), (et, vl) -> ((DbParticipate)et).setGameSystemId(cti(vl)), "gameSystemId");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getUserId(), (et, vl) -> ((DbParticipate)et).setUserId(cti(vl)), "userId");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getDispOrder(), (et, vl) -> ((DbParticipate)et).setDispOrder(cti(vl)), "dispOrder");
         setupEpg(_epgMap, et -> ((DbParticipate)et).getParticipateTermFrom(), (et, vl) -> ((DbParticipate)et).setParticipateTermFrom(ctld(vl)), "participateTermFrom");
@@ -69,6 +70,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
     { xsetupEfpg(); }
     @SuppressWarnings("unchecked")
     protected void xsetupEfpg() {
+        setupEfpg(_efpgMap, et -> ((DbParticipate)et).getGameSystem(), (et, vl) -> ((DbParticipate)et).setGameSystem((OptionalEntity<DbGameSystem>)vl), "gameSystem");
         setupEfpg(_efpgMap, et -> ((DbParticipate)et).getScenario(), (et, vl) -> ((DbParticipate)et).setScenario((OptionalEntity<DbScenario>)vl), "scenario");
         setupEfpg(_efpgMap, et -> ((DbParticipate)et).getUser(), (et, vl) -> ((DbParticipate)et).setUser((OptionalEntity<DbUser>)vl), "user");
         setupEfpg(_efpgMap, et -> ((DbParticipate)et).getParticipateImpressionAsOne(), (et, vl) -> ((DbParticipate)et).setParticipateImpressionAsOne((OptionalEntity<DbParticipateImpression>)vl), "participateImpressionAsOne");
@@ -94,6 +96,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
     //                                                                         ===========
     protected final ColumnInfo _columnParticipateId = cci("participate_id", "participate_id", null, null, Integer.class, "participateId", null, true, true, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, "participateRoleList,participateRuleBookList", null, false);
     protected final ColumnInfo _columnScenarioId = cci("scenario_id", "scenario_id", null, null, Integer.class, "scenarioId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "scenario", null, null, false);
+    protected final ColumnInfo _columnGameSystemId = cci("game_system_id", "game_system_id", null, null, Integer.class, "gameSystemId", null, false, false, false, "INT UNSIGNED", 10, 0, null, null, false, null, null, "gameSystem", null, null, false);
     protected final ColumnInfo _columnUserId = cci("user_id", "user_id", null, null, Integer.class, "userId", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, "user", null, null, false);
     protected final ColumnInfo _columnDispOrder = cci("disp_order", "disp_order", null, null, Integer.class, "dispOrder", null, false, false, true, "INT UNSIGNED", 10, 0, null, null, false, null, null, null, null, null, false);
     protected final ColumnInfo _columnParticipateTermFrom = cci("participate_term_from", "participate_term_from", null, null, java.time.LocalDate.class, "participateTermFrom", null, false, false, false, "DATE", 10, 0, null, null, false, null, null, null, null, null, false);
@@ -118,6 +121,11 @@ public class DbParticipateDbm extends AbstractDBMeta {
      * @return The information object of specified column. (NotNull)
      */
     public ColumnInfo columnScenarioId() { return _columnScenarioId; }
+    /**
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @return The information object of specified column. (NotNull)
+     */
+    public ColumnInfo columnGameSystemId() { return _columnGameSystemId; }
     /**
      * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
      * @return The information object of specified column. (NotNull)
@@ -188,6 +196,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
         List<ColumnInfo> ls = newArrayList();
         ls.add(columnParticipateId());
         ls.add(columnScenarioId());
+        ls.add(columnGameSystemId());
         ls.add(columnUserId());
         ls.add(columnDispOrder());
         ls.add(columnParticipateTermFrom());
@@ -225,12 +234,20 @@ public class DbParticipateDbm extends AbstractDBMeta {
     //                                      Foreign Property
     //                                      ----------------
     /**
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @return The information object of foreign property. (NotNull)
+     */
+    public ForeignInfo foreignGameSystem() {
+        Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnGameSystemId(), DbGameSystemDbm.getInstance().columnGameSystemId());
+        return cfi("fk_participate_game_system", "gameSystem", this, DbGameSystemDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
+    }
+    /**
      * SCENARIO by my scenario_id, named 'scenario'.
      * @return The information object of foreign property. (NotNull)
      */
     public ForeignInfo foreignScenario() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnScenarioId(), DbScenarioDbm.getInstance().columnScenarioId());
-        return cfi("fk_participate_scenario", "scenario", this, DbScenarioDbm.getInstance(), mp, 0, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
+        return cfi("fk_participate_scenario", "scenario", this, DbScenarioDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
     }
     /**
      * USER by my user_id, named 'user'.
@@ -238,7 +255,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
      */
     public ForeignInfo foreignUser() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnUserId(), DbUserDbm.getInstance().columnUserId());
-        return cfi("fk_participate_user", "user", this, DbUserDbm.getInstance(), mp, 1, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
+        return cfi("fk_participate_user", "user", this, DbUserDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, false, false, false, false, null, null, false, "participateList", false);
     }
     /**
      * participate_impression by participate_id, named 'participateImpressionAsOne'.
@@ -246,7 +263,7 @@ public class DbParticipateDbm extends AbstractDBMeta {
      */
     public ForeignInfo foreignParticipateImpressionAsOne() {
         Map<ColumnInfo, ColumnInfo> mp = newLinkedHashMap(columnParticipateId(), DbParticipateImpressionDbm.getInstance().columnParticipateId());
-        return cfi("fk_participate_impression_participate", "participateImpressionAsOne", this, DbParticipateImpressionDbm.getInstance(), mp, 2, org.dbflute.optional.OptionalEntity.class, true, false, true, false, null, null, false, "participate", false);
+        return cfi("fk_participate_impression_participate", "participateImpressionAsOne", this, DbParticipateImpressionDbm.getInstance(), mp, 3, org.dbflute.optional.OptionalEntity.class, true, false, true, false, null, null, false, "participate", false);
     }
 
     // -----------------------------------------------------

@@ -20,10 +20,10 @@ data class ParticipatesResponse(val list: List<ParticipateResponse>) {
         list = participates.list.map { participate ->
             val scenario = scenarios.list.first { it.id == participate.scenarioId }
             val user = users.list.first { it.id == participate.userId }
-            val gameSystem = gameSystems.list.find { it.id == scenario.gameSystemId }
+            val gameSystem = gameSystems.list.find { it.id == participate.gameSystemId }
             val ruleBookList = ruleBooks.list.filter { participate.ruleBookIds.contains(it.id) }
             val authorList = authors.list.filter { scenario.authorIds.contains(it.id) }
-            ParticipateResponse(participate, scenario, gameSystem, ruleBookList, authorList, user)
+            ParticipateResponse(participate, scenario, gameSystems.list, ruleBookList, authorList, user)
         }
     )
 

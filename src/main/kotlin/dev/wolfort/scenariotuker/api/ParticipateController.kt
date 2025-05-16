@@ -3,7 +3,12 @@ package dev.wolfort.scenariotuker.api
 import dev.wolfort.scenariotuker.api.response.participate.ParticipateResponse
 import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.application.coordinator.ParticipateCoordinator
-import dev.wolfort.scenariotuker.application.service.*
+import dev.wolfort.scenariotuker.application.service.AuthorService
+import dev.wolfort.scenariotuker.application.service.GameSystemService
+import dev.wolfort.scenariotuker.application.service.ParticipateService
+import dev.wolfort.scenariotuker.application.service.RuleBookService
+import dev.wolfort.scenariotuker.application.service.ScenarioService
+import dev.wolfort.scenariotuker.application.service.UserService
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
 import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.springframework.security.core.annotation.AuthenticationPrincipal
@@ -28,7 +33,7 @@ class ParticipateController(
     private fun list(): ParticipatesResponse {
         val participates = participateService.findAll()
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val ruleBooks = ruleBookService.findAllByIds(participates.list.flatMap { it.ruleBookIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
@@ -39,11 +44,11 @@ class ParticipateController(
     private fun get(@PathVariable participateId: Int): ParticipateResponse? {
         val participate = participateService.findById(participateId) ?: return null
         val scenario = scenarioService.findById(participate.scenarioId)!!
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystem = participate.gameSystemId?.let { gameSystemService.findById(it) }
         val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
         val authors = authorService.findAllByIds(scenario.authorIds)
         val user = userService.findById(participate.userId)!!
-        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
+        return ParticipateResponse(participate, scenario, listOfNotNull(gameSystem), ruleBooks.list, authors.list, user)
     }
 
     @GetMapping("/{participateId}/impression")

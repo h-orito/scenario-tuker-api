@@ -20,7 +20,11 @@ class ScenarioCoordinator(
         val dest =
             scenarioService.findById(destId) ?: throw SystemException("dest scenario not found. id: $sourceId")
         // ゲームシステムが同じでないと統合不可
-        if (source.gameSystemId != dest.gameSystemId) throw SystemException("ゲームシステムが異なるため統合できません")
+        if (source.gameSystemIds.size != dest.gameSystemIds.size ||
+            !source.gameSystemIds.containsAll(dest.gameSystemIds)
+        ) {
+            throw SystemException("ゲームシステムが異なるため統合できません")
+        }
         // 参加記録とユーザー所有シナリオのシナリオを切り替える
         participateService.updateScenarioId(sourceId, destId)
         userService.updateUserScenarioId(sourceId, destId)

@@ -242,11 +242,26 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected DbScenarioNss _nssScenario;
-    public DbScenarioNss xdfgetNssScenario() {
-        if (_nssScenario == null) { _nssScenario = new DbScenarioNss(null); }
-        return _nssScenario;
+    /**
+     * Set up relation columns to select clause. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * <pre>
+     * <span style="color: #0000C0">participateBhv</span>.selectEntity(<span style="color: #553000">cb</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     <span style="color: #553000">cb</span>.<span style="color: #CC4747">setupSelect_GameSystem()</span>; <span style="color: #3F7E5E">// ...().with[nested-relation]()</span>
+     *     <span style="color: #553000">cb</span>.query().set...
+     * }).alwaysPresent(<span style="color: #553000">participate</span> <span style="color: #90226C; font-weight: bold"><span style="font-size: 120%">-</span>&gt;</span> {
+     *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getGameSystem()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
+     * });
+     * </pre>
+     */
+    public void setupSelect_GameSystem() {
+        assertSetupSelectPurpose("gameSystem");
+        if (hasSpecifiedLocalColumn()) {
+            specify().columnGameSystemId();
+        }
+        doSetupSelect(() -> query().queryGameSystem());
     }
+
     /**
      * Set up relation columns to select clause. <br>
      * SCENARIO by my scenario_id, named 'scenario'.
@@ -258,17 +273,13 @@ public class DbBsParticipateCB extends AbstractConditionBean {
      *     ... = <span style="color: #553000">participate</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public DbScenarioNss setupSelect_Scenario() {
+    public void setupSelect_Scenario() {
         assertSetupSelectPurpose("scenario");
         if (hasSpecifiedLocalColumn()) {
             specify().columnScenarioId();
         }
         doSetupSelect(() -> query().queryScenario());
-        if (_nssScenario == null || !_nssScenario.hasConditionQuery())
-        { _nssScenario = new DbScenarioNss(query().queryScenario()); }
-        return _nssScenario;
     }
 
     protected DbUserNss _nssUser;
@@ -367,6 +378,7 @@ public class DbBsParticipateCB extends AbstractConditionBean {
     }
 
     public static class HpSpecification extends HpAbstractSpecification<DbParticipateCQ> {
+        protected DbGameSystemCB.HpSpecification _gameSystem;
         protected DbScenarioCB.HpSpecification _scenario;
         protected DbUserCB.HpSpecification _user;
         protected DbParticipateImpressionCB.HpSpecification _participateImpressionAsOne;
@@ -384,6 +396,11 @@ public class DbBsParticipateCB extends AbstractConditionBean {
          * @return The information object of specified column. (NotNull)
          */
         public SpecifiedColumn columnScenarioId() { return doColumn("scenario_id"); }
+        /**
+         * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+         * @return The information object of specified column. (NotNull)
+         */
+        public SpecifiedColumn columnGameSystemId() { return doColumn("game_system_id"); }
         /**
          * user_id: {IX, NotNull, INT UNSIGNED(10), FK to user}
          * @return The information object of specified column. (NotNull)
@@ -454,6 +471,10 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         @Override
         protected void doSpecifyRequiredColumn() {
             columnParticipateId(); // PK
+            if (qyCall().qy().hasConditionQueryGameSystem()
+                    || qyCall().qy().xgetReferrerQuery() instanceof DbGameSystemCQ) {
+                columnGameSystemId(); // FK or one-to-one referrer
+            }
             if (qyCall().qy().hasConditionQueryScenario()
                     || qyCall().qy().xgetReferrerQuery() instanceof DbScenarioCQ) {
                 columnScenarioId(); // FK or one-to-one referrer
@@ -465,6 +486,26 @@ public class DbBsParticipateCB extends AbstractConditionBean {
         }
         @Override
         protected String getTableDbName() { return "participate"; }
+        /**
+         * Prepare to specify functions about relation table. <br>
+         * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+         * @return The instance for specification for relation table to specify. (NotNull)
+         */
+        public DbGameSystemCB.HpSpecification specifyGameSystem() {
+            assertRelation("gameSystem");
+            if (_gameSystem == null) {
+                _gameSystem = new DbGameSystemCB.HpSpecification(_baseCB
+                    , xcreateSpQyCall(() -> _qyCall.has() && _qyCall.qy().hasConditionQueryGameSystem()
+                                    , () -> _qyCall.qy().queryGameSystem())
+                    , _purpose, _dbmetaProvider, xgetSDRFnFc());
+                if (xhasSyncQyCall()) { // inherits it
+                    _gameSystem.xsetSyncQyCall(xcreateSpQyCall(
+                        () -> xsyncQyCall().has() && xsyncQyCall().qy().hasConditionQueryGameSystem()
+                      , () -> xsyncQyCall().qy().queryGameSystem()));
+                }
+            }
+            return _gameSystem;
+        }
         /**
          * Prepare to specify functions about relation table. <br>
          * SCENARIO by my scenario_id, named 'scenario'.

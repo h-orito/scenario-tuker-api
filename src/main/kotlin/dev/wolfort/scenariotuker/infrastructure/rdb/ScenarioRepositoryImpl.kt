@@ -4,9 +4,11 @@ import dev.wolfort.dbflute.cbean.DbScenarioCB
 import dev.wolfort.dbflute.exbhv.DbScenarioAuthorBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioBhv
 import dev.wolfort.dbflute.exbhv.DbScenarioDictionaryBhv
+import dev.wolfort.dbflute.exbhv.DbScenarioGameSystemBhv
 import dev.wolfort.dbflute.exentity.DbScenario
 import dev.wolfort.dbflute.exentity.DbScenarioAuthor
 import dev.wolfort.dbflute.exentity.DbScenarioDictionary
+import dev.wolfort.dbflute.exentity.DbScenarioGameSystem
 import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
 import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
 import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class ScenarioRepositoryImpl(
     private val scenarioBhv: DbScenarioBhv,
+    private val scenarioGameSystemBhv: DbScenarioGameSystemBhv,
     private val scenarioAuthorBhv: DbScenarioAuthorBhv,
     private val scenarioDictionaryBhv: DbScenarioDictionaryBhv
 ) : ScenarioRepository {
@@ -46,21 +49,21 @@ class ScenarioRepositoryImpl(
 
     override fun search(query: ScenarioQuery): Scenarios {
         return selectList {
-            it.specify().derivedParticipate().count({ pCB ->
-                pCB.specify().columnParticipateId()
-                pCB.query().queryUser().setIsDeleted_Equal(false)
-            }, DbScenario.ALIAS_participateCount)
             if (!query.name.isNullOrEmpty()) {
                 it.query().setScenarioName_LikeSearch(query.name) { op ->
                     op.splitByBlank().likeContain().asOrSplit()
                 }
             }
             query.gameSystemId?.let { gameSystemId ->
-                it.query().setGameSystemId_Equal(gameSystemId)
+                it.query().existsScenarioGameSystem {
+                    it.query().setGameSystemId_Equal(gameSystemId)
+                }
             }
             if (!query.gameSystemName.isNullOrEmpty()) {
-                it.query().queryGameSystem().setGameSystemName_LikeSearch(query.gameSystemName) { op ->
-                    op.splitByBlank().likeContain().asOrSplit()
+                it.query().existsScenarioGameSystem {
+                    it.query().queryGameSystem().setGameSystemName_LikeSearch(query.gameSystemName) { op ->
+                        op.splitByBlank().likeContain().asOrSplit()
+                    }
                 }
             }
             query.type?.let { type ->
@@ -99,22 +102,16 @@ class ScenarioRepositoryImpl(
 
     override fun findAllByGameSystemId(gameSystemId: Int): Scenarios {
         return selectList {
-            it.specify().derivedParticipate().count({ pCB ->
-                pCB.specify().columnParticipateId()
-                pCB.query().queryUser().setIsDeleted_Equal(false)
-            }, DbScenario.ALIAS_participateCount)
             it.paging(100000, 1)
-            it.query().setGameSystemId_Equal(gameSystemId)
+            it.query().existsScenarioGameSystem {
+                it.query().setGameSystemId_Equal(gameSystemId)
+            }
             it.query().addOrderBy_ScenarioId_Asc()
         }
     }
 
     override fun findAllByAuthorId(authorId: Int): Scenarios {
         return selectList {
-            it.specify().derivedParticipate().count({ pCB ->
-                pCB.specify().columnParticipateId()
-                pCB.query().queryUser().setIsDeleted_Equal(false)
-            }, DbScenario.ALIAS_participateCount)
             it.query().existsScenarioAuthor { saCB ->
                 saCB.query().setAuthorId_Equal(authorId)
             }
@@ -180,6 +177,7 @@ class ScenarioRepositoryImpl(
 
     override fun register(scenario: Scenario): Scenario {
         val scenarioId = insertScenario(scenario)
+        scenario.gameSystemIds.forEach { insertScenarioGameSystem(scenarioId, it) }
         scenario.authorIds.forEach { insertScenarioAuthor(scenarioId, it) }
         scenario.dictionaryNames.forEach { insertScenarioDictionary(scenarioId, it) }
         return findById(scenarioId)!!
@@ -189,6 +187,9 @@ class ScenarioRepositoryImpl(
         findById(scenario.id) ?: throw SystemException("scenario not found. id: ${scenario.id}")
 
         updateScenario(scenario)
+        scenarioGameSystemBhv
+        scenarioGameSystemBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
+        scenario.gameSystemIds.forEach { insertScenarioGameSystem(scenario.id, it) }
         scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
         scenario.authorIds.forEach { insertScenarioAuthor(scenario.id, it) }
         scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(scenario.id) }
@@ -197,16 +198,30 @@ class ScenarioRepositoryImpl(
     }
 
     override fun delete(id: Int) {
+        scenarioGameSystemBhv.queryDelete { it.query().setScenarioId_Equal(id) }
         scenarioDictionaryBhv.queryDelete { it.query().setScenarioId_Equal(id) }
         scenarioAuthorBhv.queryDelete { it.query().setScenarioId_Equal(id) }
         scenarioBhv.queryDelete { it.query().setScenarioId_Equal(id) }
     }
 
     override fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) {
-        val s = DbScenario()
-        s.gameSystemId = destGameSystemId
-        scenarioBhv.queryUpdate(s) {
+        val sourceScenarioGameSystems = scenarioGameSystemBhv.selectList {
             it.query().setGameSystemId_Equal(sourceGameSystemId)
+        }
+        if (sourceScenarioGameSystems.isEmpty()) return
+        scenarioGameSystemBhv.queryDelete {
+            it.query().setGameSystemId_Equal(sourceGameSystemId)
+        }
+        val destScenarioGameSystems = scenarioGameSystemBhv.selectList {
+            it.query().setGameSystemId_Equal(destGameSystemId)
+        }
+        sourceScenarioGameSystems.filterNot {
+            destScenarioGameSystems.any { it.scenarioId == it.scenarioId }
+        }.forEach {
+            val sgs = DbScenarioGameSystem()
+            sgs.scenarioId = it.scenarioId
+            sgs.gameSystemId = destGameSystemId
+            scenarioGameSystemBhv.insert(sgs)
         }
     }
 
@@ -224,6 +239,11 @@ class ScenarioRepositoryImpl(
         sourceAuthors.filterNot { destAuthors.contains(it) }.forEach {
             insertScenarioAuthor(destId, it)
         }
+        val sourceGameSystems = source.gameSystemIds
+        val destGameSystems = dest.gameSystemIds
+        sourceGameSystems.filterNot { destGameSystems.contains(it) }.forEach {
+            insertScenarioGameSystem(destId, it)
+        }
 
         // 統合元を削除
         delete(sourceId)
@@ -232,7 +252,8 @@ class ScenarioRepositoryImpl(
     private fun selectList(cbCall: CBCall<DbScenarioCB>): Scenarios {
         val dbScenarioList = scenarioBhv.selectPage(cbCall)
         scenarioBhv.load(dbScenarioList) {
-            it.loadScenarioDictionary {}
+            it.loadScenarioGameSystem { }
+            it.loadScenarioDictionary { }
             it.loadScenarioAuthor { }
         }
         return mappingToScenarios(dbScenarioList)
@@ -243,7 +264,6 @@ class ScenarioRepositoryImpl(
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
         s.scenarioUrl = scenario.url?.value
-        s.gameSystemId = scenario.gameSystemId
         s.gameMasterRequirement = scenario.gameMasterRequirement
         s.playerNumMin = scenario.playerNumMin
         s.playerNumMax = scenario.playerNumMax
@@ -258,12 +278,19 @@ class ScenarioRepositoryImpl(
         s.scenarioName = scenario.name
         s.scenarioType = scenario.type.name
         s.scenarioUrl = scenario.url?.value
-        s.gameSystemId = scenario.gameSystemId
         s.gameMasterRequirement = scenario.gameMasterRequirement
         s.playerNumMin = scenario.playerNumMin
         s.playerNumMax = scenario.playerNumMax
         s.requiredHours = scenario.requiredHours
         scenarioBhv.update(s)
+    }
+
+    private fun insertScenarioGameSystem(scenarioId: Int, gameSystemId: Int) {
+        val sgs = DbScenarioGameSystem()
+        sgs.scenarioId = scenarioId
+        sgs.gameSystemId = gameSystemId
+        scenarioGameSystemBhv.insert(sgs)
+
     }
 
     private fun insertScenarioAuthor(scenarioId: Int, authorId: Int) {
@@ -298,7 +325,7 @@ class ScenarioRepositoryImpl(
             dictionaryNames = scenario.scenarioDictionaryList.map { it.scenarioName },
             type = ScenarioType.valueOf(scenario.scenarioType),
             url = scenario.scenarioUrl?.let { ScenarioUrl(it) },
-            gameSystemId = scenario.gameSystemId,
+            gameSystemIds = scenario.scenarioGameSystemList.map { it.gameSystemId },
             authorIds = scenario.scenarioAuthorList.map { it.authorId },
             gameMasterRequirement = scenario.gameMasterRequirement,
             playerNumMin = scenario.playerNumMin,

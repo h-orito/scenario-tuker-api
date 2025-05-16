@@ -5,7 +5,12 @@ import dev.wolfort.scenariotuker.api.response.participate.ParticipatesResponse
 import dev.wolfort.scenariotuker.api.response.rulebook.RuleBooksResponse
 import dev.wolfort.scenariotuker.api.response.scenario.ScenariosResponse
 import dev.wolfort.scenariotuker.api.response.user.UserResponse
-import dev.wolfort.scenariotuker.application.service.*
+import dev.wolfort.scenariotuker.application.service.AuthorService
+import dev.wolfort.scenariotuker.application.service.GameSystemService
+import dev.wolfort.scenariotuker.application.service.ParticipateService
+import dev.wolfort.scenariotuker.application.service.RuleBookService
+import dev.wolfort.scenariotuker.application.service.ScenarioService
+import dev.wolfort.scenariotuker.application.service.UserService
 import dev.wolfort.scenariotuker.domain.model.participate.DisclosureRange
 import dev.wolfort.scenariotuker.domain.model.participate.Participate
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateImpression
@@ -18,7 +23,14 @@ import dev.wolfort.scenariotuker.fw.security.ScenarioTukerUser
 import org.hibernate.validator.constraints.Length
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
 import javax.validation.Valid
 import javax.validation.constraints.Max
@@ -108,7 +120,7 @@ class UserController(
         var participates = participateService.findAllByUserId(userId)
         val scenarios = scenarioService.findAllByIds(participates.list.map { it.scenarioId })
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val ruleBooks = ruleBookService.findAllByIds(participates.list.flatMap { it.ruleBookIds }.distinct())
         val users = userService.findAllByIds(participates.list.map { it.userId })
         val myself = sTukerUser?.let { userService.findByUid(it.uid) }
@@ -138,7 +150,7 @@ class UserController(
     ): ScenariosResponse {
         userService.findById(userId) ?: ScenariosResponse.ofEmpty()
         val scenarios = scenarioService.findAllByUserId(userId)
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
@@ -186,14 +198,15 @@ class UserController(
         val participate = participateService.register(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
         val authors = authorService.findAllByIds(scenario.authorIds)
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(scenario.gameSystemIds)
         val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
-        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
+        return ParticipateResponse(participate, scenario, gameSystems.list, ruleBooks.list, authors.list, user)
     }
 
     data class ParticipatePostRequest(
         var id: Int? = null,
         var scenarioId: Int = 0,
+        var gameSystemId: Int? = null,
         val ruleBookIds: List<Int> = emptyList(),
         var roleNames: List<String> = emptyList(),
         var dispOrder: Int? = 0,
@@ -223,6 +236,7 @@ class UserController(
         fun toParticipate(userId: Int) = Participate(
             id = id ?: 0,
             scenarioId = scenarioId,
+            gameSystemId = gameSystemId,
             userId = userId,
             ruleBookIds = ruleBookIds,
             roleNames = roleNames,
@@ -251,9 +265,9 @@ class UserController(
         val participate = participateService.update(request.toParticipate(user.id))
         val scenario = scenarioService.findById(participate.scenarioId)!!
         val authors = authorService.findAllByIds(scenario.authorIds)
-        val gameSystem = scenario.gameSystemId?.let { gameSystemService.findById(it) }
+        val gameSystems = gameSystemService.findAllByIds(scenario.gameSystemIds)
         val ruleBooks = ruleBookService.findAllByIds(participate.ruleBookIds)
-        return ParticipateResponse(participate, scenario, gameSystem, ruleBooks.list, authors.list, user)
+        return ParticipateResponse(participate, scenario, gameSystems.list, ruleBooks.list, authors.list, user)
     }
 
     @DeleteMapping("/myself/participates/{participateId}")

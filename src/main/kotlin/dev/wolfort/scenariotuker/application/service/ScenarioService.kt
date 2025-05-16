@@ -3,7 +3,11 @@ package dev.wolfort.scenariotuker.application.service
 import dev.wolfort.scenariotuker.domain.model.author.AuthorRepository
 import dev.wolfort.scenariotuker.domain.model.gamesystem.GameSystemRepository
 import dev.wolfort.scenariotuker.domain.model.participate.ParticipateRepository
-import dev.wolfort.scenariotuker.domain.model.scenario.*
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenario
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioQuery
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioRepository
+import dev.wolfort.scenariotuker.domain.model.scenario.ScenarioType
+import dev.wolfort.scenariotuker.domain.model.scenario.Scenarios
 import dev.wolfort.scenariotuker.domain.model.user.UserRepository
 import dev.wolfort.scenariotuker.fw.exception.SystemException
 import org.springframework.stereotype.Service
@@ -41,8 +45,8 @@ class ScenarioService(
     fun findById(id: Int): Scenario? = scenarioRepository.findById(id)
 
     fun register(scenario: Scenario): Scenario {
-        scenario.gameSystemId?.let {
-            gameSystemRepository.findById(it) ?: throw SystemException("game_system not found. id: $it")
+        if (gameSystemRepository.findAllByIds(scenario.gameSystemIds).list.size != scenario.gameSystemIds.size) {
+            throw SystemException("game_system not found. ids: ${scenario.gameSystemIds}")
         }
         return scenarioRepository.register(scenario)
     }
@@ -54,11 +58,13 @@ class ScenarioService(
         if (scenario.authorIds.size != authors.list.size) {
             throw SystemException("author not found. ids: ${scenario.authorIds}")
         }
+        if (!scenario.gameSystemIds.containsAll(existing.gameSystemIds)) {
+            throw SystemException("既存のゲームシステムを削除することはできません")
+        }
         // 一部項目のみupdate可能
         return scenarioRepository.update(
             scenario.copy(
                 type = existing.type,
-                gameSystemId = existing.gameSystemId
             )
         )
     }
@@ -76,7 +82,6 @@ class ScenarioService(
             throw SystemException("製作者や参加記録やユーザーと紐付いたシナリオは削除できません")
         }
     }
-
 
     fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int) =
         scenarioRepository.updateGameSystemId(sourceGameSystemId, destGameSystemId)

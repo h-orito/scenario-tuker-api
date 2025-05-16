@@ -255,11 +255,6 @@ public class DbBsUserScenarioCB extends AbstractConditionBean {
     // ===================================================================================
     //                                                                         SetupSelect
     //                                                                         ===========
-    protected DbScenarioNss _nssScenario;
-    public DbScenarioNss xdfgetNssScenario() {
-        if (_nssScenario == null) { _nssScenario = new DbScenarioNss(null); }
-        return _nssScenario;
-    }
     /**
      * Set up relation columns to select clause. <br>
      * SCENARIO by my scenario_id, named 'scenario'.
@@ -271,17 +266,13 @@ public class DbBsUserScenarioCB extends AbstractConditionBean {
      *     ... = <span style="color: #553000">userScenario</span>.<span style="color: #CC4747">getScenario()</span>; <span style="color: #3F7E5E">// you can get by using SetupSelect</span>
      * });
      * </pre>
-     * @return The set-upper of nested relation. {setupSelect...().with[nested-relation]} (NotNull)
      */
-    public DbScenarioNss setupSelect_Scenario() {
+    public void setupSelect_Scenario() {
         assertSetupSelectPurpose("scenario");
         if (hasSpecifiedLocalColumn()) {
             specify().columnScenarioId();
         }
         doSetupSelect(() -> query().queryScenario());
-        if (_nssScenario == null || !_nssScenario.hasConditionQuery())
-        { _nssScenario = new DbScenarioNss(query().queryScenario()); }
-        return _nssScenario;
     }
 
     protected DbUserNss _nssUser;

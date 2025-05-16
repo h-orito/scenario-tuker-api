@@ -8,6 +8,8 @@ interface ParticipateRepository {
 
     fun findAllByScenarioId(scenarioId: Int): Participates
 
+    fun findAllByGameSystemId(gameSystemId: Int): Participates
+
     fun findAllByRuleBookId(ruleBookId: Int): Participates
 
     fun findAllByUserId(userId: Int): Participates
@@ -21,4 +23,6 @@ interface ParticipateRepository {
     fun updateRuleBookId(sourceRuleBookId: Int, destRuleBookId: Int)
 
     fun updateScenarioId(sourceScenarioId: Int, destScenarioId: Int)
+
+    fun updateGameSystemId(sourceGameSystemId: Int, destGameSystemId: Int)
 }

@@ -141,6 +141,26 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
      */
     public DbBsParticipateCQ addOrderBy_ScenarioId_Desc() { regOBD("scenario_id"); return this; }
 
+    protected ConditionValue _gameSystemId;
+    public ConditionValue xdfgetGameSystemId()
+    { if (_gameSystemId == null) { _gameSystemId = nCV(); }
+      return _gameSystemId; }
+    protected ConditionValue xgetCValueGameSystemId() { return xdfgetGameSystemId(); }
+
+    /**
+     * Add order-by as ascend. <br>
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_GameSystemId_Asc() { regOBA("game_system_id"); return this; }
+
+    /**
+     * Add order-by as descend. <br>
+     * game_system_id: {IX, INT UNSIGNED(10), FK to game_system}
+     * @return this. (NotNull)
+     */
+    public DbBsParticipateCQ addOrderBy_GameSystemId_Desc() { regOBD("game_system_id"); return this; }
+
     protected ConditionValue _userId;
     public ConditionValue xdfgetUserId()
     { if (_userId == null) { _userId = nCV(); }
@@ -442,6 +462,9 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
     public void reflectRelationOnUnionQuery(ConditionQuery bqs, ConditionQuery uqs) {
         DbParticipateCQ bq = (DbParticipateCQ)bqs;
         DbParticipateCQ uq = (DbParticipateCQ)uqs;
+        if (bq.hasConditionQueryGameSystem()) {
+            uq.queryGameSystem().reflectRelationOnUnionQuery(bq.queryGameSystem(), uq.queryGameSystem());
+        }
         if (bq.hasConditionQueryScenario()) {
             uq.queryScenario().reflectRelationOnUnionQuery(bq.queryScenario(), uq.queryScenario());
         }
@@ -456,6 +479,26 @@ public class DbBsParticipateCQ extends DbAbstractBsParticipateCQ {
     // ===================================================================================
     //                                                                       Foreign Query
     //                                                                       =============
+    /**
+     * Get the condition-query for relation table. <br>
+     * GAME_SYSTEM by my game_system_id, named 'gameSystem'.
+     * @return The instance of condition-query. (NotNull)
+     */
+    public DbGameSystemCQ queryGameSystem() {
+        return xdfgetConditionQueryGameSystem();
+    }
+    public DbGameSystemCQ xdfgetConditionQueryGameSystem() {
+        String prop = "gameSystem";
+        if (!xhasQueRlMap(prop)) { xregQueRl(prop, xcreateQueryGameSystem()); xsetupOuterJoinGameSystem(); }
+        return xgetQueRlMap(prop);
+    }
+    protected DbGameSystemCQ xcreateQueryGameSystem() {
+        String nrp = xresolveNRP("participate", "gameSystem"); String jan = xresolveJAN(nrp, xgetNNLvl());
+        return xinitRelCQ(new DbGameSystemCQ(this, xgetSqlClause(), jan, xgetNNLvl()), _baseCB, "gameSystem", nrp);
+    }
+    protected void xsetupOuterJoinGameSystem() { xregOutJo("gameSystem"); }
+    public boolean hasConditionQueryGameSystem() { return xhasQueRlMap("gameSystem"); }
+
     /**
      * Get the condition-query for relation table. <br>
      * SCENARIO by my scenario_id, named 'scenario'.

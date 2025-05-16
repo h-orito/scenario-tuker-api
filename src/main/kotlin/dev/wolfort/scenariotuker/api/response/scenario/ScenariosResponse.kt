@@ -18,11 +18,14 @@ data class ScenariosResponse(
         authors: Authors
     ) : this(
         list = scenarios.list.map { scenario ->
-            val gameSystem = gameSystems.list.find { it.id == scenario.gameSystemId }
+            val scenarioGameSystems =
+                scenarios.list.flatMap { it.gameSystemIds }.distinct().map { scenarioGameSystemId ->
+                    gameSystems.list.first { it.id == scenarioGameSystemId }
+                }
             val authorList = authors.list.filter { scenario.authorIds.contains(it.id) }
             ScenarioResponse(
                 scenario = scenario,
-                gameSystem = gameSystem,
+                gameSystems = scenarioGameSystems,
                 authors = authorList
             )
         },

@@ -8,7 +8,13 @@ import dev.wolfort.scenariotuker.domain.model.author.Author
 import dev.wolfort.scenariotuker.domain.model.author.AuthorQuery
 import dev.wolfort.scenariotuker.domain.model.author.Authors
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import javax.validation.constraints.NotNull
 
 @RestController
@@ -57,7 +63,7 @@ class AuthorController(
     @GetMapping("/{authorId}/scenarios")
     private fun getAuthorScenarios(@PathVariable authorId: Int): ScenariosResponse {
         val scenarios = scenarioService.findAllByAuthorId(authorId)
-        val gameSystems = gameSystemService.findAllByIds(scenarios.list.mapNotNull { it.gameSystemId }.distinct())
+        val gameSystems = gameSystemService.findAllByIds(scenarios.list.flatMap { it.gameSystemIds }.distinct())
         val authors = authorService.findAllByIds(scenarios.list.flatMap { it.authorIds }.distinct())
         return ScenariosResponse(scenarios, gameSystems, authors)
     }
